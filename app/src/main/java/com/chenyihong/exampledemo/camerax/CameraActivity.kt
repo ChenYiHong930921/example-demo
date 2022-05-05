@@ -17,7 +17,7 @@ import com.chenyihong.exampledemo.databinding.LayoutCameraActivityBinding
 
 import java.io.File
 
-class CameraTestActivity : AppCompatActivity() {
+class CameraActivity : AppCompatActivity() {
 
     private lateinit var binding: LayoutCameraActivityBinding
 

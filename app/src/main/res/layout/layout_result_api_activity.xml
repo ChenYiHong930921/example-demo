@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:paddingBottom="10dp"
+            android:text="Activity Result Api"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/btn_request_permission"
+            android:layout_width="150dp"
+            android:layout_height="50dp"
+            android:text="singlePermission"
+            app:layout_constraintEnd_toStartOf="@id/btn_request_multiple_permission"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_title" />
+
+        <Button
+            android:id="@+id/btn_request_multiple_permission"
+            android:layout_width="150dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="20dp"
+            android:text="multiplePermission"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/btn_request_permission"
+            app:layout_constraintTop_toTopOf="@id/btn_request_permission" />
+
+
+        <Button
+            android:id="@+id/btn_take_photo"
+            android:layout_width="150dp"
+            android:layout_height="50dp"
+            android:text="takePhoto"
+            app:layout_constraintEnd_toStartOf="@id/btn_take_photo_preview"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/btn_request_permission" />
+
+        <Button
+            android:id="@+id/btn_take_photo_preview"
+            android:layout_width="150dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="20dp"
+            android:text="takePhotoPreview"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/btn_take_photo"
+            app:layout_constraintTop_toTopOf="@id/btn_take_photo" />
+
+        <Button
+            android:id="@+id/btn_select_photo"
+            android:layout_width="150dp"
+            android:layout_height="50dp"
+            android:text="selectPhoto"
+            app:layout_constraintEnd_toStartOf="@id/btn_select_multiple_photo"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/btn_take_photo" />
+
+        <Button
+            android:id="@+id/btn_select_multiple_photo"
+            android:layout_width="150dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="20dp"
+            android:text="selectMultiplePhoto"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/btn_select_photo"
+            app:layout_constraintTop_toTopOf="@id/btn_select_photo" />
+
+        <Button
+            android:id="@+id/btn_select_photo_custom_contract"
+            android:layout_width="150dp"
+            android:layout_height="60dp"
+            android:text="custom_contract_single"
+            app:layout_constraintEnd_toStartOf="@id/btn_select_multiple_photo_custom_contract"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/btn_select_photo" />
+
+        <Button
+            android:id="@+id/btn_select_multiple_photo_custom_contract"
+            android:layout_width="150dp"
+            android:layout_height="60dp"
+            android:layout_marginStart="20dp"
+            android:text="custom_contract_multiple"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/btn_select_photo_custom_contract"
+            app:layout_constraintTop_toTopOf="@id/btn_select_photo_custom_contract" />
+
+        <View
+            android:layout_width="140dp"
+            android:layout_height="140dp"
+            android:background="#dfff00"
+            app:layout_constraintBottom_toBottomOf="@id/iv_photo"
+            app:layout_constraintEnd_toEndOf="@id/iv_photo"
+            app:layout_constraintStart_toStartOf="@id/iv_photo"
+            app:layout_constraintTop_toTopOf="@id/iv_photo" />
+
+        <ImageView
+            android:id="@+id/iv_photo"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:layout_marginTop="40dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/btn_select_photo_custom_contract" />
+
+        <View
+            android:layout_width="140dp"
+            android:layout_height="140dp"
+            android:background="#dfff00"
+            app:layout_constraintBottom_toBottomOf="@id/iv_photo1"
+            app:layout_constraintEnd_toEndOf="@id/iv_photo1"
+            app:layout_constraintStart_toStartOf="@id/iv_photo1"
+            app:layout_constraintTop_toTopOf="@id/iv_photo1" />
+
+        <ImageView
+            android:id="@+id/iv_photo1"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:layout_marginTop="40dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/iv_photo" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

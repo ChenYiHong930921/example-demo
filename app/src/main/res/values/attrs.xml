@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <declare-styleable name="ShadowView">
+        <!--控件图形类型-->
+        <attr name="viewShape" format="enum">
+            <!--长方形-->
+            <enum name="rectangle" value="0" />
+            <!--半侧长方形-->
+            <enum name="half_rectangle" value="1" />
+            <!--圆形-->
+            <enum name="oval" value="2" />
+        </attr>
+        <attr name="viewAlpha" format="float" />
+        <attr name="viewOrientation" format="enum">
+            <enum name="TO_LEFT" value="0" />
+            <enum name="TO_RIGHT" value="1" />
+        </attr>
+        <!--控件圆角角度-->
+        <attr name="roundRadiusHalfHeight" format="boolean" />
+        <attr name="roundRadius" format="dimension" />
+        <!--控件颜色-->
+        <attr name="viewColor" format="color" />
+        <attr name="shadowColor" format="color" />
+        <!--偏移-->
+        <attr name="shadowOffsetX" format="dimension" />
+        <attr name="shadowOffsetY" format="dimension" />
+        <!--阴影模糊度，越大越模糊-->
+        <attr name="shadowRadius" format="float" />
+    </declare-styleable>
+
+    <declare-styleable name="GradientLineChart">
+        <!--线宽度-->
+        <attr name="tc_lineWidth" format="dimension" />
+        <!--网格线宽度-->
+        <attr name="tc_grid_line_width" format="dimension" />
+        <!--网格线颜色-->
+        <attr name="tc_grid_line_color" format="color" />
+        <!--等级颜色指示器宽度-->
+        <attr name="tc_level_indicator_width" format="dimension" />
+        <!--背景颜色-->
+        <attr name="tc_background_color" format="color" />
+    </declare-styleable>
+</resources>
