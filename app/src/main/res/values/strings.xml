@@ -2,4 +2,7 @@
     <string name="app_name">ExampleDemo</string>
 
     <string name="google_login_client">905315689902-m8eun8m90h1arir0821797c3drnfu6hc.apps.googleusercontent.com</string>
+    <string name="facebook_app_id">692740238633583</string>
+    <string name="fb_login_protocol_scheme">fb692740238633583</string>
+    <string name="facebook_client_token">b13b05e4936981d1fa5843f5685818d1</string>
 </resources>

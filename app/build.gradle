@@ -72,4 +72,8 @@ dependencies {
 
     //Google Login
     implementation("com.google.android.gms:play-services-auth:20.2.0")
+
+    //Meta login
+    implementation ("com.facebook.android:facebook-login:13.2.0")
+
 }
