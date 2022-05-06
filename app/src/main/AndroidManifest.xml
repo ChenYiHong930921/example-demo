@@ -43,6 +43,10 @@
             android:name=".camerax.CameraActivity"
             android:screenOrientation="portrait" />
 
+        <activity
+            android:name=".tripartitelogin.TripartiteLoginActivity"
+            android:screenOrientation="portrait" />
+
         <provider
             android:name="androidx.core.content.FileProvider"
             android:authorities="${applicationId}.provider"

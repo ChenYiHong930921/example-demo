@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">ExampleDemo</string>
+
+    <string name="google_login_client">905315689902-m8eun8m90h1arir0821797c3drnfu6hc.apps.googleusercontent.com</string>
 </resources>
