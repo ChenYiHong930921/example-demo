@@ -30,22 +30,22 @@ const val TAG = "TripartiteLogin"
 class TripartiteLoginActivity : AppCompatActivity() {
 
     private val googleLoginLauncher = registerForActivityResult(ActivityResultContracts.StartIntentSenderForResult()) { result ->
-        Log.i(TAG, "google login get account info result.resultCode:" + result.resultCode)
+        Log.i(TAG, "google login get account info result.resultCode:${result.resultCode}")
         if (result.resultCode == Activity.RESULT_OK) {
             try {
                 val credential = Identity.getSignInClient(this).getSignInCredentialFromIntent(result.data)
 
-                showToast("login success id:" + credential.id)
+                showToast("Google login success id:${credential.id}")
 
-                Log.i(TAG, "google login get account info id:" + credential.id)
-                Log.i(TAG, "google login get account info googleIdToken:" + credential.googleIdToken)
-                Log.i(TAG, "google login get account info password:" + credential.password)
-                Log.i(TAG, "google login get account info givenName:" + credential.givenName)
-                Log.i(TAG, "google login get account info familyName:" + credential.familyName)
-                Log.i(TAG, "google login get account info displayName:" + credential.displayName)
-                Log.i(TAG, "google login get account info profilePictureUri:" + credential.profilePictureUri)
+                Log.i(TAG, "google login get account info id:${credential.id}")
+                Log.i(TAG, "google login get account info googleIdToken:${credential.googleIdToken}")
+                Log.i(TAG, "google login get account info password:${credential.password}")
+                Log.i(TAG, "google login get account info givenName:${credential.givenName}")
+                Log.i(TAG, "google login get account info familyName:${credential.familyName}")
+                Log.i(TAG, "google login get account info displayName:${credential.displayName}")
+                Log.i(TAG, "google login get account info profilePictureUri:${credential.profilePictureUri}")
             } catch (exception: ApiException) {
-                Log.e(TAG, "google login get account info error :" + exception.message)
+                Log.e(TAG, "google login get account info error :${exception.message}")
                 exception.printStackTrace()
             }
         }
@@ -59,6 +59,25 @@ class TripartiteLoginActivity : AppCompatActivity() {
         val binding = DataBindingUtil.setContentView<LayoutTripartiteLoginActivityBinding>(this, R.layout.layout_tripartite_login_activity)
 
         metaCallbackManager = CallbackManager.Factory.create()
+        LoginManager.getInstance().registerCallback(metaCallbackManager, object : FacebookCallback<LoginResult> {
+            override fun onSuccess(result: LoginResult) {
+                Log.i(TAG, "Meta login success")
+                Log.i(TAG, "Meta login account info userId:${result.accessToken.userId}")
+                Log.i(TAG, "Meta login account info token:${result.accessToken.token}")
+                Log.i(TAG, "Meta login account info applicationId:${result.accessToken.applicationId}")
+
+                showToast("Meta login success userId:${result.accessToken.userId}")
+            }
+
+            override fun onCancel() {
+                Log.i(TAG, "Meta login canceled")
+            }
+
+            override fun onError(error: FacebookException) {
+                Log.e(TAG, "Meta login failed error:${error.message}")
+            }
+        })
+
         profileTracker = object : ProfileTracker() {
             override fun onCurrentProfileChanged(oldProfile: Profile?, currentProfile: Profile?) {
                 currentProfile?.run {
@@ -71,23 +90,8 @@ class TripartiteLoginActivity : AppCompatActivity() {
                 }
             }
         }
+        //开始跟踪用户信息变化
         profileTracker.startTracking()
-        LoginManager.getInstance().registerCallback(metaCallbackManager, object : FacebookCallback<LoginResult> {
-            override fun onSuccess(result: LoginResult) {
-                Log.i(TAG, "Meta login success")
-                Log.i(TAG, "Meta login account info userId:" + result.accessToken.userId)
-                Log.i(TAG, "Meta login account info token:" + result.accessToken.token)
-                Log.i(TAG, "Meta login account info applicationId:" + result.accessToken.applicationId)
-            }
-
-            override fun onCancel() {
-                Log.i(TAG, "Meta login canceled")
-            }
-
-            override fun onError(error: FacebookException) {
-                Log.e(TAG, "Meta login failed error:${error.message}")
-            }
-        })
 
         binding.btnGoogleLogin.setOnClickListener {
             checkGoogleLoginAccount(false)
@@ -119,12 +123,12 @@ class TripartiteLoginActivity : AppCompatActivity() {
                 googleLogin()
             }
         } else {
-            Log.i(TAG, "google login last login account info id:" + lastLoginAccountInfo.id)
-            Log.i(TAG, "google login last login account info googleIdToken:" + lastLoginAccountInfo.idToken)
-            Log.i(TAG, "google login last login account info givenName:" + lastLoginAccountInfo.givenName)
-            Log.i(TAG, "google login last login account info familyName:" + lastLoginAccountInfo.familyName)
-            Log.i(TAG, "google login last login account info displayName:" + lastLoginAccountInfo.displayName)
-            Log.i(TAG, "google login last login account info photoUrl:" + lastLoginAccountInfo.photoUrl)
+            Log.i(TAG, "google login last login account info id:${lastLoginAccountInfo.id}")
+            Log.i(TAG, "google login last login account info googleIdToken:${lastLoginAccountInfo.idToken}")
+            Log.i(TAG, "google login last login account info givenName:${lastLoginAccountInfo.givenName}")
+            Log.i(TAG, "google login last login account info familyName:${lastLoginAccountInfo.familyName}")
+            Log.i(TAG, "google login last login account info displayName:${lastLoginAccountInfo.displayName}")
+            Log.i(TAG, "google login last login account info profilePictureUri:${lastLoginAccountInfo.photoUrl}")
         }
     }
 
@@ -173,7 +177,7 @@ class TripartiteLoginActivity : AppCompatActivity() {
             .signOut()
             .addOnSuccessListener {
                 Log.i(TAG, "google call logout success")
-                showToast("logout success")
+                showToast("Google logout success")
             }
     }
 
@@ -188,6 +192,7 @@ class TripartiteLoginActivity : AppCompatActivity() {
     private fun metaLogout() {
         Log.i(TAG, "Meta call logout")
         LoginManager.getInstance().logOut()
+        showToast("Meta logout success")
     }
 
     private fun checkKeyStoreHash() {
