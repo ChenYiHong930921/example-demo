@@ -52,16 +52,29 @@ class TripartiteLoginActivity : AppCompatActivity() {
     }
 
     private lateinit var metaCallbackManager: CallbackManager
+    private lateinit var profileTracker: ProfileTracker
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val binding = DataBindingUtil.setContentView<LayoutTripartiteLoginActivityBinding>(this, R.layout.layout_tripartite_login_activity)
 
         metaCallbackManager = CallbackManager.Factory.create()
+        profileTracker = object : ProfileTracker() {
+            override fun onCurrentProfileChanged(oldProfile: Profile?, currentProfile: Profile?) {
+                currentProfile?.run {
+                    Log.i(TAG, "Meta  onCurrentProfileChanged id:$id")
+                    Log.i(TAG, "Meta  onCurrentProfileChanged firstName:$firstName")
+                    Log.i(TAG, "Meta  onCurrentProfileChanged middleName:$middleName")
+                    Log.i(TAG, "Meta  onCurrentProfileChanged lastName:$lastName")
+                    Log.i(TAG, "Meta  onCurrentProfileChanged name:$name")
+                    Log.i(TAG, "Meta  onCurrentProfileChanged pictureUri:$pictureUri")
+                }
+            }
+        }
+        profileTracker.startTracking()
         LoginManager.getInstance().registerCallback(metaCallbackManager, object : FacebookCallback<LoginResult> {
             override fun onSuccess(result: LoginResult) {
                 Log.i(TAG, "Meta login success")
-
                 Log.i(TAG, "Meta login account info userId:" + result.accessToken.userId)
                 Log.i(TAG, "Meta login account info token:" + result.accessToken.token)
                 Log.i(TAG, "Meta login account info applicationId:" + result.accessToken.applicationId)
@@ -207,6 +220,7 @@ class TripartiteLoginActivity : AppCompatActivity() {
 
     override fun onDestroy() {
         LoginManager.getInstance().unregisterCallback(metaCallbackManager)
+        profileTracker.stopTracking()
         super.onDestroy()
     }
 }
