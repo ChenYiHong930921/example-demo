@@ -55,6 +55,10 @@
             android:name=".tripartitelogin.TripartiteLoginActivity"
             android:screenOrientation="portrait" />
 
+        <activity
+            android:name=".share.SystemShareActivity"
+            android:screenOrientation="portrait" />
+
         <!--Meta-->
         <activity
             android:name="com.facebook.FacebookActivity"
