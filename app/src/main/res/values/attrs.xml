@@ -16,9 +16,21 @@
             <enum name="TO_LEFT" value="0" />
             <enum name="TO_RIGHT" value="1" />
         </attr>
+
         <!--控件圆角角度-->
         <attr name="roundRadiusHalfHeight" format="boolean" />
         <attr name="roundRadius" format="dimension" />
+        <attr name="cornerPosition" format="enum">
+            <enum name="all" value="10" />
+            <enum name="top" value="11" />
+            <enum name="left" value="12" />
+            <enum name="bottom" value="13" />
+            <enum name="right" value="14" />
+            <enum name="topLeft" value="15" />
+            <enum name="topRight" value="16" />
+            <enum name="bottomLeft" value="17" />
+            <enum name="bottomRight" value="18" />
+        </attr>
         <!--控件颜色-->
         <attr name="viewColor" format="color" />
         <attr name="shadowColor" format="color" />

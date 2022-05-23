@@ -1,3 +1,5 @@
+@file:Suppress("unused")
+
 package com.chenyihong.exampledemo.view
 
 import android.content.Context
@@ -6,8 +8,10 @@ import android.graphics.Paint
 import android.graphics.Path
 import android.util.AttributeSet
 import android.view.View
+import androidx.annotation.ColorInt
 import androidx.core.content.ContextCompat
 import com.chenyihong.exampledemo.R
+
 import java.util.concurrent.atomic.AtomicBoolean
 
 const val RECTANGLE = 0
@@ -17,9 +21,18 @@ const val OVAL = 2
 const val TO_LEFT = 0
 const val TO_RIGHT = 1
 
+const val CORNER_POSITION_ALL = 10
+const val CORNER_POSITION_TOP = 11
+const val CORNER_POSITION_LEFT = 12
+const val CORNER_POSITION_BOTTOM = 13
+const val CORNER_POSITION_RIGHT = 14
+const val CORNER_POSITION_TOP_LEFT = 15
+const val CORNER_POSITION_TOP_RIGHT = 16
+const val CORNER_POSITION_BOTTOM_LEFT = 17
+const val CORNER_POSITION_BOTTOM_RIGHT = 18
+
 @Suppress("MemberVisibilityCanBePrivate")
 class ShadowView : View {
-
 
     private var viewWidth = 0
     private var viewHeight = 0
@@ -28,47 +41,33 @@ class ShadowView : View {
 
     private var viewAlpha = 0f
 
+    /**
+     * orientation only takes effect when viewShape is HALT_RECTANGLE
+     */
     private var orientation = TO_LEFT
 
-    /**
-     * 控件圆角是否为高度的一半
-     */
     private var shadowRoundHalfHeight = false
 
-    /**
-     * 控件圆角
-     */
     private var shadowRound = 0f
 
     /**
-     * 阴影的颜色
+     * cornerPosition only takes effect when viewShape is RECTANGLE
      */
+    private var cornerPosition = CORNER_POSITION_ALL
+
     private var shadowColor = 0
 
-    /**
-     * 阴影控件的颜色
-     */
     private var shadowViewColor = 0
 
-    /**
-     * 阴影模糊度
-     */
     private var shadowRadius = 0f
 
-    /**
-     * x轴方向的阴影偏移度
-     */
     private var shadowOffsetX = 0f
 
-    /**
-     * y轴方向的阴影偏移度
-     */
     private var shadowOffsetY = 0f
 
     private var shadowViewPaint: Paint? = null
     private var shadowViewPath: Path? = null
 
-    private val onParentRight = AtomicBoolean(true)
     private val isChangeOrientation = AtomicBoolean(false)
     private val isInitOrientation = AtomicBoolean(true)
 
@@ -87,7 +86,6 @@ class ShadowView : View {
         viewWidth = MeasureSpec.getSize(widthMeasureSpec)
         viewHeight = MeasureSpec.getSize(heightMeasureSpec)
 
-        //圆角度为高度的一半
         if (shadowRoundHalfHeight) {
             shadowRound = (viewHeight - paddingTop - paddingBottom) / 2f
         }
@@ -96,7 +94,7 @@ class ShadowView : View {
             if (isInitOrientation.get()) {
                 isInitOrientation.getAndSet(false)
 
-                setOrientation(orientation == TO_LEFT)
+                setOrientation(orientation)
             }
         }
 
@@ -112,6 +110,7 @@ class ShadowView : View {
 
         shadowRoundHalfHeight = typedArray.getBoolean(R.styleable.ShadowView_roundRadiusHalfHeight, false)
         shadowRound = typedArray.getDimension(R.styleable.ShadowView_roundRadius, 0f)
+        cornerPosition = typedArray.getInt(R.styleable.ShadowView_cornerPosition, CORNER_POSITION_ALL)
 
         shadowViewColor = typedArray.getColor(R.styleable.ShadowView_viewColor, ContextCompat.getColor(context, R.color.white))
         shadowColor = typedArray.getColor(R.styleable.ShadowView_shadowColor, ContextCompat.getColor(context, android.R.color.darker_gray))
@@ -136,9 +135,9 @@ class ShadowView : View {
         shadowViewPath = Path()
     }
 
-    fun setOrientation(onParentRight: Boolean) {
-        if (this.onParentRight.get() != onParentRight) {
-            this.onParentRight.getAndSet(onParentRight)
+    fun setOrientation(orientation: Int) {
+        if (this.orientation != orientation) {
+            this.orientation = orientation
             isChangeOrientation.getAndSet(true)
         }
 
@@ -158,7 +157,7 @@ class ShadowView : View {
     private fun setHaltRectanglePath() {
         shadowViewPath?.run {
             reset()
-            if (onParentRight.get()) {
+            if (orientation == TO_LEFT) {
                 moveTo(viewWidth.toFloat(), paddingTop.toFloat())
                 lineTo(paddingStart + shadowRound, 0f)
                 addArc(paddingStart.toFloat(), paddingTop.toFloat(), paddingStart + shadowRound * 2, (viewHeight - paddingBottom).toFloat(), 270f, -180f)
@@ -177,7 +176,17 @@ class ShadowView : View {
     private fun setRectanglePath() {
         shadowViewPath?.run {
             reset()
-            val radius = floatArrayOf(shadowRound, shadowRound, shadowRound, shadowRound, shadowRound, shadowRound, shadowRound, shadowRound)
+            val radius = when (cornerPosition) {
+                CORNER_POSITION_TOP -> floatArrayOf(shadowRound, shadowRound, shadowRound, shadowRound, 0f, 0f, 0f, 0f)
+                CORNER_POSITION_LEFT -> floatArrayOf(shadowRound, shadowRound, 0f, 0f, 0f, 0f, shadowRound, shadowRound)
+                CORNER_POSITION_BOTTOM -> floatArrayOf(0f, 0f, 0f, 0f, shadowRound, shadowRound, shadowRound, shadowRound)
+                CORNER_POSITION_RIGHT -> floatArrayOf(0f, 0f, shadowRound, shadowRound, shadowRound, shadowRound, 0f, 0f)
+                CORNER_POSITION_TOP_LEFT -> floatArrayOf(shadowRound, shadowRound, 0f, 0f, 0f, 0f, 0f, 0f)
+                CORNER_POSITION_TOP_RIGHT -> floatArrayOf(0f, 0f, shadowRound, shadowRound, 0f, 0f, 0f, 0f)
+                CORNER_POSITION_BOTTOM_LEFT -> floatArrayOf(0f, 0f, 0f, 0f, 0f, 0f, shadowRound, shadowRound)
+                CORNER_POSITION_BOTTOM_RIGHT -> floatArrayOf(0f, 0f, 0f, 0f, shadowRound, shadowRound, 0f, 0f)
+                else -> floatArrayOf(shadowRound, shadowRound, shadowRound, shadowRound, shadowRound, shadowRound, shadowRound, shadowRound)
+            }
             addRoundRect(paddingStart.toFloat(), paddingTop.toFloat(), (viewWidth - paddingEnd).toFloat(), (viewHeight - paddingBottom).toFloat(), radius, Path.Direction.CW)
         }
     }
@@ -193,10 +202,15 @@ class ShadowView : View {
         super.onDraw(canvas)
         canvas?.run {
             if (shadowViewPath != null && shadowViewPaint != null) {
-                shadowViewPaint!!.setShadowLayer(shadowRadius, if (viewShape == HALT_RECTANGLE) if (onParentRight.get()) -shadowOffsetX else shadowOffsetX else 0f, shadowOffsetY, shadowColor)
+                shadowViewPaint!!.setShadowLayer(shadowRadius, if (viewShape == HALT_RECTANGLE && orientation == TO_LEFT) -shadowOffsetX else shadowOffsetX, shadowOffsetY, shadowColor)
                 drawPath(shadowViewPath!!, shadowViewPaint!!)
                 save()
             }
         }
+    }
+
+    fun setViewColor(@ColorInt colorRes: Int) {
+        shadowViewColor = colorRes
+        invalidate()
     }
 }
