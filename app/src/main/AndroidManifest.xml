@@ -59,6 +59,10 @@
             android:name=".share.SystemShareActivity"
             android:screenOrientation="portrait" />
 
+        <activity
+            android:name=".fragmentresultapi.FragmentResultApiActivity"
+            android:screenOrientation="portrait" />
+
         <!--Meta-->
         <activity
             android:name="com.facebook.FacebookActivity"

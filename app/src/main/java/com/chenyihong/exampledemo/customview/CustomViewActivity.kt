@@ -17,6 +17,8 @@ import com.chenyihong.exampledemo.databinding.LayoutCustomViewActivityBinding
 import com.chenyihong.exampledemo.utils.DensityUtil
 import com.chenyihong.exampledemo.utils.ShapeDrawableUtils
 import com.chenyihong.exampledemo.view.ShadowView
+import com.chenyihong.exampledemo.view.TO_LEFT
+import com.chenyihong.exampledemo.view.TO_RIGHT
 
 class CustomViewActivity : AppCompatActivity() {
 
@@ -120,7 +122,7 @@ class CustomViewActivity : AppCompatActivity() {
             val centerViewLayoutParams = layoutParams as ConstraintLayout.LayoutParams
 
             if (this is ShadowView) {
-                setOrientation(onRight)
+                setOrientation(if (onRight) TO_LEFT else TO_RIGHT)
             } else {
                 //切换背景图片
                 val backgroundDrawable = ShapeDrawableUtils.getRectAngleGradientDrawable(

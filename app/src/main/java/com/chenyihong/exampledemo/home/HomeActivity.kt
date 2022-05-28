@@ -8,6 +8,7 @@ import com.chenyihong.exampledemo.camerax.CameraActivity
 import com.chenyihong.exampledemo.customview.CustomViewActivity
 import com.chenyihong.exampledemo.databinding.LayoutHomeActivityBinding
 import com.chenyihong.exampledemo.entity.OptionEntity
+import com.chenyihong.exampledemo.fragmentresultapi.FragmentResultApiActivity
 import com.chenyihong.exampledemo.resultapi.ResultApiActivity
 import com.chenyihong.exampledemo.share.SystemShareActivity
 import com.chenyihong.exampledemo.tripartitelogin.TripartiteLoginActivity
@@ -23,7 +24,8 @@ class HomeActivity : AppCompatActivity() {
             OptionEntity("Activity Result Api", ResultApiActivity::class.java),
             OptionEntity("Camera", CameraActivity::class.java),
             OptionEntity("TripartiteLogin", TripartiteLoginActivity::class.java),
-            OptionEntity("SystemShare", SystemShareActivity::class.java))
+            OptionEntity("SystemShare", SystemShareActivity::class.java),
+            OptionEntity("Fragment Result Api", FragmentResultApiActivity::class.java))
 
         val optionAdapter = OptionAdapter()
         binding.rvOption.adapter = optionAdapter
