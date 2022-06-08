@@ -12,6 +12,7 @@ import com.chenyihong.exampledemo.fragmentresultapi.FragmentResultApiActivity
 import com.chenyihong.exampledemo.resultapi.ResultApiActivity
 import com.chenyihong.exampledemo.share.SystemShareActivity
 import com.chenyihong.exampledemo.tripartitelogin.TripartiteLoginActivity
+import com.chenyihong.exampledemo.web.WebViewActivity
 
 class HomeActivity : AppCompatActivity() {
 
@@ -25,7 +26,8 @@ class HomeActivity : AppCompatActivity() {
             OptionEntity("Camera", CameraActivity::class.java),
             OptionEntity("TripartiteLogin", TripartiteLoginActivity::class.java),
             OptionEntity("SystemShare", SystemShareActivity::class.java),
-            OptionEntity("Fragment Result Api", FragmentResultApiActivity::class.java))
+            OptionEntity("Fragment Result Api", FragmentResultApiActivity::class.java),
+            OptionEntity("JsAndroidInteraction", WebViewActivity::class.java))
 
         val optionAdapter = OptionAdapter()
         binding.rvOption.adapter = optionAdapter

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang=zh-CN>
+<head>
+    <meta charset=utf-8>
+    <title>test</title>
+    <p id='message'>receive:</p>
+    <script>
+        function jsCallAndroid(){
+           JsInteractive.jsCallAndroid()
+        }
+
+        function jsCallAndroidWithParams(){
+           JsInteractive.jsCallAndroidWithParams('Js params to android')
+        }
+
+        function androidCallJsWithParams(arg){
+           document.getElementById("message").innerHTML += (arg);
+        }
+    </script>
+</head>
+<body>
+<div>
+    <button type="button" style="width:280px;height:88px;font-size:24px"
+            onclick="jsCallAndroid()">
+        jsCallAndroid
+    </button>
+    <button type="button" style="width:280px;height:88px;font-size:24px;position:relative;left:20px"
+            onclick="jsCallAndroidWithParams()">
+        jsCallAndroidWithParams
+    </button>
+</div>
+</body>
+</html>

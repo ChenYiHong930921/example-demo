@@ -63,6 +63,10 @@
             android:name=".fragmentresultapi.FragmentResultApiActivity"
             android:screenOrientation="portrait" />
 
+        <activity
+            android:name=".web.WebViewActivity"
+            android:screenOrientation="portrait" />
+
         <!--Meta-->
         <activity
             android:name="com.facebook.FacebookActivity"
