@@ -15,4 +15,6 @@ object MimeType {
     const val VIDEO_MP4 = "video/mp4"
     const val VIDEO_3GP = "video/3gp"
     const val VIDEO_All = "video/*"
+
+    const val ALL = "*/*"
 }

@@ -1,4 +1,4 @@
-package com.chenyihong.exampledemo.share
+package com.chenyihong.exampledemo.share.systemshare
 
 import android.content.Intent
 import android.os.Bundle
@@ -8,6 +8,7 @@ import androidx.databinding.DataBindingUtil
 import com.chenyihong.exampledemo.R
 import com.chenyihong.exampledemo.databinding.LayoutSystemShareActivityBinding
 import com.chenyihong.exampledemo.resultapi.custom.PickSinglePhotoContract
+import com.chenyihong.exampledemo.share.MimeType
 
 const val TAG = "SystemShare"
 
