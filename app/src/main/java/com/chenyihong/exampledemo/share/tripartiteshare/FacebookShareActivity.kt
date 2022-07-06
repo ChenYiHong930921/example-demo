@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.util.Log
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.net.toFile
 import androidx.databinding.DataBindingUtil
 import com.chenyihong.exampledemo.R
 import com.chenyihong.exampledemo.databinding.LayoutFacebookShareActivityBinding
