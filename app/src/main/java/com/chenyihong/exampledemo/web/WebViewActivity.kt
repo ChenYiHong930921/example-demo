@@ -1,23 +1,20 @@
 package com.chenyihong.exampledemo.web
 
-import android.app.Activity
-import androidx.constraintlayout.widget.ConstraintLayout
-import android.webkit.WebView
-import androidx.core.widget.ContentLoadingProgressBar
-import android.webkit.JavascriptInterface
 import android.annotation.SuppressLint
-import android.os.Bundle
-import android.view.WindowManager
-import com.chenyihong.exampledemo.R
-import androidx.appcompat.widget.AppCompatButton
-import android.webkit.WebSettings
-import android.webkit.WebChromeClient
-import android.webkit.ConsoleMessage
-import android.webkit.WebViewClient
+import android.app.Activity
 import android.graphics.Bitmap
+import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.webkit.*
 import android.widget.ImageView
+import androidx.appcompat.widget.AppCompatButton
+import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.view.WindowCompat
+import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.WindowInsetsControllerCompat
+import androidx.core.widget.ContentLoadingProgressBar
+import com.chenyihong.exampledemo.R
 
 const val TAG = "WebsiteTest"
 
@@ -47,10 +44,13 @@ class WebViewActivity : Activity() {
 
     @SuppressLint("InflateParams")
     override fun onCreate(savedInstanceState: Bundle?) {
-        window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN)
         super.onCreate(savedInstanceState)
         rootView = layoutInflater.inflate(R.layout.layout_web_view_activity, null) as ConstraintLayout
         setContentView(rootView)
+
+        val insetsController = WindowCompat.getInsetsController(window, window.decorView)
+        insetsController.systemBarsBehavior = WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
+        insetsController.hide(WindowInsetsCompat.Type.systemBars())
 
         progressBar = findViewById(R.id.pb_web_load_progress)
 
@@ -111,7 +111,6 @@ class WebViewActivity : Activity() {
 
     override fun onResume() {
         super.onResume()
-        window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_HIDE_NAVIGATION or View.SYSTEM_UI_FLAG_FULLSCREEN
         webView?.run {
             onResume()
             resumeTimers()
