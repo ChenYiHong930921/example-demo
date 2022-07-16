@@ -9,6 +9,7 @@ import com.chenyihong.exampledemo.customview.CustomViewActivity
 import com.chenyihong.exampledemo.databinding.LayoutHomeActivityBinding
 import com.chenyihong.exampledemo.entity.OptionEntity
 import com.chenyihong.exampledemo.fragmentresultapi.FragmentResultApiActivity
+import com.chenyihong.exampledemo.fullscreen.FullScreenExampleActivity
 import com.chenyihong.exampledemo.resultapi.ResultApiActivity
 import com.chenyihong.exampledemo.share.ShareActivity
 import com.chenyihong.exampledemo.share.systemshare.SystemShareActivity
@@ -28,6 +29,7 @@ class HomeActivity : AppCompatActivity() {
             OptionEntity("TripartiteLogin", TripartiteLoginActivity::class.java),
             OptionEntity("Share", ShareActivity::class.java),
             OptionEntity("Fragment Result Api", FragmentResultApiActivity::class.java),
+            OptionEntity("Full Screen Api", FullScreenExampleActivity::class.java),
             OptionEntity("JsAndroidInteraction", WebViewActivity::class.java))
 
         val optionAdapter = OptionAdapter()
