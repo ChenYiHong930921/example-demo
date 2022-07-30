@@ -56,7 +56,7 @@ class WebViewActivity : Activity() {
             layoutWebViewActivityBinding.webViewContainer.addView(it)
             Log.i(TAG, "--------------create main web-----------------")
         }
-        mainWebView?.loadUrl("file:///android_asset/index_open_tab.html")
+        mainWebView?.loadUrl("file:///android_asset/index_intercept_request.html")
     }
 
     @SuppressLint("JavascriptInterface", "SetJavaScriptEnabled")
@@ -128,8 +128,23 @@ class WebViewActivity : Activity() {
                 override fun onPageFinished(view: WebView?, url: String?) {
                     super.onPageFinished(view, url)
                     Log.i(TAG, "WebViewActivity onPageFinished view:$view url:$url")
-                    val message="mainWeb:$mainWebView||newWeb:$newWebView||currentWeb:$view"
+                    val message = "mainWeb:$mainWebView||newWeb:$newWebView||currentWeb:$view"
                     view?.loadUrl("javascript:androidCallJsWithParams(\"$message\")")
+                }
+
+                override fun shouldInterceptRequest(view: WebView?, request: WebResourceRequest?): WebResourceResponse? {
+                    request?.run {
+                        val urlStr = url.toString()
+                        Log.i(TAG, "WebViewActivity shouldInterceptRequest view:$view urlStr:$urlStr")
+                        if (urlStr.contains("minigame") && urlStr.contains("assets")) {
+                            val assetsNamespace = "assets/"
+                            val localAssetsPath = urlStr.substring(urlStr.indexOf(assetsNamespace) + assetsNamespace.length)
+                            Log.i(TAG, "WebViewActivity shouldInterceptRequest localAssetsPath:$localAssetsPath")
+                            val inputStream = assets.open(localAssetsPath)
+                            return WebResourceResponse("image/jpeg", Charsets.UTF_8.toString(), inputStream)
+                        }
+                    }
+                    return super.shouldInterceptRequest(view, request)
                 }
             }
         }

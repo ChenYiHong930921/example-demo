@@ -40,6 +40,7 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="20dp"
             android:text="androidCallJs"
+            android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="@id/iv_back"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@id/iv_back" />
