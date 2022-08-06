@@ -7,7 +7,6 @@ import androidx.databinding.DataBindingUtil
 import com.chenyihong.exampledemo.R
 import com.chenyihong.exampledemo.databinding.LayoutFullScreenExampleActivityBinding
 
-
 class FullScreenExampleActivity :AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {

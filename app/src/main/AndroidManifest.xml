@@ -93,6 +93,18 @@
             android:name=".fullscreen.ImmersionActivity"
             android:screenOrientation="portrait" />
 
+        <activity
+            android:name=".gesturedetector.BaseGestureDetectorActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".gesturedetector.GestureDetectorAActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".gesturedetector.GestureDetectorBActivity"
+            android:screenOrientation="portrait" />
+
         <!--Meta-->
         <activity
             android:name="com.facebook.FacebookActivity"
