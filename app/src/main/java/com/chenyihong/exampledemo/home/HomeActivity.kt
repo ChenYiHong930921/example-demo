@@ -13,7 +13,6 @@ import com.chenyihong.exampledemo.fullscreen.FullScreenExampleActivity
 import com.chenyihong.exampledemo.gesturedetector.GestureDetectorAActivity
 import com.chenyihong.exampledemo.resultapi.ResultApiActivity
 import com.chenyihong.exampledemo.share.ShareActivity
-import com.chenyihong.exampledemo.share.systemshare.SystemShareActivity
 import com.chenyihong.exampledemo.tripartitelogin.TripartiteLoginActivity
 import com.chenyihong.exampledemo.web.WebViewActivity
 
