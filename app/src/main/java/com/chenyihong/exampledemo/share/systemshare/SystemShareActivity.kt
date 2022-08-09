@@ -3,6 +3,8 @@ package com.chenyihong.exampledemo.share.systemshare
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import com.chenyihong.exampledemo.R
@@ -18,6 +20,9 @@ class SystemShareActivity : AppCompatActivity() {
     private val sharePhotoUri = ArrayList<Uri>()
     private val shareVideoUrl = ArrayList<Uri>()
 
+    val forActivityResultLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { activityResult ->
+        Log.i(TAG, "lanuncher callback value : resultCode:${activityResult.resultCode} data${activityResult.data}")
+    }
     private val pickPhoto = registerForActivityResult(PickSingleMediumContract()) { uri ->
         if (uri != null) {
             val pictureShareIntent: Intent = Intent().apply {
@@ -26,7 +31,7 @@ class SystemShareActivity : AppCompatActivity() {
                 type = MimeType.IMAGE_JPEG
             }
             val shareIntent = Intent.createChooser(pictureShareIntent, "SharePictureTitle")
-            startActivity(shareIntent)
+            forActivityResultLauncher.launch(shareIntent)
         }
     }
     private val pickPhotos = registerForActivityResult(PickMultipleMediumContract()) { uriList ->
@@ -37,7 +42,8 @@ class SystemShareActivity : AppCompatActivity() {
                 putParcelableArrayListExtra(Intent.EXTRA_STREAM, sharePhotoUri)
                 type = MimeType.IMAGE_ALL
             }
-            startActivity(Intent.createChooser(photoShareIntent, "SharePhotosTitle"))
+            val shareIntent = Intent.createChooser(photoShareIntent, "SharePhotosTitle")
+            forActivityResultLauncher.launch(shareIntent)
         }
     }
     private val pickVideo = registerForActivityResult(PickSingleMediumContract(MimeType.VIDEO_All)) { uri ->
@@ -48,7 +54,7 @@ class SystemShareActivity : AppCompatActivity() {
                 type = MimeType.VIDEO_MP4
             }
             val shareIntent = Intent.createChooser(videoShareIntent, "ShareVideoTitle")
-            startActivity(shareIntent)
+            forActivityResultLauncher.launch(shareIntent)
         }
     }
     private val pickVideos = registerForActivityResult(PickMultipleMediumContract(MimeType.VIDEO_All)) { uri ->
@@ -60,7 +66,7 @@ class SystemShareActivity : AppCompatActivity() {
                 type = MimeType.VIDEO_All
             }
             val shareIntent = Intent.createChooser(videoShareIntent, "ShareVideosTitle")
-            startActivity(shareIntent)
+            forActivityResultLauncher.launch(shareIntent)
         }
     }
 
@@ -76,7 +82,7 @@ class SystemShareActivity : AppCompatActivity() {
             }
 
             val shareIntent = Intent.createChooser(onlyTextShareIntent, "ShareTextTitle")
-            startActivity(shareIntent)
+            forActivityResultLauncher.launch(shareIntent)
         }
         binding.btnShareUrl.setOnClickListener {
             val urlShareIntent = Intent().apply {
@@ -87,7 +93,7 @@ class SystemShareActivity : AppCompatActivity() {
             }
 
             val shareIntent = Intent.createChooser(urlShareIntent, null)
-            startActivity(shareIntent)
+            forActivityResultLauncher.launch(shareIntent)
         }
 
         binding.btnSharePicture.setOnClickListener {
@@ -112,7 +118,8 @@ class SystemShareActivity : AppCompatActivity() {
                     putParcelableArrayListExtra(Intent.EXTRA_STREAM, mediumUris)
                     type = MimeType.ALL
                 }
-                startActivity(Intent.createChooser(mediumShareIntent, "ShareMultipleMediumTitle"))
+                val shareIntent = Intent.createChooser(mediumShareIntent, "ShareMultipleMediumTitle")
+                forActivityResultLauncher.launch(shareIntent)
             }
         }
     }
