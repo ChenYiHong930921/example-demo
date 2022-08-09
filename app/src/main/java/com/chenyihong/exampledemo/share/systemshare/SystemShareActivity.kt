@@ -42,24 +42,24 @@ class SystemShareActivity : AppCompatActivity() {
     }
     private val pickVideo = registerForActivityResult(PickSingleMediumContract(MimeType.VIDEO_All)) { uri ->
         if (uri != null) {
-            val pictureShareIntent: Intent = Intent().apply {
+            val videoShareIntent: Intent = Intent().apply {
                 action = Intent.ACTION_SEND
                 putExtra(Intent.EXTRA_STREAM, uri)
                 type = MimeType.VIDEO_MP4
             }
-            val shareIntent = Intent.createChooser(pictureShareIntent, "ShareVideoTitle")
+            val shareIntent = Intent.createChooser(videoShareIntent, "ShareVideoTitle")
             startActivity(shareIntent)
         }
     }
     private val pickVideos = registerForActivityResult(PickMultipleMediumContract(MimeType.VIDEO_All)) { uri ->
         if (uri.isNotEmpty()) {
             shareVideoUrl.addAll(uri)
-            val pictureShareIntent: Intent = Intent().apply {
+            val videoShareIntent: Intent = Intent().apply {
                 action = Intent.ACTION_SEND_MULTIPLE
                 putParcelableArrayListExtra(Intent.EXTRA_STREAM, shareVideoUrl)
                 type = MimeType.VIDEO_All
             }
-            val shareIntent = Intent.createChooser(pictureShareIntent, "ShareVideosTitle")
+            val shareIntent = Intent.createChooser(videoShareIntent, "ShareVideosTitle")
             startActivity(shareIntent)
         }
     }
@@ -107,12 +107,12 @@ class SystemShareActivity : AppCompatActivity() {
             mediumUris.addAll(sharePhotoUri)
             mediumUris.addAll(shareVideoUrl)
             if (mediumUris.isNotEmpty()) {
-                val photoShareIntent = Intent().apply {
+                val mediumShareIntent = Intent().apply {
                     action = Intent.ACTION_SEND_MULTIPLE
                     putParcelableArrayListExtra(Intent.EXTRA_STREAM, mediumUris)
                     type = MimeType.ALL
                 }
-                startActivity(Intent.createChooser(photoShareIntent, "ShareMultipleMediumTitle"))
+                startActivity(Intent.createChooser(mediumShareIntent, "ShareMultipleMediumTitle"))
             }
         }
     }
