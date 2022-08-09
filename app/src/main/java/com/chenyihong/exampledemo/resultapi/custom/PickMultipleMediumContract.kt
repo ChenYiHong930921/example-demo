@@ -5,12 +5,13 @@ import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import androidx.activity.result.contract.ActivityResultContract
+import com.chenyihong.exampledemo.share.MimeType
 
-class PickMultiplePhotoContract : ActivityResultContract<String, List<Uri>>() {
+class PickMultipleMediumContract(private val mineType: String = MimeType.IMAGE_ALL) : ActivityResultContract<String, List<Uri>>() {
 
     override fun createIntent(context: Context, input: String?): Intent {
         return Intent(Intent.ACTION_PICK)
-            .setType("image/*")
+            .setType(mineType)
             .putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
     }
 

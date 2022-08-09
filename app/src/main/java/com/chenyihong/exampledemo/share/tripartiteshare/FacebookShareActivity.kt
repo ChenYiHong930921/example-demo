@@ -8,8 +8,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import com.chenyihong.exampledemo.R
 import com.chenyihong.exampledemo.databinding.LayoutFacebookShareActivityBinding
-import com.chenyihong.exampledemo.resultapi.custom.PickMultiplePhotoContract
-import com.chenyihong.exampledemo.resultapi.custom.PickSinglePhotoContract
+import com.chenyihong.exampledemo.resultapi.custom.PickMultipleMediumContract
+import com.chenyihong.exampledemo.resultapi.custom.PickSingleMediumContract
 import com.chenyihong.exampledemo.share.MimeType
 import com.facebook.CallbackManager
 import com.facebook.FacebookCallback
@@ -23,7 +23,7 @@ const val TAG = "FacebookShare"
 
 class FacebookShareActivity : AppCompatActivity() {
 
-    private val pickPhoto = registerForActivityResult(PickSinglePhotoContract()) { uri ->
+    private val pickPhoto = registerForActivityResult(PickSingleMediumContract()) { uri ->
         if (uri != null) {
             val sharePhoto = SharePhoto.Builder()
                 //设置分享的bitmap
@@ -44,7 +44,7 @@ class FacebookShareActivity : AppCompatActivity() {
         }
     }
 
-    private val pickMultiplePhoto = registerForActivityResult(PickMultiplePhotoContract()) { uri ->
+    private val pickMultiplePhoto = registerForActivityResult(PickMultipleMediumContract()) { uri ->
         if (!uri.isNullOrEmpty()) {
             multiplePhotoList.addAll(uri)
             val sharePhotos = ArrayList<SharePhoto>()
@@ -71,7 +71,7 @@ class FacebookShareActivity : AppCompatActivity() {
         }
     }
 
-    private val pickVideo = registerForActivityResult(ActivityResultContracts.GetContent()) { uri ->
+    private val pickVideo = registerForActivityResult(PickSingleMediumContract(MimeType.VIDEO_All)) { uri ->
         if (uri != null) {
             multipleVideoList.add(uri)
             val shareVideo = ShareVideo.Builder()

@@ -13,8 +13,8 @@ import androidx.core.content.FileProvider
 import androidx.databinding.DataBindingUtil
 import com.chenyihong.exampledemo.BuildConfig
 import com.chenyihong.exampledemo.R
-import com.chenyihong.exampledemo.resultapi.custom.PickMultiplePhotoContract
-import com.chenyihong.exampledemo.resultapi.custom.PickSinglePhotoContract
+import com.chenyihong.exampledemo.resultapi.custom.PickMultipleMediumContract
+import com.chenyihong.exampledemo.resultapi.custom.PickSingleMediumContract
 import com.chenyihong.exampledemo.databinding.LayoutResultApiActivityBinding
 import java.io.File
 
@@ -112,12 +112,12 @@ class ResultApiActivity : AppCompatActivity() {
 
     //<editor-folder desc = "custom contract">
 
-    private val pickSinglePhoto = registerForActivityResult(PickSinglePhotoContract()) { uri ->
+    private val pickSinglePhoto = registerForActivityResult(PickSingleMediumContract()) { uri ->
         Log.d(TAG, "pick photo uri:$uri")
         binding.ivPhoto.setImageURI(uri)
     }
 
-    private val pickMultiplePhoto = registerForActivityResult(PickMultiplePhotoContract()) { uriList ->
+    private val pickMultiplePhoto = registerForActivityResult(PickMultipleMediumContract()) { uriList ->
         Log.d(TAG, "pick multiple photo uriList:$uriList")
         if (uriList.size > 1) {
             binding.ivPhoto.setImageURI(uriList[0])
