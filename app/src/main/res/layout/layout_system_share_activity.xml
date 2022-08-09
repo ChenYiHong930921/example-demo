@@ -52,5 +52,23 @@
             app:layout_constraintStart_toEndOf="@id/btn_share_picture"
             app:layout_constraintTop_toTopOf="@id/btn_share_picture" />
 
+        <Button
+            android:id="@+id/btn_share_pictures"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:layout_marginTop="10dp"
+            android:text="sharepictures"
+            app:layout_constraintEnd_toStartOf="@id/btn_share_multiple_medium"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/btn_share_picture" />
+
+        <Button
+            android:id="@+id/btn_share_multiple_medium"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:text="sharemultiplemedium"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/btn_share_pictures"
+            app:layout_constraintTop_toTopOf="@id/btn_share_pictures" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
