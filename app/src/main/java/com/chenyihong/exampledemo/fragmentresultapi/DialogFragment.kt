@@ -10,7 +10,7 @@ import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
 import com.chenyihong.exampledemo.R
 import com.chenyihong.exampledemo.databinding.LayoutFragmentResultApiDialogFragmentBinding
-import com.chenyihong.exampledemo.fragmentresultapi.adapter.ViewPager2Adapter
+import com.chenyihong.exampledemo.adapter.ViewPager2Adapter
 
 class DialogFragment : DialogFragment() {
 

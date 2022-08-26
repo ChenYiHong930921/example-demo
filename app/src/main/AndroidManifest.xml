@@ -105,6 +105,10 @@
             android:name=".gesturedetector.GestureDetectorBActivity"
             android:screenOrientation="portrait" />
 
+        <activity
+            android:name=".backpress.BackPressApiActivity"
+            android:screenOrientation="portrait" />
+
         <!--Meta-->
         <activity
             android:name="com.facebook.FacebookActivity"
