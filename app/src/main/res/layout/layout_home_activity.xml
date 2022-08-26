@@ -10,8 +10,6 @@
             android:id="@+id/rv_option"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:overScrollMode="never"
-            android:scrollbars="none"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             tools:listitem="@layout/layout_option_item" />
     </androidx.constraintlayout.widget.ConstraintLayout>

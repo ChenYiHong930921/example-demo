@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import com.chenyihong.exampledemo.R
 import com.chenyihong.exampledemo.databinding.LayoutSystemShareActivityBinding
+import com.chenyihong.exampledemo.resultapi.custom.MultipleLauncherOptions
 import com.chenyihong.exampledemo.resultapi.custom.PickMultipleMediumContract
 import com.chenyihong.exampledemo.resultapi.custom.PickSingleMediumContract
 import com.chenyihong.exampledemo.share.MimeType
@@ -17,55 +18,40 @@ const val TAG = "SystemShare"
 
 class SystemShareActivity : AppCompatActivity() {
 
-    private val sharePhotoUri = ArrayList<Uri>()
-    private val shareVideoUrl = ArrayList<Uri>()
-
-    val forActivityResultLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { activityResult ->
-        Log.i(TAG, "lanuncher callback value : resultCode:${activityResult.resultCode} data${activityResult.data}")
+    private val forActivityResultLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { activityResult ->
+        Log.i(TAG, "launcher callback value : resultCode:${activityResult.resultCode} data${activityResult.data}")
     }
-    private val pickPhoto = registerForActivityResult(PickSingleMediumContract()) { uri ->
+    private val singleMediumPicker = registerForActivityResult(PickSingleMediumContract()) { uri ->
         if (uri != null) {
             val pictureShareIntent: Intent = Intent().apply {
                 action = Intent.ACTION_SEND
                 putExtra(Intent.EXTRA_STREAM, uri)
-                type = MimeType.IMAGE_JPEG
+                type = getMimeType(uri)
             }
-            val shareIntent = Intent.createChooser(pictureShareIntent, "SharePictureTitle")
+            val shareIntent = Intent.createChooser(pictureShareIntent, "ShareSingleMedium")
             forActivityResultLauncher.launch(shareIntent)
         }
     }
-    private val pickPhotos = registerForActivityResult(PickMultipleMediumContract()) { uriList ->
+    private val multipleMediumPicker = registerForActivityResult(PickMultipleMediumContract()) { uriList ->
         if (uriList.isNotEmpty()) {
-            sharePhotoUri.addAll(uriList)
-            val photoShareIntent = Intent().apply {
+            val mediumUris = ArrayList<Uri>(uriList)
+            var mimeType = ""
+            for (uri in mediumUris) {
+                if (mimeType.isEmpty()) {
+                    mimeType = handleMultiplePickMimeType(getMimeType(uri))
+                } else {
+                    if (mimeType != handleMultiplePickMimeType(getMimeType(uri))) {
+                        mimeType = MimeType.ALL
+                        break
+                    }
+                }
+            }
+            val mediumShareIntent = Intent().apply {
                 action = Intent.ACTION_SEND_MULTIPLE
-                putParcelableArrayListExtra(Intent.EXTRA_STREAM, sharePhotoUri)
-                type = MimeType.IMAGE_ALL
+                putParcelableArrayListExtra(Intent.EXTRA_STREAM, mediumUris)
+                type = mimeType
             }
-            val shareIntent = Intent.createChooser(photoShareIntent, "SharePhotosTitle")
-            forActivityResultLauncher.launch(shareIntent)
-        }
-    }
-    private val pickVideo = registerForActivityResult(PickSingleMediumContract(MimeType.VIDEO_All)) { uri ->
-        if (uri != null) {
-            val videoShareIntent: Intent = Intent().apply {
-                action = Intent.ACTION_SEND
-                putExtra(Intent.EXTRA_STREAM, uri)
-                type = MimeType.VIDEO_MP4
-            }
-            val shareIntent = Intent.createChooser(videoShareIntent, "ShareVideoTitle")
-            forActivityResultLauncher.launch(shareIntent)
-        }
-    }
-    private val pickVideos = registerForActivityResult(PickMultipleMediumContract(MimeType.VIDEO_All)) { uri ->
-        if (uri.isNotEmpty()) {
-            shareVideoUrl.addAll(uri)
-            val videoShareIntent: Intent = Intent().apply {
-                action = Intent.ACTION_SEND_MULTIPLE
-                putParcelableArrayListExtra(Intent.EXTRA_STREAM, shareVideoUrl)
-                type = MimeType.VIDEO_All
-            }
-            val shareIntent = Intent.createChooser(videoShareIntent, "ShareVideosTitle")
+            val shareIntent = Intent.createChooser(mediumShareIntent, "ShareMultipleMedium")
             forActivityResultLauncher.launch(shareIntent)
         }
     }
@@ -97,30 +83,31 @@ class SystemShareActivity : AppCompatActivity() {
         }
 
         binding.btnSharePicture.setOnClickListener {
-            pickPhoto.launch(null)
+            singleMediumPicker.launch(null)
         }
         binding.btnSharePictures.setOnClickListener {
-            pickPhotos.launch(null)
+            multipleMediumPicker.launch(MultipleLauncherOptions(null, 5))
         }
         binding.btnShareVideo.setOnClickListener {
-            pickVideo.launch(MimeType.VIDEO_All)
+            singleMediumPicker.launch(MimeType.VIDEO_All)
         }
         binding.btnShareVideos.setOnClickListener {
-            pickVideos.launch(MimeType.VIDEO_All)
+            multipleMediumPicker.launch(MultipleLauncherOptions(MimeType.VIDEO_All, 5))
         }
         binding.btnShareMultipleMedium.setOnClickListener {
-            val mediumUris = ArrayList<Uri>()
-            mediumUris.addAll(sharePhotoUri)
-            mediumUris.addAll(shareVideoUrl)
-            if (mediumUris.isNotEmpty()) {
-                val mediumShareIntent = Intent().apply {
-                    action = Intent.ACTION_SEND_MULTIPLE
-                    putParcelableArrayListExtra(Intent.EXTRA_STREAM, mediumUris)
-                    type = MimeType.ALL
-                }
-                val shareIntent = Intent.createChooser(mediumShareIntent, "ShareMultipleMediumTitle")
-                forActivityResultLauncher.launch(shareIntent)
-            }
+            multipleMediumPicker.launch(MultipleLauncherOptions(MimeType.ALL, 5))
+        }
+    }
+
+    private fun getMimeType(uri: Uri): String {
+        return contentResolver.getType(uri) ?: ""
+    }
+
+    private fun handleMultiplePickMimeType(uriMimeType: String): String {
+        return when {
+            uriMimeType.startsWith(MimeType.IMAGE_HEAD) -> MimeType.IMAGE_ALL
+            uriMimeType.startsWith(MimeType.VIDEO_HEAD) -> MimeType.VIDEO_All
+            else -> uriMimeType
         }
     }
 }

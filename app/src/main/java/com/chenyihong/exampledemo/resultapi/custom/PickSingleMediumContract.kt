@@ -4,14 +4,16 @@ import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
+import android.os.Build
+import android.provider.MediaStore
 import androidx.activity.result.contract.ActivityResultContract
 import com.chenyihong.exampledemo.share.MimeType
 
-class PickSingleMediumContract(private val mineType: String = MimeType.IMAGE_ALL) : ActivityResultContract<String, Uri>() {
+class PickSingleMediumContract : ActivityResultContract<String?, Uri?>() {
 
     override fun createIntent(context: Context, input: String?): Intent {
-        return Intent(Intent.ACTION_PICK)
-            .setType(mineType)
+        return Intent(if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) MediaStore.ACTION_PICK_IMAGES else Intent.ACTION_PICK)
+            .setType(if (input.isNullOrEmpty() || input.isNullOrEmpty()) MimeType.IMAGE_ALL else input)
     }
 
     override fun parseResult(resultCode: Int, intent: Intent?): Uri? {
