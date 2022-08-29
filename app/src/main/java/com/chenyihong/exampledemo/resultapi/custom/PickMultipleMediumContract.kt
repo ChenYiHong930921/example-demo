@@ -17,11 +17,11 @@ class PickMultipleMediumContract : ActivityResultContract<MultipleLauncherOption
             val inputMaxCount = input?.maxCount ?: 0
             val finalMaxCount = if (inputMaxCount != 0 && inputMaxCount < maxLimit) inputMaxCount else maxLimit
             Intent(MediaStore.ACTION_PICK_IMAGES)
-                .setType(if (input?.mimeType.isNullOrEmpty() || input?.mimeType.isNullOrBlank()) MimeType.IMAGE_ALL else input?.mimeType)
+                .setType(if (input?.mimeType.isNullOrEmpty() || input?.mimeType.isNullOrBlank()) MimeType.ALL else input?.mimeType)
                 .putExtra(MediaStore.EXTRA_PICK_IMAGES_MAX, finalMaxCount)
         } else {
             Intent(Intent.ACTION_PICK)
-                .setType(if (input?.mimeType.isNullOrEmpty() || input?.mimeType.isNullOrBlank()) MimeType.IMAGE_ALL else input?.mimeType)
+                .setType(if (input?.mimeType.isNullOrEmpty() || input?.mimeType.isNullOrBlank()) MimeType.ALL else input?.mimeType)
                 .putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true)
         }
     }
