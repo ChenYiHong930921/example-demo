@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import com.chenyihong.exampledemo.R
 import com.chenyihong.exampledemo.backpress.BackPressApiActivity
+import com.chenyihong.exampledemo.biometrics.BiometricActivity
 import com.chenyihong.exampledemo.camerax.CameraActivity
 import com.chenyihong.exampledemo.customview.CustomViewActivity
 import com.chenyihong.exampledemo.databinding.LayoutHomeActivityBinding
@@ -31,6 +32,7 @@ class HomeActivity : AppCompatActivity() {
             OptionEntity("Fragment Result Api", FragmentResultApiActivity::class.java),
             OptionEntity("Back Press Api", BackPressApiActivity::class.java),
             OptionEntity("Gesture Detector Api", GestureDetectorAActivity::class.java),
+            OptionEntity("BiometricApi", BiometricActivity::class.java),
             OptionEntity("JsAndroidInteraction", WebViewActivity::class.java),
             OptionEntity("TripartiteLogin", TripartiteLoginActivity::class.java),
             OptionEntity("Share", ShareActivity::class.java))

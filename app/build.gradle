@@ -77,4 +77,7 @@ dependencies {
     implementation("com.facebook.android:facebook-login:14.1.0")
     //Mate share
     implementation("com.facebook.android:facebook-share:14.1.0")
+
+    //Biometric
+    implementation("androidx.biometric:biometric:1.2.0-alpha04")
 }
