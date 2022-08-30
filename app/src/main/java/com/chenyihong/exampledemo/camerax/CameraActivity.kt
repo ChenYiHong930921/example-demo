@@ -142,11 +142,11 @@ class CameraActivity : AppCompatActivity() {
         return photoFile
     }
 
-    fun resumeCamera() {
+    private fun resumeCamera() {
         cameraLifecycle.cameraOnStart()
     }
 
-    fun pauseCamera() {
+    private fun pauseCamera() {
         cameraLifecycle.cameraOnStop()
     }
 
