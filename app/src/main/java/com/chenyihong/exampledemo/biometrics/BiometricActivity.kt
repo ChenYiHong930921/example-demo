@@ -17,6 +17,8 @@ import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import com.chenyihong.exampledemo.R
 import com.chenyihong.exampledemo.databinding.LayoutBiometricActivityBinding
+import java.nio.charset.Charset
+import java.util.*
 
 const val TAG = "BiometricApi"
 
@@ -31,14 +33,38 @@ class BiometricActivity : AppCompatActivity() {
     private var biometricPrompt: BiometricPrompt? = null
     private var promptInfo: BiometricPrompt.PromptInfo? = null
 
+    private val keyName = "ExampleDemoKey"
+    private var encrypt: Boolean = false
+    private var encryptedInfo: ByteArray? = null
+
     @SuppressLint("ServiceCast")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val binding: LayoutBiometricActivityBinding = DataBindingUtil.setContentView(this, R.layout.layout_biometric_activity)
         checkBiometricAuthenticate()
 
-        binding.btnFaceId.setOnClickListener {
+        binding.btnBiometric.setOnClickListener {
             biometricPrompt?.run { promptInfo?.let { authenticate(it) } }
+        }
+        binding.btnEncrypt.setOnClickListener {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                biometricPrompt?.run {
+                    promptInfo?.let {
+                        encrypt = true
+                        authenticate(it, BiometricPrompt.CryptoObject(CryptographyManager.getEncryptCipher(keyName)))
+                    }
+                }
+            }
+        }
+        binding.btnDecrypt.setOnClickListener {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                biometricPrompt?.run {
+                    promptInfo?.let {
+                        encrypt = false
+                        CryptographyManager.getDecryptCipher(keyName)?.let { cipher -> authenticate(it, BiometricPrompt.CryptoObject(cipher)) }
+                    }
+                }
+            }
         }
     }
 
@@ -92,6 +118,15 @@ class BiometricActivity : AppCompatActivity() {
             override fun onAuthenticationSucceeded(result: BiometricPrompt.AuthenticationResult) {
                 super.onAuthenticationSucceeded(result)
                 Log.i(TAG, "Authentication succeed authenticationType:${result.authenticationType}")
+                result.cryptoObject?.cipher?.run {
+                    if (encrypt) {
+                        encryptedInfo = doFinal("123123".toByteArray(Charset.defaultCharset()))
+                        Log.i(TAG, "Authentication succeed encryptedInfo:${Arrays.toString(encryptedInfo)}")
+                    } else {
+                        val decryptedInfo = String(doFinal(encryptedInfo))
+                        Log.i(TAG, "Authentication succeed decryptedInfo:$decryptedInfo")
+                    }
+                }
             }
 
             override fun onAuthenticationFailed() {

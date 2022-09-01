@@ -16,22 +16,32 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <Button
-            android:id="@+id/btn_face_id"
+            android:id="@+id/btn_biometric"
             android:layout_width="wrap_content"
             android:layout_height="50dp"
             android:layout_marginTop="10dp"
-            android:text="FaceId"
-            app:layout_constraintEnd_toStartOf="@id/btn_fingerprint"
+            android:text="Biometric"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_title" />
 
         <Button
-            android:id="@+id/btn_fingerprint"
+            android:id="@+id/btn_encrypt"
             android:layout_width="wrap_content"
             android:layout_height="50dp"
-            android:text="Fingerprint"
+            android:layout_marginTop="10dp"
+            android:text="Encrypt"
+            app:layout_constraintEnd_toStartOf="@id/btn_decrypt"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/btn_biometric" />
+
+        <Button
+            android:id="@+id/btn_decrypt"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:text="Encrypt"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/btn_face_id"
-            app:layout_constraintTop_toTopOf="@id/btn_face_id" />
+            app:layout_constraintStart_toEndOf="@id/btn_encrypt"
+            app:layout_constraintTop_toTopOf="@id/btn_encrypt" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
