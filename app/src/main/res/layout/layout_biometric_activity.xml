@@ -25,6 +25,50 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_title" />
 
+        <TextView
+            android:id="@+id/tv_input_label"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:layout_marginStart="20dp"
+            android:gravity="center"
+            android:text="Origin Data :"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/btn_biometric" />
+
+        <EditText
+            android:id="@+id/et_input_data"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_marginEnd="20dp"
+            android:ellipsize="end"
+            android:hint="Enter the content to be encrypted"
+            android:maxLines="1"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/tv_input_label"
+            app:layout_constraintTop_toBottomOf="@id/btn_biometric" />
+
+        <TextView
+            android:id="@+id/tv_encrypt_data"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:layout_marginStart="20dp"
+            android:gravity="center"
+            android:text="Encrypt Data :"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_input_label" />
+
+        <TextView
+            android:id="@+id/tv_decrypt_data"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:layout_marginStart="20dp"
+            android:gravity="center"
+            android:text="Decrypt Data :"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_encrypt_data" />
+
+
         <Button
             android:id="@+id/btn_encrypt"
             android:layout_width="wrap_content"
@@ -33,7 +77,7 @@
             android:text="Encrypt"
             app:layout_constraintEnd_toStartOf="@id/btn_decrypt"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/btn_biometric" />
+            app:layout_constraintTop_toBottomOf="@id/tv_decrypt_data" />
 
         <Button
             android:id="@+id/btn_decrypt"

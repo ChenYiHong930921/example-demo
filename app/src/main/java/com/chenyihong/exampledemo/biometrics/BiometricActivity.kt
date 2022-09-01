@@ -29,6 +29,8 @@ class BiometricActivity : AppCompatActivity() {
         checkBiometricAuthenticate()
     }
 
+    private lateinit var binding: LayoutBiometricActivityBinding
+
     private var biometricManager: BiometricManager? = null
     private var biometricPrompt: BiometricPrompt? = null
     private var promptInfo: BiometricPrompt.PromptInfo? = null
@@ -40,7 +42,7 @@ class BiometricActivity : AppCompatActivity() {
     @SuppressLint("ServiceCast")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val binding: LayoutBiometricActivityBinding = DataBindingUtil.setContentView(this, R.layout.layout_biometric_activity)
+        binding = DataBindingUtil.setContentView(this, R.layout.layout_biometric_activity)
         checkBiometricAuthenticate()
 
         binding.btnBiometric.setOnClickListener {
@@ -115,16 +117,19 @@ class BiometricActivity : AppCompatActivity() {
     @Suppress("SameParameterValue")
     private fun initBiometric(allowedAuthenticators: Int) {
         biometricPrompt = BiometricPrompt(this, ContextCompat.getMainExecutor(this), object : BiometricPrompt.AuthenticationCallback() {
+            @SuppressLint("SetTextI18n")
             override fun onAuthenticationSucceeded(result: BiometricPrompt.AuthenticationResult) {
                 super.onAuthenticationSucceeded(result)
                 Log.i(TAG, "Authentication succeed authenticationType:${result.authenticationType}")
                 result.cryptoObject?.cipher?.run {
-                    if (encrypt) {
-                        encryptedInfo = doFinal("123123".toByteArray(Charset.defaultCharset()))
-                        Log.i(TAG, "Authentication succeed encryptedInfo:${Arrays.toString(encryptedInfo)}")
-                    } else {
-                        val decryptedInfo = String(doFinal(encryptedInfo))
-                        Log.i(TAG, "Authentication succeed decryptedInfo:$decryptedInfo")
+                    binding.etInputData.text?.let {
+                        if (encrypt) {
+                            val encryptByteArray = doFinal(it.toString().toByteArray(Charset.defaultCharset()))
+                            binding.tvEncryptData.run { post { text = "Encrypt Data : ${Arrays.toString(encryptByteArray)} " } }
+                            encryptedInfo = encryptByteArray
+                        } else {
+                            binding.tvDecryptData.run { post { text = "Decrypt Data : ${String(doFinal(encryptedInfo))}" } }
+                        }
                     }
                 }
             }
