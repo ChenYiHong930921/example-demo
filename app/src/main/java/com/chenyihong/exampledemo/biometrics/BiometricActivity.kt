@@ -76,11 +76,7 @@ class BiometricActivity : AppCompatActivity() {
         biometricManager?.run {
             //如果可以允许用户不使用生物识别而是密码，可以设置DEVICE_CREDENTIAL
             //注意如果DEVICE_CREDENTIAL没有配置，则生成BiometricPrompt.PromptInfo时NegativeButtonText必须配置
-            val allowedAuthenticators = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-                BIOMETRIC_STRONG
-            } else {
-                BIOMETRIC_WEAK
-            } or DEVICE_CREDENTIAL
+            val allowedAuthenticators = BIOMETRIC_STRONG
             when (canAuthenticate(allowedAuthenticators)) {
                 BiometricManager.BIOMETRIC_SUCCESS -> {
                     Log.i(TAG, "App can authenticate using biometrics.")
