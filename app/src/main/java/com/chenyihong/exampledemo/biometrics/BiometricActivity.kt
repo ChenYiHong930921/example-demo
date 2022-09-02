@@ -39,7 +39,6 @@ class BiometricActivity : AppCompatActivity() {
     private var encrypt: Boolean = false
     private var encryptedInfo: ByteArray? = null
 
-    @SuppressLint("ServiceCast")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.layout_biometric_activity)
