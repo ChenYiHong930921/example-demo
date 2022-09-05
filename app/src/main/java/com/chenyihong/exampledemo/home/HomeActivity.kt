@@ -9,6 +9,7 @@ import com.chenyihong.exampledemo.biometrics.BiometricActivity
 import com.chenyihong.exampledemo.camerax.CameraActivity
 import com.chenyihong.exampledemo.customview.CustomViewActivity
 import com.chenyihong.exampledemo.databinding.LayoutHomeActivityBinding
+import com.chenyihong.exampledemo.downloadablefont.DownloadableFontActivity
 import com.chenyihong.exampledemo.entity.OptionEntity
 import com.chenyihong.exampledemo.fragmentresultapi.FragmentResultApiActivity
 import com.chenyihong.exampledemo.fullscreen.FullScreenExampleActivity
@@ -33,6 +34,7 @@ class HomeActivity : AppCompatActivity() {
             OptionEntity("Back Press Api", BackPressApiActivity::class.java),
             OptionEntity("Gesture Detector Api", GestureDetectorAActivity::class.java),
             OptionEntity("BiometricApi", BiometricActivity::class.java),
+            OptionEntity("DownloadableFont", DownloadableFontActivity::class.java),
             OptionEntity("JsAndroidInteraction", WebViewActivity::class.java),
             OptionEntity("TripartiteLogin", TripartiteLoginActivity::class.java),
             OptionEntity("Share", ShareActivity::class.java))
