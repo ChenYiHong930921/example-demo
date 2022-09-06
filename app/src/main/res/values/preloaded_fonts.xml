@@ -3,5 +3,7 @@
     <array name="preloaded_fonts" translatable="false">
         <item>@font/noto_sans</item>
         <item>@font/noto_sans_bold</item>
+        <item>@font/noto_serif</item>
+        <item>@font/noto_serif_bold</item>
     </array>
 </resources>

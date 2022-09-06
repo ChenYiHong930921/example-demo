@@ -20,9 +20,9 @@
             android:id="@+id/tv_chinese_label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="50dp"
             android:layout_marginEnd="20dp"
-            android:layout_marginStart="40dp"
-            android:text="ChineseCharacter"
+            android:text="Test text(Bold)"
             app:layout_constraintEnd_toStartOf="@id/tv_english_label"
             app:layout_constraintHorizontal_chainStyle="packed"
             app:layout_constraintStart_toStartOf="parent"
@@ -32,7 +32,7 @@
             android:id="@+id/tv_english_label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="EnglishCharacter"
+            android:text="Test text(Regular)"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/tv_chinese_label"
             app:layout_constraintTop_toTopOf="@id/tv_chinese_label" />
@@ -50,9 +50,10 @@
             android:id="@+id/tv_chinese_label_origin"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="10dp"
+            android:gravity="center"
             android:includeFontPadding="false"
-            android:text="测试文字017"
+            android:text="测试文字\n123456789"
             app:layout_constraintEnd_toEndOf="@id/tv_chinese_label"
             app:layout_constraintStart_toStartOf="@id/tv_chinese_label"
             app:layout_constraintTop_toBottomOf="@id/tv_chinese_label" />
@@ -61,8 +62,9 @@
             android:id="@+id/tv_english_label_origin"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Test text 017"
+            android:gravity="center"
             android:includeFontPadding="false"
+            android:text="abcdefghijkl\nnmopqrstuvwxyz"
             app:layout_constraintEnd_toEndOf="@id/tv_english_label"
             app:layout_constraintStart_toStartOf="@id/tv_english_label"
             app:layout_constraintTop_toTopOf="@id/tv_chinese_label_origin" />
@@ -72,7 +74,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
-            android:text="otf:"
+            android:text="otf:\n(noto_sanssc)"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@id/tv_chinese_label_res_font" />
 
@@ -80,10 +82,11 @@
             android:id="@+id/tv_chinese_label_res_font"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:text="测试文字017"
-            android:includeFontPadding="false"
+            android:layout_marginTop="30dp"
             android:fontFamily="@font/noto_sanssc_bold"
+            android:gravity="center"
+            android:includeFontPadding="false"
+            android:text="测试文字\n123456789"
             app:layout_constraintEnd_toEndOf="@id/tv_chinese_label"
             app:layout_constraintStart_toStartOf="@id/tv_chinese_label"
             app:layout_constraintTop_toBottomOf="@id/tv_chinese_label_origin" />
@@ -92,31 +95,32 @@
             android:id="@+id/tv_english_label_res_font"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Test text017"
-            android:includeFontPadding="false"
             android:fontFamily="@font/noto_sanssc_regular"
+            android:gravity="center"
+            android:includeFontPadding="false"
+            android:text="abcdefghijkl\nnmopqrstuvwxyz"
             app:layout_constraintEnd_toEndOf="@id/tv_english_label"
             app:layout_constraintStart_toStartOf="@id/tv_english_label"
             app:layout_constraintTop_toTopOf="@id/tv_chinese_label_res_font" />
 
         <TextView
-            android:id="@+id/tv_xml"
+            android:id="@+id/tv_xml_noto_sans"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
-            android:text="downloadable:"
+            android:text="downloadable:\n(noto_sans)"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@id/tv_chinese_label_downloadable_font" />
-
 
         <TextView
             android:id="@+id/tv_chinese_label_downloadable_font"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="30dp"
             android:fontFamily="@font/noto_sans_bold"
+            android:gravity="center"
             android:includeFontPadding="false"
-            android:text="测试文字017"
+            android:text="测试文字\n123456789"
             app:layout_constraintEnd_toEndOf="@id/tv_chinese_label"
             app:layout_constraintStart_toStartOf="@id/tv_chinese_label"
             app:layout_constraintTop_toBottomOf="@id/tv_chinese_label_res_font" />
@@ -125,11 +129,46 @@
             android:id="@+id/tv_english_label_downloadable_font"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Test text017"
-            android:includeFontPadding="false"
             android:fontFamily="@font/noto_sans"
+            android:gravity="center"
+            android:includeFontPadding="false"
+            android:text="abcdefghijkl\nnmopqrstuvwxyz"
             app:layout_constraintEnd_toEndOf="@id/tv_english_label"
             app:layout_constraintStart_toStartOf="@id/tv_english_label"
             app:layout_constraintTop_toTopOf="@id/tv_chinese_label_downloadable_font" />
+
+        <TextView
+            android:id="@+id/tv_xml_noto_serif"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:text="downloadable:\n(noto_serif)"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/tv_chinese_label_downloadable_font1" />
+
+        <TextView
+            android:id="@+id/tv_chinese_label_downloadable_font1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:fontFamily="@font/noto_serif_bold"
+            android:gravity="center"
+            android:includeFontPadding="false"
+            android:text="测试文字\n123456789"
+            app:layout_constraintEnd_toEndOf="@id/tv_chinese_label"
+            app:layout_constraintStart_toStartOf="@id/tv_chinese_label"
+            app:layout_constraintTop_toBottomOf="@id/tv_chinese_label_downloadable_font" />
+
+        <TextView
+            android:id="@+id/tv_english_label_downloadable_font1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/noto_serif"
+            android:gravity="center"
+            android:includeFontPadding="false"
+            android:text="abcdefghijkl\nnmopqrstuvwxyz"
+            app:layout_constraintEnd_toEndOf="@id/tv_english_label"
+            app:layout_constraintStart_toStartOf="@id/tv_english_label"
+            app:layout_constraintTop_toTopOf="@id/tv_chinese_label_downloadable_font1" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
