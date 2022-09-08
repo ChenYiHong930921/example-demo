@@ -15,12 +15,16 @@ import androidx.core.view.WindowInsetsControllerCompat
 import androidx.databinding.DataBindingUtil
 import com.chenyihong.exampledemo.R
 import com.chenyihong.exampledemo.databinding.LayoutWebViewActivityBinding
+import com.chenyihong.exampledemo.entity.PersonEntity
+import com.google.gson.Gson
 
 const val TAG = "WebsiteTest"
 
 class WebViewActivity : Activity() {
 
     private lateinit var layoutWebViewActivityBinding: LayoutWebViewActivityBinding
+
+    private val gson = Gson()
 
     private var mainWebView: WebView? = null
     private var newWebView: WebView? = null
@@ -39,6 +43,15 @@ class WebViewActivity : Activity() {
         override fun jsCallAndroidWithParams(params: String) {
             Log.i(TAG, "WebViewActivity jsCallAndroidWithParams params:$params")
         }
+
+        @JavascriptInterface
+        override fun getPersonJsonArray() {
+            val personList = ArrayList<PersonEntity>()
+            for (index in 0 until 10) {
+                personList.add(PersonEntity("测试$index", 20 + index, if (index % 2 == 0) 0 else 1, 160f, 175f))
+            }
+            invokeJsCallback("javascript:getPersonJsonArrayResult(\'${gson.toJson(personList)}\')")
+        }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -56,7 +69,7 @@ class WebViewActivity : Activity() {
             layoutWebViewActivityBinding.webViewContainer.addView(it)
             Log.i(TAG, "--------------create main web-----------------")
         }
-        mainWebView?.loadUrl("file:///android_asset/index_intercept_request.html")
+        mainWebView?.loadUrl("file:///android_asset/index.html")
     }
 
     @SuppressLint("JavascriptInterface", "SetJavaScriptEnabled")
@@ -179,6 +192,10 @@ class WebViewActivity : Activity() {
             mainWebView?.canGoBack() == true -> mainWebView?.goBack()
             else -> super.onBackPressed()
         }
+    }
+
+    private fun invokeJsCallback(script: String) {
+        mainWebView?.run { runOnUiThread { loadUrl(script) } }
     }
 
     private fun destroyMainWebView() {

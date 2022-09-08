@@ -12,14 +12,22 @@
            JsInteractive.jsCallAndroidWithParams('Js params to android')
         }
 
+        function getPersonJsonArray(){
+           JsInteractive.getPersonJsonArray()
+        }
+
         function androidCallJsWithParams(arg){
            document.getElementById("message").innerHTML += (arg);
+        }
+
+        function getPersonJsonArrayResult(personJsonArray){
+           document.getElementById("message").innerHTML = 'receive: getPersonJsonArrayResult personJsonArray:'+(personJsonArray)+' , parse:'+ (JSON.parse(personJsonArray))+' , stringify:'+ (JSON.stringify(JSON.parse(personJsonArray)));
         }
     </script>
 </head>
 <body>
-<div>
-    <p id='message'>receive:</p>
+<div style="position:relative;left:40px;top:150px">
+    <p id='message' style="font-size:24px">receive:</p>
     <button type="button" style="width:280px;height:88px;font-size:24px"
             onclick="jsCallAndroid()">
         jsCallAndroid
@@ -27,6 +35,12 @@
     <button type="button" style="width:280px;height:88px;font-size:24px;position:relative;left:20px"
             onclick="jsCallAndroidWithParams()">
         jsCallAndroidWithParams
+    </button>
+</div>
+<div style="position:relative;left:40px;top:170px">
+    <button type="button" style="width:280px;height:88px;font-size:24px"
+            onclick="getPersonJsonArray()">
+        getPersonJsonArray
     </button>
 </div>
 </body>

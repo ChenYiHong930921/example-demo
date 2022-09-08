@@ -5,4 +5,6 @@ interface JsInteractive {
     fun jsCallAndroid()
 
     fun jsCallAndroidWithParams(params: String)
+
+    fun getPersonJsonArray()
 }
