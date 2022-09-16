@@ -1,7 +1,6 @@
 package com.chenyihong.exampledemo.fullscreen
 
 import android.os.Bundle
-import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat

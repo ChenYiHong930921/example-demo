@@ -26,7 +26,7 @@ class CustomViewActivity : AppCompatActivity() {
 
     private var onRight: Boolean = true
 
-    private var dragView: View? = null;
+    private var dragView: View? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -98,7 +98,7 @@ class CustomViewActivity : AppCompatActivity() {
                     dragView?.visibility = View.INVISIBLE
                 }
                 DragEvent.ACTION_DROP -> {
-                    val height: Int = dragView?.height ?: 0 / 2
+                    val height: Int = (dragView?.height ?: 0) / 2
 
                     onRight = event.x >= widthPixels / 2
 

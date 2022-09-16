@@ -1,7 +1,6 @@
 package com.chenyihong.exampledemo.web
 
 import android.annotation.SuppressLint
-import android.app.Activity
 import android.graphics.Bitmap
 import android.os.Bundle
 import android.os.Message
@@ -9,6 +8,8 @@ import android.util.Log
 import android.view.View
 import android.webkit.*
 import android.widget.FrameLayout
+import androidx.activity.OnBackPressedCallback
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.WindowInsetsControllerCompat
@@ -20,7 +21,7 @@ import com.google.gson.Gson
 
 const val TAG = "WebsiteTest"
 
-class WebViewActivity : Activity() {
+class WebViewActivity : AppCompatActivity() {
 
     private lateinit var layoutWebViewActivityBinding: LayoutWebViewActivityBinding
 
@@ -60,7 +61,17 @@ class WebViewActivity : Activity() {
         val insetsController = WindowCompat.getInsetsController(window, window.decorView)
         insetsController.systemBarsBehavior = WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
         insetsController.hide(WindowInsetsCompat.Type.systemBars())
-        layoutWebViewActivityBinding.ivBack.setOnClickListener { onBackPressed() }
+        onBackPressedDispatcher.addCallback(object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                when {
+                    newWebView?.canGoBack() == true -> newWebView?.goBack()
+                    newWebView != null -> destroyNewWebView()
+                    mainWebView?.canGoBack() == true -> mainWebView?.goBack()
+                    else -> onBackPressedDispatcher.onBackPressed()
+                }
+            }
+        })
+        layoutWebViewActivityBinding.ivBack.setOnClickListener { onBackPressedDispatcher.onBackPressed() }
         layoutWebViewActivityBinding.btnAndroidCallJs.setOnClickListener { mainWebView?.loadUrl("javascript:androidCallJsWithParams(true)") }
         mainWebView = WebView(this)
         mainWebView?.let {
@@ -183,15 +194,6 @@ class WebViewActivity : Activity() {
         destroyMainWebView()
         destroyNewWebView()
         super.onDestroy()
-    }
-
-    override fun onBackPressed() {
-        when {
-            newWebView?.canGoBack() == true -> newWebView?.goBack()
-            newWebView != null -> destroyNewWebView()
-            mainWebView?.canGoBack() == true -> mainWebView?.goBack()
-            else -> super.onBackPressed()
-        }
     }
 
     private fun invokeJsCallback(script: String) {

@@ -199,7 +199,6 @@ class TripartiteLoginActivity : AppCompatActivity() {
         try {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
                 val info = packageManager.getPackageInfo(packageName, PackageManager.GET_SIGNING_CERTIFICATES)
-
                 val signingInfo = info.signingInfo
                 val apkContentsSigners = signingInfo.apkContentsSigners
 

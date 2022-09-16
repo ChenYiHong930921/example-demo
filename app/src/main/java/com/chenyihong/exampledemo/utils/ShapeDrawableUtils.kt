@@ -13,7 +13,7 @@ object ShapeDrawableUtils {
      */
     @JvmStatic
     fun getRectAngleGradientDrawable(radius: Float, backgroundColor: Int): GradientDrawable {
-        return getRectAngleGradientDrawable(radius, backgroundColor, 0, 0, true, true, true, true)
+        return getRectAngleGradientDrawable(radius, backgroundColor, 0, 0, true, needRightTopCorner = true, needRightBottomCorner = true, needLeftBottomCorner = true)
     }
 
     /**

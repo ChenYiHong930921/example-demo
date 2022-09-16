@@ -2,13 +2,7 @@ package com.chenyihong.exampledemo.gesturedetector
 
 import android.annotation.SuppressLint
 import android.content.Intent
-import android.media.audiofx.LoudnessEnhancer
 import android.os.Bundle
-import android.util.Log
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowCompat
-import androidx.core.view.WindowInsetsCompat
-import androidx.core.view.WindowInsetsControllerCompat
 import androidx.databinding.DataBindingUtil
 import com.chenyihong.exampledemo.R
 import com.chenyihong.exampledemo.databinding.LayoutGestureDetectorActivityBinding

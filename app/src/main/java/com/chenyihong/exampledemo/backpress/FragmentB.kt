@@ -11,7 +11,6 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import com.chenyihong.exampledemo.R
 import com.chenyihong.exampledemo.databinding.LayoutBackPressApiFragmentBinding
-import com.chenyihong.exampledemo.fragmentresultapi.FragmentA
 
 class FragmentB : Fragment() {
 

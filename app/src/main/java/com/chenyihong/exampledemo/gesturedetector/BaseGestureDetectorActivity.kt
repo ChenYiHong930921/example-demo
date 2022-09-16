@@ -22,7 +22,7 @@ open class BaseGestureDetectorActivity : AppCompatActivity() {
                 if (it < 100 || it > widthPixels - 100) {
                     //判定x轴移动的距离大于y轴移动的距离
                     if (distantX > distantY) {
-                        onBackPressed()
+                        onBackPressedDispatcher.onBackPressed()
                     }
                 }
             }

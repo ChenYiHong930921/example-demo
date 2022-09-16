@@ -362,7 +362,7 @@ object DateUtils {
     @JvmStatic
     @SuppressLint("SimpleDateFormat")
     fun getAgeFromBirthTime(birthDayStr: String?): String {
-        if (birthDayStr.isNullOrEmpty() || birthDayStr.isNullOrBlank()) {
+        if (birthDayStr.isNullOrEmpty() || birthDayStr.isBlank()) {
             return "-"
         }
         var date: Date? = null
