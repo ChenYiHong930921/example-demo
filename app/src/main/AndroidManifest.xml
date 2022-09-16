@@ -125,6 +125,10 @@
             android:name=".downloadablefont.DownloadableFontActivity"
             android:screenOrientation="portrait" />
 
+        <activity
+            android:name=".gps.GpsSignalActivity"
+            android:screenOrientation="portrait" />
+
         <!--Meta-->
         <activity
             android:name="com.facebook.FacebookActivity"

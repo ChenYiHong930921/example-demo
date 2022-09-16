@@ -14,6 +14,7 @@ import com.chenyihong.exampledemo.entity.OptionEntity
 import com.chenyihong.exampledemo.fragmentresultapi.FragmentResultApiActivity
 import com.chenyihong.exampledemo.fullscreen.FullScreenExampleActivity
 import com.chenyihong.exampledemo.gesturedetector.GestureDetectorAActivity
+import com.chenyihong.exampledemo.gps.GpsSignalActivity
 import com.chenyihong.exampledemo.resultapi.ResultApiActivity
 import com.chenyihong.exampledemo.share.ShareActivity
 import com.chenyihong.exampledemo.tripartitelogin.TripartiteLoginActivity
@@ -37,8 +38,8 @@ class HomeActivity : AppCompatActivity() {
             OptionEntity("DownloadableFont", DownloadableFontActivity::class.java),
             OptionEntity("JsAndroidInteraction", WebViewActivity::class.java),
             OptionEntity("TripartiteLogin", TripartiteLoginActivity::class.java),
-            OptionEntity("Share", ShareActivity::class.java))
-
+            OptionEntity("Share", ShareActivity::class.java),
+            OptionEntity("GpsSignal", GpsSignalActivity::class.java))
 
         val optionAdapter = OptionAdapter()
         binding.rvOption.adapter = optionAdapter
