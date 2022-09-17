@@ -23,6 +23,8 @@ import androidx.core.location.LocationManagerCompat
 import androidx.databinding.DataBindingUtil
 import com.chenyihong.exampledemo.R
 import com.chenyihong.exampledemo.databinding.LayoutGpsSignalActivityBinding
+import java.text.SimpleDateFormat
+import java.util.Calendar
 
 const val TAG = "GpsSignal"
 
@@ -62,8 +64,10 @@ class GpsSignalActivity : AppCompatActivity() {
     }
 
     private var gnssStatusListenerAdded: Boolean = false
+    @SuppressLint("SetTextI18n", "SimpleDateFormat")
     private val locationListener = LocationListener {
         Log.i(TAG, "receiver callback location$it")
+        binding.tvLocation.run { post { text = "time ：${SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(Calendar.getInstance().time)}\nlongitude ：${it.longitude}，latitude ：${it.latitude}" } }
     }
     private val gnssStatusListener = object : GnssStatusCompat.Callback() {
         @SuppressLint("SetTextI18n")
@@ -71,19 +75,22 @@ class GpsSignalActivity : AppCompatActivity() {
             super.onSatelliteStatusChanged(status)
             val satelliteCount = status.satelliteCount
             Log.i(TAG, "satelliteCount:$satelliteCount")
-            var availableSatelliteCount = 0
+            var cn0DbHz30SatelliteCount = 0
+            var cn0DbHz37SatelliteCount = 0
+            var satelliteInfo = ""
             for (index in 0 until satelliteCount) {
                 val cn0DbHz = status.getCn0DbHz(index)
-                val basebandCn0DbHz = status.getBasebandCn0DbHz(index)
-                Log.i(TAG, "cn0DbHz:$cn0DbHz")
-                Log.i(TAG, "basebandCn0DbHz:$basebandCn0DbHz")
+                satelliteInfo += "svid:${status.getSvid(index)},cn0DbHz:$cn0DbHz\n"
+                if (cn0DbHz >= 30) {
+                    cn0DbHz30SatelliteCount++
+                }
                 if (cn0DbHz >= 37) {
-                    availableSatelliteCount++
+                    cn0DbHz37SatelliteCount++
                 }
             }
-            Log.i(TAG, "availableSatelliteCount:$availableSatelliteCount")
             binding.tvTotalSatelliteCount.run { post { text = "total satellite count ：$satelliteCount" } }
-            binding.tvAvailableSatelliteCount.run { post { text = "available satellite count ：$availableSatelliteCount" } }
+            binding.tvAvailableSatelliteCount.run { post { text = "cno >37 count ：$cn0DbHz37SatelliteCount\ncno >30 count ：$cn0DbHz30SatelliteCount" } }
+            binding.tvSatelliteInfo.run { post { text = "satellite info ：\n$satelliteInfo" } }
         }
     }
 
@@ -93,12 +100,13 @@ class GpsSignalActivity : AppCompatActivity() {
         locationManager = getSystemService(Context.LOCATION_SERVICE) as LocationManager
 
         binding.btnDetect.setOnClickListener {
-            checkLocationPermission()
-            if (!locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
-                val intent = Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS)
-                startActivity(intent)
-            } else {
-                locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 2000, 5.toFloat(), locationListener)
+            if (checkLocationPermission()) {
+                if (!locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
+                    val intent = Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS)
+                    startActivity(intent)
+                } else {
+                    locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 2000, 5.toFloat(), locationListener)
+                }
             }
         }
         binding.btnStopDetect.setOnClickListener {
@@ -106,14 +114,15 @@ class GpsSignalActivity : AppCompatActivity() {
         }
     }
 
-    private fun checkLocationPermission() {
+    private fun checkLocationPermission(): Boolean {
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED ||
             ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED
         ) {
             registerGnssStatusListener()
+            return true
         } else {
             requestMultiplePermissionsLauncher.launch(arrayOf(Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION))
-            return
+            return false
         }
     }
 
