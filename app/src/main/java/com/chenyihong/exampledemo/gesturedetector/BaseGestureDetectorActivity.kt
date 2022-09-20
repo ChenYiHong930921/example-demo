@@ -1,6 +1,7 @@
 package com.chenyihong.exampledemo.gesturedetector
 
 import android.os.Bundle
+import android.util.Log
 import android.view.GestureDetector
 import android.view.MotionEvent
 import androidx.appcompat.app.AppCompatActivity
@@ -17,6 +18,7 @@ open class BaseGestureDetectorActivity : AppCompatActivity() {
         override fun onFling(e1: MotionEvent, e2: MotionEvent, velocityX: Float, velocityY: Float): Boolean {
             val distantX = abs(e2.x - e1.x)
             val distantY = abs(e2.y - e1.y)
+            Log.i(TAG, "onFling distantX:$distantX, distantY:$distantY")
             e1.x.let {
                 //判定按下的落点是屏幕的边缘
                 if (it < 100 || it > widthPixels - 100) {

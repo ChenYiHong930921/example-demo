@@ -1,10 +1,10 @@
 package com.chenyihong.exampledemo.downloadablefont
 
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
 import com.chenyihong.exampledemo.R
+import com.chenyihong.exampledemo.gesturedetector.BaseGestureDetectorActivity
 
-class DownloadableFontActivity : AppCompatActivity() {
+class DownloadableFontActivity : BaseGestureDetectorActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

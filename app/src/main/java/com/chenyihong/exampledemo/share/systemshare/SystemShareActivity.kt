@@ -5,10 +5,10 @@ import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import com.chenyihong.exampledemo.R
 import com.chenyihong.exampledemo.databinding.LayoutSystemShareActivityBinding
+import com.chenyihong.exampledemo.gesturedetector.BaseGestureDetectorActivity
 import com.chenyihong.exampledemo.resultapi.custom.MultipleLauncherOptions
 import com.chenyihong.exampledemo.resultapi.custom.PickMultipleMediumContract
 import com.chenyihong.exampledemo.resultapi.custom.PickSingleMediumContract
@@ -16,7 +16,7 @@ import com.chenyihong.exampledemo.share.MimeType
 
 const val TAG = "SystemShare"
 
-class SystemShareActivity : AppCompatActivity() {
+class SystemShareActivity : BaseGestureDetectorActivity() {
 
     private val forActivityResultLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { activityResult ->
         Log.i(TAG, "launcher callback value : resultCode:${activityResult.resultCode} data${activityResult.data}")

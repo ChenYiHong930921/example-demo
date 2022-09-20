@@ -1,13 +1,13 @@
 package com.chenyihong.exampledemo.fullscreen
 
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.*
 import androidx.databinding.DataBindingUtil
 import com.chenyihong.exampledemo.R
 import com.chenyihong.exampledemo.databinding.LayoutFullScreenActivityBinding
+import com.chenyihong.exampledemo.gesturedetector.BaseGestureDetectorActivity
 
-class FullScreenActivity : AppCompatActivity() {
+class FullScreenActivity : BaseGestureDetectorActivity() {
 
     lateinit var binding: LayoutFullScreenActivityBinding
 

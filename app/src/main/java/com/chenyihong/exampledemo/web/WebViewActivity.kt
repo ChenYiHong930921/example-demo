@@ -9,7 +9,6 @@ import android.view.View
 import android.webkit.*
 import android.widget.FrameLayout
 import androidx.activity.OnBackPressedCallback
-import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.WindowInsetsControllerCompat
@@ -17,11 +16,12 @@ import androidx.databinding.DataBindingUtil
 import com.chenyihong.exampledemo.R
 import com.chenyihong.exampledemo.databinding.LayoutWebViewActivityBinding
 import com.chenyihong.exampledemo.entity.PersonEntity
+import com.chenyihong.exampledemo.gesturedetector.BaseGestureDetectorActivity
 import com.google.gson.Gson
 
 const val TAG = "WebsiteTest"
 
-class WebViewActivity : AppCompatActivity() {
+class WebViewActivity : BaseGestureDetectorActivity() {
 
     private lateinit var layoutWebViewActivityBinding: LayoutWebViewActivityBinding
 
@@ -63,11 +63,12 @@ class WebViewActivity : AppCompatActivity() {
         insetsController.hide(WindowInsetsCompat.Type.systemBars())
         onBackPressedDispatcher.addCallback(object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
+                Log.i(TAG, "mainWebView canGoBack:${mainWebView?.canGoBack()}")
                 when {
                     newWebView?.canGoBack() == true -> newWebView?.goBack()
                     newWebView != null -> destroyNewWebView()
                     mainWebView?.canGoBack() == true -> mainWebView?.goBack()
-                    else -> onBackPressedDispatcher.onBackPressed()
+                    else -> finish()
                 }
             }
         })

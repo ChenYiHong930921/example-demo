@@ -2,12 +2,12 @@ package com.chenyihong.exampledemo.fullscreen
 
 import android.content.Intent
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import com.chenyihong.exampledemo.R
 import com.chenyihong.exampledemo.databinding.LayoutFullScreenExampleActivityBinding
+import com.chenyihong.exampledemo.gesturedetector.BaseGestureDetectorActivity
 
-class FullScreenExampleActivity :AppCompatActivity() {
+class FullScreenExampleActivity : BaseGestureDetectorActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

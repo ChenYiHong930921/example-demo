@@ -4,13 +4,13 @@ import android.annotation.SuppressLint
 import android.os.Bundle
 import android.util.Log
 import androidx.databinding.DataBindingUtil
-import androidx.fragment.app.FragmentActivity
 import com.chenyihong.exampledemo.R
 import com.chenyihong.exampledemo.databinding.LayoutFragmentResultApiActivityBinding
+import com.chenyihong.exampledemo.gesturedetector.BaseGestureDetectorActivity
 
 const val TAG = "FragmentResultAPI"
 
-class FragmentResultApiActivity : FragmentActivity() {
+class FragmentResultApiActivity : BaseGestureDetectorActivity() {
 
     private val canonicalName = this::class.java.canonicalName!!
 

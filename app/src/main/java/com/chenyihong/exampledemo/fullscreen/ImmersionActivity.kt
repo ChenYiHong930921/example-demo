@@ -1,15 +1,15 @@
 package com.chenyihong.exampledemo.fullscreen
 
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.core.view.*
 import androidx.databinding.DataBindingUtil
 import com.chenyihong.exampledemo.R
 import com.chenyihong.exampledemo.databinding.LayoutImmersionActivityBinding
+import com.chenyihong.exampledemo.gesturedetector.BaseGestureDetectorActivity
 
-class ImmersionActivity : AppCompatActivity() {
+class ImmersionActivity : BaseGestureDetectorActivity() {
 
     private lateinit var windowInsetsController: WindowInsetsControllerCompat
 

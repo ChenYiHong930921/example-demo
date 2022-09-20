@@ -16,19 +16,19 @@ import android.os.Looper
 import android.provider.Settings
 import android.util.Log
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.location.GnssStatusCompat
 import androidx.core.location.LocationManagerCompat
 import androidx.databinding.DataBindingUtil
 import com.chenyihong.exampledemo.R
 import com.chenyihong.exampledemo.databinding.LayoutGpsSignalActivityBinding
+import com.chenyihong.exampledemo.gesturedetector.BaseGestureDetectorActivity
 import java.text.SimpleDateFormat
 import java.util.Calendar
 
 const val TAG = "GpsSignal"
 
-class GpsSignalActivity : AppCompatActivity() {
+class GpsSignalActivity : BaseGestureDetectorActivity() {
 
     private lateinit var binding: LayoutGpsSignalActivityBinding
     private lateinit var locationManager: LocationManager

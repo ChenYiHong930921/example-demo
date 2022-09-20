@@ -3,10 +3,10 @@ package com.chenyihong.exampledemo.share.tripartiteshare
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
-import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import com.chenyihong.exampledemo.R
 import com.chenyihong.exampledemo.databinding.LayoutFacebookShareActivityBinding
+import com.chenyihong.exampledemo.gesturedetector.BaseGestureDetectorActivity
 import com.chenyihong.exampledemo.resultapi.custom.MultipleLauncherOptions
 import com.chenyihong.exampledemo.resultapi.custom.PickMultipleMediumContract
 import com.chenyihong.exampledemo.resultapi.custom.PickSingleMediumContract
@@ -18,10 +18,9 @@ import com.facebook.share.Sharer
 import com.facebook.share.model.*
 import com.facebook.share.widget.ShareDialog
 
-
 const val TAG = "FacebookShare"
 
-class FacebookShareActivity : AppCompatActivity() {
+class FacebookShareActivity : BaseGestureDetectorActivity() {
 
     private val singleMediumPicker = registerForActivityResult(PickSingleMediumContract()) { uri ->
         if (uri != null) {

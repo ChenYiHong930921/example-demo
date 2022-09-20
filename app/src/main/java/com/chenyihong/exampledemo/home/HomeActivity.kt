@@ -1,7 +1,6 @@
 package com.chenyihong.exampledemo.home
 
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import com.chenyihong.exampledemo.R
 import com.chenyihong.exampledemo.backpress.BackPressApiActivity
@@ -13,14 +12,16 @@ import com.chenyihong.exampledemo.downloadablefont.DownloadableFontActivity
 import com.chenyihong.exampledemo.entity.OptionEntity
 import com.chenyihong.exampledemo.fragmentresultapi.FragmentResultApiActivity
 import com.chenyihong.exampledemo.fullscreen.FullScreenExampleActivity
+import com.chenyihong.exampledemo.gesturedetector.BaseGestureDetectorActivity
 import com.chenyihong.exampledemo.gesturedetector.GestureDetectorAActivity
 import com.chenyihong.exampledemo.gps.GpsSignalActivity
 import com.chenyihong.exampledemo.resultapi.ResultApiActivity
+import com.chenyihong.exampledemo.setting.SettingActivity
 import com.chenyihong.exampledemo.share.ShareActivity
 import com.chenyihong.exampledemo.tripartitelogin.TripartiteLoginActivity
 import com.chenyihong.exampledemo.web.WebViewActivity
 
-class HomeActivity : AppCompatActivity() {
+class HomeActivity : BaseGestureDetectorActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,6 +37,7 @@ class HomeActivity : AppCompatActivity() {
             OptionEntity("Gesture Detector Api", GestureDetectorAActivity::class.java),
             OptionEntity("BiometricApi", BiometricActivity::class.java),
             OptionEntity("DownloadableFont", DownloadableFontActivity::class.java),
+            OptionEntity("Preference Api", SettingActivity::class.java),
             OptionEntity("JsAndroidInteraction", WebViewActivity::class.java),
             OptionEntity("TripartiteLogin", TripartiteLoginActivity::class.java),
             OptionEntity("Share", ShareActivity::class.java),

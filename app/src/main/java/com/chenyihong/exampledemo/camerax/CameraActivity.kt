@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.os.Environment
 import android.util.Log
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.appcompat.app.AppCompatActivity
 import androidx.camera.core.*
 
 import androidx.camera.lifecycle.ProcessCameraProvider
@@ -14,10 +13,11 @@ import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import com.chenyihong.exampledemo.R
 import com.chenyihong.exampledemo.databinding.LayoutCameraActivityBinding
+import com.chenyihong.exampledemo.gesturedetector.BaseGestureDetectorActivity
 
 import java.io.File
 
-class CameraActivity : AppCompatActivity() {
+class CameraActivity : BaseGestureDetectorActivity() {
 
     private lateinit var binding: LayoutCameraActivityBinding
 

@@ -8,19 +8,19 @@ import android.util.DisplayMetrics
 import android.view.DragEvent
 import android.view.View
 import android.view.ViewOutlineProvider
-import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import com.chenyihong.exampledemo.R
 import com.chenyihong.exampledemo.databinding.LayoutCustomViewActivityBinding
+import com.chenyihong.exampledemo.gesturedetector.BaseGestureDetectorActivity
 import com.chenyihong.exampledemo.utils.DensityUtil
 import com.chenyihong.exampledemo.utils.ShapeDrawableUtils
 import com.chenyihong.exampledemo.view.ShadowView
 import com.chenyihong.exampledemo.view.TO_LEFT
 import com.chenyihong.exampledemo.view.TO_RIGHT
 
-class CustomViewActivity : AppCompatActivity() {
+class CustomViewActivity : BaseGestureDetectorActivity() {
 
     private lateinit var binding: LayoutCustomViewActivityBinding
 

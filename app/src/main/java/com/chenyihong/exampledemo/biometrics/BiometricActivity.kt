@@ -9,7 +9,6 @@ import android.provider.Settings
 import android.util.Log
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
-import androidx.appcompat.app.AppCompatActivity
 import androidx.biometric.BiometricManager
 import androidx.biometric.BiometricManager.Authenticators.*
 import androidx.biometric.BiometricPrompt
@@ -17,12 +16,13 @@ import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import com.chenyihong.exampledemo.R
 import com.chenyihong.exampledemo.databinding.LayoutBiometricActivityBinding
+import com.chenyihong.exampledemo.gesturedetector.BaseGestureDetectorActivity
 import java.nio.charset.Charset
 import java.util.*
 
 const val TAG = "BiometricApi"
 
-class BiometricActivity : AppCompatActivity() {
+class BiometricActivity : BaseGestureDetectorActivity() {
 
     private val forActivityResultLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { activityResult ->
         Log.i(TAG, "launcher callback value : resultCode:${activityResult.resultCode} data${activityResult.data}")

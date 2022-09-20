@@ -8,7 +8,6 @@ import android.os.Environment
 import android.util.Log
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.FileProvider
 import androidx.databinding.DataBindingUtil
 import com.chenyihong.exampledemo.BuildConfig
@@ -16,11 +15,12 @@ import com.chenyihong.exampledemo.R
 import com.chenyihong.exampledemo.resultapi.custom.PickMultipleMediumContract
 import com.chenyihong.exampledemo.resultapi.custom.PickSingleMediumContract
 import com.chenyihong.exampledemo.databinding.LayoutResultApiActivityBinding
+import com.chenyihong.exampledemo.gesturedetector.BaseGestureDetectorActivity
 import java.io.File
 
 const val TAG = "ResultApi"
 
-class ResultApiActivity : AppCompatActivity() {
+class ResultApiActivity : BaseGestureDetectorActivity() {
 
     private lateinit var binding: LayoutResultApiActivityBinding
 

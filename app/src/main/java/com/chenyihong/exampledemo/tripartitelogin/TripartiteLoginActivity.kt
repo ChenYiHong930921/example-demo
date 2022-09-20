@@ -10,10 +10,10 @@ import android.util.Log
 import android.widget.Toast
 import androidx.activity.result.IntentSenderRequest
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import com.chenyihong.exampledemo.R
 import com.chenyihong.exampledemo.databinding.LayoutTripartiteLoginActivityBinding
+import com.chenyihong.exampledemo.gesturedetector.BaseGestureDetectorActivity
 import com.facebook.*
 import com.facebook.login.LoginManager
 import com.facebook.login.LoginResult
@@ -27,7 +27,7 @@ import java.security.NoSuchAlgorithmException
 
 const val TAG = "TripartiteLogin"
 
-class TripartiteLoginActivity : AppCompatActivity() {
+class TripartiteLoginActivity : BaseGestureDetectorActivity() {
 
     private val googleLoginLauncher = registerForActivityResult(ActivityResultContracts.StartIntentSenderForResult()) { result ->
         Log.i(TAG, "google login get account info result.resultCode:${result.resultCode}")

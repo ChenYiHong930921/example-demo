@@ -2,14 +2,14 @@ package com.chenyihong.exampledemo.share
 
 import android.content.Intent
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import com.chenyihong.exampledemo.R
 import com.chenyihong.exampledemo.databinding.LayoutShareActivityBinding
+import com.chenyihong.exampledemo.gesturedetector.BaseGestureDetectorActivity
 import com.chenyihong.exampledemo.share.systemshare.SystemShareActivity
 import com.chenyihong.exampledemo.share.tripartiteshare.FacebookShareActivity
 
-class ShareActivity : AppCompatActivity() {
+class ShareActivity : BaseGestureDetectorActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
