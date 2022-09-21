@@ -10,9 +10,16 @@
         <item name="colorSecondaryVariant">@color/teal_200</item>
         <item name="colorOnSecondary">@color/black</item>
         <!-- Status bar color. -->
-        <item name="android:statusBarColor" >?attr/colorPrimaryVariant</item>
-<!--        <item name="android:statusBarColor">@android:color/transparent</item>-->
-<!--        <item name="android:navigationBarColor">@android:color/transparent</item>-->
+        <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
+        <!--        <item name="android:statusBarColor">@android:color/transparent</item>-->
+        <!--        <item name="android:navigationBarColor">@android:color/transparent</item>-->
         <!-- Customize your theme here. -->
+    </style>
+
+    <style name="PreferenceCategoryTitleTextStyle" tools:override="true">
+        <item name="android:textAppearance">?attr/preferenceCategoryTitleTextAppearance</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:fontFamily">@font/noto_serif_bold</item>
+        <item name="android:textColor">@color/color_blue_0083ff</item>
     </style>
 </resources>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <PreferenceCategory
+        android:key="user_info"
+        android:title="User Info">
+
+        <EditTextPreference
+            android:key="user_info_nick_name"
+            app:title="Nickname" />
+
+        <EditTextPreference
+            android:key="user_info_real_name"
+            app:title="Real name" />
+
+        <EditTextPreference
+            android:key="user_info_age"
+            app:title="Age" />
+
+        <ListPreference
+            android:entries="@array/gender"
+            android:entryValues="@array/gender"
+            android:key="user_info_gender"
+            app:title="Gender"
+            app:useSimpleSummaryProvider="true" />
+    </PreferenceCategory>
+</PreferenceScreen>

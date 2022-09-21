@@ -17,6 +17,7 @@
     </queries>
 
     <application
+        android:name=".ExampleApplication"
         android:allowBackup="false"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/full_backup_content"
@@ -127,6 +128,10 @@
 
         <activity
             android:name=".gps.GpsSignalActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".setting.SettingActivity"
             android:screenOrientation="portrait" />
 
         <!--Meta-->

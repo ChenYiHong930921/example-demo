@@ -53,4 +53,9 @@
         <!--背景颜色-->
         <attr name="tc_background_color" format="color" />
     </declare-styleable>
+
+    <string-array name="gender">
+        <item>Male</item>
+        <item>Female</item>
+    </string-array>
 </resources>

@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <PreferenceCategory
+        android:key="app_setting"
+        android:title="App Setting">
+
+        <SwitchPreferenceCompat
+            android:icon="@drawable/notification"
+            android:key="notifications_open_status"
+            android:title="Enable Notifications"
+            app:summary="Turn on notifications to receive application messages" />
+
+        <Preference
+            android:fragment="com.chenyihong.exampledemo.setting.HelperFragment"
+            android:key="help"
+            android:summary="View FAQ or contact customer service"
+            app:title="Help Center" />
+
+        <Preference
+            android:key="system_system"
+            android:summary="Modify system settings"
+            app:title="System Setting" />
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:key="user_categore"
+        android:title="Account">
+
+        <Preference
+            android:fragment="com.chenyihong.exampledemo.setting.UserInfoFragment"
+            android:key="user_info"
+            android:summary="Modify and view user information"
+            app:title="User Info" />
+
+        <SwitchPreferenceCompat
+            android:icon="@drawable/login"
+            android:key="auto_login_enable"
+            android:summary="No need to actively log in"
+            android:title="Auto Login" />
+
+        <SwitchPreferenceCompat
+            android:icon="@drawable/google"
+            android:key="google_account_bind_status"
+            android:summaryOff="Bind Google account for login"
+            android:title="Bind Google Account" />
+
+        <SwitchPreferenceCompat
+            android:icon="@drawable/facebook"
+            android:key="facebook_account_bind_status"
+            android:summaryOff="Bind Facebook account for login"
+            android:title="Bind Facebook Account" />
+
+        <Preference
+            android:key="goto_user_profile"
+            android:summary="View User Agreement page"
+            app:title="Agreement">
+            <intent
+                android:targetClass="com.chenyihong.exampledemo.web.WebViewActivity"
+                android:targetPackage="com.chenyihong.exampledemo.web" />
+        </Preference>
+    </PreferenceCategory>
+</PreferenceScreen>
