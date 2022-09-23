@@ -58,7 +58,7 @@
             app:title="Agreement">
             <intent
                 android:targetClass="com.chenyihong.exampledemo.web.WebViewActivity"
-                android:targetPackage="com.chenyihong.exampledemo.web" />
+                android:targetPackage="com.chenyihong.exampledemo" />
         </Preference>
     </PreferenceCategory>
 </PreferenceScreen>
