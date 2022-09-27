@@ -1,7 +1,6 @@
 package com.chenyihong.exampledemo.gesturedetector
 
 import android.os.Bundle
-import android.util.Log
 import android.view.GestureDetector
 import android.view.MotionEvent
 import androidx.appcompat.app.AppCompatActivity

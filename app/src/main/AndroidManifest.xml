@@ -134,6 +134,17 @@
             android:name=".setting.SettingActivity"
             android:screenOrientation="portrait" />
 
+        <activity
+            android:name="com.chenyihong.exampledemo.toolbar.ToolbarActivity"
+            android:parentActivityName="com.chenyihong.exampledemo.home.HomeActivity"
+            android:screenOrientation="portrait">
+
+            <!--适配 Android 4.0及以下的设备-->
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.chenyihong.exampledemo.home.HomeActivity" />
+        </activity>
+
         <!--Meta-->
         <activity
             android:name="com.facebook.FacebookActivity"
