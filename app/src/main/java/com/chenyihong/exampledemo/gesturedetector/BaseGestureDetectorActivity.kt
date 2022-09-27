@@ -15,10 +15,14 @@ open class BaseGestureDetectorActivity : AppCompatActivity() {
     private lateinit var gestureDetectorCompat: GestureDetectorCompat
     private var widthPixels: Int = 0
     private val simpleOnGestureListener = object : GestureDetector.SimpleOnGestureListener() {
+        override fun onDown(e: MotionEvent): Boolean {
+            onUserInteraction()
+            return e.x < 100 || e.x > resources.displayMetrics.widthPixels - 100
+        }
+
         override fun onFling(e1: MotionEvent, e2: MotionEvent, velocityX: Float, velocityY: Float): Boolean {
             val distantX = abs(e2.x - e1.x)
             val distantY = abs(e2.y - e1.y)
-            Log.i(TAG, "onFling distantX:$distantX, distantY:$distantY")
             e1.x.let {
                 //判定按下的落点是屏幕的边缘
                 if (it < 100 || it > widthPixels - 100) {
@@ -38,8 +42,12 @@ open class BaseGestureDetectorActivity : AppCompatActivity() {
         widthPixels = resources.displayMetrics.widthPixels
     }
 
-    override fun onTouchEvent(event: MotionEvent): Boolean {
-        gestureDetectorCompat.onTouchEvent(event)
-        return super.onTouchEvent(event)
+    override fun dispatchTouchEvent(ev: MotionEvent): Boolean {
+        val consumeMotionEvent = gestureDetectorCompat.onTouchEvent(ev)
+        return if (consumeMotionEvent) {
+            true
+        } else {
+            super.dispatchTouchEvent(ev)
+        }
     }
 }
