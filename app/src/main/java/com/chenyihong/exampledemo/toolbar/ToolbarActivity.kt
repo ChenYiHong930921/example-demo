@@ -19,10 +19,12 @@ class ToolbarActivity : AppCompatActivity() {
     }
 
     override fun onPrepareOptionsMenu(menu: Menu?): Boolean {
+        // 如果需要在运行时对菜单进行调整(删除或增加)，在此处理
         return super.onPrepareOptionsMenu(menu)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        // 在此处理菜单项的点击事件
         when (item.itemId) {
             R.id.action_search -> {
                 showToast("click search menu")
