@@ -16,6 +16,7 @@ import com.chenyihong.exampledemo.gesturedetector.BaseGestureDetectorActivity
 import com.chenyihong.exampledemo.gesturedetector.GestureDetectorAActivity
 import com.chenyihong.exampledemo.gps.GpsSignalActivity
 import com.chenyihong.exampledemo.resultapi.ResultApiActivity
+import com.chenyihong.exampledemo.search.SearchExampleActivity
 import com.chenyihong.exampledemo.setting.SettingActivity
 import com.chenyihong.exampledemo.share.ShareActivity
 import com.chenyihong.exampledemo.toolbar.ToolbarActivity
@@ -40,6 +41,7 @@ class HomeActivity : BaseGestureDetectorActivity() {
             OptionEntity("DownloadableFont", DownloadableFontActivity::class.java),
             OptionEntity("Preference Api", SettingActivity::class.java),
             OptionEntity("Toolbar Api", ToolbarActivity::class.java),
+            OptionEntity("Search Api", SearchExampleActivity::class.java),
             OptionEntity("JsAndroidInteraction", WebViewActivity::class.java),
             OptionEntity("TripartiteLogin", TripartiteLoginActivity::class.java),
             OptionEntity("Share", ShareActivity::class.java),

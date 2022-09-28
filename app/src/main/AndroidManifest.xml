@@ -145,6 +145,36 @@
                 android:value="com.chenyihong.exampledemo.home.HomeActivity" />
         </activity>
 
+        <activity
+            android:name=".search.SearchExampleActivity"
+            android:screenOrientation="portrait">
+
+            <!--为当前页面指定搜索页面-->
+            <meta-data
+                android:name="android.app.default_searchable"
+                android:value=".search.SearchActivity" />
+        </activity>
+
+        <activity
+            android:name=".search.SearchActivity"
+            android:exported="false"
+            android:launchMode="singleTop"
+            android:parentActivityName="com.chenyihong.exampledemo.search.SearchExampleActivity"
+            android:screenOrientation="portrait">
+
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.chenyihong.exampledemo.search.SearchExampleActivity" />
+
+            <meta-data
+                android:name="android.app.searchable"
+                android:resource="@xml/searchable" />
+
+            <intent-filter>
+                <action android:name="android.intent.action.SEARCH" />
+            </intent-filter>
+        </activity>
+
         <!--Meta-->
         <activity
             android:name="com.facebook.FacebookActivity"
