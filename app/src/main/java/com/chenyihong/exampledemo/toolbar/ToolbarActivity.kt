@@ -4,14 +4,14 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import com.chenyihong.exampledemo.R
 import com.chenyihong.exampledemo.databinding.LayoutToolbarActivityBinding
+import com.chenyihong.exampledemo.gesturedetector.BaseGestureDetectorActivity
 
 const val TAG = "ToolBalSimpleTag"
 
-class ToolbarActivity : AppCompatActivity() {
+class ToolbarActivity : BaseGestureDetectorActivity() {
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.example_menu, menu)

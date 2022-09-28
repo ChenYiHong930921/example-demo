@@ -16,7 +16,7 @@ open class BaseGestureDetectorActivity : AppCompatActivity() {
     private val simpleOnGestureListener = object : GestureDetector.SimpleOnGestureListener() {
         override fun onDown(e: MotionEvent): Boolean {
             onUserInteraction()
-            return e.x < 100 || e.x > resources.displayMetrics.widthPixels - 100
+            return e.x < 50 || e.x > resources.displayMetrics.widthPixels - 50
         }
 
         override fun onFling(e1: MotionEvent, e2: MotionEvent, velocityX: Float, velocityY: Float): Boolean {
@@ -24,7 +24,7 @@ open class BaseGestureDetectorActivity : AppCompatActivity() {
             val distantY = abs(e2.y - e1.y)
             e1.x.let {
                 //判定按下的落点是屏幕的边缘
-                if (it < 100 || it > widthPixels - 100) {
+                if (it < 50 || it > widthPixels - 50) {
                     //判定x轴移动的距离大于y轴移动的距离
                     if (distantX > distantY) {
                         onBackPressedDispatcher.onBackPressed()
