@@ -8,4 +8,9 @@
         android:title="Search"
         app:actionViewClass="androidx.appcompat.widget.SearchView"
         app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/action_clear_search_histor"
+        android:title="Clear Search History"
+        app:showAsAction="never" />
 </menu>

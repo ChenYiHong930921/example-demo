@@ -4,8 +4,10 @@ import android.app.SearchManager
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.provider.SearchRecentSuggestions
 import android.util.Log
 import android.view.Menu
+import android.view.MenuItem
 import androidx.appcompat.widget.SearchView
 import androidx.databinding.DataBindingUtil
 import com.chenyihong.exampledemo.R
@@ -42,6 +44,14 @@ class SearchActivity : BaseGestureDetectorActivity() {
         return true
     }
 
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if (item.itemId == R.id.action_clear_search_histor) {
+            SearchRecentSuggestions(this, RecentSearchProvider.AUTHORITY, RecentSearchProvider.MODE)
+                .clearHistory()
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.layout_search_activity)
@@ -75,6 +85,8 @@ class SearchActivity : BaseGestureDetectorActivity() {
             if (Intent.ACTION_SEARCH == action) {
                 val queryKey = getStringExtra(SearchManager.QUERY) ?: ""
                 if (queryKey.isNotEmpty()) {
+                    SearchRecentSuggestions(this@SearchActivity, RecentSearchProvider.AUTHORITY, RecentSearchProvider.MODE)
+                        .saveRecentQuery(queryKey, "history $queryKey")
                     if (!newIntent) {
                         lastQueryValue = queryKey
                     }

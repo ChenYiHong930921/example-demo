@@ -211,5 +211,10 @@
                 android:resource="@xml/file_path" />
 
         </provider>
+
+        <provider
+            android:name=".search.RecentSearchProvider"
+            android:authorities="com.chenyihong.exampledemo.search.RecentSearchProvider"
+            android:exported="false" />
     </application>
 </manifest>
