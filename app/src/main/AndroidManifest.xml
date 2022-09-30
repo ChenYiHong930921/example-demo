@@ -212,6 +212,7 @@
 
         </provider>
 
+        <!--android:authorities的值与RecentSearchProvider中的AUTHORITY一致-->
         <provider
             android:name=".search.RecentSearchProvider"
             android:authorities="com.chenyihong.exampledemo.search.RecentSearchProvider"
