@@ -9,7 +9,7 @@
             android:id="@+id/include_title"
             layout="@layout/layout_title" />
 
-        <com.chenyihong.exampledemo.view.ShadowView
+        <com.chenyihong.exampledemo.customview.view.ShadowView
             android:id="@+id/v_shadow_test_shadow_layer"
             android:layout_width="82dp"
             android:layout_height="54dp"

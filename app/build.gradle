@@ -85,12 +85,12 @@ dependencies {
     implementation("com.google.android.gms:play-services-auth:20.3.0")
 
     //Meta login
-    implementation("com.facebook.android:facebook-login:14.1.1")
+    implementation("com.facebook.android:facebook-login:15.0.1")
     //Mate share
-    implementation("com.facebook.android:facebook-share:14.1.1")
+    implementation("com.facebook.android:facebook-share:15.0.1")
 
     //Biometric
-    implementation("androidx.biometric:biometric:1.2.0-alpha04")
+    implementation("androidx.biometric:biometric:1.2.0-alpha05")
 
     //datastore
     implementation("androidx.datastore:datastore-preferences:1.0.0")

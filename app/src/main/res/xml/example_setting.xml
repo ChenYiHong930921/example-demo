@@ -13,7 +13,7 @@
             app:summary="Turn on notifications to receive application messages" />
 
         <Preference
-            android:fragment="com.chenyihong.exampledemo.setting.HelperFragment"
+            android:fragment="com.chenyihong.exampledemo.androidapi.setting.HelperFragment"
             android:key="help"
             android:summary="View FAQ or contact customer service"
             app:title="Help Center" />
@@ -29,7 +29,7 @@
         android:title="Account">
 
         <Preference
-            android:fragment="com.chenyihong.exampledemo.setting.UserInfoFragment"
+            android:fragment="com.chenyihong.exampledemo.androidapi.setting.UserInfoFragment"
             android:key="user_info"
             android:summary="Modify and view user information"
             app:title="User Info" />

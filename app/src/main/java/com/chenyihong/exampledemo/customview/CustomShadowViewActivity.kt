@@ -14,12 +14,12 @@ import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import com.chenyihong.exampledemo.R
 import com.chenyihong.exampledemo.databinding.LayoutCustomShadowViewActivityBinding
-import com.chenyihong.exampledemo.gesturedetector.BaseGestureDetectorActivity
+import com.chenyihong.exampledemo.androidapi.gesturedetector.BaseGestureDetectorActivity
 import com.chenyihong.exampledemo.utils.DensityUtil
 import com.chenyihong.exampledemo.utils.ShapeDrawableUtils
-import com.chenyihong.exampledemo.view.ShadowView
-import com.chenyihong.exampledemo.view.TO_LEFT
-import com.chenyihong.exampledemo.view.TO_RIGHT
+import com.chenyihong.exampledemo.customview.view.ShadowView
+import com.chenyihong.exampledemo.customview.view.TO_LEFT
+import com.chenyihong.exampledemo.customview.view.TO_RIGHT
 
 class CustomShadowViewActivity : BaseGestureDetectorActivity() {
 

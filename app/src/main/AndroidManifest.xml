@@ -17,7 +17,7 @@
     </queries>
 
     <application
-        android:name=".ExampleApplication"
+        android:name=".base.ExampleApplication"
         android:allowBackup="false"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/full_backup_content"
@@ -63,31 +63,31 @@
             android:screenOrientation="portrait" />
 
         <activity
-            android:name=".resultapi.ResultApiActivity"
+            android:name=".androidapi.resultapi.ResultApiActivity"
             android:screenOrientation="portrait" />
 
         <activity
-            android:name=".camerax.CameraActivity"
+            android:name=".androidapi.camerax.CameraActivity"
             android:screenOrientation="portrait" />
 
         <activity
-            android:name=".tripartitelogin.TripartiteLoginActivity"
+            android:name=".tripartite.login.TripartiteLoginActivity"
             android:screenOrientation="portrait" />
 
         <activity
-            android:name=".share.systemshare.SystemShareActivity"
+            android:name=".androidapi.sharesheet.SystemShareActivity"
             android:screenOrientation="portrait" />
 
         <activity
-            android:name="com.chenyihong.exampledemo.share.TripartiteShareActivity"
+            android:name="com.chenyihong.exampledemo.tripartite.share.TripartiteShareActivity"
             android:screenOrientation="portrait" />
 
         <activity
-            android:name="com.chenyihong.exampledemo.share.tripartiteshare.FacebookShareActivity"
+            android:name="com.chenyihong.exampledemo.tripartite.share.FacebookShareActivity"
             android:screenOrientation="portrait" />
 
         <activity
-            android:name=".fragmentresultapi.FragmentResultApiActivity"
+            android:name=".androidapi.fragmentresultapi.FragmentResultApiActivity"
             android:screenOrientation="portrait" />
 
         <activity
@@ -95,51 +95,51 @@
             android:screenOrientation="portrait" />
 
         <activity
-            android:name=".fullscreen.FullScreenExampleActivity"
+            android:name=".androidapi.fullscreen.FullScreenExampleActivity"
             android:screenOrientation="portrait" />
 
         <activity
-            android:name=".fullscreen.FullScreenActivity"
+            android:name=".androidapi.fullscreen.FullScreenActivity"
             android:screenOrientation="portrait" />
 
         <activity
-            android:name=".fullscreen.ImmersionActivity"
+            android:name=".androidapi.fullscreen.ImmersionActivity"
             android:screenOrientation="portrait" />
 
         <activity
-            android:name=".gesturedetector.BaseGestureDetectorActivity"
+            android:name=".androidapi.gesturedetector.BaseGestureDetectorActivity"
             android:screenOrientation="portrait" />
 
         <activity
-            android:name=".gesturedetector.GestureDetectorAActivity"
+            android:name=".androidapi.gesturedetector.GestureDetectorAActivity"
             android:screenOrientation="portrait" />
 
         <activity
-            android:name=".gesturedetector.GestureDetectorBActivity"
+            android:name=".androidapi.gesturedetector.GestureDetectorBActivity"
             android:screenOrientation="portrait" />
 
         <activity
-            android:name=".backpress.BackPressApiActivity"
+            android:name=".androidapi.backpress.BackPressApiActivity"
             android:screenOrientation="portrait" />
 
         <activity
-            android:name=".biometrics.BiometricActivity"
+            android:name=".androidapi.biometrics.BiometricActivity"
             android:screenOrientation="portrait" />
 
         <activity
-            android:name=".downloadablefont.DownloadableFontActivity"
+            android:name=".androidapi.downloadablefont.DownloadableFontActivity"
             android:screenOrientation="portrait" />
 
         <activity
-            android:name=".gps.GpsSignalActivity"
+            android:name=".androidapi.gps.GpsSignalActivity"
             android:screenOrientation="portrait" />
 
         <activity
-            android:name=".setting.SettingActivity"
+            android:name=".androidapi.setting.SettingActivity"
             android:screenOrientation="portrait" />
 
         <activity
-            android:name="com.chenyihong.exampledemo.toolbar.ToolbarActivity"
+            android:name="com.chenyihong.exampledemo.androidapi.toolbar.ToolbarActivity"
             android:parentActivityName="com.chenyihong.exampledemo.home.HomeActivity"
             android:screenOrientation="portrait">
 
@@ -150,25 +150,25 @@
         </activity>
 
         <activity
-            android:name=".search.SearchExampleActivity"
+            android:name=".androidapi.search.SearchExampleActivity"
             android:screenOrientation="portrait">
 
             <!--为当前页面指定搜索页面-->
             <meta-data
                 android:name="android.app.default_searchable"
-                android:value=".search.SearchActivity" />
+                android:value=".androidapi.search.SearchActivity" />
         </activity>
 
         <activity
-            android:name=".search.SearchActivity"
+            android:name=".androidapi.search.SearchActivity"
             android:exported="false"
             android:launchMode="singleTop"
-            android:parentActivityName="com.chenyihong.exampledemo.search.SearchExampleActivity"
+            android:parentActivityName="com.chenyihong.exampledemo.androidapi.search.SearchExampleActivity"
             android:screenOrientation="portrait">
 
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.chenyihong.exampledemo.search.SearchExampleActivity" />
+                android:value="com.chenyihong.exampledemo.androidapi.search.SearchExampleActivity" />
 
             <meta-data
                 android:name="android.app.searchable"
@@ -218,8 +218,8 @@
 
         <!--android:authorities的值与RecentSearchProvider中的AUTHORITY一致-->
         <provider
-            android:name=".search.RecentSearchProvider"
-            android:authorities="com.chenyihong.exampledemo.search.RecentSearchProvider"
+            android:name=".androidapi.search.RecentSearchProvider"
+            android:authorities="com.chenyihong.exampledemo.androidapi.search.RecentSearchProvider"
             android:exported="false" />
     </application>
 </manifest>

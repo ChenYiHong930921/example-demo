@@ -16,7 +16,7 @@ import androidx.databinding.DataBindingUtil
 import com.chenyihong.exampledemo.R
 import com.chenyihong.exampledemo.databinding.LayoutWebViewActivityBinding
 import com.chenyihong.exampledemo.entity.PersonEntity
-import com.chenyihong.exampledemo.gesturedetector.BaseGestureDetectorActivity
+import com.chenyihong.exampledemo.androidapi.gesturedetector.BaseGestureDetectorActivity
 import com.google.android.material.snackbar.Snackbar
 import com.google.gson.Gson
 

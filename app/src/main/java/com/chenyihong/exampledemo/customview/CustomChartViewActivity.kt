@@ -5,7 +5,7 @@ import android.os.Bundle
 import androidx.databinding.DataBindingUtil
 import com.chenyihong.exampledemo.R
 import com.chenyihong.exampledemo.databinding.LayoutCustomChartViewActivityBinding
-import com.chenyihong.exampledemo.gesturedetector.BaseGestureDetectorActivity
+import com.chenyihong.exampledemo.androidapi.gesturedetector.BaseGestureDetectorActivity
 
 class CustomChartViewActivity : BaseGestureDetectorActivity() {
 

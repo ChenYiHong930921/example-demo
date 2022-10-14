@@ -9,7 +9,7 @@
             android:id="@+id/include_title"
             layout="@layout/layout_title" />
 
-        <com.chenyihong.exampledemo.view.GradientLineChart
+        <com.chenyihong.exampledemo.customview.view.GradientLineChart
             android:id="@+id/glc_chart_view"
             android:layout_width="match_parent"
             android:layout_height="200dp"
