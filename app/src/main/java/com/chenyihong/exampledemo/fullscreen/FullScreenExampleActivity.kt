@@ -1,5 +1,6 @@
 package com.chenyihong.exampledemo.fullscreen
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import androidx.databinding.DataBindingUtil
@@ -9,11 +10,12 @@ import com.chenyihong.exampledemo.gesturedetector.BaseGestureDetectorActivity
 
 class FullScreenExampleActivity : BaseGestureDetectorActivity() {
 
+    @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         val binding = DataBindingUtil.setContentView<LayoutFullScreenExampleActivityBinding>(this, R.layout.layout_full_screen_example_activity)
 
+        binding.includeTitle.tvTitle.text = "FullScreen Api"
         binding.btnFullScreen.setOnClickListener {
             startActivity(Intent(this, FullScreenActivity::class.java))
         }

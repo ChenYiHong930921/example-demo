@@ -29,6 +29,7 @@ class FragmentA : Fragment() {
             Log.i(TAG, "A Fragment receive result requestKey:$requestKey ,result:$result")
             binding.tvReceiver.text = "A Fragment receive: requestKey = $requestKey ,result = $result"
         }
+        binding.includeTitle.tvTitle.text = "Fragment A"
         binding.btnSendParent.setOnClickListener {
             val bundle = Bundle()
             bundle.putString("result", "a result from Fragment A")

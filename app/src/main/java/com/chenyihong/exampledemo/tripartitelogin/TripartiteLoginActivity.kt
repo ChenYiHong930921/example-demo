@@ -1,5 +1,6 @@
 package com.chenyihong.exampledemo.tripartitelogin
 
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.pm.PackageManager
 import android.os.Build
@@ -54,6 +55,7 @@ class TripartiteLoginActivity : BaseGestureDetectorActivity() {
     private lateinit var metaCallbackManager: CallbackManager
     private lateinit var profileTracker: ProfileTracker
 
+    @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val binding = DataBindingUtil.setContentView<LayoutTripartiteLoginActivityBinding>(this, R.layout.layout_tripartite_login_activity)
@@ -93,6 +95,7 @@ class TripartiteLoginActivity : BaseGestureDetectorActivity() {
         //开始跟踪用户信息变化
         profileTracker.startTracking()
 
+        binding.includeTitle.tvTitle.text = "Tripartite Login"
         binding.btnGoogleLogin.setOnClickListener {
             checkGoogleLoginAccount(false)
         }

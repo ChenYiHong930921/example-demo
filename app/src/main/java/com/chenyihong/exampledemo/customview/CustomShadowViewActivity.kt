@@ -1,5 +1,6 @@
 package com.chenyihong.exampledemo.customview
 
+import android.annotation.SuppressLint
 import android.graphics.Outline
 import android.graphics.Path
 import android.os.Build
@@ -12,7 +13,7 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import com.chenyihong.exampledemo.R
-import com.chenyihong.exampledemo.databinding.LayoutCustomViewActivityBinding
+import com.chenyihong.exampledemo.databinding.LayoutCustomShadowViewActivityBinding
 import com.chenyihong.exampledemo.gesturedetector.BaseGestureDetectorActivity
 import com.chenyihong.exampledemo.utils.DensityUtil
 import com.chenyihong.exampledemo.utils.ShapeDrawableUtils
@@ -20,22 +21,23 @@ import com.chenyihong.exampledemo.view.ShadowView
 import com.chenyihong.exampledemo.view.TO_LEFT
 import com.chenyihong.exampledemo.view.TO_RIGHT
 
-class CustomViewActivity : BaseGestureDetectorActivity() {
+class CustomShadowViewActivity : BaseGestureDetectorActivity() {
 
-    private lateinit var binding: LayoutCustomViewActivityBinding
+    private lateinit var binding: LayoutCustomShadowViewActivityBinding
 
     private var onRight: Boolean = true
 
     private var dragView: View? = null
 
+    @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        binding = DataBindingUtil.setContentView(this, R.layout.layout_custom_view_activity)
+        binding = DataBindingUtil.setContentView(this, R.layout.layout_custom_shadow_view_activity)
 
         val displayMetrics: DisplayMetrics = resources.displayMetrics
         val widthPixels = displayMetrics.widthPixels
 
+        binding.includeTitle.tvTitle.text = "Custom Shadow View"
         binding.vShadowTestOutline.outlineProvider = object : ViewOutlineProvider() {
             override fun getOutline(view: View, outline: Outline) {
                 val width = view.measuredWidth.toFloat()
@@ -126,7 +128,7 @@ class CustomViewActivity : BaseGestureDetectorActivity() {
             } else {
                 //切换背景图片
                 val backgroundDrawable = ShapeDrawableUtils.getRectAngleGradientDrawable(
-                    DensityUtil.dp2Px(27).toFloat(), ContextCompat.getColor(this@CustomViewActivity, android.R.color.white),
+                    DensityUtil.dp2Px(27).toFloat(), ContextCompat.getColor(this@CustomShadowViewActivity, android.R.color.white),
                     DensityUtil.dp2Px(82), DensityUtil.dp2Px(54),
                     onRight, !onRight)
                 background = backgroundDrawable

@@ -1,5 +1,6 @@
 package com.chenyihong.exampledemo.backpress
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.util.Log
 import androidx.activity.OnBackPressedCallback
@@ -16,6 +17,7 @@ class BackPressApiActivity : BaseGestureDetectorActivity() {
 
     private val canonicalName = this::class.java.canonicalName!!
 
+    @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val binding = DataBindingUtil.setContentView<LayoutBackPressApiActivityBinding>(this, R.layout.layout_back_press_api_activity)
@@ -35,6 +37,7 @@ class BackPressApiActivity : BaseGestureDetectorActivity() {
             }
         })
         binding.run {
+            includeTitle.tvTitle.text = "BackPress Api"
             btnAFragment.setOnClickListener {
                 vpContainer.currentItem = 0
             }

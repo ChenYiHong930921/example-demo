@@ -5,26 +5,17 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <com.chenyihong.exampledemo.view.GradientLineChart
-            android:id="@+id/glc_chart_view"
-            android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="40dp"
-            android:layout_marginEnd="20dp"
-            android:paddingStart="10dp"
-            android:paddingTop="10dp"
-            android:paddingEnd="10dp"
-            android:paddingBottom="20dp"
-            app:layout_constraintTop_toTopOf="parent" />
+        <include
+            android:id="@+id/include_title"
+            layout="@layout/layout_title" />
 
         <com.chenyihong.exampledemo.view.ShadowView
             android:id="@+id/v_shadow_test_shadow_layer"
             android:layout_width="82dp"
             android:layout_height="54dp"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="60dp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/glc_chart_view"
+            app:layout_constraintTop_toBottomOf="@id/include_title"
             app:roundRadiusHalfHeight="true"
             app:viewShape="half_rectangle" />
 

@@ -26,7 +26,7 @@ class BiometricActivity : BaseGestureDetectorActivity() {
 
     private val forActivityResultLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { activityResult ->
         Log.i(TAG, "launcher callback value : resultCode:${activityResult.resultCode} data${activityResult.data}")
-        checkBiometricAuthenticate()
+        checkBiometricAuthenticate(false)
     }
 
     private lateinit var binding: LayoutBiometricActivityBinding
@@ -39,37 +39,51 @@ class BiometricActivity : BaseGestureDetectorActivity() {
     private var encrypt: Boolean = false
     private var encryptedInfo: ByteArray? = null
 
+    @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.layout_biometric_activity)
-        checkBiometricAuthenticate()
+        checkBiometricAuthenticate(true)
 
+        binding.includeTitle.tvTitle.text = "Biometric Api"
         binding.btnBiometric.setOnClickListener {
-            biometricPrompt?.run { promptInfo?.let { authenticate(it) } }
+            if (biometricPrompt == null) {
+                checkBiometricAuthenticate(true)
+            } else {
+                biometricPrompt?.run { promptInfo?.let { authenticate(it) } }
+            }
         }
         binding.btnEncrypt.setOnClickListener {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                biometricPrompt?.run {
-                    promptInfo?.let {
-                        encrypt = true
-                        authenticate(it, BiometricPrompt.CryptoObject(CryptographyManager.getEncryptCipher(keyName)))
+            if (biometricPrompt == null) {
+                checkBiometricAuthenticate(true)
+            } else {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    biometricPrompt?.run {
+                        promptInfo?.let {
+                            encrypt = true
+                            authenticate(it, BiometricPrompt.CryptoObject(CryptographyManager.getEncryptCipher(keyName)))
+                        }
                     }
                 }
             }
         }
         binding.btnDecrypt.setOnClickListener {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                biometricPrompt?.run {
-                    promptInfo?.let {
-                        encrypt = false
-                        CryptographyManager.getDecryptCipher(keyName)?.let { cipher -> authenticate(it, BiometricPrompt.CryptoObject(cipher)) }
+            if (biometricPrompt == null) {
+                checkBiometricAuthenticate(true)
+            } else {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    biometricPrompt?.run {
+                        promptInfo?.let {
+                            encrypt = false
+                            CryptographyManager.getDecryptCipher(keyName)?.let { cipher -> authenticate(it, BiometricPrompt.CryptoObject(cipher)) }
+                        }
                     }
                 }
             }
         }
     }
 
-    private fun checkBiometricAuthenticate() {
+    private fun checkBiometricAuthenticate(autoVerify: Boolean = false) {
         if (biometricManager == null) {
             biometricManager = BiometricManager.from(this)
         }
@@ -85,23 +99,27 @@ class BiometricActivity : BaseGestureDetectorActivity() {
                 BiometricManager.BIOMETRIC_ERROR_NO_HARDWARE -> Log.e(TAG, "No biometric features available on this device.")
                 BiometricManager.BIOMETRIC_ERROR_HW_UNAVAILABLE -> Log.e(TAG, "Biometric features are currently unavailable.")
                 BiometricManager.BIOMETRIC_ERROR_NONE_ENROLLED -> {
-                    // Prompts the user to create credentials that your app accepts.
-                    Log.e(TAG, "Prompts the user to create credentials that your app accepts.")
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-                        Log.e(TAG, "Prompts the user to create credentials that your app accepts 1.")
-                        val enrollIntent = Intent(Settings.ACTION_BIOMETRIC_ENROLL).apply {
-                            putExtra(Settings.EXTRA_BIOMETRIC_AUTHENTICATORS_ALLOWED, allowedAuthenticators)
+                    if (autoVerify) {
+                        // Prompts the user to create credentials that your app accepts.
+                        Log.e(TAG, "Prompts the user to create credentials that your app accepts.")
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+                            Log.e(TAG, "Prompts the user to create credentials that your app accepts 1.")
+                            val enrollIntent = Intent(Settings.ACTION_BIOMETRIC_ENROLL).apply {
+                                putExtra(Settings.EXTRA_BIOMETRIC_AUTHENTICATORS_ALLOWED, allowedAuthenticators)
+                            }
+                            forActivityResultLauncher.launch(enrollIntent)
+                        } else {
+                            Log.e(TAG, "Prompts the user to create credentials that your app accepts 2.")
+                            //创建弹窗提示用户录入生物信息（指纹或者人脸），进入设置页面
+                            AlertDialog.Builder(this@BiometricActivity)
+                                .setTitle("Create credentials")
+                                .setMessage("Record fingerprints to log into the ExampleDemo")
+                                .setPositiveButton("ok") { _, _ -> gotoSettings() }
+                                .setNegativeButton("not now", null)
+                                .show()
                         }
-                        forActivityResultLauncher.launch(enrollIntent)
                     } else {
-                        Log.e(TAG, "Prompts the user to create credentials that your app accepts 2.")
-                        //创建弹窗提示用户录入生物信息（指纹或者人脸），进入设置页面
-                        AlertDialog.Builder(this@BiometricActivity)
-                            .setTitle("Create credentials")
-                            .setMessage("Record fingerprints to log into the ExampleDemo")
-                            .setPositiveButton("ok") { _, _ -> gotoSettings() }
-                            .setNegativeButton("not now", null)
-                            .show()
+                        Log.e(TAG, "BIOMETRIC_ERROR_NONE_ENROLLED not auto verify")
                     }
                 }
                 else -> {}

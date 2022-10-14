@@ -19,6 +19,7 @@ class FragmentResultApiActivity : BaseGestureDetectorActivity() {
         super.onCreate(savedInstanceState)
         val binding = DataBindingUtil.setContentView<LayoutFragmentResultApiActivityBinding>(this, R.layout.layout_fragment_result_api_activity)
 
+        binding.includeTitle.tvTitle.text = "Fragment Result Api"
         supportFragmentManager.setFragmentResultListener(canonicalName, this) { requestKey, result ->
             Log.i(TAG, "Activity receive result requestKey:$requestKey ,result:$result")
             binding.tvReceiver.text = "Activity receive: requestKey = $requestKey ,result = $result"

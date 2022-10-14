@@ -64,6 +64,7 @@ class GpsSignalActivity : BaseGestureDetectorActivity() {
     }
 
     private var gnssStatusListenerAdded: Boolean = false
+
     @SuppressLint("SetTextI18n", "SimpleDateFormat")
     private val locationListener = LocationListener {
         Log.i(TAG, "receiver callback location$it")
@@ -94,11 +95,13 @@ class GpsSignalActivity : BaseGestureDetectorActivity() {
         }
     }
 
+    @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.layout_gps_signal_activity)
         locationManager = getSystemService(Context.LOCATION_SERVICE) as LocationManager
 
+        binding.includeTitle.tvTitle.text = "GpsSignal Api"
         binding.btnDetect.setOnClickListener {
             if (checkLocationPermission()) {
                 if (!locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {

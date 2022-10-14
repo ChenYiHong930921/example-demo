@@ -55,7 +55,11 @@
         </activity>
 
         <activity
-            android:name=".customview.CustomViewActivity"
+            android:name=".customview.CustomChartViewActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".customview.CustomShadowViewActivity"
             android:screenOrientation="portrait" />
 
         <activity
@@ -75,7 +79,7 @@
             android:screenOrientation="portrait" />
 
         <activity
-            android:name="com.chenyihong.exampledemo.share.ShareActivity"
+            android:name="com.chenyihong.exampledemo.share.TripartiteShareActivity"
             android:screenOrientation="portrait" />
 
         <activity

@@ -32,7 +32,7 @@ class FragmentB : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         requireActivity().onBackPressedDispatcher.addCallback(onBackPressedCallback)
-        binding.tvTitle.text = "BackPressFragmentB"
+        binding.includeTitle.tvTitle.text = "BackPressFragmentB"
         binding.btnBackPress.setOnClickListener {
             requireActivity().onBackPressedDispatcher.onBackPressed()
         }

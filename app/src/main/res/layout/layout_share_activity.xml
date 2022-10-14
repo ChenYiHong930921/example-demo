@@ -5,32 +5,19 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <TextView
-            android:id="@+id/tv_title"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:paddingBottom="10dp"
-            android:text="Share"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <Button
-            android:id="@+id/btn_system_share"
-            android:layout_width="wrap_content"
-            android:layout_height="50dp"
-            android:layout_marginTop="10dp"
-            android:text="systemshare"
-            app:layout_constraintEnd_toStartOf="@id/btn_facebook_share"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_title" />
+        <include
+            android:id="@+id/include_title"
+            layout="@layout/layout_title" />
 
         <Button
             android:id="@+id/btn_facebook_share"
             android:layout_width="wrap_content"
             android:layout_height="50dp"
+            android:layout_marginStart="40dp"
+            android:layout_marginTop="10dp"
             android:text="facebookshare"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/btn_system_share"
-            app:layout_constraintTop_toTopOf="@id/btn_system_share" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/include_title" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

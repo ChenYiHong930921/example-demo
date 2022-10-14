@@ -1,5 +1,6 @@
 package com.chenyihong.exampledemo.share.systemshare
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -56,10 +57,12 @@ class SystemShareActivity : BaseGestureDetectorActivity() {
         }
     }
 
+    @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val binding = DataBindingUtil.setContentView<LayoutSystemShareActivityBinding>(this, R.layout.layout_system_share_activity)
 
+        binding.includeTitle.tvTitle.text = "ShareSheet Api"
         binding.btnShareText.setOnClickListener {
             val onlyTextShareIntent = Intent().apply {
                 action = Intent.ACTION_SEND

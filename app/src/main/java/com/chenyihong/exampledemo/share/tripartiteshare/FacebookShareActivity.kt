@@ -1,5 +1,6 @@
 package com.chenyihong.exampledemo.share.tripartiteshare
 
+import android.annotation.SuppressLint
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
@@ -123,6 +124,7 @@ class FacebookShareActivity : BaseGestureDetectorActivity() {
 
     private lateinit var callbackManager: CallbackManager
 
+    @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val binding = DataBindingUtil.setContentView<LayoutFacebookShareActivityBinding>(this, R.layout.layout_facebook_share_activity)
@@ -143,6 +145,7 @@ class FacebookShareActivity : BaseGestureDetectorActivity() {
             }
         })
 
+        binding.includeTitle.tvTitle.text = "Facebook Share"
         binding.btnShareLink.setOnClickListener {
             val shareLinkContent = ShareLinkContent.Builder()
                 //设置分享链接

@@ -17,13 +17,15 @@ import com.chenyihong.exampledemo.R
 import com.chenyihong.exampledemo.databinding.LayoutWebViewActivityBinding
 import com.chenyihong.exampledemo.entity.PersonEntity
 import com.chenyihong.exampledemo.gesturedetector.BaseGestureDetectorActivity
+import com.google.android.material.snackbar.Snackbar
 import com.google.gson.Gson
 
 const val TAG = "WebsiteTest"
+const val PARAMS_LINK_URL = "linkUrl"
 
 class WebViewActivity : BaseGestureDetectorActivity() {
 
-    private lateinit var layoutWebViewActivityBinding: LayoutWebViewActivityBinding
+    private lateinit var binding: LayoutWebViewActivityBinding
 
     private val gson = Gson()
 
@@ -37,12 +39,14 @@ class WebViewActivity : BaseGestureDetectorActivity() {
 
         @JavascriptInterface
         override fun jsCallAndroid() {
-            Log.i(TAG, "WebViewActivity jsCallAndroid")
+            val message = "receive jsCallAndroid"
+            showSnakeBar(message)
         }
 
         @JavascriptInterface
         override fun jsCallAndroidWithParams(params: String) {
-            Log.i(TAG, "WebViewActivity jsCallAndroidWithParams params:$params")
+            val message = "receive jsCallAndroidWithParams params:$params"
+            showSnakeBar(message)
         }
 
         @JavascriptInterface
@@ -57,7 +61,7 @@ class WebViewActivity : BaseGestureDetectorActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        layoutWebViewActivityBinding = DataBindingUtil.setContentView(this, R.layout.layout_web_view_activity)
+        binding = DataBindingUtil.setContentView(this, R.layout.layout_web_view_activity)
         val insetsController = WindowCompat.getInsetsController(window, window.decorView)
         insetsController.systemBarsBehavior = WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
         insetsController.hide(WindowInsetsCompat.Type.systemBars())
@@ -72,16 +76,19 @@ class WebViewActivity : BaseGestureDetectorActivity() {
                 }
             }
         })
-        layoutWebViewActivityBinding.ivBack.setOnClickListener { onBackPressedDispatcher.onBackPressed() }
-        layoutWebViewActivityBinding.btnAndroidCallJs.setOnClickListener { mainWebView?.loadUrl("javascript:androidCallJsWithParams(true)") }
+        binding.ivBack.setOnClickListener { onBackPressedDispatcher.onBackPressed() }
+        binding.btnAndroidCallJs.setOnClickListener { mainWebView?.loadUrl("javascript:androidCallJsWithParams(true)") }
+        val linkUrl = intent?.getStringExtra(PARAMS_LINK_URL) ?: ""
         mainWebView = WebView(this)
         mainWebView?.let {
             it.layoutParams = FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT)
             initWebViewSetting(it)
-            layoutWebViewActivityBinding.webViewContainer.addView(it)
+            binding.webViewContainer.addView(it)
             Log.i(TAG, "--------------create main web-----------------")
         }
-        mainWebView?.loadUrl("file:///android_asset/index.html")
+        if (linkUrl.isNotEmpty() && linkUrl.isNotBlank()) {
+            mainWebView?.loadUrl(linkUrl)
+        }
     }
 
     @SuppressLint("JavascriptInterface", "SetJavaScriptEnabled")
@@ -110,7 +117,7 @@ class WebViewActivity : BaseGestureDetectorActivity() {
                 override fun onProgressChanged(view: WebView, newProgress: Int) {
                     super.onProgressChanged(view, newProgress)
                     Log.i(TAG, "web load progress:$newProgress")
-                    layoutWebViewActivityBinding.pbWebLoadProgress.run {
+                    binding.pbWebLoadProgress.run {
                         post { progress = newProgress }
                         if (newProgress >= 100 && visibility == View.VISIBLE) {
                             postDelayed({ visibility = View.GONE }, 500)
@@ -123,7 +130,7 @@ class WebViewActivity : BaseGestureDetectorActivity() {
                     newWebView?.let { newWeb ->
                         newWeb.layoutParams = FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT)
                         initWebViewSetting(newWeb)
-                        layoutWebViewActivityBinding.webViewContainer.addView(newWeb)
+                        binding.webViewContainer.addView(newWeb)
                         Log.i(TAG, "--------------create new web-----------------")
                         resultMsg?.run {
                             val webViewTransport = obj as? WebView.WebViewTransport
@@ -145,7 +152,7 @@ class WebViewActivity : BaseGestureDetectorActivity() {
                 override fun onPageStarted(view: WebView?, url: String?, favicon: Bitmap?) {
                     super.onPageStarted(view, url, favicon)
                     Log.i(TAG, "WebViewActivity onPageStarted url:$url")
-                    layoutWebViewActivityBinding.pbWebLoadProgress.run {
+                    binding.pbWebLoadProgress.run {
                         post { visibility = View.VISIBLE }
                     }
                 }
@@ -197,6 +204,13 @@ class WebViewActivity : BaseGestureDetectorActivity() {
         super.onDestroy()
     }
 
+    private fun showSnakeBar(message: String) {
+        Log.i(TAG, message)
+        runOnUiThread {
+            Snackbar.make(binding.root, message, Snackbar.LENGTH_SHORT).show()
+        }
+    }
+
     private fun invokeJsCallback(script: String) {
         mainWebView?.run { runOnUiThread { loadUrl(script) } }
     }
@@ -206,7 +220,7 @@ class WebViewActivity : BaseGestureDetectorActivity() {
             Log.i(TAG, "destroy mainWeb webView:$this")
             clearHistory()
             loadDataWithBaseURL(null, "", "text/html", "utf-8", null)
-            layoutWebViewActivityBinding.webViewContainer.removeView(this)
+            binding.webViewContainer.removeView(this)
             destroy()
         }
         mainWebView = null
@@ -217,7 +231,7 @@ class WebViewActivity : BaseGestureDetectorActivity() {
             Log.i(TAG, "destroy newWeb webView:$this")
             clearHistory()
             loadDataWithBaseURL(null, "", "text/html", "utf-8", null)
-            layoutWebViewActivityBinding.webViewContainer.removeView(this)
+            binding.webViewContainer.removeView(this)
             destroy()
         }
         newWebView = null

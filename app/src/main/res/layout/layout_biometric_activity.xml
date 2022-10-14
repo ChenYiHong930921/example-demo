@@ -6,14 +6,9 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <TextView
-            android:id="@+id/tv_title"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:paddingBottom="10dp"
-            android:text="Biometric"
-            app:layout_constraintTop_toTopOf="parent" />
+        <include
+            android:id="@+id/include_title"
+            layout="@layout/layout_title" />
 
         <Button
             android:id="@+id/btn_biometric"
@@ -23,7 +18,7 @@
             android:text="Biometric"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_title" />
+            app:layout_constraintTop_toBottomOf="@id/include_title" />
 
         <TextView
             android:id="@+id/tv_input_label"

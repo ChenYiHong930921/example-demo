@@ -13,7 +13,7 @@ class GestureDetectorAActivity : BaseGestureDetectorActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val binding = DataBindingUtil.setContentView<LayoutGestureDetectorActivityBinding>(this, R.layout.layout_gesture_detector_activity)
-        binding.tvTitle.text = "Gesture Detector A"
+        binding.tvTitle.text = "Gesture Detector Api"
         binding.btnEntrance.setOnClickListener {
             startActivity(Intent(this, GestureDetectorBActivity::class.java))
         }

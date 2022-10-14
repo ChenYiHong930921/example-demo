@@ -1,6 +1,7 @@
 package com.chenyihong.exampledemo.resultapi
 
 import android.Manifest
+import android.annotation.SuppressLint
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
@@ -32,7 +33,11 @@ class ResultApiActivity : BaseGestureDetectorActivity() {
     private val requestSinglePermissionLauncher = registerForActivityResult(ActivityResultContracts.RequestPermission()) { granted: Boolean ->
         if (granted) {
             if (Manifest.permission.CAMERA == requestPermissionName) {
-                takePicture.launch(if (takePhoto) photoUri else null)
+                if (takePhoto) {
+                    takePicture.launch(photoUri)
+                } else {
+                    takePicturePreview.launch(null)
+                }
             } else {
                 //同意授权
                 val message = "$requestPermissionName already granted"
@@ -127,10 +132,12 @@ class ResultApiActivity : BaseGestureDetectorActivity() {
 
     //</editor-folder>
 
+    @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         binding = DataBindingUtil.setContentView(this, R.layout.layout_result_api_activity)
+
+        binding.includeTitle.tvTitle.text = "Activity Result Api"
 
         photoUri = getPhotoFileUri()
 

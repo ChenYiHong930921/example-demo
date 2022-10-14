@@ -1,5 +1,6 @@
 package com.chenyihong.exampledemo.search
 
+import android.annotation.SuppressLint
 import android.app.SearchManager
 import android.content.Context
 import android.content.Intent
@@ -20,9 +21,11 @@ class SearchExampleActivity : BaseGestureDetectorActivity() {
         return true
     }
 
+    @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val binding: LayoutSearchExampleActivityBinding = DataBindingUtil.setContentView(this, R.layout.layout_search_example_activity)
+        binding.includeTitle.tvTitle.text = "Search Api"
         binding.btnSearchView.setOnClickListener { startActivity(Intent(this, SearchActivity::class.java)) }
         binding.btnSearchDialog.setOnClickListener { onSearchRequested() }
         val searchManager = getSystemService(Context.SEARCH_SERVICE) as SearchManager
