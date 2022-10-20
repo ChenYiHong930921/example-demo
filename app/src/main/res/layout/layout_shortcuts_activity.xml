@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <include
+            android:id="@+id/include_title"
+            layout="@layout/layout_title" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_create_shortcut"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="create shortcut"
+            app:layout_constraintEnd_toStartOf="@id/btn_remove_shortcut"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/include_title" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_remove_shortcut"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="remove shortcut"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/btn_create_shortcut"
+            app:layout_constraintTop_toTopOf="@id/btn_create_shortcut" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_create_pin_shortcut"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="create pin shortcut"
+            app:layout_constraintEnd_toStartOf="@id/btn_update_shortcut"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/btn_create_shortcut" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_update_shortcut"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="update shortcut"
+            android:visibility="invisible"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/btn_create_shortcut"
+            app:layout_constraintTop_toTopOf="@id/btn_create_pin_shortcut" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_create_multiple_intents_shortcut"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="create multiple Intentions shortcut"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/btn_create_pin_shortcut" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_enable_shortcut"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="enable shortcut"
+            app:layout_constraintEnd_toStartOf="@id/btn_disable_shortcut"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/btn_create_multiple_intents_shortcut" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_disable_shortcut"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="disable shortcut"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/btn_enable_shortcut"
+            app:layout_constraintTop_toTopOf="@id/btn_enable_shortcut" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

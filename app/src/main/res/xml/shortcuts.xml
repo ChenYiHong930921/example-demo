@@ -1,0 +1,37 @@
+<?xml version ="1.0" encoding="utf-8"?>
+<shortcuts xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <shortcut
+        android:enabled="true"
+        android:icon="@drawable/icon_biometrics"
+        android:shortcutDisabledMessage="@string/shortcuts_disable_message"
+        android:shortcutId="biometrics"
+        android:shortcutLongLabel="@string/biometrics_shortcuts_long_label"
+        android:shortcutShortLabel="@string/biometrics_shortcuts_short_label">
+
+        <!--快捷方式跳转的页面，必须配置-->
+        <intent
+            android:action="android.intent.action.VIEW"
+            android:targetClass="com.chenyihong.exampledemo.androidapi.biometrics.BiometricActivity"
+            android:targetPackage="com.chenyihong.exampledemo" />
+    </shortcut>
+
+    <shortcut
+        android:enabled="true"
+        android:icon="@drawable/icon_search_48"
+        android:shortcutDisabledMessage="@string/shortcuts_disable_message"
+        android:shortcutId="search"
+        android:shortcutLongLabel="@string/search_shortcuts_long_label"
+        android:shortcutShortLabel="@string/search_shortcuts_short_label">
+
+        <intent
+            android:action="android.intent.action.VIEW"
+            android:targetClass="com.chenyihong.exampledemo.home.HomeActivity"
+            android:targetPackage="com.chenyihong.exampledemo" />
+
+        <intent
+            android:action="android.intent.action.VIEW"
+            android:targetClass="com.chenyihong.exampledemo.androidapi.search.SearchActivity"
+            android:targetPackage="com.chenyihong.exampledemo" />
+    </shortcut>
+</shortcuts>

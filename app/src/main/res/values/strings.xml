@@ -5,4 +5,22 @@
     <string name="facebook_app_id">692740238633583</string>
     <string name="fb_login_protocol_scheme">fb692740238633583</string>
     <string name="facebook_client_token">b13b05e4936981d1fa5843f5685818d1</string>
+
+    <string name="shortcuts_disable_message">This shortcut is disabled</string>
+
+    <string name="label_camera">Camera</string>
+
+    <string name="label_location">Location</string>
+
+    <string name="camera_shortcuts_short_label">Using camera</string>
+    <string name="camera_shortcuts_long_label">Take pictures or videos with camera</string>
+
+    <string name="biometrics_shortcuts_short_label">Using biometrics</string>
+    <string name="biometrics_shortcuts_long_label">Use biometrics for authentication</string>
+
+    <string name="search_shortcuts_short_label">Using search</string>
+    <string name="search_shortcuts_long_label">Get content of interest using search</string>
+
+    <string name="location_shortcuts_short_label">Using positioning</string>
+    <string name="location_shortcuts_long_label">Get location information by positioning</string>
 </resources>

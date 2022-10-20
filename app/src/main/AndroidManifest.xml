@@ -45,6 +45,10 @@
             android:exported="true"
             android:screenOrientation="portrait">
 
+            <meta-data
+                android:name="android.app.shortcuts"
+                android:resource="@xml/shortcuts" />
+
             <intent-filter>
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -176,6 +180,33 @@
 
             <intent-filter>
                 <action android:name="android.intent.action.SEARCH" />
+            </intent-filter>
+        </activity>
+
+        <activity
+            android:name=".androidapi.shortcuts.ShortcutsActivity"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".androidapi.shortcuts.CreateCameraShortcutActivity"
+            android:exported="true"
+            android:icon="@drawable/icon_camera"
+            android:label="@string/label_camera"
+            android:theme="@style/DialogActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.CREATE_SHORTCUT" />
+            </intent-filter>
+        </activity>
+
+        <activity
+            android:name=".androidapi.shortcuts.CreateLocationShortcutActivity"
+            android:exported="true"
+            android:icon="@drawable/icon_location"
+            android:label="@string/label_location"
+            android:theme="@style/DialogActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.CREATE_SHORTCUT" />
             </intent-filter>
         </activity>
 
