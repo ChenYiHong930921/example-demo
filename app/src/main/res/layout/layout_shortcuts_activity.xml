@@ -44,7 +44,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="update shortcut"
-            android:visibility="invisible"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/btn_create_shortcut"
             app:layout_constraintTop_toTopOf="@id/btn_create_pin_shortcut" />
