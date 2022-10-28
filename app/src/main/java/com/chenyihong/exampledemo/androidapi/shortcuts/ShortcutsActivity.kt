@@ -6,21 +6,17 @@ import android.content.ComponentName
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
-import android.util.Log
-import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.pm.ShortcutInfoCompat
 import androidx.core.content.pm.ShortcutManagerCompat
-import androidx.core.content.pm.ShortcutManagerCompat.getShortcuts
 import androidx.core.graphics.drawable.IconCompat
 import androidx.databinding.DataBindingUtil
 import com.chenyihong.exampledemo.R
-import com.chenyihong.exampledemo.androidapi.biometrics.BiometricActivity
+import com.chenyihong.exampledemo.androidapi.gesturedetector.BaseGestureDetectorActivity
 import com.chenyihong.exampledemo.androidapi.gps.GpsSignalActivity
-import com.chenyihong.exampledemo.androidapi.search.SearchActivity
 import com.chenyihong.exampledemo.databinding.LayoutShortcutsActivityBinding
 import com.chenyihong.exampledemo.home.HomeActivity
 
-class ShortcutsActivity : AppCompatActivity() {
+class ShortcutsActivity : BaseGestureDetectorActivity() {
 
     private val locationShortcutId = "location"
 

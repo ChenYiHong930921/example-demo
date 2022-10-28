@@ -210,6 +210,14 @@
             </intent-filter>
         </activity>
 
+        <activity
+            android:name=".androidapi.trafficstats.TrafficStatsActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".androidapi.autofill.AutoFillActivity"
+            android:screenOrientation="portrait" />
+
         <!--Meta-->
         <activity
             android:name="com.facebook.FacebookActivity"
