@@ -25,6 +25,7 @@ import com.chenyihong.exampledemo.tripartite.share.TripartiteShareActivity
 import com.chenyihong.exampledemo.androidapi.sharesheet.SystemShareActivity
 import com.chenyihong.exampledemo.androidapi.shortcuts.ShortcutsActivity
 import com.chenyihong.exampledemo.androidapi.toolbar.ToolbarActivity
+import com.chenyihong.exampledemo.androidapi.trafficstats.TrafficStatsActivity
 import com.chenyihong.exampledemo.tripartite.login.TripartiteLoginActivity
 import com.chenyihong.exampledemo.web.PARAMS_LINK_URL
 import com.chenyihong.exampledemo.web.WebViewActivity
@@ -53,7 +54,8 @@ class HomeActivity : BaseGestureDetectorActivity() {
             OptionsChildEntity("Toolbar Api") { startActivity(Intent(this, ToolbarActivity::class.java)) },
             OptionsChildEntity("Search Api") { startActivity(Intent(this, SearchExampleActivity::class.java)) },
             OptionsChildEntity("ShareSheet Api") { startActivity(Intent(this, SystemShareActivity::class.java)) },
-            OptionsChildEntity("Shortcuts Api") { startActivity(Intent(this, ShortcutsActivity::class.java)) }
+            OptionsChildEntity("Shortcuts Api") { startActivity(Intent(this, ShortcutsActivity::class.java)) },
+            OptionsChildEntity("TrafficStats Api") { startActivity(Intent(this, TrafficStatsActivity::class.java)) }
         )))
         functionGroupList.add(OptionsEntity("Custom View", containerTest = arrayListOf(
             OptionsChildEntity("Custom Chart View") { startActivity(Intent(this, CustomChartViewActivity::class.java)) },

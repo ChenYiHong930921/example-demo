@@ -4,14 +4,11 @@ import android.annotation.SuppressLint
 import android.graphics.Bitmap
 import android.os.Bundle
 import android.os.Message
-import android.telephony.AccessNetworkConstants.AccessNetworkType
-import android.telephony.TelephonyManager
 import android.util.Log
 import android.view.View
 import android.webkit.*
 import android.widget.FrameLayout
 import androidx.activity.OnBackPressedCallback
-import androidx.core.telephony.TelephonyManagerCompat
 import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.WindowInsetsControllerCompat
@@ -187,7 +184,6 @@ class WebViewActivity : BaseGestureDetectorActivity() {
 
     override fun onResume() {
         super.onResume()
-        TelephonyManager
         mainWebView?.run {
             onResume()
             resumeTimers()
