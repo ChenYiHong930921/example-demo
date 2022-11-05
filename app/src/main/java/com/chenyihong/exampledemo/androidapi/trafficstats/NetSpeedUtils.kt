@@ -38,18 +38,16 @@ object NetSpeedUtils {
     }
 
     private fun calculateNetSpeed() {
-        ExampleApplication.exampleContext?.run {
-            val nowTotalReceiveBytes = getTotalReceiveBytes()
-            val nowTotalTransferBytes = getTotalTransferBytes()
+        val nowTotalReceiveBytes = getTotalReceiveBytes()
+        val nowTotalTransferBytes = getTotalTransferBytes()
 
-            val downloadSpeed = nowTotalReceiveBytes - lastTotalReceiveBytes
-            val uploadSpeed = nowTotalTransferBytes - lastTotalTransferBytes
+        val downloadSpeed = nowTotalReceiveBytes - lastTotalReceiveBytes
+        val uploadSpeed = nowTotalTransferBytes - lastTotalTransferBytes
 
-            lastTotalReceiveBytes = nowTotalReceiveBytes
-            lastTotalTransferBytes = nowTotalTransferBytes
+        lastTotalReceiveBytes = nowTotalReceiveBytes
+        lastTotalTransferBytes = nowTotalTransferBytes
 
-            netSpeedCallback?.onNetSpeedChange("$downloadSpeed kb/s", "$uploadSpeed kb/s")
-        }
+        netSpeedCallback?.onNetSpeedChange("$downloadSpeed kb/s", "$uploadSpeed kb/s")
     }
 
     fun startMeasuringNetSpeed() {
