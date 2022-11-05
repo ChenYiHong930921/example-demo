@@ -8,25 +8,26 @@ import com.chenyihong.exampledemo.adapter.TestFunctionGroupAdapter
 import com.chenyihong.exampledemo.androidapi.backpress.BackPressApiActivity
 import com.chenyihong.exampledemo.androidapi.biometrics.BiometricActivity
 import com.chenyihong.exampledemo.androidapi.camerax.CameraActivity
-import com.chenyihong.exampledemo.customview.CustomChartViewActivity
-import com.chenyihong.exampledemo.customview.CustomShadowViewActivity
-import com.chenyihong.exampledemo.databinding.LayoutHomeActivityBinding
 import com.chenyihong.exampledemo.androidapi.downloadablefont.DownloadableFontActivity
-import com.chenyihong.exampledemo.entity.OptionsChildEntity
 import com.chenyihong.exampledemo.androidapi.fragmentresultapi.FragmentResultApiActivity
 import com.chenyihong.exampledemo.androidapi.fullscreen.FullScreenExampleActivity
+import com.chenyihong.exampledemo.androidapi.gaid.GaIdActivity
 import com.chenyihong.exampledemo.androidapi.gesturedetector.BaseGestureDetectorActivity
 import com.chenyihong.exampledemo.androidapi.gesturedetector.GestureDetectorAActivity
 import com.chenyihong.exampledemo.androidapi.gps.GpsSignalActivity
 import com.chenyihong.exampledemo.androidapi.resultapi.ResultApiActivity
 import com.chenyihong.exampledemo.androidapi.search.SearchExampleActivity
 import com.chenyihong.exampledemo.androidapi.setting.SettingActivity
-import com.chenyihong.exampledemo.tripartite.share.TripartiteShareActivity
 import com.chenyihong.exampledemo.androidapi.sharesheet.SystemShareActivity
 import com.chenyihong.exampledemo.androidapi.shortcuts.ShortcutsActivity
 import com.chenyihong.exampledemo.androidapi.toolbar.ToolbarActivity
 import com.chenyihong.exampledemo.androidapi.trafficstats.TrafficStatsActivity
+import com.chenyihong.exampledemo.customview.CustomChartViewActivity
+import com.chenyihong.exampledemo.customview.CustomShadowViewActivity
+import com.chenyihong.exampledemo.databinding.LayoutHomeActivityBinding
+import com.chenyihong.exampledemo.entity.OptionsChildEntity
 import com.chenyihong.exampledemo.tripartite.login.TripartiteLoginActivity
+import com.chenyihong.exampledemo.tripartite.share.TripartiteShareActivity
 import com.chenyihong.exampledemo.web.PARAMS_LINK_URL
 import com.chenyihong.exampledemo.web.WebViewActivity
 import com.minigame.testapp.ui.entity.OptionsEntity
@@ -55,7 +56,9 @@ class HomeActivity : BaseGestureDetectorActivity() {
             OptionsChildEntity("Search Api") { startActivity(Intent(this, SearchExampleActivity::class.java)) },
             OptionsChildEntity("ShareSheet Api") { startActivity(Intent(this, SystemShareActivity::class.java)) },
             OptionsChildEntity("Shortcuts Api") { startActivity(Intent(this, ShortcutsActivity::class.java)) },
-            OptionsChildEntity("TrafficStats Api") { startActivity(Intent(this, TrafficStatsActivity::class.java)) }
+            OptionsChildEntity("TrafficStats Api") { startActivity(Intent(this, TrafficStatsActivity::class.java)) },
+            OptionsChildEntity("GAID Api") { startActivity(Intent(this, GaIdActivity::class.java)) }
+
         )))
         functionGroupList.add(OptionsEntity("Custom View", containerTest = arrayListOf(
             OptionsChildEntity("Custom Chart View") { startActivity(Intent(this, CustomChartViewActivity::class.java)) },

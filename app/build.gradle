@@ -98,4 +98,9 @@ dependencies {
     //Preference
     implementation("androidx.preference:preference:1.2.0")
     implementation("androidx.preference:preference-ktx:1.2.0")
+
+    // GAID - Google
+    implementation("com.google.android.gms:play-services-ads-identifier:18.0.1")
+    implementation 'androidx.ads:ads-identifier:1.0.0-alpha04'
+    implementation 'com.google.guava:guava:28.0-android'
 }

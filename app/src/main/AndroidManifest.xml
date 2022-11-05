@@ -215,7 +215,7 @@
             android:screenOrientation="portrait" />
 
         <activity
-            android:name=".androidapi.autofill.AutoFillActivity"
+            android:name=".androidapi.gaid.GaIdActivity"
             android:screenOrientation="portrait" />
 
         <!--Meta-->
