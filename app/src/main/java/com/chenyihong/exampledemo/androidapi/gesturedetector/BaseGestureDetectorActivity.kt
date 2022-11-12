@@ -4,9 +4,15 @@ import android.content.res.Configuration
 import android.graphics.Point
 import android.os.Bundle
 import android.view.GestureDetector
+import android.view.Gravity
 import android.view.MotionEvent
+import android.widget.FrameLayout
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.AppCompatImageView
 import androidx.core.view.*
+import com.chenyihong.exampledemo.R
+import com.chenyihong.exampledemo.customview.view.VolumeControllerDialog
+import com.chenyihong.exampledemo.utils.DensityUtil
 import kotlin.math.abs
 
 const val TAG = "GestureDetectorSimple"
@@ -56,6 +62,26 @@ open class BaseGestureDetectorActivity : AppCompatActivity() {
         screenWidth = resources.displayMetrics.widthPixels
         screenHeight = point.y
         edgeSize = (screenWidth * 0.035).toInt()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        initVolumeControllerView()
+    }
+
+    private fun initVolumeControllerView() {
+        val controllerView = AppCompatImageView(this)
+        controllerView.layoutParams = FrameLayout.LayoutParams(DensityUtil.dp2Px(80), DensityUtil.dp2Px(12)).apply {
+            gravity = Gravity.START
+            marginStart = DensityUtil.dp2Px(20)
+            topMargin = DensityUtil.dp2Px(10)
+        }
+        controllerView.setImageResource(R.drawable.shape_vollume_controller)
+        controllerView.setOnClickListener {
+            VolumeControllerDialog().show(supportFragmentManager, null)
+        }
+        val rootView = findViewById<FrameLayout>(android.R.id.content)
+        rootView.addView(controllerView)
     }
 
     override fun dispatchTouchEvent(ev: MotionEvent): Boolean {

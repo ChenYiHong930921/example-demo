@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="360dp"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:paddingBottom="20dp">
+
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="Volume Controller"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_increase_volume"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="Increase"
+            app:layout_constraintEnd_toStartOf="@id/btn_reduce_volume"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_title" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_reduce_volume"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Reduce"
+            app:layout_constraintEnd_toStartOf="@id/btn_mute"
+            app:layout_constraintStart_toEndOf="@id/btn_increase_volume"
+            app:layout_constraintTop_toTopOf="@+id/btn_increase_volume" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_mute"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="mute"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/btn_reduce_volume"
+            app:layout_constraintTop_toTopOf="@id/btn_increase_volume" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
