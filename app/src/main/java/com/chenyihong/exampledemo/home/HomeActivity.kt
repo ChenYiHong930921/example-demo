@@ -5,6 +5,7 @@ import android.os.Bundle
 import androidx.databinding.DataBindingUtil
 import com.chenyihong.exampledemo.R
 import com.chenyihong.exampledemo.adapter.TestFunctionGroupAdapter
+import com.chenyihong.exampledemo.androidapi.autohide.AutoEdgeHideActivity
 import com.chenyihong.exampledemo.androidapi.backpress.BackPressApiActivity
 import com.chenyihong.exampledemo.androidapi.biometrics.BiometricActivity
 import com.chenyihong.exampledemo.androidapi.camerax.CameraActivity
@@ -57,7 +58,8 @@ class HomeActivity : BaseGestureDetectorActivity() {
             OptionsChildEntity("ShareSheet Api") { startActivity(Intent(this, SystemShareActivity::class.java)) },
             OptionsChildEntity("Shortcuts Api") { startActivity(Intent(this, ShortcutsActivity::class.java)) },
             OptionsChildEntity("TrafficStats Api") { startActivity(Intent(this, TrafficStatsActivity::class.java)) },
-            OptionsChildEntity("GAID Api") { startActivity(Intent(this, GaIdActivity::class.java)) }
+            OptionsChildEntity("GAID Api") { startActivity(Intent(this, GaIdActivity::class.java)) },
+            OptionsChildEntity("Auto Edge Hide") { startActivity(Intent(this, AutoEdgeHideActivity::class.java)) }
 
         )))
         functionGroupList.add(OptionsEntity("Custom View", containerTest = arrayListOf(
