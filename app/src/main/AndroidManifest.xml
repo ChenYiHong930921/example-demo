@@ -222,6 +222,10 @@
             android:name=".androidapi.autohide.AutoEdgeHideActivity"
             android:screenOrientation="portrait" />
 
+        <activity
+            android:name=".androidapi.animation.AnimatorSetExampleActivity"
+            android:screenOrientation="portrait" />
+
         <!--Meta-->
         <activity
             android:name="com.facebook.FacebookActivity"

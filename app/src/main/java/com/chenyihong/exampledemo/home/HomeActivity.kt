@@ -5,6 +5,7 @@ import android.os.Bundle
 import androidx.databinding.DataBindingUtil
 import com.chenyihong.exampledemo.R
 import com.chenyihong.exampledemo.adapter.TestFunctionGroupAdapter
+import com.chenyihong.exampledemo.androidapi.animation.AnimatorSetExampleActivity
 import com.chenyihong.exampledemo.androidapi.autohide.AutoEdgeHideActivity
 import com.chenyihong.exampledemo.androidapi.backpress.BackPressApiActivity
 import com.chenyihong.exampledemo.androidapi.biometrics.BiometricActivity
@@ -59,8 +60,8 @@ class HomeActivity : BaseGestureDetectorActivity() {
             OptionsChildEntity("Shortcuts Api") { startActivity(Intent(this, ShortcutsActivity::class.java)) },
             OptionsChildEntity("TrafficStats Api") { startActivity(Intent(this, TrafficStatsActivity::class.java)) },
             OptionsChildEntity("GAID Api") { startActivity(Intent(this, GaIdActivity::class.java)) },
-            OptionsChildEntity("Auto Edge Hide") { startActivity(Intent(this, AutoEdgeHideActivity::class.java)) }
-
+            OptionsChildEntity("Auto Edge Hide") { startActivity(Intent(this, AutoEdgeHideActivity::class.java)) },
+            OptionsChildEntity("Thumb up Animation") { startActivity(Intent(this, AnimatorSetExampleActivity::class.java)) }
         )))
         functionGroupList.add(OptionsEntity("Custom View", containerTest = arrayListOf(
             OptionsChildEntity("Custom Chart View") { startActivity(Intent(this, CustomChartViewActivity::class.java)) },
