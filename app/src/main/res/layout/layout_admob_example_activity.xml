@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <include
+            android:id="@+id/include_title"
+            layout="@layout/layout_title" />
+
+        <Button
+            android:id="@+id/btn_show_interstitial_ad"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:enabled="false"
+            android:layout_marginTop="10dp"
+            android:text="show interstitial"
+            app:layout_constraintEnd_toStartOf="@id/btn_show_rewarded_ad"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/include_title" />
+
+        <Button
+            android:id="@+id/btn_show_rewarded_ad"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:enabled="false"
+            android:text="show rewarded"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/btn_show_interstitial_ad"
+            app:layout_constraintTop_toTopOf="@id/btn_show_interstitial_ad" />
+
+        <Button
+            android:id="@+id/btn_show_banner_ad"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:enabled="false"
+            android:text="show banner"
+            android:layout_marginTop="20dp"
+            app:layout_constraintEnd_toStartOf="@id/btn_hide_banner_ad"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/btn_show_interstitial_ad" />
+
+        <Button
+            android:id="@+id/btn_hide_banner_ad"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:enabled="false"
+            android:text="hide banner"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/btn_show_banner_ad"
+            app:layout_constraintTop_toTopOf="@id/btn_show_banner_ad" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

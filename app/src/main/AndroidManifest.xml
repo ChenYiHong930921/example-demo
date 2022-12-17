@@ -37,6 +37,11 @@
             android:value="@string/facebook_client_token" />
 
         <meta-data
+            android:name="com.google.android.gms.ads.APPLICATION_ID"
+            android:value="ca-app-pub-3940256099942544~3347511713" />
+
+
+        <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
 
@@ -224,6 +229,10 @@
 
         <activity
             android:name=".androidapi.animation.AnimatorSetExampleActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".tripartite.admob.AdmobExampleActivity"
             android:screenOrientation="portrait" />
 
         <!--Meta-->
