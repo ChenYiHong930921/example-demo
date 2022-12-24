@@ -277,5 +277,15 @@
             android:name=".androidapi.search.RecentSearchProvider"
             android:authorities="com.chenyihong.exampledemo.androidapi.search.RecentSearchProvider"
             android:exported="false" />
+
+        <!--FCM-->
+        <service
+            android:name=".tripartite.fcm.ExampleFCMService"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
+        <!--FCM-->
     </application>
 </manifest>

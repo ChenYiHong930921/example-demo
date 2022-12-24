@@ -1,7 +1,15 @@
 package com.chenyihong.exampledemo.home
 
+import android.Manifest
 import android.content.Intent
+import android.content.pm.PackageManager
+import android.net.Uri
+import android.os.Build
 import android.os.Bundle
+import android.provider.Settings
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.appcompat.app.AlertDialog
+import androidx.core.app.ActivityCompat
 import androidx.databinding.DataBindingUtil
 import com.chenyihong.exampledemo.R
 import com.chenyihong.exampledemo.adapter.TestFunctionGroupAdapter
@@ -37,11 +45,22 @@ import com.minigame.testapp.ui.entity.OptionsEntity
 
 class HomeActivity : BaseGestureDetectorActivity() {
 
+    private val requestPermissionCode = this.hashCode()
+
+    private val intentLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+        // 这里可以再判断下权限，但是最好不要再次请求，避免用户厌烦
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val binding = DataBindingUtil.setContentView<LayoutHomeActivityBinding>(this, R.layout.layout_home_activity)
 
         binding.includeTitle.tvTitle.text = getString(R.string.app_name)
+
+        if (isPostNotificationPermissionNotGranted()) {
+            // 申请POST_NOTIFICATIONS权限
+            ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.POST_NOTIFICATIONS), requestPermissionCode)
+        }
 
         val functionGroupList = ArrayList<OptionsEntity>()
         functionGroupList.add(OptionsEntity("Android Api", expanded = true, containerTest = arrayListOf(
@@ -82,5 +101,37 @@ class HomeActivity : BaseGestureDetectorActivity() {
         val testFunctionGroupAdapter = TestFunctionGroupAdapter()
         binding.rvOption.adapter = testFunctionGroupAdapter
         testFunctionGroupAdapter.setNewData(functionGroupList)
+    }
+
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        if (requestCode == requestPermissionCode) {
+            if (isPostNotificationPermissionNotGranted()) {
+                // 再次判断是否获取到相应的权限了
+                // 没有的话告知用户为何我们需要申请权限
+                showPermissionStatementDialog()
+            }
+        }
+    }
+
+    private fun isPostNotificationPermissionNotGranted(): Boolean {
+        return Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU &&
+                ActivityCompat.checkSelfPermission(this, Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED
+    }
+
+    private fun showPermissionStatementDialog() {
+        val permissionTipsDialog = AlertDialog.Builder(this)
+            .setTitle("Statement of Notification Permission")
+            .setMessage("Receive game strategies and information，challenge to become a game winner!")
+            .setCancelable(true)
+            .setPositiveButton("grant") { dialog, _ ->
+                intentLauncher.launch(Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS).apply { data = Uri.parse("package:$packageName") })
+                dialog.dismiss()
+            }
+            .setNegativeButton("cancel") { dialog, _ ->
+                dialog.dismiss()
+            }
+            .create()
+        permissionTipsDialog.show()
     }
 }
