@@ -23,6 +23,7 @@ internal class ExampleFCMService : FirebaseMessagingService() {
 
     override fun onCreate() {
         super.onCreate()
+        Log.i("FCMExampleTag", "ExampleFCMService onCreate")
         notificationManager = NotificationManagerCompat.from(this)
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             // 创建通知渠道

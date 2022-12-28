@@ -279,6 +279,17 @@
             android:exported="false" />
 
         <!--FCM-->
+
+        <!--修改默认图标-->
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_icon"
+            android:resource="@drawable/notification" />
+
+        <!--修改默认颜色-->
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_color"
+            android:resource="@color/color_blue_0083ff" />
+
         <service
             android:name=".tripartite.fcm.ExampleFCMService"
             android:exported="false">
