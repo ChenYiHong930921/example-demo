@@ -235,6 +235,10 @@
             android:name=".tripartite.admob.AdmobExampleActivity"
             android:screenOrientation="portrait" />
 
+        <activity
+            android:name=".androidapi.motionlayout.MotionLayoutExampleActivity"
+            android:screenOrientation="portrait" />
+
         <!--Meta-->
         <activity
             android:name="com.facebook.FacebookActivity"

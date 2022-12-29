@@ -1,0 +1,50 @@
+package com.chenyihong.exampledemo.androidapi.motionlayout
+
+import android.os.Bundle
+import android.util.Log
+import android.view.View
+import androidx.constraintlayout.motion.widget.MotionLayout
+import androidx.databinding.DataBindingUtil
+import com.chenyihong.exampledemo.R
+import com.chenyihong.exampledemo.androidapi.gesturedetector.BaseGestureDetectorActivity
+import com.chenyihong.exampledemo.databinding.LayoutMotionLayoutExampleActivityBinding
+
+const val TAG = "MotionLayouExampleTag"
+
+class MotionLayoutExampleActivity : BaseGestureDetectorActivity() {
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        val binding: LayoutMotionLayoutExampleActivityBinding = DataBindingUtil.setContentView(this, R.layout.layout_motion_layout_example_activity)
+        binding.motionLayout.setTransitionListener(object : MotionLayout.TransitionListener {
+            override fun onTransitionStarted(motionLayout: MotionLayout?, startId: Int, endId: Int) {
+                Log.i(TAG, "onTransitionStarted startId:$startId, endId:$endId")
+                binding.ivThumbUp1.visibility = View.VISIBLE
+                binding.ivThumbUp2.visibility = View.VISIBLE
+                binding.ivThumbUp3.visibility = View.VISIBLE
+                binding.ivThumbUp4.visibility = View.VISIBLE
+                binding.ivThumbUp5.visibility = View.VISIBLE
+            }
+
+            override fun onTransitionChange(motionLayout: MotionLayout?, startId: Int, endId: Int, progress: Float) {
+                Log.i(TAG, "onTransitionChange startId:$startId, endId:$endId, progress:$progress")
+            }
+
+            override fun onTransitionCompleted(motionLayout: MotionLayout?, currentId: Int) {
+                Log.i(TAG, "onTransitionStarted currentId:$currentId")
+                binding.root.postDelayed({
+                    binding.ivThumbUp1.visibility = View.GONE
+                    binding.ivThumbUp2.visibility = View.GONE
+                    binding.ivThumbUp3.visibility = View.GONE
+                    binding.ivThumbUp4.visibility = View.GONE
+                    binding.ivThumbUp5.visibility = View.GONE
+                    binding.motionLayout.transitionToStart()
+                }, 200)
+            }
+
+            override fun onTransitionTrigger(motionLayout: MotionLayout?, triggerId: Int, positive: Boolean, progress: Float) {
+                Log.i(TAG, "onTransitionStarted triggerId:$triggerId, positive:$positive, progress:$progress")
+            }
+        })
+    }
+}

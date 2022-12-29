@@ -25,6 +25,7 @@ import com.chenyihong.exampledemo.androidapi.gaid.GaIdActivity
 import com.chenyihong.exampledemo.androidapi.gesturedetector.BaseGestureDetectorActivity
 import com.chenyihong.exampledemo.androidapi.gesturedetector.GestureDetectorAActivity
 import com.chenyihong.exampledemo.androidapi.gps.GpsSignalActivity
+import com.chenyihong.exampledemo.androidapi.motionlayout.MotionLayoutExampleActivity
 import com.chenyihong.exampledemo.androidapi.resultapi.ResultApiActivity
 import com.chenyihong.exampledemo.androidapi.search.SearchExampleActivity
 import com.chenyihong.exampledemo.androidapi.setting.SettingActivity
@@ -81,7 +82,8 @@ class HomeActivity : BaseGestureDetectorActivity() {
             OptionsChildEntity("TrafficStats Api") { startActivity(Intent(this, TrafficStatsActivity::class.java)) },
             OptionsChildEntity("GAID Api") { startActivity(Intent(this, GaIdActivity::class.java)) },
             OptionsChildEntity("Auto Edge Hide") { startActivity(Intent(this, AutoEdgeHideActivity::class.java)) },
-            OptionsChildEntity("Thumb up Animation") { startActivity(Intent(this, AnimatorSetExampleActivity::class.java)) }
+            OptionsChildEntity("Thumb up Animation") { startActivity(Intent(this, AnimatorSetExampleActivity::class.java)) },
+            OptionsChildEntity("Motion Api") { startActivity(Intent(this, MotionLayoutExampleActivity::class.java)) }
         )))
         functionGroupList.add(OptionsEntity("Custom View", containerTest = arrayListOf(
             OptionsChildEntity("Custom Chart View") { startActivity(Intent(this, CustomChartViewActivity::class.java)) },
