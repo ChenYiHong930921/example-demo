@@ -2,6 +2,11 @@
 <MotionScene xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:motion="http://schemas.android.com/apk/res-auto">
 
+    <!--配置动画的属性-->
+    <!--duration 配置动画的持续时间-->
+    <!--constraintSetStart 配置动画开始时，控件集的状态-->
+    <!--constraintSetEnd 配置动画结束时，控件集的状态-->
+    <!--motionInterpolator 配置动画的插值器，-->
     <Transition
         android:id="@+id/transition_thumb"
         android:duration="1500"
@@ -9,13 +14,24 @@
         motion:constraintSetStart="@id/thumb_start"
         motion:motionInterpolator="easeOut">
 
+        <!--点击时触发动画-->
+        <!--targetId 配置触发事件的控件id-->
+        <!--clickAction 配置点击触发的效果-->
+        <!--clickAction toggle 当前控件集为开始状态，则播放动画切换至结束状态，反之亦然-->
+        <!--clickAction transitionToEnd 播放控件集开始到结束的动画-->
+        <!--clickAction transitionToStart 播放控件集结束到开始的动画-->
+        <!--clickAction jumpToEnd 不播放动画，控件集直接切换至结束状态-->
+        <!--clickAction jumpToStart 不播放动画，控件集直接切换至开始状态-->
         <OnClick
-            motion:clickAction="transitionToEnd"
+            motion:clickAction="toggle"
             motion:targetId="@id/iv_thumb_up" />
     </Transition>
 
+    <!--控件集 动画开始时的状态-->
     <ConstraintSet android:id="@+id/thumb_start">
 
+        <!--与layout文件中的控件对应-->
+        <!--visibilityMode 如果需要改变控件的可见性，需要将此字段配置为ignore-->
         <Constraint
             android:id="@+id/iv_thumb_up"
             android:layout_width="25dp"
@@ -38,6 +54,9 @@
             motion:layout_constraintTop_toTopOf="parent"
             motion:visibilityMode="ignore">
 
+            <!--改变控件的属性-->
+            <!--attributeName 属性名-->
+            <!--customFloatValue Float类型属性值-->
             <CustomAttribute
                 motion:attributeName="alpha"
                 motion:customFloatValue="1" />
@@ -108,6 +127,7 @@
         </Constraint>
     </ConstraintSet>
 
+    <!--控件集 动画结束时的状态-->
     <ConstraintSet android:id="@+id/thumb_end">
 
         <Constraint

@@ -31,7 +31,7 @@ class MotionLayoutExampleActivity : BaseGestureDetectorActivity() {
             }
 
             override fun onTransitionCompleted(motionLayout: MotionLayout?, currentId: Int) {
-                Log.i(TAG, "onTransitionStarted currentId:$currentId")
+                Log.i(TAG, "onTransitionCompleted currentId:$currentId")
                 binding.root.postDelayed({
                     binding.ivThumbUp1.visibility = View.GONE
                     binding.ivThumbUp2.visibility = View.GONE
@@ -43,7 +43,7 @@ class MotionLayoutExampleActivity : BaseGestureDetectorActivity() {
             }
 
             override fun onTransitionTrigger(motionLayout: MotionLayout?, triggerId: Int, positive: Boolean, progress: Float) {
-                Log.i(TAG, "onTransitionStarted triggerId:$triggerId, positive:$positive, progress:$progress")
+                Log.i(TAG, "onTransitionTrigger triggerId:$triggerId, positive:$positive, progress:$progress")
             }
         })
     }

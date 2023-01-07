@@ -3,6 +3,9 @@
     xmlns:motion="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <!--根节点改为使用MotionLayout-->
+    <!--layoutDescription 配置MotionScene配置文件-->
+    <!--showPaths设置是否显示动画的轨迹-->
     <androidx.constraintlayout.motion.widget.MotionLayout
         android:id="@+id/motion_layout"
         android:layout_width="match_parent"
