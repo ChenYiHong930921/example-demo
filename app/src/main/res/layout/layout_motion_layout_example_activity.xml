@@ -10,7 +10,7 @@
         android:id="@+id/motion_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        motion:layoutDescription="@xml/layout_motion_layout_example_activity_scene"
+        motion:layoutDescription="@xml/example_motion_scene"
         tools:showPaths="true">
 
         <include

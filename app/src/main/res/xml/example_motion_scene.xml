@@ -12,7 +12,7 @@
         android:duration="1500"
         motion:constraintSetEnd="@id/thumb_end"
         motion:constraintSetStart="@id/thumb_start"
-        motion:motionInterpolator="easeOut">
+        motion:motionInterpolator="linear">
 
         <!--点击时触发动画-->
         <!--targetId 配置触发事件的控件id-->
@@ -23,8 +23,29 @@
         <!--clickAction jumpToEnd 不播放动画，控件集直接切换至结束状态-->
         <!--clickAction jumpToStart 不播放动画，控件集直接切换至开始状态-->
         <OnClick
-            motion:clickAction="toggle"
+            motion:clickAction="transitionToEnd"
             motion:targetId="@id/iv_thumb_up" />
+
+        <!--关键帧集合，用于实现缩放效果-->
+        <KeyFrameSet>
+
+            <!--修改属性-->
+            <!--framePosition 取值范围为0-100-->
+            <!--motionTarget 设置修改的对象-->
+            <!--scaleX 设置x轴缩放大小-->
+            <!--scaleY 设置y轴缩放大小-->
+            <KeyAttribute
+                android:scaleX="1.6"
+                android:scaleY="1.6"
+                motion:framePosition="25"
+                motion:motionTarget="@id/iv_thumb_up" />
+
+            <KeyAttribute
+                android:scaleX="1"
+                android:scaleY="1"
+                motion:framePosition="50"
+                motion:motionTarget="@id/iv_thumb_up" />
+        </KeyFrameSet>
     </Transition>
 
     <!--控件集 动画开始时的状态-->
