@@ -20,25 +20,53 @@ android {
     }
 
     signingConfigs {
-
-        release {
+        origin {
             keyAlias 'expampledemo'
             keyPassword '123456'
             storeFile file('ExampleDemo')
             storePassword '123456'
+        }
+
+        exampleFlavor {
+            keyAlias 'exampledemoflavor'
+            keyPassword '123456'
+            storeFile file('ExampleDemoFlavor.jks')
+            storePassword '123456'
+        }
+    }
+
+    flavorDimensions "example_value"
+
+    productFlavors {
+        origin{
+            manifestPlaceholders = [channel_value: "origin channel"]
+            buildConfigField("String", "example_value", "\"origin server address\"")
+            resValue("string", "example_value", "origin tips")
+
+            signingConfig signingConfigs.origin
+        }
+
+        exampleFlavor {
+            applicationId "com.chenyihong.exampledflavordemo"
+            versionCode 2
+            versionName "1.0.2-flavor"
+
+            manifestPlaceholders = [channel_value: "flavor channel"]
+            buildConfigField("String", "example_value", "\"flavor server address\"")
+            resValue("string", "example_value", "flavor tips")
+
+            signingConfig signingConfigs.exampleFlavor
         }
     }
 
     buildTypes {
         debug {
             minifyEnabled false
-            signingConfig signingConfigs.release
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
 
         release {
             minifyEnabled false
-            signingConfig signingConfigs.release
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }

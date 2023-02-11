@@ -20,9 +20,9 @@
         android:allowBackup="false"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/full_backup_content"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/icon_android"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@drawable/icon_android"
         android:supportsRtl="true"
         android:theme="@style/Theme.ExampleDemo"
         tools:ignore="LockedOrientationActivity">
@@ -39,10 +39,13 @@
             android:name="com.google.android.gms.ads.APPLICATION_ID"
             android:value="ca-app-pub-3940256099942544~3347511713" />
 
-
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
+
+        <meta-data
+            android:name="channel_value"
+            android:value="${channel_value}" />
 
         <activity
             android:name=".home.HomeActivity"
@@ -236,6 +239,10 @@
 
         <activity
             android:name=".androidapi.motionlayout.MotionLayoutExampleActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name="com.chenyihong.exampledemo.flavor.FlavorExampleActivity"
             android:screenOrientation="portrait" />
 
         <!--Meta-->

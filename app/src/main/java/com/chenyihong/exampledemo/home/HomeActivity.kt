@@ -37,6 +37,7 @@ import com.chenyihong.exampledemo.customview.CustomChartViewActivity
 import com.chenyihong.exampledemo.customview.CustomShadowViewActivity
 import com.chenyihong.exampledemo.databinding.LayoutHomeActivityBinding
 import com.chenyihong.exampledemo.entity.OptionsChildEntity
+import com.chenyihong.exampledemo.flavor.FlavorExampleActivity
 import com.chenyihong.exampledemo.tripartite.admob.AdmobExampleActivity
 import com.chenyihong.exampledemo.tripartite.login.TripartiteLoginActivity
 import com.chenyihong.exampledemo.tripartite.share.TripartiteShareActivity
@@ -98,6 +99,9 @@ class HomeActivity : BaseGestureDetectorActivity() {
             OptionsChildEntity("Tripartite Login") { startActivity(Intent(this, TripartiteLoginActivity::class.java)) },
             OptionsChildEntity("Tripartite Share") { startActivity(Intent(this, TripartiteShareActivity::class.java)) },
             OptionsChildEntity("Admob Advertise") { startActivity(Intent(this, AdmobExampleActivity::class.java)) }
+        )))
+        functionGroupList.add(OptionsEntity("Product Flavor", containerTest = arrayListOf(
+            OptionsChildEntity("Flavor Example") { startActivity(Intent(this, FlavorExampleActivity::class.java)) }
         )))
 
         val testFunctionGroupAdapter = TestFunctionGroupAdapter()
