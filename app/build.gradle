@@ -2,7 +2,7 @@ plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
     id 'kotlin-parcelize'
-    id 'com.google.gms.google-services'
+//    id 'com.google.gms.google-services'
 }
 
 android {
@@ -38,7 +38,7 @@ android {
     flavorDimensions "example_value"
 
     productFlavors {
-        origin{
+        origin {
             manifestPlaceholders = [channel_value: "origin channel"]
             buildConfigField("String", "example_value", "\"origin server address\"")
             resValue("string", "example_value", "origin tips")
@@ -62,11 +62,13 @@ android {
     buildTypes {
         debug {
             minifyEnabled false
+            signingConfig null
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
 
         release {
             minifyEnabled false
+            signingConfig null
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }

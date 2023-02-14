@@ -7,6 +7,8 @@ import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.provider.Settings
+import android.util.Base64
+import android.util.Log
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
 import androidx.core.app.ActivityCompat
@@ -44,6 +46,8 @@ import com.chenyihong.exampledemo.tripartite.share.TripartiteShareActivity
 import com.chenyihong.exampledemo.web.PARAMS_LINK_URL
 import com.chenyihong.exampledemo.web.WebViewActivity
 import com.minigame.testapp.ui.entity.OptionsEntity
+import java.security.MessageDigest
+import java.security.NoSuchAlgorithmException
 
 class HomeActivity : BaseGestureDetectorActivity() {
 
@@ -107,6 +111,8 @@ class HomeActivity : BaseGestureDetectorActivity() {
         val testFunctionGroupAdapter = TestFunctionGroupAdapter()
         binding.rvOption.adapter = testFunctionGroupAdapter
         testFunctionGroupAdapter.setNewData(functionGroupList)
+
+        checkKeyStoreHash()
     }
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
@@ -139,5 +145,25 @@ class HomeActivity : BaseGestureDetectorActivity() {
             }
             .create()
         permissionTipsDialog.show()
+    }
+
+    private fun checkKeyStoreHash() {
+        try {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+                val info = packageManager.getPackageInfo(packageName, PackageManager.GET_SIGNING_CERTIFICATES)
+                val signingInfo = info.signingInfo
+                val apkContentsSigners = signingInfo.apkContentsSigners
+                for (signature in apkContentsSigners) {
+                    val md: MessageDigest = MessageDigest.getInstance("SHA")
+                    md.update(signature.toByteArray())
+                    val keyStoreHash = Base64.encodeToString(md.digest(), Base64.DEFAULT)
+                    Log.i("keyHash", "KeyHash keyStoreHash:${keyStoreHash}")
+                }
+            }
+        } catch (e: PackageManager.NameNotFoundException) {
+            Log.e("keyHash", "KeyHash error1:${e.message}")
+        } catch (e: NoSuchAlgorithmException) {
+            Log.e("keyHash", "KeyHash error2:${e.message}")
+        }
     }
 }
