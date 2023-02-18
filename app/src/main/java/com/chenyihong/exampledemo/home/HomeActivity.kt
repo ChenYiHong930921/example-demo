@@ -1,17 +1,22 @@
 package com.chenyihong.exampledemo.home
 
 import android.Manifest
+import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.provider.Settings
 import android.util.Base64
 import android.util.Log
+import androidx.activity.result.contract.ActivityResultContract
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
+import androidx.browser.customtabs.CustomTabsIntent
 import androidx.core.app.ActivityCompat
+import androidx.core.net.toUri
 import androidx.databinding.DataBindingUtil
 import com.chenyihong.exampledemo.R
 import com.chenyihong.exampledemo.adapter.TestFunctionGroupAdapter
@@ -43,8 +48,10 @@ import com.chenyihong.exampledemo.flavor.FlavorExampleActivity
 import com.chenyihong.exampledemo.tripartite.admob.AdmobExampleActivity
 import com.chenyihong.exampledemo.tripartite.login.TripartiteLoginActivity
 import com.chenyihong.exampledemo.tripartite.share.TripartiteShareActivity
+import com.chenyihong.exampledemo.utils.DensityUtil
 import com.chenyihong.exampledemo.web.PARAMS_LINK_URL
 import com.chenyihong.exampledemo.web.WebViewActivity
+import com.chenyihong.exampledemo.web.customtab.CustomTabHelper
 import com.minigame.testapp.ui.entity.OptionsEntity
 import java.security.MessageDigest
 import java.security.NoSuchAlgorithmException
@@ -55,6 +62,28 @@ class HomeActivity : BaseGestureDetectorActivity() {
 
     private val intentLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
         // 这里可以再判断下权限，但是最好不要再次请求，避免用户厌烦
+    }
+
+    private val customTabLauncher = registerForActivityResult(object : ActivityResultContract<String, Int>() {
+        override fun createIntent(context: Context, input: String): Intent {
+            val customTabsIntentBuilder = CustomTabsIntent.Builder()
+                .setInitialActivityHeightPx(500)
+                .setToolbarCornerRadiusDp(10)
+            return customTabsIntentBuilder.build().intent.apply {
+                data = input.toUri()
+            }
+        }
+
+        override fun parseResult(resultCode: Int, intent: Intent?): Int {
+            return resultCode
+        }
+    }) {
+        Log.i("-,-,-", "customTabLauncher result:$it")
+    }
+
+    override fun onStart() {
+        super.onStart()
+        CustomTabHelper.bindCustomTabsService(this)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -95,10 +124,21 @@ class HomeActivity : BaseGestureDetectorActivity() {
             OptionsChildEntity("Custom Shadow View") { startActivity(Intent(this, CustomShadowViewActivity::class.java)) }
         )))
         functionGroupList.add(OptionsEntity("WebView", containerTest = arrayListOf(
-            OptionsChildEntity("Test Js interaction") { startActivity(Intent(this, WebViewActivity::class.java).apply { putExtra(PARAMS_LINK_URL, "file:///android_asset/index.html") }) },
+            OptionsChildEntity("Test Js interaction") {
+                startActivity(Intent(this, WebViewActivity::class.java).apply { putExtra(PARAMS_LINK_URL, "file:///android_asset/index.html") })
+            },
             OptionsChildEntity("Test intercept request") { startActivity(Intent(this, WebViewActivity::class.java).apply { putExtra(PARAMS_LINK_URL, "file:///android_asset/index_intercept_request.html") }) },
-            OptionsChildEntity("Test open new window") { startActivity(Intent(this, WebViewActivity::class.java).apply { putExtra(PARAMS_LINK_URL, "file:///android_asset/index_open_tab.html") }) }
-        )))
+            OptionsChildEntity("Test open new window") { startActivity(Intent(this, WebViewActivity::class.java).apply { putExtra(PARAMS_LINK_URL, "file:///android_asset/index_open_tab.html") }) },
+            OptionsChildEntity("Google Custom Tab") {
+                val url = "https://go.minigame.vip/"
+                if (CustomTabHelper.checkCustomTabAvailable(this)) {
+                    CustomTabHelper.openCustomTab(this, url, (resources.displayMetrics.heightPixels * 0.6).toInt(), getColor(R.color.color_FF2600), 16, BitmapFactory.decodeResource(resources, R.drawable.icon_back))
+//                    customTabLauncher.launch(url)
+                } else {
+                    startActivity(Intent(this, WebViewActivity::class.java).apply { putExtra(PARAMS_LINK_URL, url) })
+                }
+            })
+        ))
         functionGroupList.add(OptionsEntity("Tripartite sdk", containerTest = arrayListOf(
             OptionsChildEntity("Tripartite Login") { startActivity(Intent(this, TripartiteLoginActivity::class.java)) },
             OptionsChildEntity("Tripartite Share") { startActivity(Intent(this, TripartiteShareActivity::class.java)) },
@@ -113,6 +153,11 @@ class HomeActivity : BaseGestureDetectorActivity() {
         testFunctionGroupAdapter.setNewData(functionGroupList)
 
         checkKeyStoreHash()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        CustomTabHelper.unbindCustomTabsService(this)
     }
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
