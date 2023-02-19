@@ -248,6 +248,10 @@
             android:name="com.chenyihong.exampledemo.flavor.FlavorExampleActivity"
             android:screenOrientation="portrait" />
 
+        <activity
+            android:name=".web.customtab.CustomTabExampleActivity"
+            android:screenOrientation="portrait" />
+
         <!--Meta-->
         <activity
             android:name="com.facebook.FacebookActivity"

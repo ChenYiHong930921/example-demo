@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <include
+            android:id="@+id/include_title"
+            layout="@layout/layout_title" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_change_height_fixed"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="change height fixed"
+            android:textSize="12sp"
+            app:layout_constraintEnd_toStartOf="@id/btn_change_height_adjustable"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/include_title" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_change_height_adjustable"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="change height adjustable"
+            android:textSize="12sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/btn_change_height_fixed"
+            app:layout_constraintTop_toTopOf="@id/btn_change_height_fixed" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_custom_ui"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="custom ui"
+            android:textSize="12sp"
+            app:layout_constraintEnd_toStartOf="@id/btn_change_height_adjustable"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/btn_change_height_fixed" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_custom_animations"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="custom animations"
+            android:textSize="12sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/btn_custom_ui"
+            app:layout_constraintTop_toTopOf="@id/btn_custom_ui" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
