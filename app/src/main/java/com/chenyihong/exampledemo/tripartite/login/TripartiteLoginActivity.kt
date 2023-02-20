@@ -8,7 +8,6 @@ import android.os.Bundle
 import android.util.Base64.DEFAULT
 import android.util.Base64.encodeToString
 import android.util.Log
-import android.widget.Toast
 import androidx.activity.result.IntentSenderRequest
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.databinding.DataBindingUtil
@@ -216,12 +215,6 @@ class TripartiteLoginActivity : BaseGestureDetectorActivity() {
             Log.d(TAG, "KeyHash error1:${e.message}")
         } catch (e: NoSuchAlgorithmException) {
             Log.d(TAG, "KeyHash error2:${e.message}")
-        }
-    }
-
-    private fun showToast(message: String) {
-        runOnUiThread {
-            Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
         }
     }
 

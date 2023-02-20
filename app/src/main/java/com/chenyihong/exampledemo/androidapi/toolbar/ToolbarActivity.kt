@@ -3,7 +3,6 @@ package com.chenyihong.exampledemo.androidapi.toolbar
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
-import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import com.chenyihong.exampledemo.R
 import com.chenyihong.exampledemo.databinding.LayoutToolbarActivityBinding
@@ -47,9 +46,5 @@ class ToolbarActivity : BaseGestureDetectorActivity() {
             setHomeAsUpIndicator(R.drawable.icon_back)
             setDisplayHomeAsUpEnabled(true)
         }
-    }
-
-    private fun showToast(message: String) {
-        runOnUiThread { Toast.makeText(this, message, Toast.LENGTH_SHORT).show() }
     }
 }
