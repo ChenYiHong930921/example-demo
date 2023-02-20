@@ -6,6 +6,7 @@ import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.content.pm.ResolveInfo
+import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Build
 import androidx.annotation.ColorInt
@@ -36,7 +37,7 @@ object CustomTabHelper {
         customTabsIntentBuilder.build().launchUrl(context, url.toUri())
     }
 
-    fun openCustomTabWithCustomUI(context: Context, url: String, @ColorInt color: Int = 0, showTitle: Boolean = false, autoHide: Boolean = false, backIconPosition: Int = CustomTabsIntent.CLOSE_BUTTON_POSITION_START) {
+    fun openCustomTabWithCustomUI(context: Context, url: String, @ColorInt color: Int = 0, showTitle: Boolean = false, autoHide: Boolean = false, backIconPosition: Int = CustomTabsIntent.CLOSE_BUTTON_POSITION_START, backIcon: Bitmap? = null) {
         val customTabsIntentBuilder = CustomTabsIntent.Builder(customTabsClient?.newSession(null))
         if (color != 0) {
             // 配置背景颜色
@@ -52,6 +53,8 @@ object CustomTabHelper {
         // CustomTabsIntent.CLOSE_BUTTON_POSITION_START 在地址栏的左侧
         // CustomTabsIntent.CLOSE_BUTTON_POSITION_END 在地址栏的右侧
         customTabsIntentBuilder.setCloseButtonPosition(backIconPosition)
+        // 调整返回按钮图标
+        backIcon?.let { customTabsIntentBuilder.setCloseButtonIcon(it) }
         customTabsIntentBuilder.build().launchUrl(context, url.toUri())
     }
 

@@ -3,6 +3,10 @@ package com.chenyihong.exampledemo.web.customtab
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
+import android.graphics.Bitmap
+import android.graphics.Canvas
+import android.graphics.Rect
+import android.graphics.drawable.Drawable
 import android.os.Bundle
 import androidx.activity.result.contract.ActivityResultContract
 import androidx.browser.customtabs.CustomTabsIntent
@@ -12,6 +16,7 @@ import androidx.databinding.DataBindingUtil
 import com.chenyihong.exampledemo.R
 import com.chenyihong.exampledemo.androidapi.gesturedetector.BaseGestureDetectorActivity
 import com.chenyihong.exampledemo.databinding.LayoutCustomTabActivityBinding
+import com.chenyihong.exampledemo.utils.DensityUtil
 import com.chenyihong.exampledemo.web.PARAMS_LINK_URL
 import com.chenyihong.exampledemo.web.WebViewActivity
 
@@ -67,7 +72,9 @@ class CustomTabExampleActivity : BaseGestureDetectorActivity() {
         }
         binding.btnCustomUi.setOnClickListener {
             checkCustomTabAvailable()
-            CustomTabHelper.openCustomTabWithCustomUI(this, url, ContextCompat.getColor(this, R.color.color_FF2600), showTitle = true, autoHide = true, CustomTabsIntent.CLOSE_BUTTON_POSITION_END)
+            var backIcon: Bitmap? = null
+            ContextCompat.getDrawable(this, R.drawable.icon_back)?.let { backIcon = toBitmap(it) }
+            CustomTabHelper.openCustomTabWithCustomUI(this, url, ContextCompat.getColor(this, R.color.color_FF2600), showTitle = true, autoHide = true, CustomTabsIntent.CLOSE_BUTTON_POSITION_END, backIcon)
         }
         binding.btnCustomAnimations.setOnClickListener {
             checkCustomTabAvailable()
@@ -94,5 +101,16 @@ class CustomTabExampleActivity : BaseGestureDetectorActivity() {
         if (!changeHeightByActivityResult) {
             CustomTabHelper.unbindCustomTabsService(this)
         }
+    }
+
+    private fun toBitmap(drawable: Drawable): Bitmap? {
+        val width = DensityUtil.dp2Px(24)
+        val height = DensityUtil.dp2Px(24)
+        val oldBounds = Rect(drawable.bounds)
+        val bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888)
+        drawable.setBounds(0, 0, width, height)
+        drawable.draw(Canvas(bitmap))
+        drawable.bounds = oldBounds
+        return bitmap
     }
 }
