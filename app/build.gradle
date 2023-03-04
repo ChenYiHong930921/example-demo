@@ -117,9 +117,9 @@ dependencies {
     implementation("com.google.android.gms:play-services-auth:20.4.1")
 
     //Meta login
-    implementation("com.facebook.android:facebook-login:15.2.0")
+    implementation('com.facebook.android:facebook-login:16.0.0')
     //Mate share
-    implementation("com.facebook.android:facebook-share:15.2.0")
+    implementation('com.facebook.android:facebook-share:16.0.0')
 
     //Biometric
     implementation("androidx.biometric:biometric:1.2.0-alpha05")
@@ -140,7 +140,7 @@ dependencies {
     implementation("com.google.android.gms:play-services-ads:21.5.0")
 
     // Firebase cloud message
-    implementation("com.google.firebase:firebase-messaging:23.1.1")
+    implementation('com.google.firebase:firebase-messaging:23.1.2')
 
     // Google Custom Tab
     implementation("androidx.browser:browser:1.5.0")
