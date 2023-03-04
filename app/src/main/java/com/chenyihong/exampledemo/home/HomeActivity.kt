@@ -96,9 +96,7 @@ class HomeActivity : AppCompatActivity() {
             OptionsChildEntity("Custom Shadow View") { startActivity(Intent(this, CustomShadowViewActivity::class.java)) }
         )))
         functionGroupList.add(OptionsEntity("WebView", containerTest = arrayListOf(
-            OptionsChildEntity("Test Js interaction") {
-                startActivity(Intent(this, WebViewActivity::class.java).apply { putExtra(PARAMS_LINK_URL, "file:///android_asset/index.html") })
-            },
+            OptionsChildEntity("Test Js interaction") { startActivity(Intent(this, WebViewActivity::class.java).apply { putExtra(PARAMS_LINK_URL, "file:///android_asset/index.html") }) },
             OptionsChildEntity("Test intercept request") { startActivity(Intent(this, WebViewActivity::class.java).apply { putExtra(PARAMS_LINK_URL, "file:///android_asset/index_intercept_request.html") }) },
             OptionsChildEntity("Test open new window") { startActivity(Intent(this, WebViewActivity::class.java).apply { putExtra(PARAMS_LINK_URL, "file:///android_asset/index_open_tab.html") }) },
             OptionsChildEntity("Google Custom Tab") { startActivity(Intent(this, CustomTabExampleActivity::class.java)) })))
