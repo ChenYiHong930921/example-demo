@@ -15,4 +15,20 @@ class ExampleApplication : Application() {
         super.onCreate()
         exampleContext = this
     }
+
+    override fun getPackageName(): String {
+        try {
+            val stackTrace = Thread.currentThread().stackTrace
+            for (item in stackTrace) {
+                if ("org.chromium.base.BuildInfo".equals(item.className, true)) {
+                    if ("getAll".equals(item.methodName, true)) {
+                        return ""
+                    }
+                }
+            }
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+        return super.getPackageName()
+    }
 }
