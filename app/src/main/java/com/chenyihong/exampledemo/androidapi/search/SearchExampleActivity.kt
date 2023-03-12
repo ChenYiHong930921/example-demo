@@ -5,7 +5,6 @@ import android.app.SearchManager
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import com.chenyihong.exampledemo.R
 import com.chenyihong.exampledemo.databinding.LayoutSearchExampleActivityBinding
@@ -30,7 +29,7 @@ class SearchExampleActivity : BaseGestureDetectorActivity() {
         binding.btnSearchDialog.setOnClickListener { onSearchRequested() }
         val searchManager = getSystemService(Context.SEARCH_SERVICE) as SearchManager
         searchManager.setOnDismissListener {
-            runOnUiThread { Toast.makeText(this, "Search Dialog dismiss", Toast.LENGTH_SHORT).show() }
+            showToast("Search Dialog dismiss")
         }
     }
 }

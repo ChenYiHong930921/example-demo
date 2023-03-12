@@ -7,6 +7,7 @@ import android.view.GestureDetector
 import android.view.Gravity
 import android.view.MotionEvent
 import android.widget.FrameLayout
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.AppCompatImageView
 import androidx.core.view.*
@@ -90,6 +91,12 @@ open class BaseGestureDetectorActivity : AppCompatActivity() {
             true
         } else {
             super.dispatchTouchEvent(ev)
+        }
+    }
+
+    fun showToast(toastMessage: String) {
+        runOnUiThread {
+            Toast.makeText(this, toastMessage, Toast.LENGTH_SHORT).show()
         }
     }
 }

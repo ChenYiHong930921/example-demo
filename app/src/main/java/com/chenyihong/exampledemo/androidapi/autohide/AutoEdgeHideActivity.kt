@@ -8,7 +8,6 @@ import android.os.Looper
 import android.view.MotionEvent
 import android.view.View
 import android.view.animation.DecelerateInterpolator
-import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import com.chenyihong.exampledemo.R
 import com.chenyihong.exampledemo.androidapi.gesturedetector.BaseGestureDetectorActivity
@@ -40,10 +39,10 @@ class AutoEdgeHideActivity : BaseGestureDetectorActivity() {
                 // 把之前的延迟线程先取消
                 handler.removeCallbacks(autoShowRunnable)
                 autoShow()
-                Toast.makeText(this, "手动显示控件", Toast.LENGTH_SHORT).show()
+                showToast("手动显示控件")
             } else {
                 // 相应正常的事件
-                Toast.makeText(this, "点击了浮标控件", Toast.LENGTH_SHORT).show()
+                showToast("点击了浮标控件")
             }
         }
     }

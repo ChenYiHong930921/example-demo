@@ -7,7 +7,6 @@ import android.os.Build
 import android.os.Bundle
 import android.os.Environment
 import android.util.Log
-import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.FileProvider
 import androidx.databinding.DataBindingUtil
@@ -197,11 +196,5 @@ class ResultApiActivity : BaseGestureDetectorActivity() {
         }
 
         return FileProvider.getUriForFile(this, "${BuildConfig.APPLICATION_ID}.provider", photoFile)
-    }
-
-    private fun showToast(message: String) {
-        runOnUiThread {
-            Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
-        }
     }
 }

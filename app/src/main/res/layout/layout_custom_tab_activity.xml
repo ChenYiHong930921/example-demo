@@ -11,6 +11,16 @@
             layout="@layout/layout_title" />
 
         <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_open_simple_tab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="open simple tab"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/include_title" />
+
+        <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btn_change_height_fixed"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -19,7 +29,7 @@
             android:textSize="12sp"
             app:layout_constraintEnd_toStartOf="@id/btn_change_height_adjustable"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/include_title" />
+            app:layout_constraintTop_toBottomOf="@id/btn_open_simple_tab" />
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btn_change_height_adjustable"
@@ -51,5 +61,26 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/btn_custom_ui"
             app:layout_constraintTop_toTopOf="@id/btn_custom_ui" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_custom_action_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="custom action button"
+            android:textSize="12sp"
+            app:layout_constraintEnd_toStartOf="@id/btn_custom_menu"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/btn_custom_ui" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_custom_menu"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="custom menu"
+            android:textSize="12sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/btn_custom_action_button"
+            app:layout_constraintTop_toTopOf="@id/btn_custom_action_button" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
