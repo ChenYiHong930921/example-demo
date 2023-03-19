@@ -36,6 +36,7 @@ import com.chenyihong.exampledemo.androidapi.sharesheet.SystemShareActivity
 import com.chenyihong.exampledemo.androidapi.shortcuts.ShortcutsActivity
 import com.chenyihong.exampledemo.androidapi.toolbar.ToolbarActivity
 import com.chenyihong.exampledemo.androidapi.trafficstats.TrafficStatsActivity
+import com.chenyihong.exampledemo.androidapi.wifi.WIFIExampleActivity
 import com.chenyihong.exampledemo.customview.CustomChartViewActivity
 import com.chenyihong.exampledemo.customview.CustomShadowViewActivity
 import com.chenyihong.exampledemo.databinding.LayoutHomeActivityBinding
@@ -91,7 +92,8 @@ class HomeActivity : AppCompatActivity() {
             OptionsChildEntity("Auto Edge Hide") { startActivity(Intent(this, AutoEdgeHideActivity::class.java)) },
             OptionsChildEntity("Thumb up Animation") { startActivity(Intent(this, AnimatorSetExampleActivity::class.java)) },
             OptionsChildEntity("Motion Api") { startActivity(Intent(this, MotionLayoutExampleActivity::class.java)) },
-            OptionsChildEntity("IP and UA") { startActivity(Intent(this, IPAndUAExample::class.java)) }
+            OptionsChildEntity("IP and UA") { startActivity(Intent(this, IPAndUAExample::class.java)) },
+            OptionsChildEntity("WI-FI") { startActivity(Intent(this, WIFIExampleActivity::class.java)) }
         )))
         functionGroupList.add(OptionsEntity("Custom View", containerTest = arrayListOf(
             OptionsChildEntity("Custom Chart View") { startActivity(Intent(this, CustomChartViewActivity::class.java)) },
