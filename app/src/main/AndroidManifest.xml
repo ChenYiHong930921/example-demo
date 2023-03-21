@@ -269,6 +269,10 @@
             android:name=".androidapi.wifi.WIFIExampleActivity"
             android:screenOrientation="portrait" />
 
+        <activity
+            android:name=".androidapi.timechange.TimeChangeExample"
+            android:screenOrientation="portrait" />
+
         <!--Meta-->
         <activity
             android:name="com.facebook.FacebookActivity"

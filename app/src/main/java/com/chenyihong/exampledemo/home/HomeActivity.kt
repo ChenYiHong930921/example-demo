@@ -34,6 +34,7 @@ import com.chenyihong.exampledemo.androidapi.search.SearchExampleActivity
 import com.chenyihong.exampledemo.androidapi.setting.SettingActivity
 import com.chenyihong.exampledemo.androidapi.sharesheet.SystemShareActivity
 import com.chenyihong.exampledemo.androidapi.shortcuts.ShortcutsActivity
+import com.chenyihong.exampledemo.androidapi.timechange.TimeChangeExample
 import com.chenyihong.exampledemo.androidapi.toolbar.ToolbarActivity
 import com.chenyihong.exampledemo.androidapi.trafficstats.TrafficStatsActivity
 import com.chenyihong.exampledemo.androidapi.wifi.WIFIExampleActivity
@@ -93,7 +94,8 @@ class HomeActivity : AppCompatActivity() {
             OptionsChildEntity("Thumb up Animation") { startActivity(Intent(this, AnimatorSetExampleActivity::class.java)) },
             OptionsChildEntity("Motion Api") { startActivity(Intent(this, MotionLayoutExampleActivity::class.java)) },
             OptionsChildEntity("IP and UA") { startActivity(Intent(this, IPAndUAExample::class.java)) },
-            OptionsChildEntity("WI-FI") { startActivity(Intent(this, WIFIExampleActivity::class.java)) }
+            OptionsChildEntity("WI-FI") { startActivity(Intent(this, WIFIExampleActivity::class.java)) },
+            OptionsChildEntity("Time Change") { startActivity(Intent(this, TimeChangeExample::class.java)) }
         )))
         functionGroupList.add(OptionsEntity("Custom View", containerTest = arrayListOf(
             OptionsChildEntity("Custom Chart View") { startActivity(Intent(this, CustomChartViewActivity::class.java)) },
