@@ -1,59 +1,154 @@
 package com.chenyihong.exampledemo.androidapi.timechange
 
+import android.annotation.SuppressLint
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
-import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
-import android.os.SystemClock
-import android.util.Log
+import android.os.*
+import androidx.databinding.DataBindingUtil
+import com.chenyihong.exampledemo.R
 import com.chenyihong.exampledemo.androidapi.gesturedetector.BaseGestureDetectorActivity
+import com.chenyihong.exampledemo.databinding.LayoutTimeChangeExampleActivityBinding
+import java.text.SimpleDateFormat
 import java.util.*
 
 const val TAG = "TimeChangeExampleTag"
 
 class TimeChangeExample : BaseGestureDetectorActivity() {
 
-    private val timeChangeBroadcastReceiver = object : BroadcastReceiver() {
-        override fun onReceive(context: Context?, intent: Intent?) {
-            if (intent?.action == Intent.ACTION_TIME_TICK) {
-                Log.i(TAG, "ACTION_TIME_TICK time:${Date().toLocaleString()}")
-            }
+    private lateinit var binding: LayoutTimeChangeExampleActivityBinding
+
+    @SuppressLint("SimpleDateFormat")
+    private val dateFormat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS")
+
+    @SuppressLint("SetTextI18n")
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        binding = DataBindingUtil.setContentView(this, R.layout.layout_time_change_example_activity)
+        binding.btnCountdownByTimer.setOnClickListener {
+            clearText()
+            binding.tvCountdownText.text = "countdown by timer\n"
+            startCountdownByTime()
+        }
+        binding.btnStopTimer.setOnClickListener {
+            clearText()
+            stopTimer()
+        }
+
+        binding.btnCountdownByBroadcast.setOnClickListener {
+            clearText()
+            binding.tvCountdownText.text = "countdown by broadcast\n"
+            startCountdownByBroadcast()
+        }
+        binding.btnStopBroadcast.setOnClickListener {
+            clearText()
+            stopBroadcast()
+        }
+
+        binding.btnCountdownByHandler.setOnClickListener {
+            clearText()
+            binding.tvCountdownText.text = "countdown by handler\n"
+            startCountdownByHandler()
+        }
+        binding.btnStopHandler.setOnClickListener {
+            clearText()
+            stopHandler()
         }
     }
 
-    private var countDownTime = 0
-    private var onlineTime = 0
+    // <editor-folder desc = "Timer" >
+
+    private var timerHandler = object : Handler(Looper.myLooper() ?: Looper.getMainLooper()) {
+        override fun handleMessage(msg: Message) {
+            super.handleMessage(msg)
+            if (msg.what == 0) {
+                setCountdownTimeText(msg.obj as Long)
+            }
+        }
+    }
+    private var timer: Timer? = null
+    private var timerTask: TimerTask? = null
+
+    private fun startCountdownByTime() {
+        stopTimer()
+        timerTask = object : TimerTask() {
+            override fun run() {
+                timerHandler.sendMessage(timerHandler.obtainMessage(0, System.currentTimeMillis()))
+            }
+        }
+        timer = Timer()
+        timer?.schedule(timerTask, 0, 1000)
+    }
+
+    private fun stopTimer() {
+        timer?.cancel()
+        timer = null
+        timerTask = null
+    }
+    // </editor-folder>
+
+    // <editor-folder desc = "handler" >
 
     private val handler = Handler(Looper.myLooper() ?: Looper.getMainLooper())
-    private val timeTikRunnable = object : Runnable {
+    private val countdownRunnable = object : Runnable {
         override fun run() {
+            setCountdownTimeText(System.currentTimeMillis())
             val currentTime = SystemClock.uptimeMillis()
             val nextTime = currentTime + (1000 - currentTime % 1000)
             handler.postAtTime(this, nextTime)
-            countDownTime += 1
-            if (countDownTime % 60 == 0) {
-                onlineTime += 1
-            }
-            Log.i(TAG, "countDownTime:$countDownTime onlineTime:$onlineTime")
         }
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+    private fun startCountdownByHandler() {
+        val currentTime = SystemClock.uptimeMillis()
+        val nextTime = currentTime + (1000 - currentTime % 1000)
+        handler.postAtTime(countdownRunnable, nextTime)
+    }
+
+    private fun stopHandler() {
+        handler.removeCallbacks(countdownRunnable)
+    }
+    // </editor-folder>
+
+    // <editor-folder desc = "BroadcastReceiver" >
+
+    private val timeChangeBroadcastReceiver = object : BroadcastReceiver() {
+        override fun onReceive(context: Context?, intent: Intent?) {
+            if (intent?.action == Intent.ACTION_TIME_TICK) {
+                setCountdownTimeText(System.currentTimeMillis())
+            }
+        }
+    }
+
+    private fun startCountdownByBroadcast() {
         registerReceiver(timeChangeBroadcastReceiver, IntentFilter().apply {
             addAction(Intent.ACTION_TIME_TICK)
         })
-        val currentTime = SystemClock.uptimeMillis()
-        val nextTime = currentTime + (1000 - currentTime % 1000)
-        handler.postAtTime(timeTikRunnable, nextTime)
+    }
+
+    private fun stopBroadcast() {
+        unregisterReceiver(timeChangeBroadcastReceiver)
+    }
+    // </editor-folder>
+
+    @SuppressLint("SetTextI18n")
+    private fun setCountdownTimeText(time: Long) {
+        binding.tvCountdownText.run {
+            post {
+                text = text.toString() + "${dateFormat.format(Date(time))}\n"
+            }
+        }
+    }
+
+    private fun clearText() {
+        binding.tvCountdownText.text = ""
     }
 
     override fun onDestroy() {
         super.onDestroy()
-        handler.removeCallbacks(timeTikRunnable)
-        unregisterReceiver(timeChangeBroadcastReceiver)
+        stopTimer()
+        stopHandler()
+        stopBroadcast()
     }
 }
