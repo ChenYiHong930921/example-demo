@@ -32,7 +32,6 @@ class TimeChangeExample : BaseGestureDetectorActivity() {
             startCountdownByTime()
         }
         binding.btnStopTimer.setOnClickListener {
-            clearText()
             stopTimer()
         }
 
@@ -42,7 +41,6 @@ class TimeChangeExample : BaseGestureDetectorActivity() {
             startCountdownByBroadcast()
         }
         binding.btnStopBroadcast.setOnClickListener {
-            clearText()
             stopBroadcast()
         }
 
@@ -52,7 +50,6 @@ class TimeChangeExample : BaseGestureDetectorActivity() {
             startCountdownByHandler()
         }
         binding.btnStopHandler.setOnClickListener {
-            clearText()
             stopHandler()
         }
     }
@@ -128,7 +125,11 @@ class TimeChangeExample : BaseGestureDetectorActivity() {
     }
 
     private fun stopBroadcast() {
-        unregisterReceiver(timeChangeBroadcastReceiver)
+        try {
+            unregisterReceiver(timeChangeBroadcastReceiver)
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
     }
     // </editor-folder>
 
