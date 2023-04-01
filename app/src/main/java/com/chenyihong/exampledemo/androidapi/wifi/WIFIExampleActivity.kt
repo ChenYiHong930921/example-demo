@@ -2,22 +2,25 @@ package com.chenyihong.exampledemo.androidapi.wifi
 
 import android.Manifest
 import android.annotation.SuppressLint
-import android.content.BroadcastReceiver
-import android.content.Context
-import android.content.Intent
-import android.content.IntentFilter
+import android.content.*
 import android.content.pm.PackageManager
+import android.net.*
+import android.net.wifi.WifiConfiguration
 import android.net.wifi.WifiManager
+import android.net.wifi.WifiNetworkSpecifier
+import android.net.wifi.WifiNetworkSuggestion
 import android.os.Build
 import android.os.Bundle
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.AppCompatEditText
 import androidx.core.app.ActivityCompat
 import androidx.databinding.DataBindingUtil
 import com.chenyihong.exampledemo.R
 import com.chenyihong.exampledemo.databinding.LayoutWifiExampleActivityBinding
-
-const val TAG = "WIFIExampleTag"
+import com.chenyihong.exampledemo.web.customtab.CustomTabHelper
+import java.util.*
 
 class WIFIExampleActivity : AppCompatActivity() {
 
@@ -65,7 +68,7 @@ class WIFIExampleActivity : AppCompatActivity() {
                     } else {
                         WifiManager.calculateSignalLevel(it.level, 4)
                     }
-                    wifiData.add(WIFIEntity(ssid, bssid, capabilities.contains("wpa", true) || capabilities.contains("web", true), capabilities, level))
+                    wifiData.add(WIFIEntity(ssid, bssid, capabilities.contains("wpa", true) || capabilities.contains("wep", true), capabilities, level))
                 }
                 // 根据信号强度降序排列
                 wifiData.sortByDescending { it.wifiStrength }
@@ -74,11 +77,31 @@ class WIFIExampleActivity : AppCompatActivity() {
         }
     }
 
+    private var passwordEditText: AppCompatEditText? = null
+    private var inputWIFIPasswordDialog: AlertDialog? = null
+
+    private var connectivityManager: ConnectivityManager? = null
+    private val networkCallback = object : ConnectivityManager.NetworkCallback() {
+        override fun onAvailable(network: Network) {
+            super.onAvailable(network)
+            connectivityManager?.run {
+                if (boundNetworkForProcess != network) {
+                    if (boundNetworkForProcess != network) {
+                        bindProcessToNetwork(network)
+                    }
+                }
+            }
+        }
+    }
+
+    private var suggestionConnect = true
+
     @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.layout_wifi_example_activity)
         wifiManager = applicationContext.getSystemService(Context.WIFI_SERVICE) as WifiManager
+        connectivityManager = getSystemService(Context.CONNECTIVITY_SERVICE) as? ConnectivityManager
         binding.includeTitle.tvTitle.text = "WIFI Example"
         binding.btnStartScan.setOnClickListener {
             // 检测定位权限
@@ -90,9 +113,16 @@ class WIFIExampleActivity : AppCompatActivity() {
                 requestSinglePermissionLauncher.launch(requestPermissionName)
             }
         }
+        binding.btnOpenWebsite.setOnClickListener {
+            CustomTabHelper.openCustomTabWithInitialHeight(this, "https://go.minigame.vip/")
+        }
         wifiAdapter.itemClickListener = object : WIFIAdapter.ItemClickListener {
             override fun onItemClick(wifiInfo: WIFIEntity) {
-                // TODO: 连接wifi
+                if (wifiInfo.capabilities.contains("wpa", true) || wifiInfo.capabilities.contains("wep", true)) {
+                    showInputWIFIPasswordDialog(wifiInfo)
+                } else {
+                    connectWIFIWithoutPassword(wifiInfo)
+                }
             }
         }
         binding.rvWifiInfo.adapter = wifiAdapter
@@ -102,9 +132,145 @@ class WIFIExampleActivity : AppCompatActivity() {
         })
     }
 
+    @SuppressLint("InflateParams")
+    private fun showInputWIFIPasswordDialog(wifiInfo: WIFIEntity) {
+        val dialogView = layoutInflater.inflate(R.layout.layout_wifi_input_password_dialog, null)
+        passwordEditText = dialogView.findViewById(R.id.et_input_wifi_password)
+        inputWIFIPasswordDialog = AlertDialog.Builder(this)
+            .setTitle(wifiInfo.wifiSSID)
+            .setView(dialogView)
+            .setPositiveButton("ok", object : DialogInterface.OnClickListener {
+                override fun onClick(dialog: DialogInterface?, which: Int) {
+                    passwordEditText?.text?.toString()?.let {
+                        connectSelectedWIFIByPassword(wifiInfo, it)
+                    }
+                    dialog?.dismiss()
+                    inputWIFIPasswordDialog = null
+                    passwordEditText = null
+                }
+            })
+            .setNegativeButton("cancel", object : DialogInterface.OnClickListener {
+                override fun onClick(dialog: DialogInterface?, which: Int) {
+                    dialog?.dismiss()
+                    inputWIFIPasswordDialog = null
+                    passwordEditText = null
+                }
+            })
+            .create()
+        inputWIFIPasswordDialog?.setOnDismissListener {
+            passwordEditText?.text?.clear()
+        }
+        inputWIFIPasswordDialog?.show()
+    }
+
+    private fun connectSelectedWIFIByPassword(wifiInfo: WIFIEntity, password: String) {
+        when {
+            wifiInfo.capabilities.contains("wpa", true) -> {
+                // 加密类型为WPA、WPA2P、WPA3
+                connectWIFIWithWPAPassword(wifiInfo, password)
+            }
+            wifiInfo.capabilities.contains("wep", true) -> {
+                // 加密类型为WEP，已过时
+                connectWIFIWithWEPPassword(wifiInfo, password)
+            }
+        }
+    }
+
+    private fun connectWIFIWithWPAPassword(wifiInfo: WIFIEntity, password: String) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+            if (suggestionConnect) {
+                val suggestionBuilder = WifiNetworkSuggestion.Builder()
+                    .setSsid(wifiInfo.wifiSSID)
+                    .setBssid(MacAddress.fromString(wifiInfo.wifiBSSID))
+                if (wifiInfo.capabilities.contains("wpa3", true)) {
+                    suggestionBuilder.setWpa3Passphrase(password)
+                } else {
+                    suggestionBuilder.setWpa2Passphrase(password)
+                }
+                wifiManager?.addNetworkSuggestions(listOf(suggestionBuilder.build()))
+            } else {
+                val specifierBuilder = WifiNetworkSpecifier.Builder()
+                    .setSsid(wifiInfo.wifiSSID)
+                    .setBssid(MacAddress.fromString(wifiInfo.wifiBSSID))
+                if (wifiInfo.capabilities.contains("wpa3", true)) {
+                    specifierBuilder.setWpa3Passphrase(password)
+                } else {
+                    specifierBuilder.setWpa2Passphrase(password)
+                }
+                val request = NetworkRequest.Builder()
+                    .addTransportType(NetworkCapabilities.TRANSPORT_WIFI)
+                    .setNetworkSpecifier(specifierBuilder.build())
+                    .build()
+                connectivityManager?.requestNetwork(request, networkCallback)
+            }
+        } else {
+            val wifiConfig = WifiConfiguration()
+            wifiConfig.SSID = "\"${wifiInfo.wifiSSID}\""
+            wifiConfig.preSharedKey = "\"$password\""
+            wifiConfig.allowedKeyManagement.set(WifiConfiguration.KeyMgmt.WPA_PSK)
+            wifiConfig.allowedProtocols.set(WifiConfiguration.Protocol.WPA)
+            wifiConfig.allowedProtocols.set(WifiConfiguration.Protocol.RSN)
+            wifiManager?.run {
+                enableNetwork(addNetwork(wifiConfig), true)
+            }
+        }
+    }
+
+    private fun connectWIFIWithWEPPassword(wifiInfo: WIFIEntity, password: String) {
+        val wifiConfig = WifiConfiguration()
+        wifiConfig.SSID = "\"${wifiInfo.wifiSSID}\""
+        wifiConfig.wepKeys[0] = "\"$password\""
+        wifiConfig.allowedKeyManagement.set(WifiConfiguration.KeyMgmt.NONE)
+        wifiConfig.allowedAuthAlgorithms.set(WifiConfiguration.AuthAlgorithm.OPEN)
+        wifiConfig.allowedAuthAlgorithms.set(WifiConfiguration.AuthAlgorithm.SHARED)
+        wifiManager?.run {
+            enableNetwork(addNetwork(wifiConfig), true)
+        }
+    }
+
+    private fun connectWIFIWithoutPassword(wifiInfo: WIFIEntity) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+            if (suggestionConnect) {
+                val suggestion = WifiNetworkSuggestion.Builder()
+                    .setSsid(wifiInfo.wifiSSID)
+                    .setBssid(MacAddress.fromString(wifiInfo.wifiBSSID))
+                    .build()
+                wifiManager?.addNetworkSuggestions(listOf(suggestion))
+            } else {
+                val specifier = WifiNetworkSpecifier.Builder()
+                    .setSsid(wifiInfo.wifiSSID)
+                    .setBssid(MacAddress.fromString(wifiInfo.wifiBSSID))
+                    .build()
+                val request = NetworkRequest.Builder()
+                    .addTransportType(NetworkCapabilities.TRANSPORT_WIFI)
+                    .setNetworkSpecifier(specifier)
+                    .build()
+                connectivityManager?.requestNetwork(request, networkCallback)
+            }
+        } else {
+            val wifiConfig = WifiConfiguration()
+            wifiConfig.SSID = "\"${wifiInfo.wifiSSID}\""
+            wifiConfig.allowedKeyManagement.set(WifiConfiguration.KeyMgmt.NONE)
+            wifiManager?.run {
+                enableNetwork(addNetwork(wifiConfig), true)
+            }
+        }
+    }
+
     override fun onDestroy() {
         super.onDestroy()
         // 移除广播
         unregisterReceiver(scanResultReceiver)
+        connectivityManager?.run {
+            bindProcessToNetwork(null)
+            try {
+                unregisterNetworkCallback(networkCallback)
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
+        }
+        if (inputWIFIPasswordDialog?.isShowing == true) {
+            inputWIFIPasswordDialog?.dismiss()
+        }
     }
 }

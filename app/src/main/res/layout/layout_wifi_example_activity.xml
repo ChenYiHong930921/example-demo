@@ -17,9 +17,18 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:text="Start Scan"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/btn_open_website"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/include_title" />
+
+        <Button
+            android:id="@+id/btn_open_website"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="open website"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/btn_start_scan"
+            app:layout_constraintTop_toTopOf="@id/btn_start_scan" />
 
         <View
             android:id="@+id/v_top_divider"
