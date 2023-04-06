@@ -60,7 +60,7 @@
             android:value="${channel_value}" />
 
         <activity
-            android:name=".home.HomeActivity"
+            android:name=".tripartite.admob.AppOpenAdActivity"
             android:exported="true"
             android:screenOrientation="portrait">
 
@@ -74,8 +74,11 @@
 
                 <action android:name="android.intent.action.MAIN" />
             </intent-filter>
-
         </activity>
+
+        <activity
+            android:name=".home.HomeActivity"
+            android:screenOrientation="portrait" />
 
         <activity
             android:name=".customview.CustomChartViewActivity"
