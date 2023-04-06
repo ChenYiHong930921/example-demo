@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.gms.ads.nativead.NativeAdView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/native_ad_view"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:minHeight="50dp"
+        android:paddingBottom="10dp">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_ad_attribution"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:width="15dp"
+            android:height="15dp"
+            android:background="#FFCC66"
+            android:gravity="start"
+            android:text="Ad"
+            android:textColor="@color/white"
+            android:textSize="12sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/iv_ad_app_icon"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="3dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_ad_attribution" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_ad_headline"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="23dp"
+            android:textColor="#0000FF"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/iv_ad_app_icon"
+            app:layout_constraintTop_toTopOf="@id/iv_ad_app_icon"
+            tools:text="ad headline" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_advertiser"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="@id/iv_ad_app_icon"
+            app:layout_constraintStart_toStartOf="@id/tv_ad_headline"
+            app:layout_constraintTop_toBottomOf="@id/tv_ad_headline" />
+
+        <androidx.appcompat.widget.AppCompatRatingBar
+            android:id="@+id/rb_ad_stars"
+            style="?android:attr/ratingBarStyleSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:isIndicator="true"
+            android:numStars="5"
+            android:stepSize="0.5"
+            app:layout_constraintBottom_toBottomOf="@id/tv_advertiser"
+            app:layout_constraintStart_toEndOf="@id/tv_advertiser"
+            app:layout_constraintTop_toTopOf="@id/tv_advertiser" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_ad_body"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="40dp"
+            android:layout_marginEnd="40dp"
+            android:textSize="12sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/iv_ad_app_icon"
+            tools:text="ad body" />
+
+        <com.google.android.gms.ads.nativead.MediaView
+            android:id="@+id/mv_ad_media"
+            android:layout_width="250dp"
+            android:layout_height="175dp"
+            android:layout_marginTop="5dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_ad_body" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_ad_call_to_action"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="20dp"
+            android:gravity="center"
+            android:textSize="12sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/mv_ad_media" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_ad_store"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingStart="5dp"
+            android:paddingTop="5dp"
+            android:paddingEnd="5dp"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="@id/btn_ad_call_to_action"
+            app:layout_constraintEnd_toStartOf="@id/btn_ad_call_to_action"
+            app:layout_constraintTop_toTopOf="@id/btn_ad_call_to_action" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_ad_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingStart="5dp"
+            android:paddingTop="5dp"
+            android:paddingEnd="5dp"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="@id/btn_ad_call_to_action"
+            app:layout_constraintEnd_toStartOf="@id/tv_ad_store"
+            app:layout_constraintTop_toTopOf="@id/btn_ad_call_to_action" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</com.google.android.gms.ads.nativead.NativeAdView>
