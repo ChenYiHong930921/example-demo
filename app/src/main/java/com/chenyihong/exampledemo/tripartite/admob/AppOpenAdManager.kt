@@ -125,6 +125,12 @@ class AppOpenAdManager {
         }
     }
 
+    fun stopAutoShow() {
+        showAdWhenReady = false
+        tempActivity = null
+        tempAppOpenAdShowCallback = null
+    }
+
     private fun appOpenAdAvailable(): Boolean {
         return currentAppOpenAd != null && (currentAppOpenAdLoadedTime != 0L && System.currentTimeMillis() - currentAppOpenAdLoadedTime <= appOpenAdValidTime)
     }

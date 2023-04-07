@@ -12,7 +12,11 @@ import com.chenyihong.exampledemo.home.HomeActivity
 class AppOpenAdActivity : AppCompatActivity() {
 
     private val handler = Handler(Looper.myLooper() ?: Looper.getMainLooper())
-    private val enterRunnable = Runnable { enterHomePage() }
+    private val enterRunnable = Runnable {
+        // 停止自动显示，避免进入主页后自动展示广告打断用户行为
+        (application as ExampleApplication).appOpenAdManager?.stopAutoShow()
+        enterHomePage()
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
