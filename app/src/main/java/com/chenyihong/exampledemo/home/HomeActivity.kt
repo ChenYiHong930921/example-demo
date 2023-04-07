@@ -6,13 +6,18 @@ import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.provider.Settings
 import android.util.Base64
 import android.util.Log
+import android.view.View
+import android.view.ViewTreeObserver.OnPreDrawListener
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
+import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.databinding.DataBindingUtil
 import com.chenyihong.exampledemo.R
 import com.chenyihong.exampledemo.adapter.TestFunctionGroupAdapter
@@ -38,12 +43,14 @@ import com.chenyihong.exampledemo.androidapi.timechange.TimeChangeExample
 import com.chenyihong.exampledemo.androidapi.toolbar.ToolbarActivity
 import com.chenyihong.exampledemo.androidapi.trafficstats.TrafficStatsActivity
 import com.chenyihong.exampledemo.androidapi.wifi.WIFIExampleActivity
+import com.chenyihong.exampledemo.base.ExampleApplication
 import com.chenyihong.exampledemo.customview.CustomChartViewActivity
 import com.chenyihong.exampledemo.customview.CustomShadowViewActivity
 import com.chenyihong.exampledemo.databinding.LayoutHomeActivityBinding
 import com.chenyihong.exampledemo.entity.OptionsChildEntity
 import com.chenyihong.exampledemo.flavor.FlavorExampleActivity
 import com.chenyihong.exampledemo.tripartite.admob.AdmobExampleActivity
+import com.chenyihong.exampledemo.tripartite.admob.AppOpenAdManager
 import com.chenyihong.exampledemo.tripartite.login.TripartiteLoginActivity
 import com.chenyihong.exampledemo.tripartite.share.TripartiteShareActivity
 import com.chenyihong.exampledemo.web.PARAMS_LINK_URL
@@ -61,8 +68,42 @@ class HomeActivity : AppCompatActivity() {
         // 这里可以再判断下权限，但是最好不要再次请求，避免用户厌烦
     }
 
+    private var noWaitingOpenAd = false
+    private val handler = Handler(Looper.myLooper() ?: Looper.getMainLooper())
+    private val timeoutRunnable = Runnable {
+        // 停止自动显示，避免展示主页后自动显示广告打断用户行为
+        (application as ExampleApplication).appOpenAdManager?.stopAutoShow()
+        noWaitingOpenAd = true
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        installSplashScreen()
+        findViewById<View>(android.R.id.content).run {
+            // 注册绘制监听，暂停一段时间等待开屏广告
+            viewTreeObserver.addOnPreDrawListener(object : OnPreDrawListener {
+                override fun onPreDraw(): Boolean {
+                    if (noWaitingOpenAd) {
+                        // 不再等待广告，移除绘制监听
+                        viewTreeObserver.removeOnPreDrawListener(this)
+                    }
+                    return noWaitingOpenAd
+                }
+            })
+        }
+        (application as ExampleApplication).appOpenAdManager?.showAppOpenAd(this, object : AppOpenAdManager.AppOpenAdShowCallback {
+            override fun onAppOpenAdShow() {
+                // 开屏广告已显示，停止计时线程
+                handler.removeCallbacks(timeoutRunnable)
+            }
+
+            override fun onAppOpenAdShowComplete() {
+                // 开屏广告播放完毕（成功或失败），开始绘制主页面
+                noWaitingOpenAd = true
+            }
+        }, true)
+        handler.postDelayed(timeoutRunnable, 3000)
+
         val binding = DataBindingUtil.setContentView<LayoutHomeActivityBinding>(this, R.layout.layout_home_activity)
 
         binding.includeTitle.tvTitle.text = getString(R.string.app_name)

@@ -59,7 +59,8 @@
             android:name="channel_value"
             android:value="${channel_value}" />
 
-        <activity
+        <!--自定义启动页-->
+        <!--<activity
             android:name=".tripartite.admob.AppOpenAdActivity"
             android:exported="true"
             android:screenOrientation="portrait">
@@ -78,7 +79,24 @@
 
         <activity
             android:name=".home.HomeActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait" />-->
+
+        <activity
+            android:name=".home.HomeActivity"
+            android:exported="true"
+            android:screenOrientation="portrait">
+
+            <meta-data
+                android:name="android.app.shortcuts"
+                android:resource="@xml/shortcuts" />
+
+            <intent-filter>
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.LAUNCHER" />
+
+                <action android:name="android.intent.action.MAIN" />
+            </intent-filter>
+        </activity>
 
         <activity
             android:name=".customview.CustomChartViewActivity"
