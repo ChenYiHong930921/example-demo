@@ -1,8 +1,6 @@
 package com.chenyihong.exampledemo.tripartite.admob
 
 import android.annotation.SuppressLint
-import android.app.Dialog
-import android.content.DialogInterface
 import android.os.Bundle
 import android.util.Log
 import android.view.Gravity
@@ -20,8 +18,6 @@ import com.chenyihong.exampledemo.R
 import com.chenyihong.exampledemo.databinding.LayoutAdmobExampleActivityBinding
 import com.google.android.gms.ads.*
 import com.google.android.gms.ads.initialization.AdapterStatus
-import com.google.android.gms.ads.initialization.InitializationStatus
-import com.google.android.gms.ads.initialization.OnInitializationCompleteListener
 import com.google.android.gms.ads.interstitial.InterstitialAd
 import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback
 import com.google.android.gms.ads.nativead.MediaView
@@ -42,26 +38,24 @@ class AdmobExampleActivity : AppCompatActivity() {
         binding = DataBindingUtil.setContentView(this, R.layout.layout_admob_example_activity)
         binding.includeTitle.tvTitle.text = TAG
 
-        MobileAds.initialize(this, object : OnInitializationCompleteListener {
-            override fun onInitializationComplete(initializationStatus: InitializationStatus) {
-                val readyAdapter = initializationStatus.adapterStatusMap.entries.find {
-                    // 判断适配器初始化的状态
-                    // 准备就绪 AdapterStatus.State.READY
-                    // 没准备好 AdapterStatus.State.NOT_READY
-                    it.value.initializationState == AdapterStatus.State.READY
-                }
-                // 有任意一种适配器初始化成功就可以开始加载广告
-                if (readyAdapter != null) {
-                    // 适配器的名称
-                    val adapterName = readyAdapter.key
-                    Log.i(TAG, "readyAdapter adapterName:$adapterName")
-                    loadInterstitialAd()
-                    loadRewardedVideoAd()
-                    createBannerAdView()
-                    loadNativeAd()
-                }
+        MobileAds.initialize(this) { initializationStatus ->
+            val readyAdapter = initializationStatus.adapterStatusMap.entries.find {
+                // 判断适配器初始化的状态
+                // 准备就绪 AdapterStatus.State.READY
+                // 没准备好 AdapterStatus.State.NOT_READY
+                it.value.initializationState == AdapterStatus.State.READY
             }
-        })
+            // 有任意一种适配器初始化成功就可以开始加载广告
+            if (readyAdapter != null) {
+                // 适配器的名称
+                val adapterName = readyAdapter.key
+                Log.i(TAG, "readyAdapter adapterName:$adapterName")
+                loadInterstitialAd()
+                loadRewardedVideoAd()
+                createBannerAdView()
+                loadNativeAd()
+            }
+        }
         binding.btnShowInterstitialAd.setOnClickListener { showInterstitialAd() }
         binding.btnShowRewardedAd.setOnClickListener { showRewardedVideo() }
         binding.btnShowBannerAd.setOnClickListener { showBanner() }
@@ -429,7 +423,7 @@ class AdmobExampleActivity : AppCompatActivity() {
                 currentNativeAd?.destroy()
                 nativeAd.setMuteThisAdListener(muteListener)
                 currentNativeAd = nativeAd
-                // 支持自定义不再显示广告
+                // 判断是否支持自定义不再显示广告
                 if (nativeAd.isCustomMuteThisAdEnabled) {
                     // 获取不再显示广告的原因
                     muteThisAdReason.addAll(nativeAd.muteThisAdReasons)
@@ -455,7 +449,7 @@ class AdmobExampleActivity : AppCompatActivity() {
         }
         AlertDialog.Builder(this)
             .setTitle("关闭此原生广告的原因是？")
-            .setItems(muteThisAdReasonString) { dialog, which ->
+            .setItems(muteThisAdReasonString) { _, which ->
                 if (muteThisAdReason.size > which) {
                     muteNativeAd(muteThisAdReason[which])
                 }

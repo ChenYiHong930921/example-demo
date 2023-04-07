@@ -16,6 +16,7 @@
             android:layout_marginTop="10dp"
             android:enabled="false"
             android:text="show interstitial"
+            android:visibility="gone"
             app:layout_constraintEnd_toStartOf="@id/btn_show_rewarded_ad"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/include_title" />
@@ -26,6 +27,7 @@
             android:layout_height="wrap_content"
             android:enabled="false"
             android:text="show rewarded"
+            android:visibility="gone"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/btn_show_interstitial_ad"
             app:layout_constraintTop_toTopOf="@id/btn_show_interstitial_ad" />
@@ -37,6 +39,7 @@
             android:layout_marginTop="20dp"
             android:enabled="false"
             android:text="show banner"
+            android:visibility="gone"
             app:layout_constraintEnd_toStartOf="@id/btn_hide_banner_ad"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/btn_show_interstitial_ad" />
@@ -47,6 +50,7 @@
             android:layout_height="wrap_content"
             android:enabled="false"
             android:text="hide banner"
+            android:visibility="gone"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/btn_show_banner_ad"
             app:layout_constraintTop_toTopOf="@id/btn_show_banner_ad" />
