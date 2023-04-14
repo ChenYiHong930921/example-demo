@@ -22,6 +22,7 @@ import androidx.databinding.DataBindingUtil
 import com.chenyihong.exampledemo.R
 import com.chenyihong.exampledemo.adapter.TestFunctionGroupAdapter
 import com.chenyihong.exampledemo.androidapi.animation.AnimatorSetExampleActivity
+import com.chenyihong.exampledemo.androidapi.autofill.AutoFillExampleActivity
 import com.chenyihong.exampledemo.androidapi.autohide.AutoEdgeHideActivity
 import com.chenyihong.exampledemo.androidapi.backpress.BackPressApiActivity
 import com.chenyihong.exampledemo.androidapi.biometrics.BiometricActivity
@@ -136,7 +137,8 @@ class HomeActivity : AppCompatActivity() {
             OptionsChildEntity("Motion Api") { startActivity(Intent(this, MotionLayoutExampleActivity::class.java)) },
             OptionsChildEntity("IP and UA") { startActivity(Intent(this, IPAndUAExample::class.java)) },
             OptionsChildEntity("WI-FI") { startActivity(Intent(this, WIFIExampleActivity::class.java)) },
-            OptionsChildEntity("Time Change") { startActivity(Intent(this, TimeChangeExample::class.java)) }
+            OptionsChildEntity("Time Change") { startActivity(Intent(this, TimeChangeExample::class.java)) },
+            OptionsChildEntity("AutoFill") { startActivity(Intent(this, AutoFillExampleActivity::class.java)) }
         )))
         functionGroupList.add(OptionsEntity("Custom View", containerTest = arrayListOf(
             OptionsChildEntity("Custom Chart View") { startActivity(Intent(this, CustomChartViewActivity::class.java)) },
