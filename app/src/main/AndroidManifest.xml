@@ -295,9 +295,23 @@
             android:name=".androidapi.timechange.TimeChangeExample"
             android:screenOrientation="portrait" />
 
+        <!--autofill-->
+
         <activity
             android:name=".androidapi.autofill.AutoFillExampleActivity"
             android:screenOrientation="portrait" />
+
+        <service
+            android:name=".androidapi.autofill.ExampleAutofillServices"
+            android:exported="true"
+            android:label="Example Autofill Service"
+            android:permission="android.permission.BIND_AUTOFILL_SERVICE">
+
+            <intent-filter>
+                <action android:name="android.service.autofill.AutofillService" />
+            </intent-filter>
+        </service>
+        <!--autofill-->
 
         <!--Meta-->
         <activity

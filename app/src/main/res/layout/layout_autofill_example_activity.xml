@@ -45,17 +45,28 @@
 
         <androidx.appcompat.widget.AppCompatEditText
             android:id="@+id/et_password"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_width="287dp"
+            android:layout_height="46dp"
             android:layout_marginStart="20dp"
             android:layout_marginEnd="20dp"
             android:autofillHints="password"
             android:hint="Please enter your password"
+            android:importantForAutofill="yes"
             android:inputType="textVisiblePassword"
             app:layout_constraintBottom_toBottomOf="@id/tv_password"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/tv_password"
             app:layout_constraintTop_toTopOf="@id/tv_password" />
 
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_login"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:enabled="false"
+            android:text="login"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/et_password" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
