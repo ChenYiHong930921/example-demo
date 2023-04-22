@@ -50,7 +50,7 @@ class AutoFillExampleActivity : BaseGestureDetectorActivity() {
                 autofillManager.commit()
             }
             binding.btnChangeAutofillService.setOnClickListener {
-                if (autofillManager.isEnabled && autofillManager.isAutofillSupported) {
+                if (autofillManager.isEnabled && autofillManager.isAutofillSupported && !autofillManager.hasEnabledAutofillServices()) {
                     launcher.launch(Intent(Settings.ACTION_REQUEST_SET_AUTOFILL_SERVICE).apply {
                         data = Uri.parse("package:com.chenyihong.exampledemo")
                     })
