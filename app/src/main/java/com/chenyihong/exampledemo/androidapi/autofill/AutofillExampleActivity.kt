@@ -45,18 +45,20 @@ class AutoFillExampleActivity : BaseGestureDetectorActivity() {
             binding.etAccount.addTextChangedListener {
                 it?.run {
                     binding.etPassword.text?.let { passwordText ->
-                        binding.btnLogin.isEnabled = isNotEmpty() && passwordText.isNotEmpty()
+                        binding.btnCommit.isEnabled = isNotEmpty() && passwordText.isNotEmpty()
                     }
                 }
             }
             binding.etPassword.addTextChangedListener {
                 it?.run {
                     binding.etAccount.text?.let { accountText ->
-                        binding.btnLogin.isEnabled = isNotEmpty() && accountText.isNotEmpty()
+                        binding.btnCommit.isEnabled = isNotEmpty() && accountText.isNotEmpty()
                     }
                 }
             }
-            binding.btnLogin.setOnClickListener {
+            binding.btnCommit.setOnClickListener {
+                binding.etAccount.clearFocus()
+                binding.etPassword.clearFocus()
                 autofillManager.commit()
             }
         }
