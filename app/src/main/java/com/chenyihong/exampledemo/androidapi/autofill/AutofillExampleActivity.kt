@@ -1,8 +1,11 @@
 package com.chenyihong.exampledemo.androidapi.autofill
 
 import android.app.Activity
+import android.content.Intent
+import android.net.Uri
 import android.os.Build
 import android.os.Bundle
+import android.provider.Settings
 import android.util.Log
 import android.view.autofill.AutofillManager
 import androidx.activity.result.contract.ActivityResultContracts
@@ -27,21 +30,6 @@ class AutoFillExampleActivity : BaseGestureDetectorActivity() {
         val binding = DataBindingUtil.setContentView<LayoutAutofillExampleActivityBinding>(this, R.layout.layout_autofill_example_activity)
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             val autofillManager = getSystemService(AutofillManager::class.java)
-            val autofillEnable = autofillManager.isEnabled
-            val autofillSupported = autofillManager.isAutofillSupported
-            val hasEnabledAutofillServices = autofillManager.hasEnabledAutofillServices()
-            Log.i(TAG, "autoFillEnable:$autofillEnable, autofillSupported:$autofillSupported, hasEnabledAutofillServices:$hasEnabledAutofillServices")
-            /*// 唤起切换填充框架页面
-            if (autofillEnable && autofillSupported && !hasEnabledAutofillServices) {
-                launcher.launch(Intent(Settings.ACTION_REQUEST_SET_AUTOFILL_SERVICE).apply {
-                    data = Uri.parse("package:com.chenyihong.exampledemo")
-                })
-            }*/
-            /*// 强制使用自动填充
-            if (autofillEnable) {
-                autofillManager.requestAutofill(binding.etAccount)
-                autofillManager.requestAutofill(binding.etPassword)
-            }*/
             binding.etAccount.addTextChangedListener {
                 it?.run {
                     binding.etPassword.text?.let { passwordText ->
@@ -60,6 +48,13 @@ class AutoFillExampleActivity : BaseGestureDetectorActivity() {
                 binding.etAccount.clearFocus()
                 binding.etPassword.clearFocus()
                 autofillManager.commit()
+            }
+            binding.btnChangeAutofillService.setOnClickListener {
+                if (autofillManager.isEnabled && autofillManager.isAutofillSupported) {
+                    launcher.launch(Intent(Settings.ACTION_REQUEST_SET_AUTOFILL_SERVICE).apply {
+                        data = Uri.parse("package:com.chenyihong.exampledemo")
+                    })
+                }
             }
         }
     }
