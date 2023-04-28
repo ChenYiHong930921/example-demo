@@ -18,7 +18,7 @@ class SettingActivity : BaseGestureDetectorActivity(), PreferenceFragmentCompat.
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.layout_setting_activity)
-        ExampleDataStore.lifecycleScope = lifecycleScope
+        ExampleDataStore.coroutineScope = lifecycleScope
         supportFragmentManager
             .beginTransaction()
             .replace(R.id.ct_setting_container, SettingFragment())

@@ -4,9 +4,9 @@ import android.content.Context
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.*
 import androidx.datastore.preferences.preferencesDataStore
-import androidx.lifecycle.LifecycleCoroutineScope
 import androidx.preference.PreferenceDataStore
 import com.chenyihong.exampledemo.base.ExampleApplication
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
@@ -16,10 +16,10 @@ object ExampleDataStore : PreferenceDataStore() {
 
     private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "ExamplePreferencesDataStore")
 
-    var lifecycleScope: LifecycleCoroutineScope? = null
+    var coroutineScope: CoroutineScope? = null
 
     override fun putInt(key: String?, value: Int) {
-        lifecycleScope?.launch {
+        coroutineScope?.launch {
             putIntImpl(key, value)
         }
     }
@@ -33,7 +33,7 @@ object ExampleDataStore : PreferenceDataStore() {
     }
 
     override fun putLong(key: String?, value: Long) {
-        lifecycleScope?.launch {
+        coroutineScope?.launch {
             putLongImpl(key, value)
         }
     }
@@ -47,7 +47,7 @@ object ExampleDataStore : PreferenceDataStore() {
     }
 
     override fun putFloat(key: String?, value: Float) {
-        lifecycleScope?.launch {
+        coroutineScope?.launch {
             putFloatImpl(key, value)
         }
     }
@@ -61,7 +61,7 @@ object ExampleDataStore : PreferenceDataStore() {
     }
 
     override fun putBoolean(key: String?, value: Boolean) {
-        lifecycleScope?.launch {
+        coroutineScope?.launch {
             putBooleanImpl(key, value)
         }
     }
@@ -75,7 +75,7 @@ object ExampleDataStore : PreferenceDataStore() {
     }
 
     override fun putString(key: String?, value: String?) {
-        lifecycleScope?.launch {
+        coroutineScope?.launch {
             putStringImpl(key, value)
         }
     }
@@ -89,7 +89,7 @@ object ExampleDataStore : PreferenceDataStore() {
     }
 
     override fun putStringSet(key: String?, values: MutableSet<String>?) {
-        lifecycleScope?.launch {
+        coroutineScope?.launch {
             putStringSetImpl(key, values)
         }
     }
