@@ -45,6 +45,7 @@ class ExampleAutofillServices : AutofillService() {
     @RequiresApi(Build.VERSION_CODES.O_MR1)
     override fun onFillRequest(request: FillRequest, cancellationSignal: CancellationSignal, callback: FillCallback) {
         Log.i(TAG, "onFillRequest")
+        // 触发自动填充时回调
         request.fillContexts.last().structure.let { structure ->
             parseStructure(structure)
             val usernameId = fillId[View.AUTOFILL_HINT_USERNAME]
@@ -89,6 +90,7 @@ class ExampleAutofillServices : AutofillService() {
 
     override fun onSaveRequest(request: SaveRequest, callback: SaveCallback) {
         Log.i(TAG, "onSaveRequest")
+        // 触发保存时回调
         request.fillContexts.last().structure.let { structure ->
             saveInputValues.clear()
             parseStructure(structure, true)
@@ -117,19 +119,16 @@ class ExampleAutofillServices : AutofillService() {
     private fun parseViewNode(viewNode: ViewNode, fromSaveRequest: Boolean) {
         viewNode.run {
             Log.i(TAG, "rootViewNode autofillId:${autofillId}, autofillType:$autofillType, childCount:$childCount")
-            autofillId?.let { id ->
-                autofillHints?.let {
-                    for (index in it.indices) {
-                        it[index]?.let { hint ->
-                            Log.i(TAG, "rootViewNode autofillHints:$hint")
-                            if (hint == View.AUTOFILL_HINT_USERNAME || hint == View.AUTOFILL_HINT_PASSWORD) {
-                                fillId[hint] = id
-                                autofillValue?.let { value ->
-                                    if (fromSaveRequest) {
-                                        saveInputValues[hint] = value.textValue.toString()
-                                    }
-                                }
-                            }
+            if (autofillHints.isNullOrEmpty()) {
+                // 如果应用没有提供autofillHints，可以根据viewNode.getText()或者viewNode.getHint()来判断需要填充什么类型的数据
+                Log.i(TAG, "rootViewNode text:${viewNode.text}, hint:${viewNode.hint}")
+            } else {
+                autofillHints?.forEach { hint ->
+                    Log.i(TAG, "rootViewNode autofillHints:$hint")
+                    if (hint == View.AUTOFILL_HINT_USERNAME || hint == View.AUTOFILL_HINT_PASSWORD) {
+                        autofillId?.let { id -> fillId[hint] = id }
+                        if (fromSaveRequest) {
+                            autofillValue?.let { value -> saveInputValues[hint] = value.textValue.toString() }
                         }
                     }
                 }
