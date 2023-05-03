@@ -26,6 +26,7 @@ import com.chenyihong.exampledemo.androidapi.autofill.AutoFillExampleActivity
 import com.chenyihong.exampledemo.androidapi.autohide.AutoEdgeHideActivity
 import com.chenyihong.exampledemo.androidapi.backpress.BackPressApiActivity
 import com.chenyihong.exampledemo.androidapi.biometrics.BiometricActivity
+import com.chenyihong.exampledemo.androidapi.bluetooth.BluetoothExampleActivity
 import com.chenyihong.exampledemo.androidapi.camerax.CameraActivity
 import com.chenyihong.exampledemo.androidapi.downloadablefont.DownloadableFontActivity
 import com.chenyihong.exampledemo.androidapi.fragmentresultapi.FragmentResultApiActivity
@@ -35,7 +36,6 @@ import com.chenyihong.exampledemo.androidapi.gesturedetector.GestureDetectorAAct
 import com.chenyihong.exampledemo.androidapi.gps.GpsSignalActivity
 import com.chenyihong.exampledemo.androidapi.ipandua.IPAndUAExample
 import com.chenyihong.exampledemo.androidapi.motionlayout.MotionLayoutExampleActivity
-import com.chenyihong.exampledemo.androidapi.nfc.NFCShareExampleActivity
 import com.chenyihong.exampledemo.androidapi.resultapi.ResultApiActivity
 import com.chenyihong.exampledemo.androidapi.search.SearchExampleActivity
 import com.chenyihong.exampledemo.androidapi.setting.SettingActivity
@@ -140,7 +140,7 @@ class HomeActivity : AppCompatActivity() {
             OptionsChildEntity("WI-FI") { startActivity(Intent(this, WIFIExampleActivity::class.java)) },
             OptionsChildEntity("Time Change") { startActivity(Intent(this, TimeChangeExample::class.java)) },
             OptionsChildEntity("AutoFill") { startActivity(Intent(this, AutoFillExampleActivity::class.java)) },
-            OptionsChildEntity("NFC Share") { startActivity(Intent(this, NFCShareExampleActivity::class.java)) }
+            OptionsChildEntity("Bluetooth") { startActivity(Intent(this, BluetoothExampleActivity::class.java)) }
         )))
         functionGroupList.add(OptionsEntity("Custom View", containerTest = arrayListOf(
             OptionsChildEntity("Custom Chart View") { startActivity(Intent(this, CustomChartViewActivity::class.java)) },
