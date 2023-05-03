@@ -295,6 +295,10 @@
             android:name=".androidapi.timechange.TimeChangeExample"
             android:screenOrientation="portrait" />
 
+        <activity
+            android:name=".androidapi.nfc.NFCShareExampleActivity"
+            android:screenOrientation="portrait" />
+
         <!--autofill-->
 
         <activity

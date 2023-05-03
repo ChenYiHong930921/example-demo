@@ -35,6 +35,7 @@ import com.chenyihong.exampledemo.androidapi.gesturedetector.GestureDetectorAAct
 import com.chenyihong.exampledemo.androidapi.gps.GpsSignalActivity
 import com.chenyihong.exampledemo.androidapi.ipandua.IPAndUAExample
 import com.chenyihong.exampledemo.androidapi.motionlayout.MotionLayoutExampleActivity
+import com.chenyihong.exampledemo.androidapi.nfc.NFCShareExampleActivity
 import com.chenyihong.exampledemo.androidapi.resultapi.ResultApiActivity
 import com.chenyihong.exampledemo.androidapi.search.SearchExampleActivity
 import com.chenyihong.exampledemo.androidapi.setting.SettingActivity
@@ -138,7 +139,8 @@ class HomeActivity : AppCompatActivity() {
             OptionsChildEntity("IP and UA") { startActivity(Intent(this, IPAndUAExample::class.java)) },
             OptionsChildEntity("WI-FI") { startActivity(Intent(this, WIFIExampleActivity::class.java)) },
             OptionsChildEntity("Time Change") { startActivity(Intent(this, TimeChangeExample::class.java)) },
-            OptionsChildEntity("AutoFill") { startActivity(Intent(this, AutoFillExampleActivity::class.java)) }
+            OptionsChildEntity("AutoFill") { startActivity(Intent(this, AutoFillExampleActivity::class.java)) },
+            OptionsChildEntity("NFC Share") { startActivity(Intent(this, NFCShareExampleActivity::class.java)) }
         )))
         functionGroupList.add(OptionsEntity("Custom View", containerTest = arrayListOf(
             OptionsChildEntity("Custom Chart View") { startActivity(Intent(this, CustomChartViewActivity::class.java)) },
