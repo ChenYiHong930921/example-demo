@@ -64,45 +64,6 @@
             android:name="channel_value"
             android:value="${channel_value}" />
 
-        <!--自定义启动页-->
-        <!--<activity
-            android:name=".tripartite.admob.AppOpenAdActivity"
-            android:exported="true"
-            android:screenOrientation="portrait">
-
-            <meta-data
-                android:name="android.app.shortcuts"
-                android:resource="@xml/shortcuts" />
-
-            <intent-filter>
-                <category android:name="android.intent.category.DEFAULT" />
-                <category android:name="android.intent.category.LAUNCHER" />
-
-                <action android:name="android.intent.action.MAIN" />
-            </intent-filter>
-        </activity>
-
-        <activity
-            android:name=".home.HomeActivity"
-            android:screenOrientation="portrait" />-->
-
-        <activity
-            android:name=".home.HomeActivity"
-            android:exported="true"
-            android:screenOrientation="portrait">
-
-            <meta-data
-                android:name="android.app.shortcuts"
-                android:resource="@xml/shortcuts" />
-
-            <intent-filter>
-                <category android:name="android.intent.category.DEFAULT" />
-                <category android:name="android.intent.category.LAUNCHER" />
-
-                <action android:name="android.intent.action.MAIN" />
-            </intent-filter>
-        </activity>
-
         <activity
             android:name=".customview.CustomChartViewActivity"
             android:screenOrientation="portrait" />
@@ -347,17 +308,6 @@
             android:exported="true"
             tools:ignore="ExportedContentProvider" />
         <!--Meta-->
-
-        <provider
-            android:name="androidx.core.content.FileProvider"
-            android:authorities="${applicationId}.provider"
-            android:exported="false"
-            android:grantUriPermissions="true">
-            <meta-data
-                android:name="android.support.FILE_PROVIDER_PATHS"
-                android:resource="@xml/file_path" />
-
-        </provider>
 
         <!--android:authorities的值与RecentSearchProvider中的AUTHORITY一致-->
         <provider

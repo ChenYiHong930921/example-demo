@@ -33,6 +33,20 @@ android {
             storeFile file('ExampleDemoFlavor.jks')
             storePassword '123456'
         }
+
+        twa {
+            keyAlias 'twaexample'
+            keyPassword '123456'
+            storeFile file('TWAExample')
+            storePassword '123456'
+        }
+
+        admob {
+            keyAlias 'expampledemo'
+            keyPassword '123456'
+            storeFile file('ExampleDemo')
+            storePassword '123456'
+        }
     }
 
     flavorDimensions "example_value"
@@ -56,6 +70,26 @@ android {
             resValue("string", "example_value", "flavor tips")
 
             signingConfig signingConfigs.exampleFlavor
+        }
+
+        admob {
+            versionName "1.0-admob"
+
+            manifestPlaceholders = [channel_value: "admob channel"]
+            buildConfigField("String", "example_value", "\"admob server address\"")
+            resValue("string", "example_value", "admob tips")
+
+            signingConfig signingConfigs.admob
+        }
+
+        twa {
+            versionName "1.0-twa"
+
+            manifestPlaceholders = [channel_value: "twa channel"]
+            buildConfigField("String", "example_value", "\"twa server address\"")
+            resValue("string", "example_value", "twa tips")
+
+            signingConfig signingConfigs.twa
         }
     }
 
@@ -93,9 +127,9 @@ configurations.all {
 
 dependencies {
 
-    implementation 'androidx.core:core-ktx:1.10.0'
+    implementation 'androidx.core:core-ktx:1.10.1'
     implementation 'androidx.appcompat:appcompat:1.6.1'
-    implementation 'com.google.android.material:material:1.8.0'
+    implementation 'com.google.android.material:material:1.9.0'
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
@@ -147,4 +181,7 @@ dependencies {
 
     //Splash Screen
     implementation("androidx.core:core-splashscreen:1.0.1")
+
+    // Trusted Web Activity Helper
+    twaImplementation("com.google.androidbrowserhelper:androidbrowserhelper:2.4.0")
 }
