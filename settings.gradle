@@ -1,2 +1,3 @@
 rootProject.name = "ExampleDemo"
 include ':app'
+include ':publishing'
