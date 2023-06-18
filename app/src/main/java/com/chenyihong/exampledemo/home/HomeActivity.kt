@@ -53,6 +53,7 @@ import com.chenyihong.exampledemo.entity.OptionsChildEntity
 import com.chenyihong.exampledemo.flavor.FlavorExampleActivity
 import com.chenyihong.exampledemo.tripartite.admob.AdmobExampleActivity
 import com.chenyihong.exampledemo.tripartite.admob.AppOpenAdManager
+import com.chenyihong.exampledemo.tripartite.dom4j.Dom4jExampleActivity
 import com.chenyihong.exampledemo.tripartite.login.TripartiteLoginActivity
 import com.chenyihong.exampledemo.tripartite.share.TripartiteShareActivity
 import com.chenyihong.exampledemo.web.PARAMS_LINK_URL
@@ -154,7 +155,8 @@ class HomeActivity : AppCompatActivity() {
         functionGroupList.add(OptionsEntity("Tripartite sdk", containerTest = arrayListOf(
             OptionsChildEntity("Tripartite Login") { startActivity(Intent(this, TripartiteLoginActivity::class.java)) },
             OptionsChildEntity("Tripartite Share") { startActivity(Intent(this, TripartiteShareActivity::class.java)) },
-            OptionsChildEntity("Admob Advertise") { startActivity(Intent(this, AdmobExampleActivity::class.java)) }
+            OptionsChildEntity("Admob Advertise") { startActivity(Intent(this, AdmobExampleActivity::class.java)) },
+            OptionsChildEntity("dom4j") { startActivity(Intent(this, Dom4jExampleActivity::class.java)) }
         )))
         functionGroupList.add(OptionsEntity("Product Flavor", containerTest = arrayListOf(
             OptionsChildEntity("Flavor Example") { startActivity(Intent(this, FlavorExampleActivity::class.java)) }

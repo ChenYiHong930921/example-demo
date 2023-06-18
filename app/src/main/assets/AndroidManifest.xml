@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <application android:name="com.chenyihong.exampledemo.base.ExampleApplication">
+
+        <activity android:name="com.chenyihong.exampledemo.home.HomeActivity">
+
+            <intent-filter>
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.LAUNCHER" />
+
+                <action android:name="android.intent.action.MAIN" />
+            </intent-filter>
+        </activity>
+
+        <activity android:name="com.chenyihong.exampledemo.tripartite.dom4j.Dom4jExampleActivity" />
+
+        <receiver android:name="com.chenyihong.exampledemo.exampleReciver1">
+            <intent-filter>
+
+            </intent-filter>
+        </receiver>
+
+        <service android:name="com.chenyihong.exampledemo.exampleService1">
+            <intent-filter>
+
+            </intent-filter>
+        </service>
+
+        <receiver android:name="com.chenyihong.exampledemo.exampleReciver2" />
+
+        <service android:name="com.chenyihong.exampledemo.exampleService2" />
+    </application>
+</manifest>

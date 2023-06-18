@@ -184,4 +184,7 @@ dependencies {
 
     // Trusted Web Activity Helper
     twaImplementation("com.google.androidbrowserhelper:androidbrowserhelper:2.4.0")
+
+    // dom4j
+    implementation("org.dom4j:dom4j:2.1.4")
 }
