@@ -67,7 +67,7 @@ class HomeActivity : AppCompatActivity() {
 
     private val requestPermissionCode = this.hashCode()
 
-    private val intentLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+    private val intentLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
         // 这里可以再判断下权限，但是最好不要再次请求，避免用户厌烦
     }
 
@@ -116,55 +116,54 @@ class HomeActivity : AppCompatActivity() {
             ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.POST_NOTIFICATIONS), requestPermissionCode)
         }
 
-        val functionGroupList = ArrayList<OptionsEntity>()
-        functionGroupList.add(OptionsEntity("Android Api", expanded = true, containerTest = arrayListOf(
-            OptionsChildEntity("Full Screen Api") { startActivity(Intent(this, FullScreenExampleActivity::class.java)) },
-            OptionsChildEntity("Activity Result Api") { startActivity(Intent(this, ResultApiActivity::class.java)) },
-            OptionsChildEntity("Fragment Result Api") { startActivity(Intent(this, FragmentResultApiActivity::class.java)) },
-            OptionsChildEntity("Back Press Api") { startActivity(Intent(this, BackPressApiActivity::class.java)) },
-            OptionsChildEntity("Gesture Detector Api") { startActivity(Intent(this, GestureDetectorAActivity::class.java)) },
-            OptionsChildEntity("DownloadableFont") { startActivity(Intent(this, DownloadableFontActivity::class.java)) },
-            OptionsChildEntity("Preference Api") { startActivity(Intent(this, SettingActivity::class.java)) },
-            OptionsChildEntity("Camera Api") { startActivity(Intent(this, CameraActivity::class.java)) },
-            OptionsChildEntity("Biometric Api") { startActivity(Intent(this, BiometricActivity::class.java)) },
-            OptionsChildEntity("GpsSignal Api") { startActivity(Intent(this, GpsSignalActivity::class.java)) },
-            OptionsChildEntity("Toolbar Api") { startActivity(Intent(this, ToolbarActivity::class.java)) },
-            OptionsChildEntity("Search Api") { startActivity(Intent(this, SearchExampleActivity::class.java)) },
-            OptionsChildEntity("ShareSheet Api") { startActivity(Intent(this, SystemShareActivity::class.java)) },
-            OptionsChildEntity("Shortcuts Api") { startActivity(Intent(this, ShortcutsActivity::class.java)) },
-            OptionsChildEntity("TrafficStats Api") { startActivity(Intent(this, TrafficStatsActivity::class.java)) },
-            OptionsChildEntity("GAID Api") { startActivity(Intent(this, GaIdActivity::class.java)) },
-            OptionsChildEntity("Auto Edge Hide") { startActivity(Intent(this, AutoEdgeHideActivity::class.java)) },
-            OptionsChildEntity("Thumb up Animation") { startActivity(Intent(this, AnimatorSetExampleActivity::class.java)) },
-            OptionsChildEntity("Motion Api") { startActivity(Intent(this, MotionLayoutExampleActivity::class.java)) },
-            OptionsChildEntity("IP and UA") { startActivity(Intent(this, IPAndUAExample::class.java)) },
-            OptionsChildEntity("WI-FI") { startActivity(Intent(this, WIFIExampleActivity::class.java)) },
-            OptionsChildEntity("Time Change") { startActivity(Intent(this, TimeChangeExample::class.java)) },
-            OptionsChildEntity("AutoFill") { startActivity(Intent(this, AutoFillExampleActivity::class.java)) },
-            OptionsChildEntity("Bluetooth") { startActivity(Intent(this, BluetoothExampleActivity::class.java)) }
-        )))
-        functionGroupList.add(OptionsEntity("Custom View", containerTest = arrayListOf(
-            OptionsChildEntity("Custom Chart View") { startActivity(Intent(this, CustomChartViewActivity::class.java)) },
-            OptionsChildEntity("Custom Shadow View") { startActivity(Intent(this, CustomShadowViewActivity::class.java)) }
-        )))
-        functionGroupList.add(OptionsEntity("WebView", containerTest = arrayListOf(
-            OptionsChildEntity("Test Js interaction") { startActivity(Intent(this, WebViewActivity::class.java).apply { putExtra(PARAMS_LINK_URL, "file:///android_asset/index.html") }) },
-            OptionsChildEntity("Test intercept request") { startActivity(Intent(this, WebViewActivity::class.java).apply { putExtra(PARAMS_LINK_URL, "file:///android_asset/index_intercept_request.html") }) },
-            OptionsChildEntity("Test open new window") { startActivity(Intent(this, WebViewActivity::class.java).apply { putExtra(PARAMS_LINK_URL, "file:///android_asset/index_open_tab.html") }) },
-            OptionsChildEntity("Google Custom Tab") { startActivity(Intent(this, CustomTabExampleActivity::class.java)) })))
-        functionGroupList.add(OptionsEntity("Tripartite sdk", containerTest = arrayListOf(
-            OptionsChildEntity("Tripartite Login") { startActivity(Intent(this, TripartiteLoginActivity::class.java)) },
-            OptionsChildEntity("Tripartite Share") { startActivity(Intent(this, TripartiteShareActivity::class.java)) },
-            OptionsChildEntity("Admob Advertise") { startActivity(Intent(this, AdmobExampleActivity::class.java)) },
-            OptionsChildEntity("dom4j") { startActivity(Intent(this, Dom4jExampleActivity::class.java)) }
-        )))
-        functionGroupList.add(OptionsEntity("Product Flavor", containerTest = arrayListOf(
-            OptionsChildEntity("Flavor Example") { startActivity(Intent(this, FlavorExampleActivity::class.java)) }
-        )))
-
         val testFunctionGroupAdapter = TestFunctionGroupAdapter()
         binding.rvOption.adapter = testFunctionGroupAdapter
-        testFunctionGroupAdapter.setNewData(functionGroupList)
+        testFunctionGroupAdapter.setNewData(arrayListOf(
+            OptionsEntity("Android Api", expanded = true, containerTest = arrayListOf(
+                OptionsChildEntity("Full Screen Api") { startActivity(Intent(this, FullScreenExampleActivity::class.java)) },
+                OptionsChildEntity("Activity Result Api") { startActivity(Intent(this, ResultApiActivity::class.java)) },
+                OptionsChildEntity("Fragment Result Api") { startActivity(Intent(this, FragmentResultApiActivity::class.java)) },
+                OptionsChildEntity("Back Press Api") { startActivity(Intent(this, BackPressApiActivity::class.java)) },
+                OptionsChildEntity("Gesture Detector Api") { startActivity(Intent(this, GestureDetectorAActivity::class.java)) },
+                OptionsChildEntity("DownloadableFont") { startActivity(Intent(this, DownloadableFontActivity::class.java)) },
+                OptionsChildEntity("Preference Api") { startActivity(Intent(this, SettingActivity::class.java)) },
+                OptionsChildEntity("Camera Api") { startActivity(Intent(this, CameraActivity::class.java)) },
+                OptionsChildEntity("Biometric Api") { startActivity(Intent(this, BiometricActivity::class.java)) },
+                OptionsChildEntity("GpsSignal Api") { startActivity(Intent(this, GpsSignalActivity::class.java)) },
+                OptionsChildEntity("Toolbar Api") { startActivity(Intent(this, ToolbarActivity::class.java)) },
+                OptionsChildEntity("Search Api") { startActivity(Intent(this, SearchExampleActivity::class.java)) },
+                OptionsChildEntity("ShareSheet Api") { startActivity(Intent(this, SystemShareActivity::class.java)) },
+                OptionsChildEntity("Shortcuts Api") { startActivity(Intent(this, ShortcutsActivity::class.java)) },
+                OptionsChildEntity("TrafficStats Api") { startActivity(Intent(this, TrafficStatsActivity::class.java)) },
+                OptionsChildEntity("GAID Api") { startActivity(Intent(this, GaIdActivity::class.java)) },
+                OptionsChildEntity("Auto Edge Hide") { startActivity(Intent(this, AutoEdgeHideActivity::class.java)) },
+                OptionsChildEntity("Thumb up Animation") { startActivity(Intent(this, AnimatorSetExampleActivity::class.java)) },
+                OptionsChildEntity("Motion Api") { startActivity(Intent(this, MotionLayoutExampleActivity::class.java)) },
+                OptionsChildEntity("IP and UA") { startActivity(Intent(this, IPAndUAExample::class.java)) },
+                OptionsChildEntity("WI-FI") { startActivity(Intent(this, WIFIExampleActivity::class.java)) },
+                OptionsChildEntity("Time Change") { startActivity(Intent(this, TimeChangeExample::class.java)) },
+                OptionsChildEntity("AutoFill") { startActivity(Intent(this, AutoFillExampleActivity::class.java)) },
+                OptionsChildEntity("Bluetooth") { startActivity(Intent(this, BluetoothExampleActivity::class.java)) }
+            )),
+            OptionsEntity("Custom View", containerTest = arrayListOf(
+                OptionsChildEntity("Custom Chart View") { startActivity(Intent(this, CustomChartViewActivity::class.java)) },
+                OptionsChildEntity("Custom Shadow View") { startActivity(Intent(this, CustomShadowViewActivity::class.java)) }
+            )),
+            OptionsEntity("WebView", containerTest = arrayListOf(
+                OptionsChildEntity("Test Js interaction") { startActivity(Intent(this, WebViewActivity::class.java).apply { putExtra(PARAMS_LINK_URL, "file:///android_asset/index.html") }) },
+                OptionsChildEntity("Test intercept request") { startActivity(Intent(this, WebViewActivity::class.java).apply { putExtra(PARAMS_LINK_URL, "file:///android_asset/index_intercept_request.html") }) },
+                OptionsChildEntity("Test open new window") { startActivity(Intent(this, WebViewActivity::class.java).apply { putExtra(PARAMS_LINK_URL, "file:///android_asset/index_open_tab.html") }) },
+                OptionsChildEntity("Google Custom Tab") { startActivity(Intent(this, CustomTabExampleActivity::class.java)) })),
+            OptionsEntity("Tripartite sdk", containerTest = arrayListOf(
+                OptionsChildEntity("Tripartite Login") { startActivity(Intent(this, TripartiteLoginActivity::class.java)) },
+                OptionsChildEntity("Tripartite Share") { startActivity(Intent(this, TripartiteShareActivity::class.java)) },
+                OptionsChildEntity("Admob Advertise") { startActivity(Intent(this, AdmobExampleActivity::class.java)) },
+                OptionsChildEntity("dom4j") { startActivity(Intent(this, Dom4jExampleActivity::class.java)) }
+            )),
+            OptionsEntity("Product Flavor", containerTest = arrayListOf(
+                OptionsChildEntity("Flavor Example") { startActivity(Intent(this, FlavorExampleActivity::class.java)) }
+            ))
+        ))
 
         checkKeyStoreHash()
     }
