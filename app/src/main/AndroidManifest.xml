@@ -23,6 +23,28 @@
         android:usesPermissionFlags="neverForLocation"
         tools:ignore="UnusedAttribute" />
 
+    <!--允许App连接到配对的蓝牙设备（兼容低版本）-->
+    <uses-permission
+        android:name="android.permission.BLUETOOTH"
+        android:maxSdkVersion="30" />
+
+    <!--允许程序发现和配对蓝牙设备（兼容低版本）-->
+    <uses-permission
+        android:name="android.permission.BLUETOOTH_ADMIN"
+        android:maxSdkVersion="30" />
+
+    <!--若App需要扫描蓝牙设备，申请此权限-->
+    <uses-permission
+        android:name="android.permission.BLUETOOTH_SCAN"
+        android:usesPermissionFlags="neverForLocation"
+        tools:ignore="UnusedAttribute" />
+
+    <!--若App使当前设备可供其他蓝牙设备发现，申请此权限-->
+    <uses-permission android:name="android.permission.BLUETOOTH_ADVERTISE" />
+
+    <!--若App与蓝牙设备配对、通讯，申请此权限-->
+    <uses-permission android:name="android.permission.BLUETOOTH_CONNECT" />
+
     <queries>
         <intent>
             <action android:name="android.support.customtabs.action.CustomTabsService" />

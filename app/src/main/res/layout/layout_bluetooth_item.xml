@@ -12,13 +12,13 @@
         android:layout_marginStart="20dp"
         android:textColor="@color/color_696464"
         android:textSize="16sp"
-        app:layout_constraintBottom_toTopOf="@id/tv_bluetooth_ssid"
+        app:layout_constraintBottom_toTopOf="@id/tv_bluetooth_mac"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="BluetoothName" />
 
     <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/tv_bluetooth_ssid"
+        android:id="@+id/tv_bluetooth_mac"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="@color/color_808080"
@@ -26,7 +26,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="@id/tv_bluetooth_name"
         app:layout_constraintTop_toBottomOf="@id/tv_bluetooth_name"
-        tools:text="BluetoothSSID" />
+        tools:text="BluetoothMac" />
 
     <View
         android:layout_width="match_parent"
