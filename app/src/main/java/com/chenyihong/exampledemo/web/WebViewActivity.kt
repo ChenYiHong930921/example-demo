@@ -168,7 +168,7 @@ class WebViewActivity : BaseGestureDetectorActivity() {
                     request?.run {
                         val urlStr = url.toString()
                         Log.i(TAG, "WebViewActivity shouldInterceptRequest view:$view urlStr:$urlStr")
-                        if (urlStr.contains("minigame") && urlStr.contains("assets")) {
+                        if (urlStr.contains("minigame") && urlStr.contains("assets") && urlStr.contains("test_icon.jpg")) {
                             val assetsNamespace = "assets/"
                             val localAssetsPath = urlStr.substring(urlStr.indexOf(assetsNamespace) + assetsNamespace.length)
                             Log.i(TAG, "WebViewActivity shouldInterceptRequest localAssetsPath:$localAssetsPath")

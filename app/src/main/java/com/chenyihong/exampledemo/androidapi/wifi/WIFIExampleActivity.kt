@@ -19,6 +19,8 @@ import androidx.core.app.ActivityCompat
 import androidx.databinding.DataBindingUtil
 import com.chenyihong.exampledemo.R
 import com.chenyihong.exampledemo.databinding.LayoutWifiExampleActivityBinding
+import com.chenyihong.exampledemo.web.PARAMS_LINK_URL
+import com.chenyihong.exampledemo.web.WebViewActivity
 import com.chenyihong.exampledemo.web.customtab.CustomTabHelper
 import java.util.*
 
@@ -96,6 +98,8 @@ class WIFIExampleActivity : AppCompatActivity() {
 
     private var suggestionConnect = true
 
+    private var innerWebView = true
+
     @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -114,7 +118,13 @@ class WIFIExampleActivity : AppCompatActivity() {
             }
         }
         binding.btnOpenWebsite.setOnClickListener {
-            CustomTabHelper.openCustomTabWithInitialHeight(this, "https://go.minigame.vip/")
+            if (innerWebView) {
+                startActivity(Intent(this, WebViewActivity::class.java).apply {
+                    putExtra(PARAMS_LINK_URL, "https://go.minigame.vip/")
+                })
+            } else {
+                CustomTabHelper.openCustomTabWithInitialHeight(this, "https://go.minigame.vip/")
+            }
         }
         wifiAdapter.itemClickListener = object : WIFIAdapter.ItemClickListener {
             override fun onItemClick(wifiInfo: WIFIEntity) {
@@ -169,6 +179,7 @@ class WIFIExampleActivity : AppCompatActivity() {
                 // 加密类型为WPA、WPA2P、WPA3
                 connectWIFIWithWPAPassword(wifiInfo, password)
             }
+
             wifiInfo.capabilities.contains("wep", true) -> {
                 // 加密类型为WEP，已过时
                 connectWIFIWithWEPPassword(wifiInfo, password)
