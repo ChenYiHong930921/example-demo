@@ -288,6 +288,10 @@
             android:screenOrientation="portrait" />
 
         <activity
+            android:name=".androidapi.bluetooth.BluetoothTransferController"
+            android:screenOrientation="portrait" />
+
+        <activity
             android:name=".tripartite.dom4j.Dom4jExampleActivity"
             android:screenOrientation="portrait" />
 

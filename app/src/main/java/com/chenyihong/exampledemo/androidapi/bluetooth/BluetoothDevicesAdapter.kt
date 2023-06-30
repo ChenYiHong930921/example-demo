@@ -50,7 +50,7 @@ class BluetoothDevicesAdapter : RecyclerView.Adapter<BluetoothDevicesAdapter.Blu
     }
 
     interface ItemClickListener {
-        fun onItemClick(bluetoothInfo: BluetoothDevice)
+        fun onItemClick(bluetoothDevice: BluetoothDevice)
     }
 
     class BluetoothViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {

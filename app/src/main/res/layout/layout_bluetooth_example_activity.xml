@@ -15,8 +15,17 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Scan nearby devices"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/btn_as_receiver"
             app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/include_title" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_as_receiver"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="As Receiver"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/btn_scan_nearby_devices"
             app:layout_constraintTop_toBottomOf="@id/include_title" />
 
         <View

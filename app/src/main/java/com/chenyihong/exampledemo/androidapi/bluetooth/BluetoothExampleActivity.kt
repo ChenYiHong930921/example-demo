@@ -13,6 +13,7 @@ import android.content.IntentFilter
 import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.app.ActivityCompat
 import androidx.databinding.DataBindingUtil
@@ -26,6 +27,10 @@ class BluetoothExampleActivity : BaseGestureDetectorActivity() {
 
     private val bluetoothDevicesAdapter = BluetoothDevicesAdapter()
 
+    private var bluetoothTransferController: BluetoothTransferController? = null
+
+    private var startAcceptClient = false
+
     private var requestPermissionNames = ArrayList<String>()
 
     private val requestMultiplePermissionLauncher = registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) { permissions: Map<String, Boolean> ->
@@ -37,7 +42,11 @@ class BluetoothExampleActivity : BaseGestureDetectorActivity() {
         }
         if (noGrantedPermissions.isEmpty()) {
             // 申请权限通过，扫描蓝牙设备
-            scanBluetoothDevices()
+            if (startAcceptClient) {
+                bluetoothTransferController?.startAtAcceptClient()
+            } else {
+                scanBluetoothDevices()
+            }
         } else {
             //未同意授权
             noGrantedPermissions.forEach {
@@ -72,6 +81,11 @@ class BluetoothExampleActivity : BaseGestureDetectorActivity() {
         val binding: LayoutBluetoothExampleActivityBinding = DataBindingUtil.setContentView(this, R.layout.layout_bluetooth_example_activity)
         binding.includeTitle.tvTitle.text = "BluetoothExample"
         bluetoothAdapter = (getSystemService(Context.BLUETOOTH_SERVICE) as BluetoothManager).adapter
+        bluetoothAdapter?.let {
+            bluetoothTransferController = BluetoothTransferController(it) { totalLength, byteArray ->
+                Log.i("-,-,-", "totalLength:$totalLength, byteArray:$byteArray")
+            }
+        }
         // 注册蓝牙设备扫描结果监听
         registerReceiver(scanResultReceiver, IntentFilter().apply {
             addAction(BluetoothDevice.ACTION_FOUND)
@@ -83,12 +97,19 @@ class BluetoothExampleActivity : BaseGestureDetectorActivity() {
             }
             checkPermission()
         }
+        binding.btnAsReceiver.setOnClickListener {
+            if (!bluetoothCapabilityEnable()) {
+                // 当前设备蓝牙功能不可用
+                return@setOnClickListener
+            }
+            startAcceptClient = true
+            checkPermission()
+        }
         binding.rvBluetoothInfo.adapter = bluetoothDevicesAdapter
         bluetoothDevicesAdapter.itemClickListener = object : BluetoothDevicesAdapter.ItemClickListener {
             @SuppressLint("MissingPermission")
-            override fun onItemClick(bluetoothInfo: BluetoothDevice) {
-                //绑定设备
-                bluetoothInfo.createBond()
+            override fun onItemClick(bluetoothDevice: BluetoothDevice) {
+                bluetoothTransferController?.connectToOtherBluetoothDevice(bluetoothDevice)
             }
         }
     }
@@ -110,7 +131,11 @@ class BluetoothExampleActivity : BaseGestureDetectorActivity() {
         if (requestPermissionNames.find { ActivityCompat.checkSelfPermission(this, it) != PackageManager.PERMISSION_GRANTED } != null) {
             requestMultiplePermissionLauncher.launch(requestPermissionNames.toArray(arrayOfNulls(0)))
         } else {
-            scanBluetoothDevices()
+            if (startAcceptClient) {
+                bluetoothTransferController?.startAtAcceptClient()
+            } else {
+                scanBluetoothDevices()
+            }
         }
     }
 
