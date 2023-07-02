@@ -28,6 +28,17 @@
             app:layout_constraintStart_toEndOf="@id/btn_scan_nearby_devices"
             app:layout_constraintTop_toBottomOf="@id/include_title" />
 
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_send_message"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="send message"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/btn_as_receiver" />
+
         <View
             android:id="@+id/v_top_divider"
             android:layout_width="match_parent"
@@ -42,7 +53,20 @@
             android:layout_marginTop="10dp"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/btn_scan_nearby_devices"
+            app:layout_constraintTop_toBottomOf="@id/btn_send_message"
             tools:listitem="@layout/layout_bluetooth_item" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_connected_status"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/btn_send_message"
+            tools:text="connected status:"
+            tools:visibility="visible" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

@@ -13,7 +13,7 @@ import android.content.IntentFilter
 import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
-import android.util.Log
+import android.view.View
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.app.ActivityCompat
 import androidx.databinding.DataBindingUtil
@@ -22,6 +22,8 @@ import com.chenyihong.exampledemo.androidapi.gesturedetector.BaseGestureDetector
 import com.chenyihong.exampledemo.databinding.LayoutBluetoothExampleActivityBinding
 
 class BluetoothExampleActivity : BaseGestureDetectorActivity() {
+
+    private lateinit var binding: LayoutBluetoothExampleActivityBinding
 
     private var bluetoothAdapter: BluetoothAdapter? = null
 
@@ -78,12 +80,34 @@ class BluetoothExampleActivity : BaseGestureDetectorActivity() {
     @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val binding: LayoutBluetoothExampleActivityBinding = DataBindingUtil.setContentView(this, R.layout.layout_bluetooth_example_activity)
+        binding = DataBindingUtil.setContentView(this, R.layout.layout_bluetooth_example_activity)
         binding.includeTitle.tvTitle.text = "BluetoothExample"
         bluetoothAdapter = (getSystemService(Context.BLUETOOTH_SERVICE) as BluetoothManager).adapter
         bluetoothAdapter?.let {
-            bluetoothTransferController = BluetoothTransferController(it) { totalLength, byteArray ->
-                Log.i("-,-,-", "totalLength:$totalLength, byteArray:$byteArray")
+            bluetoothTransferController = BluetoothTransferController(it, {
+                binding.tvConnectedStatus.run {
+                    post {
+                        text = "connected to other bluetooth"
+                        visibility = View.VISIBLE
+                    }
+                }
+                binding.rvBluetoothInfo.run { post { visibility = View.GONE } }
+                binding.vTopDivider.run { post { visibility = View.GONE } }
+
+                binding.btnSendMessage.run {
+                    post {
+                        visibility = View.VISIBLE
+                        setOnClickListener {
+                            bluetoothTransferController?.writeData((if (startAcceptClient) "Test Message from Server" else "Test Message from client").toByteArray())
+                        }
+                    }
+                }
+            }) { byteArray ->
+                binding.tvConnectedStatus.run {
+                    post {
+                        text = "$text\n${String(byteArray)}"
+                    }
+                }
             }
         }
         // 注册蓝牙设备扫描结果监听
@@ -109,6 +133,7 @@ class BluetoothExampleActivity : BaseGestureDetectorActivity() {
         bluetoothDevicesAdapter.itemClickListener = object : BluetoothDevicesAdapter.ItemClickListener {
             @SuppressLint("MissingPermission")
             override fun onItemClick(bluetoothDevice: BluetoothDevice) {
+                bluetoothAdapter?.cancelDiscovery()
                 bluetoothTransferController?.connectToOtherBluetoothDevice(bluetoothDevice)
             }
         }
