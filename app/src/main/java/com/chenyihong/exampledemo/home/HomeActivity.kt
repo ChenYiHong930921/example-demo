@@ -18,6 +18,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
+import com.chenyihong.exampledemo.BuildConfig
 import com.chenyihong.exampledemo.R
 import com.chenyihong.exampledemo.adapter.TestFunctionGroupAdapter
 import com.chenyihong.exampledemo.androidapi.animation.AnimatorSetExampleActivity
@@ -79,34 +80,36 @@ class HomeActivity : AppCompatActivity() {
         noWaitingOpenAd = true
     }
 
+    @Suppress("KotlinConstantConditions")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         installSplashScreen()
-        findViewById<View>(android.R.id.content).run {
-            // 注册绘制监听，暂停一段时间等待开屏广告
-            viewTreeObserver.addOnPreDrawListener(object : OnPreDrawListener {
-                override fun onPreDraw(): Boolean {
-                    if (noWaitingOpenAd) {
-                        // 不再等待广告，移除绘制监听
-                        viewTreeObserver.removeOnPreDrawListener(this)
+        if (BuildConfig.FLAVOR == "admob") {
+            findViewById<View>(android.R.id.content).run {
+                // 注册绘制监听，暂停一段时间等待开屏广告
+                viewTreeObserver.addOnPreDrawListener(object : OnPreDrawListener {
+                    override fun onPreDraw(): Boolean {
+                        if (noWaitingOpenAd) {
+                            // 不再等待广告，移除绘制监听
+                            viewTreeObserver.removeOnPreDrawListener(this)
+                        }
+                        return noWaitingOpenAd
                     }
-                    return noWaitingOpenAd
+                })
+            }
+            (application as ExampleApplication).appOpenAdManager?.showAppOpenAd(this, object : AppOpenAdManager.AppOpenAdShowCallback {
+                override fun onAppOpenAdShow() {
+                    // 开屏广告已显示，停止计时线程
+                    handler.removeCallbacks(timeoutRunnable)
                 }
-            })
+
+                override fun onAppOpenAdShowComplete() {
+                    // 开屏广告播放完毕（成功或失败），开始绘制主页面
+                    noWaitingOpenAd = true
+                }
+            }, true)
+            handler.postDelayed(timeoutRunnable, 3000)
         }
-        (application as ExampleApplication).appOpenAdManager?.showAppOpenAd(this, object : AppOpenAdManager.AppOpenAdShowCallback {
-            override fun onAppOpenAdShow() {
-                // 开屏广告已显示，停止计时线程
-                handler.removeCallbacks(timeoutRunnable)
-            }
-
-            override fun onAppOpenAdShowComplete() {
-                // 开屏广告播放完毕（成功或失败），开始绘制主页面
-                noWaitingOpenAd = true
-            }
-        }, true)
-        handler.postDelayed(timeoutRunnable, 3000)
-
         val binding = LayoutHomeActivityBinding.inflate(layoutInflater)
         setContentView(binding.root)
         binding.includeTitle.tvTitle.text = getString(R.string.app_name)
