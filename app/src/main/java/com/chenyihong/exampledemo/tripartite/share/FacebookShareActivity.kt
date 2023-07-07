@@ -4,8 +4,7 @@ import android.annotation.SuppressLint
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
-import androidx.databinding.DataBindingUtil
-import com.chenyihong.exampledemo.R
+import android.view.LayoutInflater
 import com.chenyihong.exampledemo.databinding.LayoutFacebookShareActivityBinding
 import com.chenyihong.exampledemo.androidapi.gesturedetector.BaseGestureDetectorActivity
 import com.chenyihong.exampledemo.androidapi.resultapi.custom.MultipleLauncherOptions
@@ -21,7 +20,7 @@ import com.facebook.share.widget.ShareDialog
 
 const val TAG = "FacebookShare"
 
-class FacebookShareActivity : BaseGestureDetectorActivity() {
+class FacebookShareActivity : BaseGestureDetectorActivity<LayoutFacebookShareActivityBinding>() {
 
     private val singleMediumPicker = registerForActivityResult(PickSingleMediumContract()) { uri ->
         if (uri != null) {
@@ -44,6 +43,7 @@ class FacebookShareActivity : BaseGestureDetectorActivity() {
 
                     shareDialog?.show(sharePhotoContent)
                 }
+
                 MimeType.VIDEO_All, MimeType.VIDEO_MP4, MimeType.VIDEO_3GP -> {
                     val shareVideo = ShareVideo.Builder()
                         //设置视频Uri
@@ -102,6 +102,7 @@ class FacebookShareActivity : BaseGestureDetectorActivity() {
                             .build()
                         multipleMedium.add(sharePhoto)
                     }
+
                     MimeType.VIDEO_All, MimeType.VIDEO_MP4, MimeType.VIDEO_3GP -> {
                         val shareVideo = ShareVideo.Builder()
                             //设置视频Uri
@@ -124,11 +125,13 @@ class FacebookShareActivity : BaseGestureDetectorActivity() {
 
     private lateinit var callbackManager: CallbackManager
 
+    override fun initViewBinding(layoutInflater: LayoutInflater): LayoutFacebookShareActivityBinding {
+        return LayoutFacebookShareActivityBinding.inflate(layoutInflater)
+    }
+
     @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val binding = DataBindingUtil.setContentView<LayoutFacebookShareActivityBinding>(this, R.layout.layout_facebook_share_activity)
-
         callbackManager = CallbackManager.Factory.create()
         shareDialog = ShareDialog(this)
         shareDialog?.registerCallback(callbackManager, object : FacebookCallback<Sharer.Result> {

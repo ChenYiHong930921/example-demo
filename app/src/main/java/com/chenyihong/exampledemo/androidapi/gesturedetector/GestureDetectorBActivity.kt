@@ -2,17 +2,19 @@ package com.chenyihong.exampledemo.androidapi.gesturedetector
 
 import android.annotation.SuppressLint
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
-import androidx.databinding.DataBindingUtil
-import com.chenyihong.exampledemo.R
 import com.chenyihong.exampledemo.databinding.LayoutGestureDetectorActivityBinding
 
-class GestureDetectorBActivity : BaseGestureDetectorActivity() {
+class GestureDetectorBActivity : BaseGestureDetectorActivity<LayoutGestureDetectorActivityBinding>() {
+
+    override fun initViewBinding(layoutInflater: LayoutInflater): LayoutGestureDetectorActivityBinding {
+        return LayoutGestureDetectorActivityBinding.inflate(layoutInflater)
+    }
 
     @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val binding = DataBindingUtil.setContentView<LayoutGestureDetectorActivityBinding>(this, R.layout.layout_gesture_detector_activity)
         binding.tvTitle.text = "Gesture Detector B"
         binding.btnEntrance.visibility = View.GONE
     }

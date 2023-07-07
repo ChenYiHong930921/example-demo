@@ -4,21 +4,19 @@ import android.animation.Animator
 import android.animation.AnimatorSet
 import android.animation.ValueAnimator
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.view.animation.Animation
 import android.view.animation.DecelerateInterpolator
 import android.view.animation.ScaleAnimation
 import android.widget.FrameLayout
 import androidx.appcompat.widget.AppCompatImageView
-import androidx.databinding.DataBindingUtil
 import com.chenyihong.exampledemo.R
 import com.chenyihong.exampledemo.androidapi.gesturedetector.BaseGestureDetectorActivity
 import com.chenyihong.exampledemo.databinding.LayoutAnimatorsetExampleActivityBinding
 import com.chenyihong.exampledemo.utils.DensityUtil
 
-class AnimatorSetExampleActivity : BaseGestureDetectorActivity() {
-
-    private lateinit var binding: LayoutAnimatorsetExampleActivityBinding
+class AnimatorSetExampleActivity : BaseGestureDetectorActivity<LayoutAnimatorsetExampleActivityBinding>() {
 
     private val animatorConfig: ArrayList<java.util.ArrayList<Float>> = arrayListOf(
         arrayListOf(-160f, 150f, 1f),
@@ -27,10 +25,12 @@ class AnimatorSetExampleActivity : BaseGestureDetectorActivity() {
         arrayListOf(80f, -130f, 1f),
         arrayListOf(-20f, -80f, 0.8f))
 
+    override fun initViewBinding(layoutInflater: LayoutInflater): LayoutAnimatorsetExampleActivityBinding {
+        return LayoutAnimatorsetExampleActivityBinding.inflate(layoutInflater)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = DataBindingUtil.setContentView(this, R.layout.layout_animatorset_example_activity)
         binding.ivThumbUp.setOnClickListener {
             playThumbUpScaleAnimator()
             playDiffusionAnimator()

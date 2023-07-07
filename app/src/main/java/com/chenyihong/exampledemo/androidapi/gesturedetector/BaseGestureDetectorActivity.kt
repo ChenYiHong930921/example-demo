@@ -5,12 +5,14 @@ import android.graphics.Point
 import android.os.Bundle
 import android.view.GestureDetector
 import android.view.Gravity
+import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.widget.FrameLayout
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.AppCompatImageView
 import androidx.core.view.*
+import androidx.viewbinding.ViewBinding
 import com.chenyihong.exampledemo.R
 import com.chenyihong.exampledemo.customview.view.VolumeControllerDialog
 import com.chenyihong.exampledemo.utils.DensityUtil
@@ -18,7 +20,7 @@ import kotlin.math.abs
 
 const val TAG = "GestureDetectorSimple"
 
-open class BaseGestureDetectorActivity : AppCompatActivity() {
+abstract class BaseGestureDetectorActivity<VB : ViewBinding> : AppCompatActivity() {
 
     private lateinit var gestureDetectorCompat: GestureDetectorCompat
     private var screenWidth = 0
@@ -54,9 +56,13 @@ open class BaseGestureDetectorActivity : AppCompatActivity() {
         }
     }
 
+    lateinit var binding: VB
+
     @Suppress("DEPRECATION")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        binding = initViewBinding(layoutInflater)
+        setContentView(binding.root)
         gestureDetectorCompat = GestureDetectorCompat(this, simpleOnGestureListener)
         val point = Point()
         windowManager.defaultDisplay.getRealSize(point)
@@ -64,6 +70,8 @@ open class BaseGestureDetectorActivity : AppCompatActivity() {
         screenHeight = point.y
         edgeSize = (screenWidth * 0.035).toInt()
     }
+
+    abstract fun initViewBinding(layoutInflater: LayoutInflater): VB
 
     override fun onResume() {
         super.onResume()

@@ -18,7 +18,6 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
-import androidx.databinding.DataBindingUtil
 import com.chenyihong.exampledemo.R
 import com.chenyihong.exampledemo.adapter.TestFunctionGroupAdapter
 import com.chenyihong.exampledemo.androidapi.animation.AnimatorSetExampleActivity
@@ -35,6 +34,7 @@ import com.chenyihong.exampledemo.androidapi.gaid.GaIdActivity
 import com.chenyihong.exampledemo.androidapi.gesturedetector.GestureDetectorAActivity
 import com.chenyihong.exampledemo.androidapi.gps.GpsSignalActivity
 import com.chenyihong.exampledemo.androidapi.ipandua.IPAndUAExample
+import com.chenyihong.exampledemo.androidapi.language.ChangeLanguageActivity
 import com.chenyihong.exampledemo.androidapi.motionlayout.MotionLayoutExampleActivity
 import com.chenyihong.exampledemo.androidapi.resultapi.ResultApiActivity
 import com.chenyihong.exampledemo.androidapi.search.SearchExampleActivity
@@ -107,8 +107,8 @@ class HomeActivity : AppCompatActivity() {
         }, true)
         handler.postDelayed(timeoutRunnable, 3000)
 
-        val binding = DataBindingUtil.setContentView<LayoutHomeActivityBinding>(this, R.layout.layout_home_activity)
-
+        val binding = LayoutHomeActivityBinding.inflate(layoutInflater)
+        setContentView(binding.root)
         binding.includeTitle.tvTitle.text = getString(R.string.app_name)
 
         if (isPostNotificationPermissionNotGranted()) {
@@ -143,7 +143,8 @@ class HomeActivity : AppCompatActivity() {
                 OptionsChildEntity("WI-FI") { startActivity(Intent(this, WIFIExampleActivity::class.java)) },
                 OptionsChildEntity("Time Change") { startActivity(Intent(this, TimeChangeExample::class.java)) },
                 OptionsChildEntity("AutoFill") { startActivity(Intent(this, AutoFillExampleActivity::class.java)) },
-                OptionsChildEntity("Bluetooth") { startActivity(Intent(this, BluetoothExampleActivity::class.java)) }
+                OptionsChildEntity("Bluetooth") { startActivity(Intent(this, BluetoothExampleActivity::class.java)) },
+                OptionsChildEntity("Change Language") { startActivity(Intent(this, ChangeLanguageActivity::class.java)) }
             )),
             OptionsEntity("Custom View", containerTest = arrayListOf(
                 OptionsChildEntity("Custom Chart View") { startActivity(Intent(this, CustomChartViewActivity::class.java)) },

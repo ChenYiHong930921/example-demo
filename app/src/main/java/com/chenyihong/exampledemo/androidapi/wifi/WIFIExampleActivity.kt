@@ -11,22 +11,20 @@ import android.net.wifi.WifiNetworkSpecifier
 import android.net.wifi.WifiNetworkSuggestion
 import android.os.Build
 import android.os.Bundle
+import android.view.LayoutInflater
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
-import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.AppCompatEditText
 import androidx.core.app.ActivityCompat
-import androidx.databinding.DataBindingUtil
 import com.chenyihong.exampledemo.R
+import com.chenyihong.exampledemo.androidapi.gesturedetector.BaseGestureDetectorActivity
 import com.chenyihong.exampledemo.databinding.LayoutWifiExampleActivityBinding
 import com.chenyihong.exampledemo.web.PARAMS_LINK_URL
 import com.chenyihong.exampledemo.web.WebViewActivity
 import com.chenyihong.exampledemo.web.customtab.CustomTabHelper
 import java.util.*
 
-class WIFIExampleActivity : AppCompatActivity() {
-
-    private lateinit var binding: LayoutWifiExampleActivityBinding
+class WIFIExampleActivity : BaseGestureDetectorActivity<LayoutWifiExampleActivityBinding>() {
 
     private val wifiAdapter = WIFIAdapter()
 
@@ -100,10 +98,13 @@ class WIFIExampleActivity : AppCompatActivity() {
 
     private var innerWebView = true
 
+    override fun initViewBinding(layoutInflater: LayoutInflater): LayoutWifiExampleActivityBinding {
+        return LayoutWifiExampleActivityBinding.inflate(layoutInflater)
+    }
+
     @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = DataBindingUtil.setContentView(this, R.layout.layout_wifi_example_activity)
         wifiManager = applicationContext.getSystemService(Context.WIFI_SERVICE) as WifiManager
         connectivityManager = getSystemService(Context.CONNECTIVITY_SERVICE) as? ConnectivityManager
         binding.includeTitle.tvTitle.text = "WIFI Example"

@@ -6,7 +6,10 @@ import android.app.Application
 import android.content.Context
 import android.os.Bundle
 import android.util.Log
-import androidx.lifecycle.*
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LifecycleEventObserver
+import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.ProcessLifecycleOwner
 import com.chenyihong.exampledemo.tripartite.admob.AppOpenAdManager
 import com.chenyihong.exampledemo.tripartite.admob.TAG
 import com.google.android.gms.ads.MobileAds

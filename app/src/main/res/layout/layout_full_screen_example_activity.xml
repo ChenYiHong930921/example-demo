@@ -1,31 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:app="http://schemas.android.com/apk/res-auto">
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
-    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+    <include
+        android:id="@+id/include_title"
+        layout="@layout/layout_title" />
 
-        <include
-            android:id="@+id/include_title"
-            layout="@layout/layout_title" />
+    <Button
+        android:id="@+id/btn_full_screen"
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:layout_marginTop="10dp"
+        android:text="FullScreen"
+        app:layout_constraintEnd_toStartOf="@id/btn_immersion"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/include_title" />
 
-        <Button
-            android:id="@+id/btn_full_screen"
-            android:layout_width="wrap_content"
-            android:layout_height="50dp"
-            android:layout_marginTop="10dp"
-            android:text="FullScreen"
-            app:layout_constraintEnd_toStartOf="@id/btn_immersion"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/include_title" />
-
-        <Button
-            android:id="@+id/btn_immersion"
-            android:layout_width="wrap_content"
-            android:layout_height="50dp"
-            android:text="Immersion"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/btn_full_screen"
-            app:layout_constraintTop_toTopOf="@id/btn_full_screen" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
-</layout>
+    <Button
+        android:id="@+id/btn_immersion"
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:text="Immersion"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/btn_full_screen"
+        app:layout_constraintTop_toTopOf="@id/btn_full_screen" />
+</androidx.constraintlayout.widget.ConstraintLayout>

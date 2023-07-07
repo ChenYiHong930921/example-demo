@@ -6,26 +6,29 @@ import android.content.ComponentName
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
+import android.view.LayoutInflater
 import androidx.core.content.pm.ShortcutInfoCompat
 import androidx.core.content.pm.ShortcutManagerCompat
 import androidx.core.graphics.drawable.IconCompat
-import androidx.databinding.DataBindingUtil
 import com.chenyihong.exampledemo.R
 import com.chenyihong.exampledemo.androidapi.gesturedetector.BaseGestureDetectorActivity
 import com.chenyihong.exampledemo.androidapi.gps.GpsSignalActivity
 import com.chenyihong.exampledemo.databinding.LayoutShortcutsActivityBinding
 import com.chenyihong.exampledemo.home.HomeActivity
 
-class ShortcutsActivity : BaseGestureDetectorActivity() {
+class ShortcutsActivity : BaseGestureDetectorActivity<LayoutShortcutsActivityBinding>() {
 
     private val locationShortcutId = "location"
 
     private var english = true
 
+    override fun initViewBinding(layoutInflater: LayoutInflater): LayoutShortcutsActivityBinding {
+        return LayoutShortcutsActivityBinding.inflate(layoutInflater)
+    }
+
     @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val binding: LayoutShortcutsActivityBinding = DataBindingUtil.setContentView(this, R.layout.layout_shortcuts_activity)
         binding.includeTitle.tvTitle.text = "Shortcuts Api"
         binding.btnCreateShortcut.setOnClickListener {
             // 创建动态快捷方式

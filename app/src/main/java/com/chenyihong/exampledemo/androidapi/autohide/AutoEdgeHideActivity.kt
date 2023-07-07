@@ -5,17 +5,14 @@ import android.annotation.SuppressLint
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
 import android.view.animation.DecelerateInterpolator
-import androidx.databinding.DataBindingUtil
-import com.chenyihong.exampledemo.R
 import com.chenyihong.exampledemo.androidapi.gesturedetector.BaseGestureDetectorActivity
 import com.chenyihong.exampledemo.databinding.LayoutAutoEdgeHideActivityBinding
 
-class AutoEdgeHideActivity : BaseGestureDetectorActivity() {
-
-    private lateinit var binding: LayoutAutoEdgeHideActivityBinding
+class AutoEdgeHideActivity : BaseGestureDetectorActivity<LayoutAutoEdgeHideActivityBinding>() {
 
     private var widthPixels: Int = 0
 
@@ -27,10 +24,13 @@ class AutoEdgeHideActivity : BaseGestureDetectorActivity() {
     private val handler = Handler(Looper.myLooper() ?: Looper.getMainLooper())
     private val autoShowRunnable = Runnable { autoShow() }
 
+    override fun initViewBinding(layoutInflater: LayoutInflater): LayoutAutoEdgeHideActivityBinding {
+        return LayoutAutoEdgeHideActivityBinding.inflate(layoutInflater)
+    }
+
     @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = DataBindingUtil.setContentView(this, R.layout.layout_auto_edge_hide_activity)
         widthPixels = resources.displayMetrics.widthPixels
         binding.includeTitle.tvTitle.text = "AutoEdgeHideExample"
         binding.vFloatView.setOnClickListener {
@@ -57,6 +57,7 @@ class AutoEdgeHideActivity : BaseGestureDetectorActivity() {
                     autoHide()
                 }
             }
+
             MotionEvent.ACTION_UP -> {
                 if (interacting) {
                     // 交互结束，一定时间后自动显示，时间可以自由配置

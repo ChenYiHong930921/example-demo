@@ -6,10 +6,10 @@ import android.content.Intent
 import android.os.Bundle
 import android.provider.SearchRecentSuggestions
 import android.util.Log
+import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.widget.SearchView
-import androidx.databinding.DataBindingUtil
 import com.chenyihong.exampledemo.R
 import com.chenyihong.exampledemo.adapter.TextDataAdapter
 import com.chenyihong.exampledemo.databinding.LayoutSearchActivityBinding
@@ -17,9 +17,7 @@ import com.chenyihong.exampledemo.androidapi.gesturedetector.BaseGestureDetector
 
 const val TAG = "SearchExampleTag"
 
-class SearchActivity : BaseGestureDetectorActivity() {
-
-    private lateinit var binding: LayoutSearchActivityBinding
+class SearchActivity : BaseGestureDetectorActivity<LayoutSearchActivityBinding>() {
 
     private val textDataAdapter = TextDataAdapter()
 
@@ -52,9 +50,12 @@ class SearchActivity : BaseGestureDetectorActivity() {
         return super.onOptionsItemSelected(item)
     }
 
+    override fun initViewBinding(layoutInflater: LayoutInflater): LayoutSearchActivityBinding {
+        return LayoutSearchActivityBinding.inflate(layoutInflater)
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = DataBindingUtil.setContentView(this, R.layout.layout_search_activity)
         setSupportActionBar(binding.toolbar)
         supportActionBar?.run {
             title = "SearchExample"

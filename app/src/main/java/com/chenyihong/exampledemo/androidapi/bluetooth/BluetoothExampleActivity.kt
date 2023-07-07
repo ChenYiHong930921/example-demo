@@ -14,14 +14,13 @@ import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
+import android.view.LayoutInflater
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.app.ActivityCompat
-import androidx.databinding.DataBindingUtil
-import com.chenyihong.exampledemo.R
 import com.chenyihong.exampledemo.androidapi.gesturedetector.BaseGestureDetectorActivity
 import com.chenyihong.exampledemo.databinding.LayoutBluetoothExampleActivityBinding
 
-class BluetoothExampleActivity : BaseGestureDetectorActivity() {
+class BluetoothExampleActivity : BaseGestureDetectorActivity<LayoutBluetoothExampleActivityBinding>() {
 
     private var bluetoothAdapter: BluetoothAdapter? = null
 
@@ -75,10 +74,13 @@ class BluetoothExampleActivity : BaseGestureDetectorActivity() {
         }
     }
 
+    override fun initViewBinding(layoutInflater: LayoutInflater): LayoutBluetoothExampleActivityBinding {
+        return LayoutBluetoothExampleActivityBinding.inflate(layoutInflater)
+    }
+
     @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val binding: LayoutBluetoothExampleActivityBinding = DataBindingUtil.setContentView(this, R.layout.layout_bluetooth_example_activity)
         binding.includeTitle.tvTitle.text = "BluetoothExample"
         bluetoothAdapter = (getSystemService(Context.BLUETOOTH_SERVICE) as BluetoothManager).adapter
         bluetoothAdapter?.let {

@@ -8,9 +8,9 @@ import android.os.Bundle
 import android.util.Base64.DEFAULT
 import android.util.Base64.encodeToString
 import android.util.Log
+import android.view.LayoutInflater
 import androidx.activity.result.IntentSenderRequest
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.databinding.DataBindingUtil
 import com.chenyihong.exampledemo.R
 import com.chenyihong.exampledemo.databinding.LayoutTripartiteLoginActivityBinding
 import com.chenyihong.exampledemo.androidapi.gesturedetector.BaseGestureDetectorActivity
@@ -27,7 +27,7 @@ import java.security.NoSuchAlgorithmException
 
 const val TAG = "TripartiteLogin"
 
-class TripartiteLoginActivity : BaseGestureDetectorActivity() {
+class TripartiteLoginActivity : BaseGestureDetectorActivity<LayoutTripartiteLoginActivityBinding>() {
 
     private val googleLoginLauncher = registerForActivityResult(ActivityResultContracts.StartIntentSenderForResult()) { result ->
         Log.i(TAG, "google login get account info result.resultCode:${result.resultCode}")
@@ -54,11 +54,13 @@ class TripartiteLoginActivity : BaseGestureDetectorActivity() {
     private lateinit var metaCallbackManager: CallbackManager
     private lateinit var profileTracker: ProfileTracker
 
+    override fun initViewBinding(layoutInflater: LayoutInflater): LayoutTripartiteLoginActivityBinding {
+        return LayoutTripartiteLoginActivityBinding.inflate(layoutInflater)
+    }
+
     @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val binding = DataBindingUtil.setContentView<LayoutTripartiteLoginActivityBinding>(this, R.layout.layout_tripartite_login_activity)
-
         metaCallbackManager = CallbackManager.Factory.create()
         LoginManager.getInstance().registerCallback(metaCallbackManager, object : FacebookCallback<LoginResult> {
             override fun onSuccess(result: LoginResult) {

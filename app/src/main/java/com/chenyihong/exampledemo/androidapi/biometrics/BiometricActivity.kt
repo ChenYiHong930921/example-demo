@@ -7,14 +7,13 @@ import android.os.Build
 import android.os.Bundle
 import android.provider.Settings
 import android.util.Log
+import android.view.LayoutInflater
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
 import androidx.biometric.BiometricManager
 import androidx.biometric.BiometricManager.Authenticators.*
 import androidx.biometric.BiometricPrompt
 import androidx.core.content.ContextCompat
-import androidx.databinding.DataBindingUtil
-import com.chenyihong.exampledemo.R
 import com.chenyihong.exampledemo.databinding.LayoutBiometricActivityBinding
 import com.chenyihong.exampledemo.androidapi.gesturedetector.BaseGestureDetectorActivity
 import java.nio.charset.Charset
@@ -22,14 +21,12 @@ import java.util.*
 
 const val TAG = "BiometricApi"
 
-class BiometricActivity : BaseGestureDetectorActivity() {
+class BiometricActivity : BaseGestureDetectorActivity<LayoutBiometricActivityBinding>() {
 
     private val forActivityResultLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { activityResult ->
         Log.i(TAG, "launcher callback value : resultCode:${activityResult.resultCode} data${activityResult.data}")
         checkBiometricAuthenticate(false)
     }
-
-    private lateinit var binding: LayoutBiometricActivityBinding
 
     private var biometricManager: BiometricManager? = null
     private var biometricPrompt: BiometricPrompt? = null
@@ -39,10 +36,13 @@ class BiometricActivity : BaseGestureDetectorActivity() {
     private var encrypt: Boolean = false
     private var encryptedInfo: ByteArray? = null
 
+    override fun initViewBinding(layoutInflater: LayoutInflater): LayoutBiometricActivityBinding {
+        return LayoutBiometricActivityBinding.inflate(layoutInflater)
+    }
+
     @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = DataBindingUtil.setContentView(this, R.layout.layout_biometric_activity)
         checkBiometricAuthenticate(true)
 
         binding.includeTitle.tvTitle.text = "Biometric Api"
@@ -96,6 +96,7 @@ class BiometricActivity : BaseGestureDetectorActivity() {
                     Log.i(TAG, "App can authenticate using biometrics.")
                     initBiometric(allowedAuthenticators)
                 }
+
                 BiometricManager.BIOMETRIC_ERROR_NO_HARDWARE -> Log.e(TAG, "No biometric features available on this device.")
                 BiometricManager.BIOMETRIC_ERROR_HW_UNAVAILABLE -> Log.e(TAG, "Biometric features are currently unavailable.")
                 BiometricManager.BIOMETRIC_ERROR_NONE_ENROLLED -> {
@@ -122,6 +123,7 @@ class BiometricActivity : BaseGestureDetectorActivity() {
                         Log.e(TAG, "BIOMETRIC_ERROR_NONE_ENROLLED not auto verify")
                     }
                 }
+
                 else -> {}
             }
         }

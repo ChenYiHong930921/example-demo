@@ -1,83 +1,81 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:app="http://schemas.android.com/apk/res-auto">
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
-    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+    <include
+        android:id="@+id/include_title"
+        layout="@layout/layout_title" />
 
-        <include
-            android:id="@+id/include_title"
-            layout="@layout/layout_title" />
+    <TextView
+        android:id="@+id/tv_google_login"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="10dp"
+        android:text="Google Sign-In"
+        android:textSize="14sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/include_title" />
 
-        <TextView
-            android:id="@+id/tv_google_login"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="10dp"
-            android:text="Google Sign-In"
-            android:textSize="14sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/include_title" />
+    <Button
+        android:id="@+id/btn_google_login"
+        android:layout_width="120dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="10dp"
+        android:text="login"
+        app:layout_constraintEnd_toStartOf="@id/btn_google_logout"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_google_login" />
 
-        <Button
-            android:id="@+id/btn_google_login"
-            android:layout_width="120dp"
-            android:layout_height="50dp"
-            android:layout_marginTop="10dp"
-            android:text="login"
-            app:layout_constraintEnd_toStartOf="@id/btn_google_logout"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_google_login" />
+    <Button
+        android:id="@+id/btn_google_logout"
+        android:layout_width="120dp"
+        android:layout_height="50dp"
+        android:text="logout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/btn_google_login"
+        app:layout_constraintTop_toTopOf="@id/btn_google_login" />
 
-        <Button
-            android:id="@+id/btn_google_logout"
-            android:layout_width="120dp"
-            android:layout_height="50dp"
-            android:text="logout"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/btn_google_login"
-            app:layout_constraintTop_toTopOf="@id/btn_google_login" />
-
-        <Button
-            android:id="@+id/btn_google_one_tap_login"
-            android:layout_width="120dp"
-            android:layout_height="50dp"
-            android:layout_marginTop="20dp"
-            android:text="oneTapLogin"
-            app:layout_constraintStart_toStartOf="@id/btn_google_login"
-            app:layout_constraintTop_toBottomOf="@id/btn_google_login" />
+    <Button
+        android:id="@+id/btn_google_one_tap_login"
+        android:layout_width="120dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="20dp"
+        android:text="oneTapLogin"
+        app:layout_constraintStart_toStartOf="@id/btn_google_login"
+        app:layout_constraintTop_toBottomOf="@id/btn_google_login" />
 
 
-        <TextView
-            android:id="@+id/tv_meta_login"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="10dp"
-            android:text="Meta Sign-In"
-            android:textSize="14sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/btn_google_one_tap_login" />
+    <TextView
+        android:id="@+id/tv_meta_login"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="10dp"
+        android:text="Meta Sign-In"
+        android:textSize="14sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/btn_google_one_tap_login" />
 
-        <Button
-            android:id="@+id/btn_facebook_login"
-            android:layout_width="120dp"
-            android:layout_height="50dp"
-            android:layout_marginTop="10dp"
-            android:text="Login"
-            app:layout_constraintEnd_toStartOf="@id/btn_facebook_logout"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_meta_login" />
+    <Button
+        android:id="@+id/btn_facebook_login"
+        android:layout_width="120dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="10dp"
+        android:text="Login"
+        app:layout_constraintEnd_toStartOf="@id/btn_facebook_logout"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_meta_login" />
 
-        <Button
-            android:id="@+id/btn_facebook_logout"
-            android:layout_width="120dp"
-            android:layout_height="50dp"
-            android:text="Logout"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/btn_facebook_login"
-            app:layout_constraintTop_toTopOf="@id/btn_facebook_login" />
+    <Button
+        android:id="@+id/btn_facebook_logout"
+        android:layout_width="120dp"
+        android:layout_height="50dp"
+        android:text="Logout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/btn_facebook_login"
+        app:layout_constraintTop_toTopOf="@id/btn_facebook_login" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
-</layout>
+</androidx.constraintlayout.widget.ConstraintLayout>

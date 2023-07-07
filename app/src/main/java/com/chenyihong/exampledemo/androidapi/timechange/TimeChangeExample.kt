@@ -6,8 +6,7 @@ import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
 import android.os.*
-import androidx.databinding.DataBindingUtil
-import com.chenyihong.exampledemo.R
+import android.view.LayoutInflater
 import com.chenyihong.exampledemo.androidapi.gesturedetector.BaseGestureDetectorActivity
 import com.chenyihong.exampledemo.databinding.LayoutTimeChangeExampleActivityBinding
 import java.text.SimpleDateFormat
@@ -15,17 +14,18 @@ import java.util.*
 
 const val TAG = "TimeChangeExampleTag"
 
-class TimeChangeExample : BaseGestureDetectorActivity() {
-
-    private lateinit var binding: LayoutTimeChangeExampleActivityBinding
+class TimeChangeExample : BaseGestureDetectorActivity<LayoutTimeChangeExampleActivityBinding>() {
 
     @SuppressLint("SimpleDateFormat")
     private val dateFormat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS")
 
+    override fun initViewBinding(layoutInflater: LayoutInflater): LayoutTimeChangeExampleActivityBinding {
+        return LayoutTimeChangeExampleActivityBinding.inflate(layoutInflater)
+    }
+
     @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = DataBindingUtil.setContentView(this, R.layout.layout_time_change_example_activity)
         binding.btnCountdownByTimer.setOnClickListener {
             clearText()
             binding.tvCountdownText.text = "countdown by timer\n"

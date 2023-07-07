@@ -1,80 +1,78 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:app="http://schemas.android.com/apk/res-auto">
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
-    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+    <include
+        android:id="@+id/include_title"
+        layout="@layout/layout_title" />
 
-        <include
-            android:id="@+id/include_title"
-            layout="@layout/layout_title" />
+    <Button
+        android:id="@+id/btn_share_text"
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:layout_marginTop="10dp"
+        android:text="sharetext"
+        app:layout_constraintEnd_toStartOf="@id/btn_share_url"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/include_title" />
 
-        <Button
-            android:id="@+id/btn_share_text"
-            android:layout_width="wrap_content"
-            android:layout_height="50dp"
-            android:layout_marginTop="10dp"
-            android:text="sharetext"
-            app:layout_constraintEnd_toStartOf="@id/btn_share_url"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/include_title" />
+    <Button
+        android:id="@+id/btn_share_url"
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:text="shareurl"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/btn_share_text"
+        app:layout_constraintTop_toTopOf="@id/btn_share_text" />
 
-        <Button
-            android:id="@+id/btn_share_url"
-            android:layout_width="wrap_content"
-            android:layout_height="50dp"
-            android:text="shareurl"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/btn_share_text"
-            app:layout_constraintTop_toTopOf="@id/btn_share_text" />
+    <Button
+        android:id="@+id/btn_share_picture"
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:layout_marginTop="10dp"
+        android:text="sharepicture"
+        app:layout_constraintEnd_toStartOf="@id/btn_share_video"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/btn_share_text" />
 
-        <Button
-            android:id="@+id/btn_share_picture"
-            android:layout_width="wrap_content"
-            android:layout_height="50dp"
-            android:layout_marginTop="10dp"
-            android:text="sharepicture"
-            app:layout_constraintEnd_toStartOf="@id/btn_share_video"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/btn_share_text" />
+    <Button
+        android:id="@+id/btn_share_video"
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:text="sharevideo"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/btn_share_picture"
+        app:layout_constraintTop_toTopOf="@id/btn_share_picture" />
 
-        <Button
-            android:id="@+id/btn_share_video"
-            android:layout_width="wrap_content"
-            android:layout_height="50dp"
-            android:text="sharevideo"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/btn_share_picture"
-            app:layout_constraintTop_toTopOf="@id/btn_share_picture" />
+    <Button
+        android:id="@+id/btn_share_pictures"
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:layout_marginTop="10dp"
+        android:text="sharepictures"
+        app:layout_constraintEnd_toStartOf="@id/btn_share_videos"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/btn_share_picture" />
 
-        <Button
-            android:id="@+id/btn_share_pictures"
-            android:layout_width="wrap_content"
-            android:layout_height="50dp"
-            android:layout_marginTop="10dp"
-            android:text="sharepictures"
-            app:layout_constraintEnd_toStartOf="@id/btn_share_videos"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/btn_share_picture" />
+    <Button
+        android:id="@+id/btn_share_videos"
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:text="sharevideos"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/btn_share_pictures"
+        app:layout_constraintTop_toTopOf="@id/btn_share_pictures" />
 
-        <Button
-            android:id="@+id/btn_share_videos"
-            android:layout_width="wrap_content"
-            android:layout_height="50dp"
-            android:text="sharevideos"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/btn_share_pictures"
-            app:layout_constraintTop_toTopOf="@id/btn_share_pictures" />
+    <Button
+        android:id="@+id/btn_share_multiple_medium"
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:layout_marginTop="10dp"
+        android:text="sharemultiple_medium"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/btn_share_pictures" />
 
-        <Button
-            android:id="@+id/btn_share_multiple_medium"
-            android:layout_width="wrap_content"
-            android:layout_height="50dp"
-            android:layout_marginTop="10dp"
-            android:text="sharemultiple_medium"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/btn_share_pictures" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-</layout>
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -3,22 +3,23 @@ package com.chenyihong.exampledemo.androidapi.fragmentresultapi
 import android.annotation.SuppressLint
 import android.os.Bundle
 import android.util.Log
-import androidx.databinding.DataBindingUtil
-import com.chenyihong.exampledemo.R
+import android.view.LayoutInflater
 import com.chenyihong.exampledemo.databinding.LayoutFragmentResultApiActivityBinding
 import com.chenyihong.exampledemo.androidapi.gesturedetector.BaseGestureDetectorActivity
 
 const val TAG = "FragmentResultAPI"
 
-class FragmentResultApiActivity : BaseGestureDetectorActivity() {
+class FragmentResultApiActivity : BaseGestureDetectorActivity<LayoutFragmentResultApiActivityBinding>() {
 
     private val canonicalName = this::class.java.canonicalName!!
+
+    override fun initViewBinding(layoutInflater: LayoutInflater): LayoutFragmentResultApiActivityBinding {
+        return LayoutFragmentResultApiActivityBinding.inflate(layoutInflater)
+    }
 
     @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val binding = DataBindingUtil.setContentView<LayoutFragmentResultApiActivityBinding>(this, R.layout.layout_fragment_result_api_activity)
-
         binding.includeTitle.tvTitle.text = "Fragment Result Api"
         supportFragmentManager.setFragmentResultListener(canonicalName, this) { requestKey, result ->
             Log.i(TAG, "Activity receive result requestKey:$requestKey ,result:$result")

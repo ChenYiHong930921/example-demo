@@ -5,7 +5,6 @@ import android.media.AudioManager
 import android.os.Bundle
 import android.view.*
 import androidx.core.content.ContextCompat
-import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.DialogFragment
 import com.chenyihong.exampledemo.R
 import com.chenyihong.exampledemo.databinding.LayoutVolumeContollerDialogBinding
@@ -28,7 +27,7 @@ class VolumeControllerDialog : DialogFragment() {
             layoutParams.gravity = Gravity.CENTER
             attributes = layoutParams
         }
-        binding = DataBindingUtil.inflate(inflater, R.layout.layout_volume_contoller_dialog, container, false)
+        binding = LayoutVolumeContollerDialogBinding.inflate(inflater)
         return binding?.root
     }
 

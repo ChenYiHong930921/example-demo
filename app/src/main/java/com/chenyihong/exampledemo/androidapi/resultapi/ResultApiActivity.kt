@@ -7,11 +7,10 @@ import android.os.Build
 import android.os.Bundle
 import android.os.Environment
 import android.util.Log
+import android.view.LayoutInflater
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.FileProvider
-import androidx.databinding.DataBindingUtil
 import com.chenyihong.exampledemo.BuildConfig
-import com.chenyihong.exampledemo.R
 import com.chenyihong.exampledemo.androidapi.resultapi.custom.PickMultipleMediumContract
 import com.chenyihong.exampledemo.androidapi.resultapi.custom.PickSingleMediumContract
 import com.chenyihong.exampledemo.databinding.LayoutResultApiActivityBinding
@@ -20,9 +19,7 @@ import java.io.File
 
 const val TAG = "ResultApi"
 
-class ResultApiActivity : BaseGestureDetectorActivity() {
-
-    private lateinit var binding: LayoutResultApiActivityBinding
+class ResultApiActivity : BaseGestureDetectorActivity<LayoutResultApiActivityBinding>() {
 
     //<editor-folder desc = "default permission contract">
 
@@ -131,11 +128,13 @@ class ResultApiActivity : BaseGestureDetectorActivity() {
 
     //</editor-folder>
 
+    override fun initViewBinding(layoutInflater: LayoutInflater): LayoutResultApiActivityBinding {
+        return LayoutResultApiActivityBinding.inflate(layoutInflater)
+    }
+
     @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = DataBindingUtil.setContentView(this, R.layout.layout_result_api_activity)
-
         binding.includeTitle.tvTitle.text = "Activity Result Api"
 
         photoUri = getPhotoFileUri()

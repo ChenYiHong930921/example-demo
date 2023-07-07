@@ -8,13 +8,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.widget.FrameLayout
 import androidx.appcompat.app.AlertDialog
-import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.AppCompatButton
 import androidx.appcompat.widget.AppCompatImageView
 import androidx.appcompat.widget.AppCompatRatingBar
 import androidx.appcompat.widget.AppCompatTextView
-import androidx.databinding.DataBindingUtil
 import com.chenyihong.exampledemo.R
+import com.chenyihong.exampledemo.androidapi.gesturedetector.BaseGestureDetectorActivity
 import com.chenyihong.exampledemo.databinding.LayoutAdmobExampleActivityBinding
 import com.google.android.gms.ads.*
 import com.google.android.gms.ads.initialization.AdapterStatus
@@ -29,13 +28,14 @@ import com.google.android.gms.ads.rewarded.RewardedAdLoadCallback
 
 const val TAG = "AdmobExample"
 
-class AdmobExampleActivity : AppCompatActivity() {
+class AdmobExampleActivity : BaseGestureDetectorActivity<LayoutAdmobExampleActivityBinding>() {
 
-    private lateinit var binding: LayoutAdmobExampleActivityBinding
+    override fun initViewBinding(layoutInflater: LayoutInflater): LayoutAdmobExampleActivityBinding {
+        return LayoutAdmobExampleActivityBinding.inflate(layoutInflater)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = DataBindingUtil.setContentView(this, R.layout.layout_admob_example_activity)
         binding.includeTitle.tvTitle.text = TAG
 
         MobileAds.initialize(this) { initializationStatus ->

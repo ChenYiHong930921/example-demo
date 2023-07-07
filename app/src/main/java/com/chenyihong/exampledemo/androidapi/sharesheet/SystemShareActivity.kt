@@ -5,9 +5,8 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
+import android.view.LayoutInflater
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.databinding.DataBindingUtil
-import com.chenyihong.exampledemo.R
 import com.chenyihong.exampledemo.databinding.LayoutSystemShareActivityBinding
 import com.chenyihong.exampledemo.androidapi.gesturedetector.BaseGestureDetectorActivity
 import com.chenyihong.exampledemo.androidapi.resultapi.custom.MultipleLauncherOptions
@@ -17,7 +16,7 @@ import com.chenyihong.exampledemo.base.MimeType
 
 const val TAG = "SystemShare"
 
-class SystemShareActivity : BaseGestureDetectorActivity() {
+class SystemShareActivity : BaseGestureDetectorActivity<LayoutSystemShareActivityBinding>() {
 
     private val forActivityResultLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { activityResult ->
         Log.i(TAG, "launcher callback value : resultCode:${activityResult.resultCode} data${activityResult.data}")
@@ -57,11 +56,13 @@ class SystemShareActivity : BaseGestureDetectorActivity() {
         }
     }
 
+    override fun initViewBinding(layoutInflater: LayoutInflater): LayoutSystemShareActivityBinding {
+        return LayoutSystemShareActivityBinding.inflate(layoutInflater)
+    }
+
     @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val binding = DataBindingUtil.setContentView<LayoutSystemShareActivityBinding>(this, R.layout.layout_system_share_activity)
-
         binding.includeTitle.tvTitle.text = "ShareSheet Api"
         binding.btnShareText.setOnClickListener {
             val onlyTextShareIntent = Intent().apply {

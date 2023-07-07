@@ -1,19 +1,19 @@
 package com.chenyihong.exampledemo.androidapi.fullscreen
 
 import android.os.Bundle
+import android.view.LayoutInflater
 import androidx.core.view.*
-import androidx.databinding.DataBindingUtil
-import com.chenyihong.exampledemo.R
 import com.chenyihong.exampledemo.databinding.LayoutFullScreenActivityBinding
 import com.chenyihong.exampledemo.androidapi.gesturedetector.BaseGestureDetectorActivity
 
-class FullScreenActivity : BaseGestureDetectorActivity() {
+class FullScreenActivity : BaseGestureDetectorActivity<LayoutFullScreenActivityBinding>() {
 
-    lateinit var binding: LayoutFullScreenActivityBinding
+    override fun initViewBinding(layoutInflater: LayoutInflater): LayoutFullScreenActivityBinding {
+        return LayoutFullScreenActivityBinding.inflate(layoutInflater)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = DataBindingUtil.setContentView(this, R.layout.layout_full_screen_activity)
         val windowInsetsController = WindowCompat.getInsetsController(window, window.decorView)
         windowInsetsController.systemBarsBehavior = WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
         windowInsetsController.hide(WindowInsetsCompat.Type.systemBars())

@@ -2,20 +2,22 @@ package com.chenyihong.exampledemo.androidapi.motionlayout
 
 import android.os.Bundle
 import android.util.Log
+import android.view.LayoutInflater
 import android.view.View
 import androidx.constraintlayout.motion.widget.MotionLayout
-import androidx.databinding.DataBindingUtil
-import com.chenyihong.exampledemo.R
 import com.chenyihong.exampledemo.androidapi.gesturedetector.BaseGestureDetectorActivity
 import com.chenyihong.exampledemo.databinding.LayoutMotionLayoutExampleActivityBinding
 
 const val TAG = "MotionLayoutExampleTag"
 
-class MotionLayoutExampleActivity : BaseGestureDetectorActivity() {
+class MotionLayoutExampleActivity : BaseGestureDetectorActivity<LayoutMotionLayoutExampleActivityBinding>() {
+
+    override fun initViewBinding(layoutInflater: LayoutInflater): LayoutMotionLayoutExampleActivityBinding {
+        return LayoutMotionLayoutExampleActivityBinding.inflate(layoutInflater)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val binding: LayoutMotionLayoutExampleActivityBinding = DataBindingUtil.setContentView(this, R.layout.layout_motion_layout_example_activity)
         binding.motionLayout.setTransitionListener(object : MotionLayout.TransitionListener {
             override fun onTransitionStarted(motionLayout: MotionLayout?, startId: Int, endId: Int) {
                 Log.i(TAG, "onTransitionStarted startId:$startId, endId:$endId")

@@ -5,12 +5,11 @@ import android.app.SearchManager
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import androidx.databinding.DataBindingUtil
-import com.chenyihong.exampledemo.R
+import android.view.LayoutInflater
 import com.chenyihong.exampledemo.databinding.LayoutSearchExampleActivityBinding
 import com.chenyihong.exampledemo.androidapi.gesturedetector.BaseGestureDetectorActivity
 
-class SearchExampleActivity : BaseGestureDetectorActivity() {
+class SearchExampleActivity : BaseGestureDetectorActivity<LayoutSearchExampleActivityBinding>() {
 
     override fun onSearchRequested(): Boolean {
         val appData = Bundle()
@@ -20,10 +19,13 @@ class SearchExampleActivity : BaseGestureDetectorActivity() {
         return true
     }
 
+    override fun initViewBinding(layoutInflater: LayoutInflater): LayoutSearchExampleActivityBinding {
+        return LayoutSearchExampleActivityBinding.inflate(layoutInflater)
+    }
+
     @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val binding: LayoutSearchExampleActivityBinding = DataBindingUtil.setContentView(this, R.layout.layout_search_example_activity)
         binding.includeTitle.tvTitle.text = "Search Api"
         binding.btnSearchView.setOnClickListener { startActivity(Intent(this, SearchActivity::class.java)) }
         binding.btnSearchDialog.setOnClickListener { onSearchRequested() }

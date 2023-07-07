@@ -9,25 +9,25 @@ import android.net.wifi.WifiManager
 import android.os.Build
 import android.os.Bundle
 import android.text.format.Formatter
+import android.view.LayoutInflater
 import android.webkit.WebSettings
-import androidx.databinding.DataBindingUtil
-import com.chenyihong.exampledemo.R
 import com.chenyihong.exampledemo.androidapi.gesturedetector.BaseGestureDetectorActivity
 import com.chenyihong.exampledemo.databinding.LayoutConnectivityExampleActivityBinding
 import java.net.NetworkInterface
 import java.util.*
 
-class IPAndUAExample : BaseGestureDetectorActivity() {
+class IPAndUAExample : BaseGestureDetectorActivity<LayoutConnectivityExampleActivityBinding>() {
 
-    private lateinit var binding: LayoutConnectivityExampleActivityBinding
     private var connectivityManager: ConnectivityManager? = null
     private var wifiManager: WifiManager? = null
+
+    override fun initViewBinding(layoutInflater: LayoutInflater): LayoutConnectivityExampleActivityBinding {
+        return LayoutConnectivityExampleActivityBinding.inflate(layoutInflater)
+    }
 
     @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = DataBindingUtil.setContentView(this, R.layout.layout_connectivity_example_activity)
-
         connectivityManager = getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
         wifiManager = applicationContext.getSystemService(Context.WIFI_SERVICE) as WifiManager
 
@@ -51,10 +51,12 @@ class IPAndUAExample : BaseGestureDetectorActivity() {
                         binding.tvConnectedNetworkType.text = "Transport by Mobile"
                         binding.tvMobileIp.text = "Mobile IP:${getMobileIp()}"
                     }
+
                     ConnectivityManager.TYPE_WIFI -> {
                         binding.tvConnectedNetworkType.text = "Transport by WIFI"
                         binding.tvWifiIp.text = "WIFI IP:${getWIFIIp()}"
                     }
+
                     else -> {}
                 }
             } else {
@@ -67,6 +69,7 @@ class IPAndUAExample : BaseGestureDetectorActivity() {
                                     binding.tvConnectedNetworkType.text = "Transport by Mobile"
                                     binding.tvMobileIp.text = "Mobile IP:${getMobileIp()}"
                                 }
+
                                 networkCapabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) -> {
                                     binding.tvConnectedNetworkType.text = "Transport by WIFI"
                                     binding.tvWifiIp.text = "WIFI IP:${getWIFIIp()}"

@@ -15,12 +15,11 @@ import android.os.Handler
 import android.os.Looper
 import android.provider.Settings
 import android.util.Log
+import android.view.LayoutInflater
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.app.ActivityCompat
 import androidx.core.location.GnssStatusCompat
 import androidx.core.location.LocationManagerCompat
-import androidx.databinding.DataBindingUtil
-import com.chenyihong.exampledemo.R
 import com.chenyihong.exampledemo.databinding.LayoutGpsSignalActivityBinding
 import com.chenyihong.exampledemo.androidapi.gesturedetector.BaseGestureDetectorActivity
 import java.text.SimpleDateFormat
@@ -28,9 +27,8 @@ import java.util.Calendar
 
 const val TAG = "GpsSignal"
 
-class GpsSignalActivity : BaseGestureDetectorActivity() {
+class GpsSignalActivity : BaseGestureDetectorActivity<LayoutGpsSignalActivityBinding>() {
 
-    private lateinit var binding: LayoutGpsSignalActivityBinding
     private lateinit var locationManager: LocationManager
 
     private val requestMultiplePermissionsLauncher = registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) { permissions: Map<String, Boolean> ->
@@ -95,10 +93,13 @@ class GpsSignalActivity : BaseGestureDetectorActivity() {
         }
     }
 
+    override fun initViewBinding(layoutInflater: LayoutInflater): LayoutGpsSignalActivityBinding {
+        return LayoutGpsSignalActivityBinding.inflate(layoutInflater)
+    }
+
     @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = DataBindingUtil.setContentView(this, R.layout.layout_gps_signal_activity)
         locationManager = getSystemService(Context.LOCATION_SERVICE) as LocationManager
 
         binding.includeTitle.tvTitle.text = "GpsSignal Api"

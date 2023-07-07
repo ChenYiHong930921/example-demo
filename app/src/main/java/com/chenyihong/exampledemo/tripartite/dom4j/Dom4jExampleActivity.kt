@@ -2,8 +2,7 @@ package com.chenyihong.exampledemo.tripartite.dom4j
 
 import android.annotation.SuppressLint
 import android.os.Bundle
-import androidx.databinding.DataBindingUtil
-import com.chenyihong.exampledemo.R
+import android.view.LayoutInflater
 import com.chenyihong.exampledemo.androidapi.gesturedetector.BaseGestureDetectorActivity
 import com.chenyihong.exampledemo.databinding.LayoutDom4jExampleActivityBinding
 import org.dom4j.Document
@@ -18,7 +17,7 @@ import java.io.StringWriter
 
 const val TAG = "dom4jExample"
 
-class Dom4jExampleActivity : BaseGestureDetectorActivity() {
+class Dom4jExampleActivity : BaseGestureDetectorActivity<LayoutDom4jExampleActivityBinding>() {
 
     // Android 命名空间
     private val android = Namespace("android", "http://schemas.android.com/apk/res/android")
@@ -29,10 +28,13 @@ class Dom4jExampleActivity : BaseGestureDetectorActivity() {
     // android:exported对应的QName
     private val androidExported = QName.get("exported", android)
 
+    override fun initViewBinding(layoutInflater: LayoutInflater): LayoutDom4jExampleActivityBinding {
+        return LayoutDom4jExampleActivityBinding.inflate(layoutInflater)
+    }
+
     @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val binding: LayoutDom4jExampleActivityBinding = DataBindingUtil.setContentView(this, R.layout.layout_dom4j_example_activity)
         binding.includeTitle.tvTitle.text = "dom4j Example"
 
         val reader = SAXReader()

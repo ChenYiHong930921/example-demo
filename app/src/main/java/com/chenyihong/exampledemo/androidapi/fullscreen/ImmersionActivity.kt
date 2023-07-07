@@ -1,26 +1,26 @@
 package com.chenyihong.exampledemo.androidapi.fullscreen
 
 import android.os.Bundle
+import android.view.LayoutInflater
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.core.view.*
-import androidx.databinding.DataBindingUtil
 import com.chenyihong.exampledemo.R
 import com.chenyihong.exampledemo.databinding.LayoutImmersionActivityBinding
 import com.chenyihong.exampledemo.androidapi.gesturedetector.BaseGestureDetectorActivity
 
-class ImmersionActivity : BaseGestureDetectorActivity() {
+class ImmersionActivity : BaseGestureDetectorActivity<LayoutImmersionActivityBinding>() {
 
     private lateinit var windowInsetsController: WindowInsetsControllerCompat
 
-    lateinit var binding: LayoutImmersionActivityBinding
-
     private var hadChange = false
+
+    override fun initViewBinding(layoutInflater: LayoutInflater): LayoutImmersionActivityBinding {
+        return LayoutImmersionActivityBinding.inflate(layoutInflater)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = DataBindingUtil.setContentView(this, R.layout.layout_immersion_activity)
-
         WindowCompat.setDecorFitsSystemWindows(window, false)
         windowInsetsController = WindowCompat.getInsetsController(window, window.decorView)
         //透明的导航栏

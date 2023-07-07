@@ -7,17 +7,16 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.pm.ShortcutInfoCompat
 import androidx.core.content.pm.ShortcutManagerCompat
 import androidx.core.graphics.drawable.IconCompat
-import androidx.databinding.DataBindingUtil
 import com.chenyihong.exampledemo.R
 import com.chenyihong.exampledemo.androidapi.camerax.CameraActivity
-import com.chenyihong.exampledemo.androidapi.gps.GpsSignalActivity
 import com.chenyihong.exampledemo.databinding.LayoutCreateShortcutsActivityBinding
 
 class CreateCameraShortcutActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val binding: LayoutCreateShortcutsActivityBinding = DataBindingUtil.setContentView(this, R.layout.layout_create_shortcuts_activity)
+        val binding = LayoutCreateShortcutsActivityBinding.inflate(layoutInflater)
+        setContentView(binding.root)
         binding.tvTips.text = "Do you want to add the Camera Launcher icon to your home screen?"
         binding.btnAddShortcut.setOnClickListener {
             createPinShortcuts()

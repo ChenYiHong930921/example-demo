@@ -7,12 +7,11 @@ import android.os.Build
 import android.os.Bundle
 import android.util.DisplayMetrics
 import android.view.DragEvent
+import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewOutlineProvider
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
-import androidx.databinding.DataBindingUtil
-import com.chenyihong.exampledemo.R
 import com.chenyihong.exampledemo.databinding.LayoutCustomShadowViewActivityBinding
 import com.chenyihong.exampledemo.androidapi.gesturedetector.BaseGestureDetectorActivity
 import com.chenyihong.exampledemo.utils.DensityUtil
@@ -21,19 +20,19 @@ import com.chenyihong.exampledemo.customview.view.ShadowView
 import com.chenyihong.exampledemo.customview.view.TO_LEFT
 import com.chenyihong.exampledemo.customview.view.TO_RIGHT
 
-class CustomShadowViewActivity : BaseGestureDetectorActivity() {
-
-    private lateinit var binding: LayoutCustomShadowViewActivityBinding
+class CustomShadowViewActivity : BaseGestureDetectorActivity<LayoutCustomShadowViewActivityBinding>() {
 
     private var onRight: Boolean = true
 
     private var dragView: View? = null
 
+    override fun initViewBinding(layoutInflater: LayoutInflater): LayoutCustomShadowViewActivityBinding {
+        return LayoutCustomShadowViewActivityBinding.inflate(layoutInflater)
+    }
+
     @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = DataBindingUtil.setContentView(this, R.layout.layout_custom_shadow_view_activity)
-
         val displayMetrics: DisplayMetrics = resources.displayMetrics
         val widthPixels = displayMetrics.widthPixels
 
@@ -99,6 +98,7 @@ class CustomShadowViewActivity : BaseGestureDetectorActivity() {
                 DragEvent.ACTION_DRAG_STARTED -> {
                     dragView?.visibility = View.INVISIBLE
                 }
+
                 DragEvent.ACTION_DROP -> {
                     val height: Int = (dragView?.height ?: 0) / 2
 

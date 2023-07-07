@@ -5,10 +5,8 @@ import android.os.Bundle
 import android.util.Log
 import android.view.*
 import androidx.core.content.ContextCompat
-import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
-import com.chenyihong.exampledemo.R
 import com.chenyihong.exampledemo.databinding.LayoutFragmentResultApiDialogFragmentBinding
 import com.chenyihong.exampledemo.adapter.ViewPager2Adapter
 
@@ -29,7 +27,7 @@ class DialogFragment : DialogFragment() {
             layoutParams.gravity = Gravity.CENTER
             attributes = layoutParams
         }
-        binding = DataBindingUtil.inflate(inflater, R.layout.layout_fragment_result_api_dialog_fragment, container, false)
+        binding = LayoutFragmentResultApiDialogFragmentBinding.inflate(inflater)
         return binding?.root
     }
 
@@ -63,7 +61,6 @@ class DialogFragment : DialogFragment() {
     }
 
     override fun onDestroyView() {
-        binding?.unbind()
         childFragmentManager.clearFragmentResultListener(canonicalName)
         super.onDestroyView()
     }

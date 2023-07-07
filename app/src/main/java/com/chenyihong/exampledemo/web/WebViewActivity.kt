@@ -5,6 +5,7 @@ import android.graphics.Bitmap
 import android.os.Bundle
 import android.os.Message
 import android.util.Log
+import android.view.LayoutInflater
 import android.view.View
 import android.webkit.*
 import android.widget.FrameLayout
@@ -12,8 +13,6 @@ import androidx.activity.OnBackPressedCallback
 import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.WindowInsetsControllerCompat
-import androidx.databinding.DataBindingUtil
-import com.chenyihong.exampledemo.R
 import com.chenyihong.exampledemo.databinding.LayoutWebViewActivityBinding
 import com.chenyihong.exampledemo.entity.PersonEntity
 import com.chenyihong.exampledemo.androidapi.gesturedetector.BaseGestureDetectorActivity
@@ -23,9 +22,7 @@ import com.google.gson.Gson
 const val TAG = "WebsiteTest"
 const val PARAMS_LINK_URL = "linkUrl"
 
-class WebViewActivity : BaseGestureDetectorActivity() {
-
-    private lateinit var binding: LayoutWebViewActivityBinding
+class WebViewActivity : BaseGestureDetectorActivity<LayoutWebViewActivityBinding>() {
 
     private val gson = Gson()
 
@@ -59,9 +56,12 @@ class WebViewActivity : BaseGestureDetectorActivity() {
         }
     }
 
+    override fun initViewBinding(layoutInflater: LayoutInflater): LayoutWebViewActivityBinding {
+        return LayoutWebViewActivityBinding.inflate(layoutInflater)
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = DataBindingUtil.setContentView(this, R.layout.layout_web_view_activity)
         val insetsController = WindowCompat.getInsetsController(window, window.decorView)
         insetsController.systemBarsBehavior = WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
         insetsController.hide(WindowInsetsCompat.Type.systemBars())

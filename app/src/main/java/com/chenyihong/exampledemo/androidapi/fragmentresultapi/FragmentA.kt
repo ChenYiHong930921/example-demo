@@ -6,9 +6,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
-import com.chenyihong.exampledemo.R
 import com.chenyihong.exampledemo.databinding.LayoutFragmentResultApiFragmentABinding
 
 class FragmentA : Fragment() {
@@ -18,7 +16,7 @@ class FragmentA : Fragment() {
     private val canonicalName = this::class.java.canonicalName!!
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
-        binding = DataBindingUtil.inflate(inflater, R.layout.layout_fragment_result_api_fragment_a, container, false)
+        binding = LayoutFragmentResultApiFragmentABinding.inflate(inflater)
         return binding.root
     }
 

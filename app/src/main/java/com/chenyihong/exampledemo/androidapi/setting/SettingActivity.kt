@@ -1,7 +1,7 @@
 package com.chenyihong.exampledemo.androidapi.setting
 
 import android.os.Bundle
-import androidx.databinding.DataBindingUtil
+import android.view.LayoutInflater
 import androidx.lifecycle.lifecycleScope
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
@@ -11,13 +11,14 @@ import com.chenyihong.exampledemo.androidapi.gesturedetector.BaseGestureDetector
 
 const val TAG = "PreferenceApi"
 
-class SettingActivity : BaseGestureDetectorActivity(), PreferenceFragmentCompat.OnPreferenceStartFragmentCallback {
+class SettingActivity : BaseGestureDetectorActivity<LayoutSettingActivityBinding>(), PreferenceFragmentCompat.OnPreferenceStartFragmentCallback {
 
-    private lateinit var binding: LayoutSettingActivityBinding
+    override fun initViewBinding(layoutInflater: LayoutInflater): LayoutSettingActivityBinding {
+        return LayoutSettingActivityBinding.inflate(layoutInflater)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = DataBindingUtil.setContentView(this, R.layout.layout_setting_activity)
         ExampleDataStore.coroutineScope = lifecycleScope
         supportFragmentManager
             .beginTransaction()

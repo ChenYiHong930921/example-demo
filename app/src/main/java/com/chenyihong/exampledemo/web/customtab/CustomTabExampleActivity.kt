@@ -7,11 +7,11 @@ import android.content.Intent
 import android.graphics.*
 import android.graphics.drawable.Drawable
 import android.os.Bundle
+import android.view.LayoutInflater
 import androidx.activity.result.contract.ActivityResultContract
 import androidx.browser.customtabs.CustomTabsIntent
 import androidx.core.content.ContextCompat
 import androidx.core.net.toUri
-import androidx.databinding.DataBindingUtil
 import com.chenyihong.exampledemo.R
 import com.chenyihong.exampledemo.androidapi.gesturedetector.BaseGestureDetectorActivity
 import com.chenyihong.exampledemo.databinding.LayoutCustomTabActivityBinding
@@ -21,7 +21,7 @@ import com.chenyihong.exampledemo.web.WebViewActivity
 
 const val TAG = "CustomTabExampleTag"
 
-class CustomTabExampleActivity : BaseGestureDetectorActivity() {
+class CustomTabExampleActivity : BaseGestureDetectorActivity<LayoutCustomTabActivityBinding>() {
 
     private val ACTION_ID = "actionId"
     private val ACTION_ID_SCAN = 1
@@ -52,10 +52,13 @@ class CustomTabExampleActivity : BaseGestureDetectorActivity() {
         // 页面返回回调
     }
 
+    override fun initViewBinding(layoutInflater: LayoutInflater): LayoutCustomTabActivityBinding {
+        return LayoutCustomTabActivityBinding.inflate(layoutInflater)
+    }
+
     @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val binding: LayoutCustomTabActivityBinding = DataBindingUtil.setContentView(this, R.layout.layout_custom_tab_activity)
         binding.includeTitle.tvTitle.text = "Chrome Custom Tab"
         activityHeight = (resources.displayMetrics.heightPixels * 0.8).toInt()
         binding.btnOpenSimpleTab.setOnClickListener {

@@ -4,22 +4,19 @@ import android.Manifest
 import android.os.Bundle
 import android.os.Environment
 import android.util.Log
+import android.view.LayoutInflater
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.camera.core.*
 
 import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.camera.view.PreviewView
 import androidx.core.content.ContextCompat
-import androidx.databinding.DataBindingUtil
-import com.chenyihong.exampledemo.R
 import com.chenyihong.exampledemo.databinding.LayoutCameraActivityBinding
 import com.chenyihong.exampledemo.androidapi.gesturedetector.BaseGestureDetectorActivity
 
 import java.io.File
 
-class CameraActivity : BaseGestureDetectorActivity() {
-
-    private lateinit var binding: LayoutCameraActivityBinding
+class CameraActivity : BaseGestureDetectorActivity<LayoutCameraActivityBinding>() {
 
     private lateinit var cameraLifecycle: CameraLifecycle
     private lateinit var imageCapture: ImageCapture
@@ -32,10 +29,12 @@ class CameraActivity : BaseGestureDetectorActivity() {
         }
     }
 
+    override fun initViewBinding(layoutInflater: LayoutInflater): LayoutCameraActivityBinding {
+        return LayoutCameraActivityBinding.inflate(layoutInflater)
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = DataBindingUtil.setContentView(this, R.layout.layout_camera_activity)
-
         cameraLifecycle = CameraLifecycle()
         cameraLifecycle.cameraOnCreate()
 
@@ -65,6 +64,7 @@ class CameraActivity : BaseGestureDetectorActivity() {
                             binding.pvCameraPreview.foreground = ContextCompat.getDrawable(this, android.R.color.background_dark)
                         }
                     }
+
                     else -> {}
                 }
             }

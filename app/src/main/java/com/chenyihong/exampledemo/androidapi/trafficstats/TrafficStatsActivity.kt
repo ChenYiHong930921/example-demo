@@ -4,23 +4,23 @@ import android.annotation.SuppressLint
 import android.graphics.Bitmap
 import android.os.Bundle
 import android.util.Log
+import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.webkit.*
-import androidx.databinding.DataBindingUtil
-import com.chenyihong.exampledemo.R
 import com.chenyihong.exampledemo.androidapi.gesturedetector.BaseGestureDetectorActivity
 import com.chenyihong.exampledemo.databinding.LayoutTrafficStatsActivityBinding
 
 const val TAG = "TrafficStatsTag"
 
-class TrafficStatsActivity : BaseGestureDetectorActivity() {
+class TrafficStatsActivity : BaseGestureDetectorActivity<LayoutTrafficStatsActivityBinding>() {
 
-    private lateinit var binding: LayoutTrafficStatsActivityBinding
+    override fun initViewBinding(layoutInflater: LayoutInflater): LayoutTrafficStatsActivityBinding {
+        return LayoutTrafficStatsActivityBinding.inflate(layoutInflater)
+    }
 
     @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = DataBindingUtil.setContentView(this, R.layout.layout_traffic_stats_activity)
         binding.includeTitle.tvTitle.text = "TrafficStatsExample"
         NetSpeedUtils.netSpeedCallback = object : NetSpeedUtils.NetSpeedCallback {
             override fun onNetSpeedChange(downloadSpeed: String, uploadSpeed: String) {

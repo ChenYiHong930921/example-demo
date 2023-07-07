@@ -8,6 +8,9 @@ class CameraLifecycle : LifecycleOwner {
 
     private var lifecycleRegistry: LifecycleRegistry = LifecycleRegistry(this)
 
+    override val lifecycle: Lifecycle
+        get() = lifecycleRegistry
+
     fun cameraOnCreate() {
         lifecycleRegistry.handleLifecycleEvent(Lifecycle.Event.ON_CREATE)
     }
@@ -30,9 +33,5 @@ class CameraLifecycle : LifecycleOwner {
 
     fun cameraOnDestroyed() {
         lifecycleRegistry.handleLifecycleEvent(Lifecycle.Event.ON_DESTROY)
-    }
-
-    override fun getLifecycle(): Lifecycle {
-        return lifecycleRegistry
     }
 }

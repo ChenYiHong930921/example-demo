@@ -1,11 +1,10 @@
 package com.chenyihong.exampledemo.androidapi.gaid
 
 import android.os.Bundle
+import android.view.LayoutInflater
 import androidx.ads.identifier.AdvertisingIdClient
 import androidx.ads.identifier.AdvertisingIdInfo
 import androidx.ads.identifier.AdvertisingIdNotAvailableException
-import androidx.databinding.DataBindingUtil
-import com.chenyihong.exampledemo.R
 import com.chenyihong.exampledemo.androidapi.gesturedetector.BaseGestureDetectorActivity
 import com.chenyihong.exampledemo.databinding.LayoutGaidActivityBinding
 import com.google.android.gms.common.GooglePlayServicesNotAvailableException
@@ -18,13 +17,14 @@ import java.util.concurrent.TimeoutException
 
 const val TAG = "GAIDTag"
 
-class GaIdActivity : BaseGestureDetectorActivity() {
+class GaIdActivity : BaseGestureDetectorActivity<LayoutGaidActivityBinding>() {
 
-    private lateinit var binding: LayoutGaidActivityBinding
+    override fun initViewBinding(layoutInflater: LayoutInflater): LayoutGaidActivityBinding {
+        return LayoutGaidActivityBinding.inflate(layoutInflater)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = DataBindingUtil.setContentView(this, R.layout.layout_gaid_activity)
         binding.includeTitle.tvTitle.text = "GAIDExample"
         getGAIDViaGoogle()
 

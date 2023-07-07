@@ -108,7 +108,7 @@ android {
     }
 
     buildFeatures {
-        dataBinding = true
+        viewBinding = true
     }
 
     compileOptions {
@@ -130,25 +130,23 @@ dependencies {
     implementation 'androidx.core:core-ktx:1.10.1'
     implementation 'androidx.appcompat:appcompat:1.6.1'
     implementation 'com.google.android.material:material:1.9.0'
-    testImplementation 'junit:junit:4.13.2'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.5'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
+    implementation 'androidx.lifecycle:lifecycle-process:2.6.1'
 
     // gson
     implementation("com.google.code.gson:gson:2.10.1")
 
     //coroutines
-    implementation('org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.4')
+    implementation('org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.1')
 
     // CameraX
-    implementation "androidx.camera:camera-core:1.2.2"
-    implementation "androidx.camera:camera-camera2:1.2.2"
-    implementation "androidx.camera:camera-lifecycle:1.2.2"
+    implementation "androidx.camera:camera-core:1.2.3"
+    implementation "androidx.camera:camera-camera2:1.2.3"
+    implementation "androidx.camera:camera-lifecycle:1.2.3"
     // If you want to additionally use the CameraX View class
-    implementation "androidx.camera:camera-view:1.2.2"
+    implementation "androidx.camera:camera-view:1.2.3"
 
     //Google Login
-    implementation("com.google.android.gms:play-services-auth:20.5.0")
+    implementation("com.google.android.gms:play-services-auth:20.6.0")
 
     //Meta login
     implementation('com.facebook.android:facebook-login:16.0.1')
@@ -171,7 +169,7 @@ dependencies {
     implementation 'com.google.guava:guava:28.0-android'
 
     // Admob
-    implementation("com.google.android.gms:play-services-ads:22.0.0")
+    implementation("com.google.android.gms:play-services-ads:22.2.0")
 
     // Firebase cloud message
     implementation('com.google.firebase:firebase-messaging:23.1.2')
@@ -183,7 +181,7 @@ dependencies {
     implementation("androidx.core:core-splashscreen:1.0.1")
 
     // Trusted Web Activity Helper
-    twaImplementation("com.google.androidbrowserhelper:androidbrowserhelper:2.4.0")
+    twaImplementation("com.google.androidbrowserhelper:androidbrowserhelper:2.5.0")
 
     // dom4j
     implementation("org.dom4j:dom4j:2.1.4")

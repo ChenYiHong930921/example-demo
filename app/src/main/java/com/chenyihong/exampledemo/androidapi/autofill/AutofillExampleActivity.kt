@@ -7,17 +7,16 @@ import android.os.Build
 import android.os.Bundle
 import android.provider.Settings
 import android.util.Log
+import android.view.LayoutInflater
 import android.view.autofill.AutofillManager
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.widget.addTextChangedListener
-import androidx.databinding.DataBindingUtil
-import com.chenyihong.exampledemo.R
 import com.chenyihong.exampledemo.androidapi.gesturedetector.BaseGestureDetectorActivity
 import com.chenyihong.exampledemo.databinding.LayoutAutofillExampleActivityBinding
 
 const val TAG = "AutofillExampleTag"
 
-class AutoFillExampleActivity : BaseGestureDetectorActivity() {
+class AutoFillExampleActivity : BaseGestureDetectorActivity<LayoutAutofillExampleActivityBinding>() {
 
     private val launcher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
         if (it.resultCode == Activity.RESULT_OK) {
@@ -25,9 +24,12 @@ class AutoFillExampleActivity : BaseGestureDetectorActivity() {
         }
     }
 
+    override fun initViewBinding(layoutInflater: LayoutInflater): LayoutAutofillExampleActivityBinding {
+        return LayoutAutofillExampleActivityBinding.inflate(layoutInflater)
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val binding = DataBindingUtil.setContentView<LayoutAutofillExampleActivityBinding>(this, R.layout.layout_autofill_example_activity)
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             val autofillManager = getSystemService(AutofillManager::class.java)
             binding.etAccount.addTextChangedListener {

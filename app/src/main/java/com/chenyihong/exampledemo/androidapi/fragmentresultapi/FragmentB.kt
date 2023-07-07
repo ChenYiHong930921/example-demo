@@ -6,9 +6,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
-import com.chenyihong.exampledemo.R
 import com.chenyihong.exampledemo.databinding.LayoutFragmentResultApiFragmentBBinding
 
 class FragmentB : Fragment() {
@@ -18,7 +16,7 @@ class FragmentB : Fragment() {
     private val canonicalName = this::class.java.canonicalName!!
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
-        binding = DataBindingUtil.inflate(inflater, R.layout.layout_fragment_result_api_fragment_b, container, false)
+        binding = LayoutFragmentResultApiFragmentBBinding.inflate(inflater)
         return binding.root
     }
 
@@ -29,7 +27,7 @@ class FragmentB : Fragment() {
             Log.i(TAG, "B Fragment receive result requestKey:$requestKey ,result:$result")
             binding.tvReceiver.text = "B Fragment receive: requestKey = $requestKey ,result = $result"
         }
-        binding.includeTitle.tvTitle.text="Fragment B"
+        binding.includeTitle.tvTitle.text = "Fragment B"
         binding.btnSendToA.setOnClickListener {
             val bundle = Bundle()
             bundle.putString("result", "a result from Fragment B")

@@ -1,21 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
-    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <include
+        android:id="@+id/include_title"
+        layout="@layout/layout_title" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_option"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <include
-            android:id="@+id/include_title"
-            layout="@layout/layout_title" />
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_option"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            app:layout_constraintTop_toBottomOf="@id/include_title"
-            tools:listitem="@layout/layout_options_parent_item" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
-</layout>
+        android:layout_height="0dp"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintTop_toBottomOf="@id/include_title"
+        tools:listitem="@layout/layout_options_parent_item" />
+</androidx.constraintlayout.widget.ConstraintLayout>

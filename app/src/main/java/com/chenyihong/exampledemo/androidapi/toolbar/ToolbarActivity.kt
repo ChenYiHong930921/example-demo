@@ -1,16 +1,16 @@
 package com.chenyihong.exampledemo.androidapi.toolbar
 
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuItem
-import androidx.databinding.DataBindingUtil
 import com.chenyihong.exampledemo.R
 import com.chenyihong.exampledemo.databinding.LayoutToolbarActivityBinding
 import com.chenyihong.exampledemo.androidapi.gesturedetector.BaseGestureDetectorActivity
 
 const val TAG = "ToolBalSimpleTag"
 
-class ToolbarActivity : BaseGestureDetectorActivity() {
+class ToolbarActivity : BaseGestureDetectorActivity<LayoutToolbarActivityBinding>() {
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.example_menu, menu)
@@ -28,9 +28,11 @@ class ToolbarActivity : BaseGestureDetectorActivity() {
             R.id.action_search -> {
                 showToast("click search menu")
             }
+
             R.id.action_scan -> {
                 showToast("click scan menu")
             }
+
             R.id.action_setting -> {
                 showToast("click setting menu")
             }
@@ -38,9 +40,12 @@ class ToolbarActivity : BaseGestureDetectorActivity() {
         return super.onOptionsItemSelected(item)
     }
 
+    override fun initViewBinding(layoutInflater: LayoutInflater): LayoutToolbarActivityBinding {
+        return LayoutToolbarActivityBinding.inflate(layoutInflater)
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val binding: LayoutToolbarActivityBinding = DataBindingUtil.setContentView(this, R.layout.layout_toolbar_activity)
         setSupportActionBar(binding.toolbar)
         supportActionBar?.run {
             setHomeAsUpIndicator(R.drawable.icon_back)
