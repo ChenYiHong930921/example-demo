@@ -13,6 +13,7 @@ import android.content.IntentFilter
 import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
+import android.view.View
 import android.util.Log
 import android.view.LayoutInflater
 import androidx.activity.result.contract.ActivityResultContracts
@@ -84,8 +85,30 @@ class BluetoothExampleActivity : BaseGestureDetectorActivity<LayoutBluetoothExam
         binding.includeTitle.tvTitle.text = "BluetoothExample"
         bluetoothAdapter = (getSystemService(Context.BLUETOOTH_SERVICE) as BluetoothManager).adapter
         bluetoothAdapter?.let {
-            bluetoothTransferController = BluetoothTransferController(it) { totalLength, byteArray ->
-                Log.i("-,-,-", "totalLength:$totalLength, byteArray:$byteArray")
+            bluetoothTransferController = BluetoothTransferController(it, {
+                binding.tvConnectedStatus.run {
+                    post {
+                        text = "connected to other bluetooth"
+                        visibility = View.VISIBLE
+                    }
+                }
+                binding.rvBluetoothInfo.run { post { visibility = View.GONE } }
+                binding.vTopDivider.run { post { visibility = View.GONE } }
+
+                binding.btnSendMessage.run {
+                    post {
+                        visibility = View.VISIBLE
+                        setOnClickListener {
+                            bluetoothTransferController?.writeData((if (startAcceptClient) "Test Message from Server" else "Test Message from client").toByteArray())
+                        }
+                    }
+                }
+            }) { byteArray ->
+                binding.tvConnectedStatus.run {
+                    post {
+                        text = "$text\n${String(byteArray)}"
+                    }
+                }
             }
         }
         // 注册蓝牙设备扫描结果监听
@@ -111,6 +134,7 @@ class BluetoothExampleActivity : BaseGestureDetectorActivity<LayoutBluetoothExam
         bluetoothDevicesAdapter.itemClickListener = object : BluetoothDevicesAdapter.ItemClickListener {
             @SuppressLint("MissingPermission")
             override fun onItemClick(bluetoothDevice: BluetoothDevice) {
+                bluetoothAdapter?.cancelDiscovery()
                 bluetoothTransferController?.connectToOtherBluetoothDevice(bluetoothDevice)
             }
         }

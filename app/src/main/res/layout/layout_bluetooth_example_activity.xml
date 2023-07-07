@@ -1,46 +1,72 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<layout xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <include
-        android:id="@+id/include_title"
-        layout="@layout/layout_title" />
-
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/btn_scan_nearby_devices"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Scan nearby devices"
-        app:layout_constraintEnd_toStartOf="@id/btn_as_receiver"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/include_title" />
-
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/btn_as_receiver"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="As Receiver"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/btn_scan_nearby_devices"
-        app:layout_constraintTop_toBottomOf="@id/include_title" />
-
-    <View
-        android:id="@+id/v_top_divider"
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@color/color_c2c7cc"
-        app:layout_constraintBottom_toTopOf="@id/rv_bluetooth_info" />
+        android:layout_height="match_parent">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_bluetooth_info"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_marginTop="10dp"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/btn_scan_nearby_devices"
-        tools:listitem="@layout/layout_bluetooth_item" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <include
+            android:id="@+id/include_title"
+            layout="@layout/layout_title" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_scan_nearby_devices"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Scan nearby devices"
+            app:layout_constraintEnd_toStartOf="@id/btn_as_receiver"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/include_title" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_as_receiver"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="As Receiver"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/btn_scan_nearby_devices"
+            app:layout_constraintTop_toBottomOf="@id/include_title" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_send_message"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="send message"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/btn_as_receiver" />
+
+        <View
+            android:id="@+id/v_top_divider"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/color_c2c7cc"
+            app:layout_constraintBottom_toTopOf="@id/rv_bluetooth_info" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_bluetooth_info"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="10dp"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/btn_send_message"
+            tools:listitem="@layout/layout_bluetooth_item" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_connected_status"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/btn_send_message"
+            tools:text="connected status:"
+            tools:visibility="visible" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

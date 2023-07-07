@@ -5,16 +5,15 @@ import android.bluetooth.BluetoothAdapter
 import android.bluetooth.BluetoothDevice
 import android.bluetooth.BluetoothServerSocket
 import android.bluetooth.BluetoothSocket
-import android.os.Handler
 import java.io.IOException
 import java.io.InputStream
 import java.io.OutputStream
 import java.util.UUID
 
 @SuppressLint("MissingPermission")
-class BluetoothTransferController(private val bluetoothAdapter: BluetoothAdapter, private val callback: ((totalLength: Int, byteArray: ByteArray) -> Unit)?) {
-    private val bluetoothUUID = UUID.fromString("fc5deb71-9d4b-460b-b725-b06ea79bda5a")
+class BluetoothTransferController(private val bluetoothAdapter: BluetoothAdapter, private val connectedCallback: () -> Unit, private val receiveCallback: (byteArray: ByteArray) -> Unit) {
 
+    private val bluetoothUUID = UUID.fromString("fc5deb71-9d4b-460b-b725-b06ea79bda5a")
     private var acceptThread: AcceptThread? = null
     private var connectThread: ConnectThread? = null
     private var connectedThread: ConnectedThread? = null
@@ -37,8 +36,8 @@ class BluetoothTransferController(private val bluetoothAdapter: BluetoothAdapter
             connectThread?.cancel()
             connectThread = null
         }
+        connectedThread?.cancel()
         if (connectedThread != null) {
-            connectedThread?.cancel()
             connectedThread = null
         }
         connectThread = ConnectThread(bluetoothDevice)
@@ -68,8 +67,10 @@ class BluetoothTransferController(private val bluetoothAdapter: BluetoothAdapter
             var waitConnect = true
             while (waitConnect) {
                 try {
+                    // accept为阻塞方法，不能在主线程中调用
                     val bluetoothSocket = bluetoothServerSocket?.accept()
                     if (bluetoothSocket != null) {
+                        // 后续可以通过bluetoothSocket传输数据
                         connected(bluetoothSocket)
                         bluetoothServerSocket?.close()
                         waitConnect = false
@@ -99,7 +100,9 @@ class BluetoothTransferController(private val bluetoothAdapter: BluetoothAdapter
             super.run()
             bluetoothSocket?.run {
                 try {
+                    // connect为阻塞方法，不能在主线程中调用
                     connect()
+                    // 后续可以通过bluetoothSocket传输数据
                     connected(this)
                 } catch (e: IOException) {
                     try {
@@ -140,12 +143,16 @@ class BluetoothTransferController(private val bluetoothAdapter: BluetoothAdapter
 
         override fun run() {
             super.run()
+            connectedCallback.invoke()
             val buffer = ByteArray(1024)
             while (connected) {
                 inputStream?.let {
                     try {
-                        val bytes = it.read(buffer)
-                        callback?.invoke(bytes, buffer)
+                        var length: Int
+                        while (it.read(buffer).also { length = it } != -1) {
+                            val dataByteArray = buffer.copyOf(length)
+                            receiveCallback.invoke(dataByteArray)
+                        }
                     } catch (e: IOException) {
                         e.printStackTrace()
                     }
@@ -156,6 +163,7 @@ class BluetoothTransferController(private val bluetoothAdapter: BluetoothAdapter
         fun writeData(sendData: ByteArray) {
             try {
                 outputStream?.write(sendData)
+                outputStream?.flush()
             } catch (e: IOException) {
                 e.printStackTrace()
             }
