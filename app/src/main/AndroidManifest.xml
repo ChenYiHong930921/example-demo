@@ -311,6 +311,10 @@
         </service>
         <!--language-->
 
+        <activity
+            android:name=".androidapi.media3.Media3ExampleActivity"
+            android:screenOrientation="portrait" />
+
         <!--autofill-->
 
         <activity

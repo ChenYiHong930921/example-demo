@@ -186,4 +186,9 @@ dependencies {
 
     // dom4j
     implementation("org.dom4j:dom4j:2.1.4")
+
+    // Media3
+    implementation("androidx.media3:media3-ui:1.1.0")
+    implementation("androidx.media3:media3-session:1.1.0")
+    implementation("androidx.media3:media3-exoplayer:1.1.0")
 }

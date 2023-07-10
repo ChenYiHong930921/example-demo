@@ -36,6 +36,7 @@ import com.chenyihong.exampledemo.androidapi.gesturedetector.GestureDetectorAAct
 import com.chenyihong.exampledemo.androidapi.gps.GpsSignalActivity
 import com.chenyihong.exampledemo.androidapi.ipandua.IPAndUAExample
 import com.chenyihong.exampledemo.androidapi.language.ChangeLanguageActivity
+import com.chenyihong.exampledemo.androidapi.media3.Media3ExampleActivity
 import com.chenyihong.exampledemo.androidapi.motionlayout.MotionLayoutExampleActivity
 import com.chenyihong.exampledemo.androidapi.resultapi.ResultApiActivity
 import com.chenyihong.exampledemo.androidapi.search.SearchExampleActivity
@@ -147,7 +148,8 @@ class HomeActivity : AppCompatActivity() {
                 OptionsChildEntity("Time Change") { startActivity(Intent(this, TimeChangeExample::class.java)) },
                 OptionsChildEntity("AutoFill") { startActivity(Intent(this, AutoFillExampleActivity::class.java)) },
                 OptionsChildEntity("Bluetooth") { startActivity(Intent(this, BluetoothExampleActivity::class.java)) },
-                OptionsChildEntity("Change Language") { startActivity(Intent(this, ChangeLanguageActivity::class.java)) }
+                OptionsChildEntity("Change Language") { startActivity(Intent(this, ChangeLanguageActivity::class.java)) },
+                OptionsChildEntity("Media3") { startActivity(Intent(this, Media3ExampleActivity::class.java)) }
             )),
             OptionsEntity("Custom View", containerTest = arrayListOf(
                 OptionsChildEntity("Custom Chart View") { startActivity(Intent(this, CustomChartViewActivity::class.java)) },
