@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import androidx.media3.common.MediaItem
 import androidx.media3.common.PlaybackException
 import androidx.media3.common.Player
+import androidx.media3.common.util.UnstableApi
 import androidx.media3.exoplayer.ExoPlayer
 import com.chenyihong.exampledemo.androidapi.gesturedetector.BaseGestureDetectorActivity
 import com.chenyihong.exampledemo.databinding.LayoutMedia3ExampleActivityBinding
@@ -21,6 +22,7 @@ class Media3ExampleActivity : BaseGestureDetectorActivity<LayoutMedia3ExampleAct
     }
 
     @SuppressLint("SetTextI18n")
+    @UnstableApi
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         /*controllerFuture = MediaController.Builder(this, MediaSession.Builder(this, ExoPlayer.Builder(this).build())
@@ -74,9 +76,11 @@ class Media3ExampleActivity : BaseGestureDetectorActivity<LayoutMedia3ExampleAct
             }
         }, ContextCompat.getMainExecutor(this))*/
         binding.includeTitle.tvTitle.text = "Media3 Example"
+        // 创建ExoPlayer，配置到PlayerView中
         binding.playView.player = ExoPlayer.Builder(this)
             .build()
         binding.playView.player?.run {
+            // 设置播放监听
             addListener(object : Player.Listener {
                 override fun onIsPlayingChanged(isPlaying: Boolean) {
                     super.onIsPlayingChanged(isPlaying)
@@ -110,23 +114,34 @@ class Media3ExampleActivity : BaseGestureDetectorActivity<LayoutMedia3ExampleAct
                     // 获取播放错误信息
                 }
             })
+            // 设置重复模式
+            // Player.REPEAT_MODE_ALL 无限重复
+            // Player.REPEAT_MODE_ONE 重复一次
+            // Player.REPEAT_MODE_OFF 不重复
             repeatMode = Player.REPEAT_MODE_ALL
+            // 设置当缓冲完毕后直接播放视频
             playWhenReady = true
         }
         binding.btnPlaySingleVideo.setOnClickListener {
             binding.playView.player?.run {
+                // 停止之前播放的视频
                 stop()
+                //设置单个资源
                 setMediaItem(MediaItem.fromUri("https://minigame.vip/Uploads/images/2021/09/18/1631951892_page_img.mp4"))
+                // 开始缓冲
                 prepare()
             }
         }
         binding.btnPlayMultiVideo.setOnClickListener {
             binding.playView.player?.run {
+                // 停止之前播放的视频
                 stop()
+                // 设置多个资源，当一个视频播完后自动播放下一个
                 setMediaItems(arrayListOf(
                     MediaItem.fromUri("https://minigame.vip/Uploads/images/2021/09/18/1631951892_page_img.mp4"),
                     MediaItem.fromUri("https://storage.googleapis.com/exoplayer-test-media-1/mp4/dizzy-with-tx3g.mp4")
                 ))
+                // 开始缓冲
                 prepare()
             }
         }
@@ -134,16 +149,19 @@ class Media3ExampleActivity : BaseGestureDetectorActivity<LayoutMedia3ExampleAct
 
     override fun onResume() {
         super.onResume()
+        // 恢复播放
         binding.playView.onResume()
     }
 
     override fun onPause() {
         super.onPause()
+        // 暂停播放
         binding.playView.onPause()
     }
 
     override fun onDestroy() {
         super.onDestroy()
+        // 释放播放器资源
         binding.playView.player?.release()
         binding.playView.player = null
     }

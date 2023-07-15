@@ -37,10 +37,8 @@
             android:id="@+id/play_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:artwork_display_mode="fill"
-            app:repeat_toggle_modes="all"
             app:resize_mode="fill"
-            app:use_artwork="true"
+            app:show_buffering="always"
             app:use_controller="false" />
     </androidx.media3.ui.AspectRatioFrameLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
