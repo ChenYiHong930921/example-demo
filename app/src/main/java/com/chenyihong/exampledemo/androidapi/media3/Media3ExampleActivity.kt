@@ -77,10 +77,6 @@ class Media3ExampleActivity : BaseGestureDetectorActivity<LayoutMedia3ExampleAct
         binding.playView.player = ExoPlayer.Builder(this)
             .build()
         binding.playView.player?.run {
-            setMediaItems(arrayListOf(
-                MediaItem.fromUri("https://minigame.vip/Uploads/images/2021/09/18/1631951892_page_img.mp4"),
-                MediaItem.fromUri("https://storage.googleapis.com/exoplayer-test-media-1/mp4/dizzy-with-tx3g.mp4")
-            ))
             addListener(object : Player.Listener {
                 override fun onIsPlayingChanged(isPlaying: Boolean) {
                     super.onIsPlayingChanged(isPlaying)
@@ -116,7 +112,23 @@ class Media3ExampleActivity : BaseGestureDetectorActivity<LayoutMedia3ExampleAct
             })
             repeatMode = Player.REPEAT_MODE_ALL
             playWhenReady = true
-            prepare()
+        }
+        binding.btnPlaySingleVideo.setOnClickListener {
+            binding.playView.player?.run {
+                stop()
+                setMediaItem(MediaItem.fromUri("https://minigame.vip/Uploads/images/2021/09/18/1631951892_page_img.mp4"))
+                prepare()
+            }
+        }
+        binding.btnPlayMultiVideo.setOnClickListener {
+            binding.playView.player?.run {
+                stop()
+                setMediaItems(arrayListOf(
+                    MediaItem.fromUri("https://minigame.vip/Uploads/images/2021/09/18/1631951892_page_img.mp4"),
+                    MediaItem.fromUri("https://storage.googleapis.com/exoplayer-test-media-1/mp4/dizzy-with-tx3g.mp4")
+                ))
+                prepare()
+            }
         }
     }
 

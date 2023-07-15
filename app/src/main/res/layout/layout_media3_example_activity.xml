@@ -8,12 +8,30 @@
         android:id="@+id/include_title"
         layout="@layout/layout_title" />
 
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_play_single_video"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="play single video"
+        app:layout_constraintEnd_toStartOf="@id/btn_play_multi_video"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/include_title" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_play_multi_video"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="play multi video"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/btn_play_single_video"
+        app:layout_constraintTop_toBottomOf="@id/include_title" />
+
     <androidx.media3.ui.AspectRatioFrameLayout
         android:id="@+id/arfl_player_container"
         android:layout_width="match_parent"
         android:layout_height="320dp"
         android:layout_marginTop="10dp"
-        app:layout_constraintTop_toBottomOf="@id/include_title">
+        app:layout_constraintTop_toBottomOf="@id/btn_play_single_video">
 
         <androidx.media3.ui.PlayerView
             android:id="@+id/play_view"
