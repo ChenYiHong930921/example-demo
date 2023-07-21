@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/ctl_container"
+    android:layout_width="match_parent"
+    android:layout_height="34dp">
+
+    <View
+        android:id="@+id/v_bg"
+        android:layout_width="204dp"
+        android:layout_height="match_parent"
+        android:layout_marginStart="8dp"
+        android:background="@drawable/selector_rect_white_radius_17"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/iv_tag_icon"
+        android:layout_width="18dp"
+        android:layout_height="18dp"
+        android:layout_marginStart="16dp"
+        android:scaleType="fitXY"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="@id/v_bg"
+        app:layout_constraintTop_toTopOf="parent"
+        app:tint="@color/selector_d999_s333"
+        tools:src="@mipmap/icon_tag_all" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tv_tag_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:includeFontPadding="false"
+        android:textColor="@color/selector_d999_s333"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@id/iv_tag_icon"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="Home" />
+</androidx.constraintlayout.widget.ConstraintLayout>

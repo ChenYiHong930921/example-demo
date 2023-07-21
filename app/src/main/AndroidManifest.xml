@@ -315,6 +315,10 @@
             android:name=".androidapi.media3.Media3ExampleActivity"
             android:screenOrientation="portrait" />
 
+        <activity
+            android:name=".androidapi.itemdecoration.CustomItemDecorationExampleActivity"
+            android:screenOrientation="portrait" />
+
         <!--autofill-->
 
         <activity
