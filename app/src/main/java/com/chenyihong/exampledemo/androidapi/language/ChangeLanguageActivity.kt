@@ -2,7 +2,6 @@ package com.chenyihong.exampledemo.androidapi.language
 
 import android.annotation.SuppressLint
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatDelegate
@@ -45,7 +44,6 @@ class ChangeLanguageActivity : BaseGestureDetectorActivity<LayoutChangeLanguageA
                 eventType = next()
             }
         }
-        Log.i("-,-,-", "init supportLanguageDisplayName:$supportLanguageDisplayName")
         binding.includeTitle.tvTitle.text = "Change Language Example"
         binding.btnChangeLanguage.setOnClickListener {
             val currentIndex = supportLanguageTag.indexOf(supportLanguageTag.find { currentLanguage.contains(it) })
