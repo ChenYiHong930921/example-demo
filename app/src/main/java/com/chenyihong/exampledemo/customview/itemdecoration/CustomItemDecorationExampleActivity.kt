@@ -1,4 +1,4 @@
-package com.chenyihong.exampledemo.androidapi.itemdecoration
+package com.chenyihong.exampledemo.customview.itemdecoration
 
 import android.annotation.SuppressLint
 import android.os.Bundle

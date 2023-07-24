@@ -1,4 +1,4 @@
-package com.chenyihong.exampledemo.androidapi.itemdecoration
+package com.chenyihong.exampledemo.customview.itemdecoration
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

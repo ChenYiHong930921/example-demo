@@ -316,7 +316,7 @@
             android:screenOrientation="portrait" />
 
         <activity
-            android:name=".androidapi.itemdecoration.CustomItemDecorationExampleActivity"
+            android:name=".customview.itemdecoration.CustomItemDecorationExampleActivity"
             android:screenOrientation="portrait" />
 
         <!--autofill-->

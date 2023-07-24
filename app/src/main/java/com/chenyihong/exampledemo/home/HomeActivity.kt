@@ -35,7 +35,7 @@ import com.chenyihong.exampledemo.androidapi.gaid.GaIdActivity
 import com.chenyihong.exampledemo.androidapi.gesturedetector.GestureDetectorAActivity
 import com.chenyihong.exampledemo.androidapi.gps.GpsSignalActivity
 import com.chenyihong.exampledemo.androidapi.ipandua.IPAndUAExample
-import com.chenyihong.exampledemo.androidapi.itemdecoration.CustomItemDecorationExampleActivity
+import com.chenyihong.exampledemo.customview.itemdecoration.CustomItemDecorationExampleActivity
 import com.chenyihong.exampledemo.androidapi.language.ChangeLanguageActivity
 import com.chenyihong.exampledemo.androidapi.media3.Media3ExampleActivity
 import com.chenyihong.exampledemo.androidapi.motionlayout.MotionLayoutExampleActivity
