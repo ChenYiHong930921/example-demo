@@ -5,7 +5,6 @@ import android.graphics.Paint
 import android.graphics.Rect
 import android.view.View
 import androidx.annotation.ColorInt
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ItemDecoration
 
@@ -53,7 +52,10 @@ class CustomItemDecoration(
             }
         }*/
         specialItemView?.run {
-            c.drawRect(parent.paddingStart.toFloat(), (bottom + space - dividerLineHeight / 2).toFloat(), (parent.width - parent.paddingEnd).toFloat(), (bottom + space + dividerLineHeight / 2).toFloat(), paint)
+            // 防止View被复用
+            if (dividerLinePosition == parent.getChildAdapterPosition(this)) {
+                c.drawRect(parent.paddingStart.toFloat(), (bottom + space - dividerLineHeight / 2).toFloat(), (parent.width - parent.paddingEnd).toFloat(), (bottom + space + dividerLineHeight / 2).toFloat(), paint)
+            }
         }
     }
 }

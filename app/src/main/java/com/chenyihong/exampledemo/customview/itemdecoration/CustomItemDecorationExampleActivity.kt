@@ -3,7 +3,6 @@ package com.chenyihong.exampledemo.customview.itemdecoration
 import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
-import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.core.content.ContextCompat
 import com.chenyihong.exampledemo.R
 import com.chenyihong.exampledemo.androidapi.gesturedetector.BaseGestureDetectorActivity
@@ -23,7 +22,7 @@ class CustomItemDecorationExampleActivity : BaseGestureDetectorActivity<LayoutCu
             includeTitle.tvTitle.setTextColor(ContextCompat.getColor(this@CustomItemDecorationExampleActivity, R.color.white))
             includeTitle.tvTitle.text = "Custom ItemDecoration Example"
             val adapter = ItemDecorationExampleAdapter()
-            rvExampleDataContainer.addItemDecoration(CustomItemDecoration(DensityUtil.dp2Px(16), 6,DensityUtil.dp2Px(2), ContextCompat.getColor(this@CustomItemDecorationExampleActivity, R.color.color_black_363636)))
+            rvExampleDataContainer.addItemDecoration(CustomItemDecoration(DensityUtil.dp2Px(16), 6, DensityUtil.dp2Px(2), ContextCompat.getColor(this@CustomItemDecorationExampleActivity, R.color.color_black_363636)))
             rvExampleDataContainer.adapter = adapter
             adapter.setNewData(arrayListOf(
                 ItemDecorationExampleDataEntity(0, "Home", R.mipmap.icon_tag_all, true),
@@ -46,6 +45,26 @@ class CustomItemDecorationExampleActivity : BaseGestureDetectorActivity<LayoutCu
                 ItemDecorationExampleDataEntity(17, "Puzzel", R.mipmap.icon_tag_all, false),
                 ItemDecorationExampleDataEntity(18, "Beauty", R.mipmap.icon_tag_all, false),
                 ItemDecorationExampleDataEntity(19, "Parkour", R.mipmap.icon_tag_all, false),
+                ItemDecorationExampleDataEntity(20, "TestData", R.mipmap.icon_tag_all, false),
+                ItemDecorationExampleDataEntity(20, "TestData", R.mipmap.icon_tag_all, false),
+                ItemDecorationExampleDataEntity(20, "TestData", R.mipmap.icon_tag_all, false),
+                ItemDecorationExampleDataEntity(20, "TestData", R.mipmap.icon_tag_all, false),
+                ItemDecorationExampleDataEntity(20, "TestData", R.mipmap.icon_tag_all, false),
+                ItemDecorationExampleDataEntity(20, "TestData", R.mipmap.icon_tag_all, false),
+                ItemDecorationExampleDataEntity(20, "TestData", R.mipmap.icon_tag_all, false),
+                ItemDecorationExampleDataEntity(20, "TestData", R.mipmap.icon_tag_all, false),
+                ItemDecorationExampleDataEntity(20, "TestData", R.mipmap.icon_tag_all, false),
+                ItemDecorationExampleDataEntity(20, "TestData", R.mipmap.icon_tag_all, false),
+                ItemDecorationExampleDataEntity(20, "TestData", R.mipmap.icon_tag_all, false),
+                ItemDecorationExampleDataEntity(20, "TestData", R.mipmap.icon_tag_all, false),
+                ItemDecorationExampleDataEntity(20, "TestData", R.mipmap.icon_tag_all, false),
+                ItemDecorationExampleDataEntity(20, "TestData", R.mipmap.icon_tag_all, false),
+                ItemDecorationExampleDataEntity(20, "TestData", R.mipmap.icon_tag_all, false),
+                ItemDecorationExampleDataEntity(20, "TestData", R.mipmap.icon_tag_all, false),
+                ItemDecorationExampleDataEntity(20, "TestData", R.mipmap.icon_tag_all, false),
+                ItemDecorationExampleDataEntity(20, "TestData", R.mipmap.icon_tag_all, false),
+                ItemDecorationExampleDataEntity(20, "TestData", R.mipmap.icon_tag_all, false),
+                ItemDecorationExampleDataEntity(20, "TestData", R.mipmap.icon_tag_all, false),
             ))
         }
     }
