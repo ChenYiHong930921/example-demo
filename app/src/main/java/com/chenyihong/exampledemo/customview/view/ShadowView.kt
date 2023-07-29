@@ -198,9 +198,9 @@ class ShadowView : View {
         }
     }
 
-    override fun onDraw(canvas: Canvas?) {
+    override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
-        canvas?.run {
+        canvas.run {
             if (shadowViewPath != null && shadowViewPaint != null) {
                 shadowViewPaint!!.setShadowLayer(shadowRadius, if (viewShape == HALT_RECTANGLE && orientation == TO_LEFT) -shadowOffsetX else shadowOffsetX, shadowOffsetY, shadowColor)
                 drawPath(shadowViewPath!!, shadowViewPaint!!)

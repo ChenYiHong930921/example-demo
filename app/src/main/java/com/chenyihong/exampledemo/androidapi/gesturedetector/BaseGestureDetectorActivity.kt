@@ -37,19 +37,21 @@ abstract class BaseGestureDetectorActivity<VB : ViewBinding> : AppCompatActivity
             return e.x < edgeSize || e.x > finalScreeWidth - edgeSize
         }
 
-        override fun onFling(e1: MotionEvent, e2: MotionEvent, velocityX: Float, velocityY: Float): Boolean {
-            val distantX = abs(e2.x - e1.x)
-            val distantY = abs(e2.y - e1.y)
-            val finalScreeWidth = if (resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE) {
-                screenHeight
-            } else {
-                screenWidth
-            }
-            //判定按下的落点是屏幕的边缘
-            if (e1.x < edgeSize || e1.x > finalScreeWidth - edgeSize) {
-                //判定x轴移动的距离大于y轴移动的距离
-                if (distantX > distantY) {
-                    onBackPressedDispatcher.onBackPressed()
+        override fun onFling(e1: MotionEvent?, e2: MotionEvent, velocityX: Float, velocityY: Float): Boolean {
+            e1?.let {
+                val distantX = abs(e2.x - it.x)
+                val distantY = abs(e2.y - it.y)
+                val finalScreeWidth = if (resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE) {
+                    screenHeight
+                } else {
+                    screenWidth
+                }
+                //判定按下的落点是屏幕的边缘
+                if (it.x < edgeSize || it.x > finalScreeWidth - edgeSize) {
+                    //判定x轴移动的距离大于y轴移动的距离
+                    if (distantX > distantY) {
+                        onBackPressedDispatcher.onBackPressed()
+                    }
                 }
             }
             return super.onFling(e1, e2, velocityX, velocityY)

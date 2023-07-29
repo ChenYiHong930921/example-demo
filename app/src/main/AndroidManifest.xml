@@ -45,6 +45,12 @@
     <!--若App与蓝牙设备配对、通讯，申请此权限-->
     <uses-permission android:name="android.permission.BLUETOOTH_CONNECT" />
 
+    <!--Media3-->
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <!--targetSdk34开始需要添加此权限-->
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_MEDIA_PLAYBACK" />
+    <!--Media3-->
+
     <queries>
         <intent>
             <action android:name="android.support.customtabs.action.CustomTabsService" />
@@ -311,9 +317,28 @@
         </service>
         <!--language-->
 
+        <!--Media3-->
+
+        <activity
+            android:name=".androidapi.media3.Media3HomeActivity"
+            android:screenOrientation="portrait" />
+
         <activity
             android:name=".androidapi.media3.Media3ExampleActivity"
             android:screenOrientation="portrait" />
+
+        <!--android 10开始，需要指定foregroundServiceType-->
+        <service
+            android:name=".androidapi.media3.ExamplePlaybackService"
+            android:exported="true"
+            android:foregroundServiceType="mediaPlayback"
+            tools:ignore="ExportedService">
+            <!--如果需要兼容低版本，需要添加此intent-filter-->
+            <intent-filter>
+                <action android:name="androidx.media3.session.MediaSessionService" />
+            </intent-filter>
+        </service>
+        <!--Media3-->
 
         <activity
             android:name=".customview.itemdecoration.CustomItemDecorationExampleActivity"

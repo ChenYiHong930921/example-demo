@@ -1,7 +1,12 @@
 package com.chenyihong.exampledemo.customview.view
 
 import android.content.Context
-import android.graphics.*
+import android.graphics.Canvas
+import android.graphics.LinearGradient
+import android.graphics.Paint
+import android.graphics.Path
+import android.graphics.RectF
+import android.graphics.Shader
 import android.util.AttributeSet
 import android.view.View
 import androidx.core.content.ContextCompat
@@ -116,10 +121,10 @@ class GradientLineChart : View {
         chartHeight = viewHeight - paddingTop - paddingBottom
     }
 
-    override fun onDraw(canvas: Canvas?) {
+    override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
         //设置画布背景色
-        canvas?.drawColor(backgroundColorRes)
+        canvas.drawColor(backgroundColorRes)
         //绘制网格线
         drawGradLine(canvas)
         //绘制折线
