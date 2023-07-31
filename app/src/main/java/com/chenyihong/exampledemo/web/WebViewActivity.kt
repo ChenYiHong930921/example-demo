@@ -168,12 +168,26 @@ class WebViewActivity : BaseGestureDetectorActivity<LayoutWebViewActivityBinding
                     request?.run {
                         val urlStr = url.toString()
                         Log.i(TAG, "WebViewActivity shouldInterceptRequest view:$view urlStr:$urlStr")
-                        if (urlStr.contains("minigame") && urlStr.contains("assets") && urlStr.contains("test_icon.jpg")) {
+                        if (urlStr.contains("minigame") && urlStr.contains("assets")) {
                             val assetsNamespace = "assets/"
-                            val localAssetsPath = urlStr.substring(urlStr.indexOf(assetsNamespace) + assetsNamespace.length)
-                            Log.i(TAG, "WebViewActivity shouldInterceptRequest localAssetsPath:$localAssetsPath")
-                            val inputStream = assets.open(localAssetsPath)
-                            return WebResourceResponse("image/jpeg", Charsets.UTF_8.toString(), inputStream)
+                            var localAssetsPath = ""
+                            var mineType = ""
+                            when {
+                                urlStr.contains("test_icon.jpg") -> {
+                                    localAssetsPath = urlStr.substring(urlStr.indexOf(assetsNamespace) + assetsNamespace.length)
+                                    mineType = "image/jpeg"
+                                }
+
+                                urlStr.contains("test_video.mp4") -> {
+                                    localAssetsPath = urlStr.substring(urlStr.indexOf(assetsNamespace) + assetsNamespace.length)
+                                    mineType = "video/mp4"
+                                }
+                            }
+
+                            if (localAssetsPath.isNotEmpty() && mineType.isNotEmpty()) {
+                                val inputStream = assets.open(localAssetsPath)
+                                return WebResourceResponse(mineType, Charsets.UTF_8.toString(), inputStream)
+                            }
                         }
                     }
                     return super.shouldInterceptRequest(view, request)
