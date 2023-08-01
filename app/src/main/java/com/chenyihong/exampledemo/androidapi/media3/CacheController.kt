@@ -1,7 +1,6 @@
 package com.chenyihong.exampledemo.androidapi.media3
 
 import android.content.Context
-import android.net.Uri
 import android.os.Environment
 import android.util.Log
 import androidx.media3.common.util.UnstableApi
@@ -15,6 +14,8 @@ import androidx.media3.datasource.cache.SimpleCache
 import androidx.media3.exoplayer.source.MediaSource
 import androidx.media3.exoplayer.source.ProgressiveMediaSource
 import java.io.File
+import java.net.HttpURLConnection
+import java.net.URL
 import java.util.concurrent.ConcurrentHashMap
 
 @UnstableApi
@@ -62,7 +63,16 @@ class CacheController(context: Context) {
             cacheController?.run {
                 mediaSources.forEach { mediaUrl ->
                     // 创建CacheWriter缓存数据
-                    CacheWriter(cacheDataSource, DataSpec(Uri.parse(mediaUrl)), null) { requestLength, bytesCached, newBytesCached ->
+                    CacheWriter(
+                        cacheDataSource,
+                        DataSpec.Builder()
+                            // 设置资源链接
+                            .setUri(mediaUrl)
+                            // 设置需要缓存的大小（可以只缓存一部分）
+                            .setLength((getMediaResourceSize(mediaUrl) * 0.1).toLong())
+                            .build(),
+                        null
+                    ) { requestLength, bytesCached, newBytesCached ->
                         Log.i("-,-,-", "requestLength:$requestLength, bytesCached$bytesCached, newBytesCached:$newBytesCached")
                         // 缓冲进度变化时回调
                         // requestLength 请求总大小
@@ -91,7 +101,24 @@ class CacheController(context: Context) {
         }
 
         fun release() {
+            cacheController?.cacheTask?.values?.forEach { it.cancel() }
             cacheController?.cache?.release()
         }
+    }
+
+    // 获取媒体资源的大小
+    private fun getMediaResourceSize(mediaUrl: String): Long {
+        try {
+            val connection = URL(mediaUrl).openConnection() as HttpURLConnection
+            // 请求方法设置为HEAD，只获取请求头
+            connection.requestMethod = "HEAD"
+            connection.connect()
+            if (connection.responseCode == HttpURLConnection.HTTP_OK) {
+                return connection.getHeaderField("Content-Length").toLong()
+            }
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+        return 0L
     }
 }
