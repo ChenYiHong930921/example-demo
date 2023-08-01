@@ -72,8 +72,9 @@ class Media3ExampleActivity : BaseGestureDetectorActivity<LayoutMedia3ExampleAct
 
         if (!backgroundPlay) {
             // 创建ExoPlayer，配置到PlayerView中
-            binding.playView.player = ExoPlayer.Builder(this)
-                .build()
+            val exoPlayerBuilder = ExoPlayer.Builder(this)
+            CacheController.getMediaSourceFactory()?.let { exoPlayerBuilder.setMediaSourceFactory(it) }
+            binding.playView.player = exoPlayerBuilder.build()
             binding.playView.player?.run {
                 // 设置播放监听
                 addListener(playerListener)

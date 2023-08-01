@@ -10,12 +10,19 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.ProcessLifecycleOwner
+import androidx.media3.common.util.UnstableApi
 import com.chenyihong.exampledemo.BuildConfig
+import com.chenyihong.exampledemo.androidapi.media3.CacheController
 import com.chenyihong.exampledemo.tripartite.admob.AppOpenAdManager
 import com.chenyihong.exampledemo.tripartite.admob.TAG
 import com.google.android.gms.ads.MobileAds
 import com.google.android.gms.ads.initialization.AdapterStatus
+import kotlinx.coroutines.DelicateCoroutinesApi
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 
+@UnstableApi
 class ExampleApplication : Application() {
 
     companion object {
@@ -28,6 +35,7 @@ class ExampleApplication : Application() {
     private var lastShowOpenAdTime: Long = 0
     private var interval = 4 * 60 * 60 * 1000
 
+    @OptIn(DelicateCoroutinesApi::class)
     @Suppress("KotlinConstantConditions")
     override fun onCreate() {
         super.onCreate()
@@ -82,6 +90,12 @@ class ExampleApplication : Application() {
                     }
                 }
             })
+        }
+
+        CacheController.init(this)
+        // 网络请求需要在子线程中进行
+        GlobalScope.launch(Dispatchers.IO) {
+            CacheController.cacheMedia(arrayListOf("https://minigame.vip/Uploads/images/2021/09/18/1631951892_page_img.mp4"))
         }
     }
 
