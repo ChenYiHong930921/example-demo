@@ -40,6 +40,7 @@ import com.chenyihong.exampledemo.androidapi.media3.Media3HomeActivity
 import com.chenyihong.exampledemo.androidapi.motionlayout.MotionLayoutExampleActivity
 import com.chenyihong.exampledemo.androidapi.resultapi.ResultApiActivity
 import com.chenyihong.exampledemo.androidapi.search.SearchExampleActivity
+import com.chenyihong.exampledemo.androidapi.sensor.SensorExampleActivity
 import com.chenyihong.exampledemo.androidapi.setting.SettingActivity
 import com.chenyihong.exampledemo.androidapi.sharesheet.SystemShareActivity
 import com.chenyihong.exampledemo.androidapi.shortcuts.ShortcutsActivity
@@ -151,6 +152,7 @@ class HomeActivity : AppCompatActivity() {
                 OptionsChildEntity("Bluetooth") { startActivity(Intent(this, BluetoothExampleActivity::class.java)) },
                 OptionsChildEntity("Change Language") { startActivity(Intent(this, ChangeLanguageActivity::class.java)) },
                 OptionsChildEntity("Media3") { startActivity(Intent(this, Media3HomeActivity::class.java)) },
+                OptionsChildEntity("sensor") { startActivity(Intent(this, SensorExampleActivity::class.java)) },
             )),
             OptionsEntity("Custom View", containerTest = arrayListOf(
                 OptionsChildEntity("Custom Chart View") { startActivity(Intent(this, CustomChartViewActivity::class.java)) },

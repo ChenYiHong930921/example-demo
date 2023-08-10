@@ -414,5 +414,9 @@
             </intent-filter>
         </service>
         <!--FCM-->
+
+        <activity
+            android:name=".androidapi.sensor.SensorExampleActivity"
+            android:screenOrientation="portrait" />
     </application>
 </manifest>
