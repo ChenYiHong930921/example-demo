@@ -9,13 +9,14 @@ import android.hardware.SensorEventListener
 import android.hardware.SensorManager
 import android.os.Bundle
 import android.util.Log
-import androidx.appcompat.app.AppCompatActivity
+import android.view.LayoutInflater
 import com.chenyihong.exampledemo.androidapi.camerax.CameraActivity
+import com.chenyihong.exampledemo.androidapi.gesturedetector.BaseGestureDetectorActivity
 import com.chenyihong.exampledemo.databinding.LayoutSensorExampleActivityBinding
+import java.util.concurrent.atomic.AtomicBoolean
 
-class SensorExampleActivity : AppCompatActivity() {
+class SensorExampleActivity : BaseGestureDetectorActivity<LayoutSensorExampleActivityBinding>() {
 
-    private lateinit var binding: LayoutSensorExampleActivityBinding
     private lateinit var sensorManager: SensorManager
     private var accelerometerSensor: Sensor? = null
 
@@ -23,12 +24,13 @@ class SensorExampleActivity : AppCompatActivity() {
 
     private val thresholds = 2
 
+    private var enterNextPage = AtomicBoolean(false)
+
     private val sensorEventListener = object : SensorEventListener {
         override fun onSensorChanged(event: SensorEvent?) {
             // 传感器数据变化时回调此方法
             when (event?.sensor?.type) {
                 Sensor.TYPE_ACCELEROMETER -> {
-
                     val oldX = accelerometerData[0]
                     val oldY = accelerometerData[1]
                     val oldZ = accelerometerData[2]
@@ -46,27 +48,33 @@ class SensorExampleActivity : AppCompatActivity() {
                     accelerometerData[1] = currentY
                     accelerometerData[2] = currentZ
 
+                    // 任意一个方向发生了位移，打开新页面
                     if (xMove || yMove || zMove) {
-                        // 任意一个方向发生了位移，打开相机示例页面
-                        startActivity(Intent(this@SensorExampleActivity, CameraActivity::class.java))
+                        // 避免打开多个页面
+                        if (!enterNextPage.get()) {
+                            enterNextPage.set(true)
+                            startActivity(Intent(this@SensorExampleActivity, CameraActivity::class.java))
+                            finish()
+                        }
                     }
                 }
             }
         }
 
         override fun onAccuracyChanged(sensor: Sensor?, accuracy: Int) {
-            // 传感器的精度发生变化时回调此方法
+            // 传感器的精度发生变化时回调此方法，通常无需做处理
             Log.i("-,-,-", "onAccuracyChanged accuracy:$accuracy")
         }
+    }
+
+    override fun initViewBinding(layoutInflater: LayoutInflater): LayoutSensorExampleActivityBinding {
+        return LayoutSensorExampleActivityBinding.inflate(layoutInflater)
     }
 
     @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = LayoutSensorExampleActivityBinding.inflate(layoutInflater)
-        setContentView(binding.root)
         binding.includeTitle.tvTitle.text = "Sensor Example"
-
         sensorManager = getSystemService(Context.SENSOR_SERVICE) as SensorManager
         accelerometerSensor = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER)
     }
