@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <include
+        android:id="@+id/include_title"
+        layout="@layout/layout_title" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_detecting_shaking"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="detecting shaking"
+        app:layout_constraintEnd_toStartOf="@id/btn_detecting_screen_orientation"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/include_title" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_detecting_screen_orientation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="detecting orientation"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/btn_detecting_shaking"
+        app:layout_constraintTop_toTopOf="@id/btn_detecting_shaking" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_counting_step_by_step_counter"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="use step counter"
+        app:layout_constraintEnd_toStartOf="@id/btn_counting_step_by_step_detector"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/btn_detecting_shaking" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_counting_step_by_step_detector"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="use step detecotr"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/btn_counting_step_by_step_counter"
+        app:layout_constraintTop_toTopOf="@id/btn_counting_step_by_step_counter" />
+</androidx.constraintlayout.widget.ConstraintLayout>

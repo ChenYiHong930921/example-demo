@@ -415,8 +415,14 @@
         </service>
         <!--FCM-->
 
+        <!--Sensor-->
+        <activity
+            android:name=".androidapi.sensor.SensorHomeActivity"
+            android:screenOrientation="portrait" />
+
         <activity
             android:name=".androidapi.sensor.SensorExampleActivity"
             android:screenOrientation="portrait" />
+        <!--Sensor-->
     </application>
 </manifest>
