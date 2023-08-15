@@ -70,6 +70,14 @@ class Media3ExampleActivity : BaseGestureDetectorActivity<LayoutMedia3ExampleAct
 
         binding.includeTitle.tvTitle.text = "Media3 Example"
 
+        // 播放hls示例代码
+        /*val testMediaSource = HlsMediaSource.Factory(DefaultDataSource.Factory(this))
+            .createMediaSource(MediaItem.fromUri(File(if (Environment.MEDIA_MOUNTED == Environment.getExternalStorageState()) {
+                getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS)
+            } else {
+                filesDir
+            }, "TestVideo/index.m3u8").toUri()))*/
+
         if (!backgroundPlay) {
             // 创建ExoPlayer，配置到PlayerView中
             val exoPlayerBuilder = ExoPlayer.Builder(this)
@@ -91,6 +99,12 @@ class Media3ExampleActivity : BaseGestureDetectorActivity<LayoutMedia3ExampleAct
             binding.playView.player?.run {
                 // 停止之前播放的视频
                 stop()
+
+                // 播放hls示例代码
+                /*if (this is ExoPlayer) {
+                    setMediaSource(testMediaSource)
+                }*/
+
                 //设置单个资源
                 setMediaItem(MediaItem.fromUri("https://minigame.vip/Uploads/images/2021/09/18/1631951892_page_img.mp4"))
                 // 开始缓冲
@@ -112,6 +126,7 @@ class Media3ExampleActivity : BaseGestureDetectorActivity<LayoutMedia3ExampleAct
         }
     }
 
+    @UnstableApi
     private fun initController() {
         controllerFuture = MediaController.Builder(this, SessionToken(this, ComponentName(this, ExamplePlaybackService::class.java)))
             .buildAsync()
@@ -134,6 +149,7 @@ class Media3ExampleActivity : BaseGestureDetectorActivity<LayoutMedia3ExampleAct
         }, ContextCompat.getMainExecutor(this))
     }
 
+    @UnstableApi
     override fun onStart() {
         super.onStart()
         if (backgroundPlay) {
