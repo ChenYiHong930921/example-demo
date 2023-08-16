@@ -1,16 +1,21 @@
 package com.chenyihong.exampledemo.androidapi.sensor
 
+import android.Manifest
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.hardware.Sensor
 import android.hardware.SensorEvent
 import android.hardware.SensorEventListener
 import android.hardware.SensorManager
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.app.ActivityCompat
 import com.chenyihong.exampledemo.androidapi.camerax.CameraActivity
 import com.chenyihong.exampledemo.androidapi.gesturedetector.BaseGestureDetectorActivity
 import com.chenyihong.exampledemo.databinding.LayoutSensorExampleActivityBinding
@@ -27,6 +32,8 @@ class SensorExampleActivity : BaseGestureDetectorActivity<LayoutSensorExampleAct
     private var sensor = ArrayList<Sensor?>()
 
     private var type: String = TYPE_DETECTING_SCREEN_ORIENTATION
+
+    private var isSensorListenerRegister = false
 
     //<editor-folder desc = "screen orientation">
 
@@ -79,15 +86,46 @@ class SensorExampleActivity : BaseGestureDetectorActivity<LayoutSensorExampleAct
     }
     //</editor-folder>
 
-    //<editor-folder desc = "step counter">
+    //<editor-folder desc = "step detecting">
 
-    //</editor-folder>
+    private var currentStep = 0
 
-    //<editor-folder desc = "step detector">
+    private var requestPermissionName: String = ""
 
+    private val requestSinglePermissionLauncher = registerForActivityResult(ActivityResultContracts.RequestPermission()) { granted: Boolean ->
+        if (granted) {
+            initStepSensor()
+        } else {
+            //未同意授权
+            if (!shouldShowRequestPermissionRationale(requestPermissionName)) {
+                //用户拒绝权限并且系统不再弹出请求权限的弹窗
+                //这时需要我们自己处理，比如自定义弹窗告知用户为何必须要申请这个权限
+            }
+        }
+    }
+
+    private fun checkActivityRecognitionPermission() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+            requestPermissionName = Manifest.permission.ACTIVITY_RECOGNITION
+            if (ActivityCompat.checkSelfPermission(this, requestPermissionName) == PackageManager.PERMISSION_GRANTED) {
+                initStepSensor()
+            } else {
+                requestSinglePermissionLauncher.launch(requestPermissionName)
+            }
+        }
+    }
+
+    private fun initStepSensor() {
+        when (type) {
+            TYPE_DETECTING_STEP_BY_STEP_COUNTER -> sensor.add(sensorManager.getDefaultSensor(Sensor.TYPE_STEP_COUNTER))
+            TYPE_DETECTING_STEP_BY_STEP_DETECTOR -> sensor.add(sensorManager.getDefaultSensor(Sensor.TYPE_STEP_DETECTOR))
+        }
+        registerSensorListener()
+    }
     //</editor-folder>
 
     private val sensorEventListener = object : SensorEventListener {
+        @SuppressLint("SetTextI18n")
         override fun onSensorChanged(event: SensorEvent?) {
             // 传感器数据变化时回调此方法
             when (event?.sensor?.type) {
@@ -106,15 +144,13 @@ class SensorExampleActivity : BaseGestureDetectorActivity<LayoutSensorExampleAct
                 }
 
                 Sensor.TYPE_STEP_COUNTER -> {
-                    event.values.forEach {
-                        Log.i("-,-,-", "TYPE_STEP_COUNTER value: $it")
-                    }
+                    currentStep = event.values[0].toInt()
+                    binding.tvStepCount.run { post { text = "Step:$currentStep" } }
                 }
 
                 Sensor.TYPE_STEP_DETECTOR -> {
-                    event.values.forEach {
-                        Log.i("-,-,-", "TYPE_STEP_DETECTOR value: $it")
-                    }
+                    currentStep += event.values[0].toInt()
+                    binding.tvStepCount.run { post { text = "Step:$currentStep" } }
                 }
             }
         }
@@ -134,17 +170,15 @@ class SensorExampleActivity : BaseGestureDetectorActivity<LayoutSensorExampleAct
         super.onCreate(savedInstanceState)
         binding.includeTitle.tvTitle.text = "Sensor Example"
         sensorManager = getSystemService(Context.SENSOR_SERVICE) as SensorManager
-        when (intent.getStringExtra("type")) {
+        type = intent.getStringExtra("type") ?: TYPE_DETECTING_SCREEN_ORIENTATION
+        when (type) {
             TYPE_DETECTING_SHAKING -> {
                 sensor.add(sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER))
             }
 
-            TYPE_DETECTING_STEP_BY_STEP_COUNTER -> {
-                sensor.add(sensorManager.getDefaultSensor(Sensor.TYPE_STEP_COUNTER))
-            }
-
-            TYPE_DETECTING_STEP_BY_STEP_DETECTOR -> {
-                sensor.add(sensorManager.getDefaultSensor(Sensor.TYPE_STEP_DETECTOR))
+            TYPE_DETECTING_STEP_BY_STEP_COUNTER, TYPE_DETECTING_STEP_BY_STEP_DETECTOR -> {
+                checkActivityRecognitionPermission()
+                binding.tvStepCount.visibility = View.VISIBLE
             }
 
             else -> {
@@ -157,21 +191,31 @@ class SensorExampleActivity : BaseGestureDetectorActivity<LayoutSensorExampleAct
 
     override fun onResume() {
         super.onResume()
-        sensor.forEach { item ->
-            item?.let {
-                // 注册传感器监听并且设置数据采样延迟
-                // SensorManager.SENSOR_DELAY_FASTEST 延迟0微妙
-                // SensorManager.SENSOR_DELAY_GAME 演示20000微妙
-                // SensorManager.SENSOR_DELAY_UI 延迟60000微妙
-                // SensorManager.SENSOR_DELAY_NORMAL 延迟200000微秒
-                sensorManager.registerListener(sensorEventListener, it, SensorManager.SENSOR_DELAY_NORMAL)
-            }
-        }
+        registerSensorListener()
     }
 
     override fun onPause() {
         super.onPause()
         // 移除传感器监听
         sensorManager.unregisterListener(sensorEventListener)
+        isSensorListenerRegister = false
+    }
+
+    private fun registerSensorListener() {
+        Log.i("-,-,-", "registerSensorListener isSensorListenerRegister:$isSensorListenerRegister")
+        if (sensor.isNotEmpty() && !isSensorListenerRegister) {
+            isSensorListenerRegister = true
+            Log.i("-,-,-", "registerSensorListener")
+            sensor.forEach { item ->
+                item?.let {
+                    // 注册传感器监听并且设置数据采样延迟
+                    // SensorManager.SENSOR_DELAY_FASTEST 延迟0微妙
+                    // SensorManager.SENSOR_DELAY_GAME 演示20000微妙
+                    // SensorManager.SENSOR_DELAY_UI 延迟60000微妙
+                    // SensorManager.SENSOR_DELAY_NORMAL 延迟200000微秒
+                    sensorManager.registerListener(sensorEventListener, it, SensorManager.SENSOR_DELAY_NORMAL)
+                }
+            }
+        }
     }
 }
