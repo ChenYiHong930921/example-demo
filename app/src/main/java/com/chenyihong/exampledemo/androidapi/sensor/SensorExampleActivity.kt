@@ -43,10 +43,13 @@ class SensorExampleActivity : BaseGestureDetectorActivity<LayoutSensorExampleAct
     private val orientationAngles = FloatArray(3)
 
     private fun updateOrientationAngles() {
+        // 根据加速度计传感器和磁力计传感器的读数更新旋转矩阵
         SensorManager.getRotationMatrix(rotationMatrix, null, orientationAccelerometerData, orientationMagnetometerData)
+        // 根据旋转矩阵重新计算三个方向角
         SensorManager.getOrientation(rotationMatrix, orientationAngles)
         val degree = Math.toDegrees(orientationAngles[0].toDouble()).toFloat()
-        binding.ivScreenOrientation.rotation = degree
+        // 设置方位角旋转度数
+        binding.ivScreenOrientation.run { post { rotation = degree } }
     }
     //</editor-folder>
 
@@ -87,6 +90,8 @@ class SensorExampleActivity : BaseGestureDetectorActivity<LayoutSensorExampleAct
     //</editor-folder>
 
     //<editor-folder desc = "step detecting">
+
+    private var accumulatedSteps = -1
 
     private var currentStep = 0
 
@@ -143,8 +148,20 @@ class SensorExampleActivity : BaseGestureDetectorActivity<LayoutSensorExampleAct
                     updateOrientationAngles()
                 }
 
+                Sensor.TYPE_ORIENTATION -> {
+                    // 设置方位角旋转度数
+                    binding.ivScreenOrientation.run { post { rotation = event.values[0] } }
+                }
+
                 Sensor.TYPE_STEP_COUNTER -> {
-                    currentStep = event.values[0].toInt()
+                    // 注意，计步器传感器返回的数据
+                    // 是自计步传感器上次重启以来已统计的步数，需要额外处理
+                    currentStep = if (accumulatedSteps == -1) {
+                        0
+                    } else {
+                        event.values[0].toInt() - accumulatedSteps
+                    }
+                    accumulatedSteps = event.values[0].toInt()
                     binding.tvStepCount.run { post { text = "Step:$currentStep" } }
                 }
 
@@ -184,6 +201,7 @@ class SensorExampleActivity : BaseGestureDetectorActivity<LayoutSensorExampleAct
             else -> {
                 sensor.add(sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER))
                 sensor.add(sensorManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD))
+//                sensor.add(sensorManager.getDefaultSensor(Sensor.TYPE_ORIENTATION))
                 binding.ivScreenOrientation.visibility = View.VISIBLE
             }
         }
@@ -202,10 +220,8 @@ class SensorExampleActivity : BaseGestureDetectorActivity<LayoutSensorExampleAct
     }
 
     private fun registerSensorListener() {
-        Log.i("-,-,-", "registerSensorListener isSensorListenerRegister:$isSensorListenerRegister")
         if (sensor.isNotEmpty() && !isSensorListenerRegister) {
             isSensorListenerRegister = true
-            Log.i("-,-,-", "registerSensorListener")
             sensor.forEach { item ->
                 item?.let {
                     // 注册传感器监听并且设置数据采样延迟
