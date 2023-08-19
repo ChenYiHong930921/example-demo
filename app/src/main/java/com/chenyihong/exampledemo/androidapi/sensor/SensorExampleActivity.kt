@@ -101,7 +101,7 @@ class SensorExampleActivity : BaseGestureDetectorActivity<LayoutSensorExampleAct
         if (granted) {
             initStepSensor()
         } else {
-            //未同意授权
+            // 未同意授权
             if (!shouldShowRequestPermissionRationale(requestPermissionName)) {
                 //用户拒绝权限并且系统不再弹出请求权限的弹窗
                 //这时需要我们自己处理，比如自定义弹窗告知用户为何必须要申请这个权限
@@ -155,7 +155,7 @@ class SensorExampleActivity : BaseGestureDetectorActivity<LayoutSensorExampleAct
 
                 Sensor.TYPE_STEP_COUNTER -> {
                     // 注意，计步器传感器返回的数据
-                    // 是自计步传感器上次重启以来已统计的步数，需要额外处理
+                    // 是自计步器传感器上次重启以来用户行走的总的步数
                     currentStep = if (accumulatedSteps == -1) {
                         0
                     } else {
