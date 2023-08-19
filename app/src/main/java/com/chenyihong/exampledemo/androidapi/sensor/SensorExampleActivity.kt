@@ -157,12 +157,12 @@ class SensorExampleActivity : BaseGestureDetectorActivity<LayoutSensorExampleAct
                     // 注意，计步器传感器返回的数据
                     // 是自计步器传感器上次重启以来用户行走的总的步数
                     currentStep = if (accumulatedSteps == -1) {
+                        accumulatedSteps = event.values[0].toInt()
                         0
                     } else {
                         event.values[0].toInt() - accumulatedSteps
                     }
-                    accumulatedSteps = event.values[0].toInt()
-                    binding.tvStepCount.run { post { text = "Step:$currentStep" } }
+                    binding.tvStepCount.run { post { text = "传感器回调步数:${ event.values[0].toInt()}\n首次回调步数:$accumulatedSteps\n本次行走步数:$currentStep" } }
                 }
 
                 Sensor.TYPE_STEP_DETECTOR -> {
