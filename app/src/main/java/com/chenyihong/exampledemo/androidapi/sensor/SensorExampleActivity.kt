@@ -9,20 +9,28 @@ import android.hardware.Sensor
 import android.hardware.SensorEvent
 import android.hardware.SensorEventListener
 import android.hardware.SensorManager
+import android.location.LocationListener
+import android.location.LocationManager
 import android.os.Build
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.app.ActivityCompat
+import com.chenyihong.exampledemo.R
 import com.chenyihong.exampledemo.androidapi.camerax.CameraActivity
 import com.chenyihong.exampledemo.androidapi.gesturedetector.BaseGestureDetectorActivity
 import com.chenyihong.exampledemo.databinding.LayoutSensorExampleActivityBinding
+import com.google.android.libraries.maps.CameraUpdateFactory
+import com.google.android.libraries.maps.GoogleMap
+import com.google.android.libraries.maps.model.BitmapDescriptorFactory
+import com.google.android.libraries.maps.model.LatLng
+import com.google.android.libraries.maps.model.MarkerOptions
 import java.util.concurrent.atomic.AtomicBoolean
 
 const val TYPE_DETECTING_SHAKING = "shaking"
-const val TYPE_DETECTING_SCREEN_ORIENTATION = "screen orientation"
+const val TYPE_DETECTING_SCREEN_ORIENTATION_BY_SENSOR_MANAGER = "sensor manager"
+const val TYPE_DETECTING_SCREEN_ORIENTATION_BY_ORIENTATION_SENSOR = "orientation sensor"
 const val TYPE_DETECTING_STEP_BY_STEP_COUNTER = "step counter"
 const val TYPE_DETECTING_STEP_BY_STEP_DETECTOR = "step detector"
 
@@ -31,7 +39,7 @@ class SensorExampleActivity : BaseGestureDetectorActivity<LayoutSensorExampleAct
     private lateinit var sensorManager: SensorManager
     private var sensor = ArrayList<Sensor?>()
 
-    private var type: String = TYPE_DETECTING_SCREEN_ORIENTATION
+    private var type: String = TYPE_DETECTING_SCREEN_ORIENTATION_BY_ORIENTATION_SENSOR
 
     private var isSensorListenerRegister = false
 
@@ -42,6 +50,42 @@ class SensorExampleActivity : BaseGestureDetectorActivity<LayoutSensorExampleAct
     private val rotationMatrix = FloatArray(9)
     private val orientationAngles = FloatArray(3)
 
+    private val mapViewBundleKey = "MapViewBundleKey"
+    private var googleMap: GoogleMap? = null
+    private var locationManager: LocationManager? = null
+    private var currentLatLong: LatLng? = null
+
+    @SuppressLint("NewApi")
+    private val locationListener = LocationListener { location ->
+        if (currentLatLong?.latitude != location.latitude && currentLatLong?.longitude != location.longitude) {
+            googleMap?.run {
+                currentLatLong = LatLng(location.latitude, location.longitude)
+                animateCamera(CameraUpdateFactory.newLatLng(currentLatLong))
+            }
+        }
+    }
+
+    private val requestMultiplePermissionLauncher = registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) { permissions: Map<String, Boolean> ->
+        val noGrantedPermissions = ArrayList<String>()
+        permissions.entries.forEach {
+            if (!it.value) {
+                noGrantedPermissions.add(it.key)
+            }
+        }
+        if (noGrantedPermissions.isEmpty()) {
+            // 申请权限通过，可以使用地图
+            initMapView()
+        } else {
+            //未同意授权
+            noGrantedPermissions.forEach {
+                if (!shouldShowRequestPermissionRationale(it)) {
+                    //用户拒绝权限并且系统不再弹出请求权限的弹窗
+                    //这时需要我们自己处理，比如自定义弹窗告知用户为何必须要申请这个权限
+                }
+            }
+        }
+    }
+
     private fun updateOrientationAngles() {
         // 根据加速度计传感器和磁力计传感器的读数更新旋转矩阵
         SensorManager.getRotationMatrix(rotationMatrix, null, orientationAccelerometerData, orientationMagnetometerData)
@@ -49,7 +93,90 @@ class SensorExampleActivity : BaseGestureDetectorActivity<LayoutSensorExampleAct
         SensorManager.getOrientation(rotationMatrix, orientationAngles)
         val degree = Math.toDegrees(orientationAngles[0].toDouble()).toFloat()
         // 设置方位角旋转度数
-        binding.ivScreenOrientation.run { post { rotation = degree } }
+        addMarkToMap(degree)
+    }
+
+    @SuppressLint("MissingPermission")
+    private fun initMapView() {
+        locationManager = getSystemService(Context.LOCATION_SERVICE) as LocationManager
+        locationManager?.run {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+                requestLocationUpdates(LocationManager.FUSED_PROVIDER, 2000, 0f, locationListener)
+            } else {
+                if (isProviderEnabled(LocationManager.GPS_PROVIDER)) {
+                    requestLocationUpdates(LocationManager.GPS_PROVIDER, 2000, 0f, locationListener)
+                } else {
+                    requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 2000, 0f, locationListener)
+                }
+            }
+        }
+        binding.mapView.getMapAsync { googleMap ->
+            this.googleMap = googleMap.apply {
+                isMyLocationEnabled = false
+                moveCamera(CameraUpdateFactory.newLatLngZoom(LatLng(0.0, 0.0), maxZoomLevel - 5))
+            }
+        }
+        binding.mapView.visibility = View.VISIBLE
+    }
+
+    private fun addMarkToMap(rotationDegree: Float) {
+        googleMap?.run {
+            clear()
+            currentLatLong?.let {
+                addMarker(MarkerOptions()
+                    .position(it)
+                    .rotation(rotationDegree)
+                    .icon(BitmapDescriptorFactory.fromResource(R.drawable.icon_device_orientation)))
+            }
+        }
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        if (type == TYPE_DETECTING_SCREEN_ORIENTATION_BY_ORIENTATION_SENSOR ||
+            type == TYPE_DETECTING_SCREEN_ORIENTATION_BY_SENSOR_MANAGER
+        ) {
+            binding.mapView.onSaveInstanceState(outState.getBundle(mapViewBundleKey) ?: Bundle().apply {
+                putBundle(mapViewBundleKey, this)
+            })
+        }
+    }
+
+    override fun onStart() {
+        super.onStart()
+        if (type == TYPE_DETECTING_SCREEN_ORIENTATION_BY_ORIENTATION_SENSOR ||
+            type == TYPE_DETECTING_SCREEN_ORIENTATION_BY_SENSOR_MANAGER
+        ) {
+            binding.mapView.onStart()
+        }
+    }
+
+    override fun onStop() {
+        if (type == TYPE_DETECTING_SCREEN_ORIENTATION_BY_ORIENTATION_SENSOR ||
+            type == TYPE_DETECTING_SCREEN_ORIENTATION_BY_SENSOR_MANAGER
+        ) {
+            binding.mapView.onStop()
+        }
+        super.onStop()
+    }
+
+    override fun onDestroy() {
+        if (type == TYPE_DETECTING_SCREEN_ORIENTATION_BY_ORIENTATION_SENSOR ||
+            type == TYPE_DETECTING_SCREEN_ORIENTATION_BY_SENSOR_MANAGER
+        ) {
+            binding.mapView.onDestroy()
+            locationManager?.removeUpdates(locationListener)
+        }
+        super.onDestroy()
+    }
+
+    override fun onLowMemory() {
+        super.onLowMemory()
+        if (type == TYPE_DETECTING_SCREEN_ORIENTATION_BY_ORIENTATION_SENSOR ||
+            type == TYPE_DETECTING_SCREEN_ORIENTATION_BY_SENSOR_MANAGER
+        ) {
+            binding.mapView.onLowMemory()
+        }
     }
     //</editor-folder>
 
@@ -150,7 +277,7 @@ class SensorExampleActivity : BaseGestureDetectorActivity<LayoutSensorExampleAct
 
                 Sensor.TYPE_ORIENTATION -> {
                     // 设置方位角旋转度数
-                    binding.ivScreenOrientation.run { post { rotation = event.values[0] } }
+                    addMarkToMap(event.values[0])
                 }
 
                 Sensor.TYPE_STEP_COUNTER -> {
@@ -174,7 +301,6 @@ class SensorExampleActivity : BaseGestureDetectorActivity<LayoutSensorExampleAct
 
         override fun onAccuracyChanged(sensor: Sensor?, accuracy: Int) {
             // 传感器的精度发生变化时回调此方法，通常无需做处理
-            Log.i("-,-,-", "onAccuracyChanged accuracy:$accuracy")
         }
     }
 
@@ -187,7 +313,7 @@ class SensorExampleActivity : BaseGestureDetectorActivity<LayoutSensorExampleAct
         super.onCreate(savedInstanceState)
         binding.includeTitle.tvTitle.text = "Sensor Example"
         sensorManager = getSystemService(Context.SENSOR_SERVICE) as SensorManager
-        type = intent.getStringExtra("type") ?: TYPE_DETECTING_SCREEN_ORIENTATION
+        type = intent.getStringExtra("type") ?: TYPE_DETECTING_SCREEN_ORIENTATION_BY_ORIENTATION_SENSOR
         when (type) {
             TYPE_DETECTING_SHAKING -> {
                 sensor.add(sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER))
@@ -199,20 +325,41 @@ class SensorExampleActivity : BaseGestureDetectorActivity<LayoutSensorExampleAct
             }
 
             else -> {
-                sensor.add(sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER))
-                sensor.add(sensorManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD))
-//                sensor.add(sensorManager.getDefaultSensor(Sensor.TYPE_ORIENTATION))
-                binding.ivScreenOrientation.visibility = View.VISIBLE
+                if (type == TYPE_DETECTING_SCREEN_ORIENTATION_BY_ORIENTATION_SENSOR) {
+                    sensor.add(sensorManager.getDefaultSensor(Sensor.TYPE_ORIENTATION))
+                }
+                if (type == TYPE_DETECTING_SCREEN_ORIENTATION_BY_SENSOR_MANAGER) {
+                    sensor.add(sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER))
+                    sensor.add(sensorManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD))
+                }
+                binding.mapView.onCreate(savedInstanceState?.getBundle(mapViewBundleKey))
+                if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED ||
+                    ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED
+                ) {
+                    initMapView()
+                } else {
+                    requestMultiplePermissionLauncher.launch(arrayOf(Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION))
+                }
             }
         }
     }
 
     override fun onResume() {
         super.onResume()
+        if (type == TYPE_DETECTING_SCREEN_ORIENTATION_BY_ORIENTATION_SENSOR ||
+            type == TYPE_DETECTING_SCREEN_ORIENTATION_BY_SENSOR_MANAGER
+        ) {
+            binding.mapView.onResume()
+        }
         registerSensorListener()
     }
 
     override fun onPause() {
+        if (type == TYPE_DETECTING_SCREEN_ORIENTATION_BY_ORIENTATION_SENSOR ||
+            type == TYPE_DETECTING_SCREEN_ORIENTATION_BY_SENSOR_MANAGER
+        ) {
+            binding.mapView.onPause()
+        }
         super.onPause()
         // 移除传感器监听
         sensorManager.unregisterListener(sensorEventListener)
@@ -229,7 +376,7 @@ class SensorExampleActivity : BaseGestureDetectorActivity<LayoutSensorExampleAct
                     // SensorManager.SENSOR_DELAY_GAME 演示20000微妙
                     // SensorManager.SENSOR_DELAY_UI 延迟60000微妙
                     // SensorManager.SENSOR_DELAY_NORMAL 延迟200000微秒
-                    sensorManager.registerListener(sensorEventListener, it, SensorManager.SENSOR_DELAY_NORMAL)
+                    sensorManager.registerListener(sensorEventListener, it, SensorManager.SENSOR_DELAY_NORMAL, SensorManager.SENSOR_DELAY_GAME)
                 }
             }
         }

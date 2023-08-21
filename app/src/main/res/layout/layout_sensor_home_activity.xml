@@ -8,24 +8,66 @@
         android:id="@+id/include_title"
         layout="@layout/layout_title" />
 
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/btn_detecting_shaking"
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tv_phone_shake"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:text="detecting shaking"
-        app:layout_constraintEnd_toStartOf="@id/btn_detecting_screen_orientation"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="10dp"
+        android:text="Detecting Phone Shake"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/include_title" />
 
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/btn_detecting_screen_orientation"
+        android:id="@+id/btn_detecting_shaking"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="detecting orientation"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/btn_detecting_shaking"
-        app:layout_constraintTop_toTopOf="@id/btn_detecting_shaking" />
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="10dp"
+        android:text="detecting shaking"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_phone_shake" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tv_sceen_orientation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="10dp"
+        android:text="Detecting Screen Orientation"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/btn_detecting_shaking" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_detecting_by_orientation_sensor"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="10dp"
+        android:text="detecting by orientation sensor"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_sceen_orientation" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_detecting_by_sensor_manager"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="10dp"
+        android:text="detecting by orientation sensor"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/btn_detecting_by_orientation_sensor" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tv_detecting_step"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="10dp"
+        android:text="Detecting Step"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/btn_detecting_by_sensor_manager" />
+
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btn_counting_step_by_step_counter"
@@ -35,7 +77,7 @@
         android:text="use step counter"
         app:layout_constraintEnd_toStartOf="@id/btn_counting_step_by_step_detector"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/btn_detecting_shaking" />
+        app:layout_constraintTop_toBottomOf="@id/tv_detecting_step" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btn_counting_step_by_step_detector"

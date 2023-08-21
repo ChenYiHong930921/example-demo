@@ -14,9 +14,14 @@ class SensorHomeActivity : BaseGestureDetectorActivity<LayoutSensorHomeActivityB
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding.run {
-            btnDetectingScreenOrientation.setOnClickListener {
+            btnDetectingByOrientationSensor.setOnClickListener {
                 startActivity(Intent(this@SensorHomeActivity, SensorExampleActivity::class.java).apply {
-                    putExtra("type", TYPE_DETECTING_SCREEN_ORIENTATION)
+                    putExtra("type", TYPE_DETECTING_SCREEN_ORIENTATION_BY_ORIENTATION_SENSOR)
+                })
+            }
+            btnDetectingBySensorManager.setOnClickListener {
+                startActivity(Intent(this@SensorHomeActivity, SensorExampleActivity::class.java).apply {
+                    putExtra("type", TYPE_DETECTING_SCREEN_ORIENTATION_BY_SENSOR_MANAGER)
                 })
             }
             btnDetectingShaking.setOnClickListener {
