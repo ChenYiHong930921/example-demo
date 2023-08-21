@@ -55,11 +55,11 @@ class SensorExampleActivity : BaseGestureDetectorActivity<LayoutSensorExampleAct
     private var locationManager: LocationManager? = null
     private var currentLatLong: LatLng? = null
 
-    @SuppressLint("NewApi")
     private val locationListener = LocationListener { location ->
         if (currentLatLong?.latitude != location.latitude && currentLatLong?.longitude != location.longitude) {
             googleMap?.run {
                 currentLatLong = LatLng(location.latitude, location.longitude)
+                // 移动地图到当前位置
                 animateCamera(CameraUpdateFactory.newLatLng(currentLatLong))
             }
         }
@@ -101,18 +101,23 @@ class SensorExampleActivity : BaseGestureDetectorActivity<LayoutSensorExampleAct
         locationManager = getSystemService(Context.LOCATION_SERVICE) as LocationManager
         locationManager?.run {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+                // 结合多种数据源（传感器、定位）提供定位信息
                 requestLocationUpdates(LocationManager.FUSED_PROVIDER, 2000, 0f, locationListener)
             } else {
                 if (isProviderEnabled(LocationManager.GPS_PROVIDER)) {
+                    // 使用GPS提供定位信息
                     requestLocationUpdates(LocationManager.GPS_PROVIDER, 2000, 0f, locationListener)
                 } else {
+                    // 使用网络提供定位信息
                     requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 2000, 0f, locationListener)
                 }
             }
         }
         binding.mapView.getMapAsync { googleMap ->
             this.googleMap = googleMap.apply {
+                // 关闭谷歌地图自带的小圆点
                 isMyLocationEnabled = false
+                // 设置地图缩放等级
                 moveCamera(CameraUpdateFactory.newLatLngZoom(LatLng(0.0, 0.0), maxZoomLevel - 5))
             }
         }
@@ -121,10 +126,13 @@ class SensorExampleActivity : BaseGestureDetectorActivity<LayoutSensorExampleAct
 
     private fun addMarkToMap(rotationDegree: Float) {
         googleMap?.run {
+            // 清除已有的Mark
             clear()
             currentLatLong?.let {
                 addMarker(MarkerOptions()
+                    // 设置图标的位置
                     .position(it)
+                    // 设置图标的旋转角度
                     .rotation(rotationDegree)
                     .icon(BitmapDescriptorFactory.fromResource(R.drawable.icon_device_orientation)))
             }
@@ -289,7 +297,7 @@ class SensorExampleActivity : BaseGestureDetectorActivity<LayoutSensorExampleAct
                     } else {
                         event.values[0].toInt() - accumulatedSteps
                     }
-                    binding.tvStepCount.run { post { text = "传感器回调步数:${ event.values[0].toInt()}\n首次回调步数:$accumulatedSteps\n本次行走步数:$currentStep" } }
+                    binding.tvStepCount.run { post { text = "传感器回调步数:${event.values[0].toInt()}\n首次回调步数:$accumulatedSteps\n本次行走步数:$currentStep" } }
                 }
 
                 Sensor.TYPE_STEP_DETECTOR -> {

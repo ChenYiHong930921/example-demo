@@ -54,7 +54,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
         android:layout_marginTop="10dp"
-        android:text="detecting by orientation sensor"
+        android:text="detecting by sensor manager"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/btn_detecting_by_orientation_sensor" />
 
