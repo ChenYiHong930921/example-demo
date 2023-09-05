@@ -1,7 +1,6 @@
 package com.chenyihong.exampledemo.tripartite.login
 
 import android.annotation.SuppressLint
-import android.app.Activity
 import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
@@ -31,23 +30,21 @@ class TripartiteLoginActivity : BaseGestureDetectorActivity<LayoutTripartiteLogi
 
     private val googleLoginLauncher = registerForActivityResult(ActivityResultContracts.StartIntentSenderForResult()) { result ->
         Log.i(TAG, "google login get account info result.resultCode:${result.resultCode}")
-        if (result.resultCode == Activity.RESULT_OK) {
-            try {
-                val credential = Identity.getSignInClient(this).getSignInCredentialFromIntent(result.data)
+        try {
+            val credential = Identity.getSignInClient(this).getSignInCredentialFromIntent(result.data)
 
-                showToast("Google login success id:${credential.id}")
+            showToast("Google login success id:${credential.id}")
 
-                Log.i(TAG, "google login get account info id:${credential.id}")
-                Log.i(TAG, "google login get account info googleIdToken:${credential.googleIdToken}")
-                Log.i(TAG, "google login get account info password:${credential.password}")
-                Log.i(TAG, "google login get account info givenName:${credential.givenName}")
-                Log.i(TAG, "google login get account info familyName:${credential.familyName}")
-                Log.i(TAG, "google login get account info displayName:${credential.displayName}")
-                Log.i(TAG, "google login get account info profilePictureUri:${credential.profilePictureUri}")
-            } catch (exception: ApiException) {
-                Log.e(TAG, "google login get account info error :${exception.message}")
-                exception.printStackTrace()
-            }
+            Log.i(TAG, "google login get account info id:${credential.id}")
+            Log.i(TAG, "google login get account info googleIdToken:${credential.googleIdToken}")
+            Log.i(TAG, "google login get account info password:${credential.password}")
+            Log.i(TAG, "google login get account info givenName:${credential.givenName}")
+            Log.i(TAG, "google login get account info familyName:${credential.familyName}")
+            Log.i(TAG, "google login get account info displayName:${credential.displayName}")
+            Log.i(TAG, "google login get account info profilePictureUri:${credential.profilePictureUri}")
+        } catch (exception: ApiException) {
+            Log.e(TAG, "google login get account info error :${exception.message}")
+            exception.printStackTrace()
         }
     }
 
