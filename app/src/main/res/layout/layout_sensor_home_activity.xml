@@ -41,8 +41,18 @@
         android:id="@+id/btn_counting_step_by_step_detector"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="use step detecotr"
+        android:text="use step detector"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/btn_counting_step_by_step_counter"
         app:layout_constraintTop_toTopOf="@id/btn_counting_step_by_step_counter" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_detecting_light"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="detecting light"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/btn_counting_step_by_step_counter" />
 </androidx.constraintlayout.widget.ConstraintLayout>
