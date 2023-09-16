@@ -68,14 +68,13 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/btn_detecting_by_sensor_manager" />
 
-
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btn_counting_step_by_step_counter"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
         android:layout_marginTop="10dp"
         android:text="use step counter"
-        app:layout_constraintEnd_toStartOf="@id/btn_counting_step_by_step_detector"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tv_detecting_step" />
 
@@ -83,18 +82,28 @@
         android:id="@+id/btn_counting_step_by_step_detector"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
         android:text="use step detector"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/btn_counting_step_by_step_counter"
         app:layout_constraintTop_toTopOf="@id/btn_counting_step_by_step_counter" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tv_detecting_light"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="10dp"
+        android:text="Detecting Light"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/btn_counting_step_by_step_counter" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btn_detecting_light"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
         android:layout_marginTop="10dp"
         android:text="detecting light"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/btn_counting_step_by_step_counter" />
+        app:layout_constraintTop_toBottomOf="@id/tv_detecting_light" />
 </androidx.constraintlayout.widget.ConstraintLayout>
