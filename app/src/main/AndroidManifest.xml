@@ -97,6 +97,10 @@
             android:name="channel_value"
             android:value="${channel_value}" />
 
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="${MAPS_API_KEY}" />
+
         <activity
             android:name=".customview.CustomChartViewActivity"
             android:screenOrientation="portrait" />

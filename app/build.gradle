@@ -4,6 +4,7 @@ plugins {
     id 'kotlin-parcelize'
     id 'com.google.devtools.ksp'
     id 'com.google.gms.google-services'
+    id 'com.google.android.libraries.mapsplatform.secrets-gradle-plugin'
 }
 
 android {
@@ -188,8 +189,12 @@ dependencies {
     implementation("org.dom4j:dom4j:2.1.4")
 
     // Media3
-    implementation("androidx.media3:media3-ui:1.1.0")
-    implementation("androidx.media3:media3-session:1.1.0")
-    implementation("androidx.media3:media3-exoplayer:1.1.0")
-    implementation("androidx.media3:media3-exoplayer-hls:1.1.0")
+    implementation("androidx.media3:media3-ui:1.1.1")
+    implementation("androidx.media3:media3-session:1.1.1")
+    implementation("androidx.media3:media3-exoplayer:1.1.1")
+    implementation("androidx.media3:media3-exoplayer-hls:1.1.1")
+
+    // map
+    implementation 'com.android.volley:volley:1.2.1'
+    implementation 'com.google.android.libraries.maps:maps:3.1.0-beta'
 }
