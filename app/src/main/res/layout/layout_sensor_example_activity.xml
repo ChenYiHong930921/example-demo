@@ -11,7 +11,7 @@
         layout="@layout/layout_title" />
 
     <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/tv_step_count"
+        android:id="@+id/tv_text_content"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"

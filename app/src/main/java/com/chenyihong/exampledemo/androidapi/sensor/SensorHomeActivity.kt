@@ -39,6 +39,11 @@ class SensorHomeActivity : BaseGestureDetectorActivity<LayoutSensorHomeActivityB
                     putExtra("type", TYPE_DETECTING_STEP_BY_STEP_DETECTOR)
                 })
             }
+            btnDetectingLight.setOnClickListener {
+                startActivity(Intent(this@SensorHomeActivity, SensorExampleActivity::class.java).apply {
+                    putExtra("type", TYPE_DETECTING_LIGHT)
+                })
+            }
         }
     }
 }

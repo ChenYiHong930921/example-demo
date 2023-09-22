@@ -33,6 +33,7 @@ const val TYPE_DETECTING_SCREEN_ORIENTATION_BY_SENSOR_MANAGER = "sensor manager"
 const val TYPE_DETECTING_SCREEN_ORIENTATION_BY_ORIENTATION_SENSOR = "orientation sensor"
 const val TYPE_DETECTING_STEP_BY_STEP_COUNTER = "step counter"
 const val TYPE_DETECTING_STEP_BY_STEP_DETECTOR = "step detector"
+const val TYPE_DETECTING_LIGHT = "light detector"
 
 class SensorExampleActivity : BaseGestureDetectorActivity<LayoutSensorExampleActivityBinding>() {
 
@@ -297,12 +298,21 @@ class SensorExampleActivity : BaseGestureDetectorActivity<LayoutSensorExampleAct
                     } else {
                         event.values[0].toInt() - accumulatedSteps
                     }
-                    binding.tvStepCount.run { post { text = "传感器回调步数:${event.values[0].toInt()}\n首次回调步数:$accumulatedSteps\n本次行走步数:$currentStep" } }
+                    binding.tvTextContent.run { post { text = "传感器回调步数:${event.values[0].toInt()}\n首次回调步数:$accumulatedSteps\n本次行走步数:$currentStep" } }
                 }
 
                 Sensor.TYPE_STEP_DETECTOR -> {
                     currentStep += event.values[0].toInt()
-                    binding.tvStepCount.run { post { text = "Step:$currentStep" } }
+                    binding.tvTextContent.run { post { text = "Step:$currentStep" } }
+                }
+
+                Sensor.TYPE_LIGHT -> {
+                    // 改变窗口的亮度
+                    window.attributes = window.attributes.apply {
+                        // 以多云天气时的光照强度作为参考值计算屏幕亮度该设置多少
+                        binding.tvTextContent.run { post { text = "照度:${event.values[0]}, 屏幕亮度:${event.values[0] / SensorManager.LIGHT_CLOUDY}" } }
+                        screenBrightness = event.values[0] / SensorManager.LIGHT_CLOUDY
+                    }
                 }
             }
         }
@@ -329,7 +339,12 @@ class SensorExampleActivity : BaseGestureDetectorActivity<LayoutSensorExampleAct
 
             TYPE_DETECTING_STEP_BY_STEP_COUNTER, TYPE_DETECTING_STEP_BY_STEP_DETECTOR -> {
                 checkActivityRecognitionPermission()
-                binding.tvStepCount.visibility = View.VISIBLE
+                binding.tvTextContent.visibility = View.VISIBLE
+            }
+
+            TYPE_DETECTING_LIGHT -> {
+                sensor.add(sensorManager.getDefaultSensor(Sensor.TYPE_LIGHT))
+                binding.tvTextContent.visibility = View.VISIBLE
             }
 
             else -> {
