@@ -36,4 +36,15 @@
         <!-- 窗口样式Dialog -->
         <item name="android:windowAnimationStyle">@android:style/Animation.Dialog</item>
     </style>
+
+    <style name="TransparentActivity" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <!-- 背景色透明度 -->
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <!-- 无标题 -->
+        <item name="android:windowNoTitle">true</item>
+        <!-- 半透明,设置为false无透明效果 -->
+        <item name="android:windowIsTranslucent">true</item>
+        <!-- 模糊 -->
+        <item name="android:backgroundDimEnabled">true</item>
+    </style>
 </resources>

@@ -27,4 +27,13 @@
         app:layout_constraintStart_toEndOf="@id/btn_normal_play_media"
         app:layout_constraintTop_toTopOf="@id/btn_normal_play_media" />
 
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_play_media_in_list"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="Play Media in List"
+        app:layout_constraintStart_toStartOf="@id/btn_normal_play_media"
+        app:layout_constraintTop_toBottomOf="@id/btn_normal_play_media" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

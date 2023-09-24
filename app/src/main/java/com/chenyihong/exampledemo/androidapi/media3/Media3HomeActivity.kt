@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
+import androidx.media3.common.util.UnstableApi
 import com.chenyihong.exampledemo.androidapi.gesturedetector.BaseGestureDetectorActivity
 import com.chenyihong.exampledemo.databinding.LayoutMedia3HomeActivityBinding
 
@@ -14,6 +15,7 @@ class Media3HomeActivity : BaseGestureDetectorActivity<LayoutMedia3HomeActivityB
     }
 
     @SuppressLint("SetTextI18n")
+    @UnstableApi
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding.run {
@@ -27,6 +29,9 @@ class Media3HomeActivity : BaseGestureDetectorActivity<LayoutMedia3HomeActivityB
                 startActivity(Intent(this@Media3HomeActivity, Media3ExampleActivity::class.java).apply {
                     putExtra("backgroundPlay", true)
                 })
+            }
+            btnPlayMediaInList.setOnClickListener {
+                startActivity(Intent(this@Media3HomeActivity, Media3ListExampleActivity::class.java))
             }
         }
     }

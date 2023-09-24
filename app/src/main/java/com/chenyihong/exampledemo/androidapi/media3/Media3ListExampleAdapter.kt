@@ -22,7 +22,10 @@ class Media3ListExampleAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>()
 
     private var pauseVideo = false
 
+    var itemClickCallback: ItemClickCallback? = null
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+        // 通过viewType判断该使用什么布局，1为视频item，2为普通item
         return if (viewType == 1) {
             VideoItemViewHolder(LayoutMedia3ListVideoItemBinding.inflate(LayoutInflater.from(parent.context), parent, false))
         } else {
@@ -40,26 +43,25 @@ class Media3ListExampleAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>()
 
     @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+        // 设置item项的点击事件
+        holder.itemView.setOnClickListener {
+            itemClickCallback?.onItemClick(containerData[position])
+        }
         when (holder) {
             is VideoItemViewHolder -> {
                 containerData[position].run {
                     // 加载第一帧作为封面
-                    Glide.with(holder.itemView.context)
-                        .setDefaultRequestOptions(RequestOptions()
-                            .frame(1)
-                            .centerCrop())
-                        .load(videoUrl)
-                        .into(holder.itemViewBinding.ivVideoCover)
+                    Glide.with(holder.itemView.context).setDefaultRequestOptions(RequestOptions().frame(1).centerCrop()).load(videoUrl).into(holder.itemViewBinding.ivVideoCover)
 
                     holder.itemViewBinding.playerView.player?.run {
                         if (pauseVideo) {
                             // 暂停播放
-                            holder.changeVideoStatus(true)
+                            holder.pauseVideo()
                         } else {
                             // 开始播放
                             videoUrl?.let { newUrl ->
-                                // 判断当前播放器链接与当前链接是否一致，是则跳转到记录的播放进度，否则从0开始播放
-                                setMediaItem(MediaItem.fromUri(newUrl), if (currentMediaItem?.localConfiguration?.uri?.toString() != newUrl) 0L else (holder.mediaProgress[newUrl] ?: 0L))
+                                // 使用播放链接获取缓存的播放进度，没有的话从0开始播放
+                                setMediaItem(MediaItem.fromUri(newUrl), holder.mediaProgress[newUrl] ?: 0L)
                             }
                             playWhenReady = true
                             prepare()
@@ -73,23 +75,38 @@ class Media3ListExampleAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>()
     }
 
     @UnstableApi
-    override fun onViewAttachedToWindow(holder: RecyclerView.ViewHolder) {
-        super.onViewAttachedToWindow(holder)
-        if (holder is VideoItemViewHolder) {
-            // 当View添加到Window中并且此时不为暂停状态时播放视频
-            if (!pauseVideo) {
-                holder.changeVideoStatus(false)
-            }
-        }
-    }
-
-    @UnstableApi
     override fun onViewDetachedFromWindow(holder: RecyclerView.ViewHolder) {
         super.onViewDetachedFromWindow(holder)
         if (holder is VideoItemViewHolder) {
             // 当View从Window中被移除时暂停播放视频
-            holder.changeVideoStatus(true)
+            holder.pauseVideo()
         }
+    }
+
+    fun setNewData(newData: ArrayList<ExampleListEntity>?) {
+        val currentItemCount = itemCount
+        if (currentItemCount != 0) {
+            containerData.clear()
+            notifyItemRangeRemoved(0, currentItemCount)
+        }
+        if (!newData.isNullOrEmpty()) {
+            containerData.addAll(newData)
+            notifyItemRangeChanged(0, itemCount)
+        }
+    }
+
+    fun notifyVideoItemStatus(pauseVideo: Boolean) {
+        // 设置是否暂停播放，更新视频 item
+        this.pauseVideo = pauseVideo
+        containerData.forEach {
+            if (it.type == 1) {
+                notifyItemChanged(containerData.indexOf(it))
+            }
+        }
+    }
+
+    interface ItemClickCallback {
+        fun onItemClick(data: ExampleListEntity)
     }
 
     class VideoItemViewHolder(val itemViewBinding: LayoutMedia3ListVideoItemBinding) : RecyclerView.ViewHolder(itemViewBinding.root) {
@@ -106,8 +123,8 @@ class Media3ListExampleAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>()
                     // 开始播放时隐藏封面图
                     itemViewBinding.ivVideoCover.visibility = View.GONE
                 } else {
-                    // 暂停时记录播放的进度
                     itemViewBinding.playerView.player?.run {
+                        // 暂停时根据视频链接记录播放的进度
                         currentMediaItem?.localConfiguration?.uri?.toString()?.let { uri -> mediaProgress[uri] = currentPosition }
                     }
                 }
@@ -115,6 +132,7 @@ class Media3ListExampleAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>()
         }
 
         init {
+            // 配置ExoPlayer到PlayerView
             itemViewBinding.playerView.player = exoPlayer
             itemViewBinding.playerView.player?.run {
                 removeListener(videoListener)
@@ -123,14 +141,10 @@ class Media3ListExampleAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>()
             }
         }
 
-        fun changeVideoStatus(pause: Boolean) {
-            if (pause) {
-                itemViewBinding.playerView.onPause()
-                exoPlayer.pause()
-            } else {
-                itemViewBinding.playerView.onResume()
-                exoPlayer.play()
-            }
+        fun pauseVideo() {
+            // 暂停播放视频
+            itemViewBinding.playerView.onPause()
+            exoPlayer.pause()
         }
     }
 

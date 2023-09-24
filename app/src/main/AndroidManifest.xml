@@ -346,6 +346,15 @@
                 <action android:name="androidx.media3.session.MediaSessionService" />
             </intent-filter>
         </service>
+
+        <activity
+            android:name=".androidapi.media3.Media3ListExampleActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".androidapi.media3.TransparentActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/TransparentActivity" />
         <!--Media3-->
 
         <activity
