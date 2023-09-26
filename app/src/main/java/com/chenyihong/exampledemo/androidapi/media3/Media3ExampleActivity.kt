@@ -28,6 +28,15 @@ class Media3ExampleActivity : BaseGestureDetectorActivity<LayoutMedia3ExampleAct
         override fun onIsPlayingChanged(isPlaying: Boolean) {
             super.onIsPlayingChanged(isPlaying)
             // 播放状态变化回调
+            /*if (isPlaying) {
+                binding.playView.videoSurfaceView?.let { surfaceView ->
+                    if (surfaceView is TextureView) {
+                        surfaceView.bitmap?.let {
+                            binding.ivFrame.setImageBitmap(it)
+                        }
+                    }
+                }
+            }*/
         }
 
         override fun onPlaybackStateChanged(playbackState: Int) {

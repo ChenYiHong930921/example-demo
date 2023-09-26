@@ -39,6 +39,18 @@
             android:layout_height="match_parent"
             app:resize_mode="fill"
             app:show_buffering="always"
+
             app:use_controller="false" />
+
+        <!--app:surface_type="texture_view"-->
     </androidx.media3.ui.AspectRatioFrameLayout>
+
+    <!--<androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/iv_frame"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginTop="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/arfl_player_container" />-->
 </androidx.constraintlayout.widget.ConstraintLayout>
