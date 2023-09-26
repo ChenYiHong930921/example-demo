@@ -35,6 +35,7 @@ import com.chenyihong.exampledemo.androidapi.gaid.GaIdActivity
 import com.chenyihong.exampledemo.androidapi.gesturedetector.GestureDetectorAActivity
 import com.chenyihong.exampledemo.androidapi.gps.GpsSignalActivity
 import com.chenyihong.exampledemo.androidapi.ipandua.IPAndUAExample
+import com.chenyihong.exampledemo.androidapi.keyboard.KeyboardExampleActivity
 import com.chenyihong.exampledemo.androidapi.language.ChangeLanguageActivity
 import com.chenyihong.exampledemo.androidapi.media3.Media3HomeActivity
 import com.chenyihong.exampledemo.androidapi.motionlayout.MotionLayoutExampleActivity
@@ -153,6 +154,7 @@ class HomeActivity : AppCompatActivity() {
                 OptionsChildEntity("Change Language") { startActivity(Intent(this, ChangeLanguageActivity::class.java)) },
                 OptionsChildEntity("Media3") { startActivity(Intent(this, Media3HomeActivity::class.java)) },
                 OptionsChildEntity("sensor") { startActivity(Intent(this, SensorHomeActivity::class.java)) },
+                OptionsChildEntity("keyboard") { startActivity(Intent(this, KeyboardExampleActivity::class.java)) },
             )),
             OptionsEntity("Custom View", containerTest = arrayListOf(
                 OptionsChildEntity("Custom Chart View") { startActivity(Intent(this, CustomChartViewActivity::class.java)) },

@@ -441,5 +441,9 @@
             android:name=".androidapi.sensor.SensorExampleActivity"
             android:screenOrientation="portrait" />
         <!--Sensor-->
+
+        <activity
+            android:name=".androidapi.keyboard.KeyboardExampleActivity"
+            android:screenOrientation="portrait" />
     </application>
 </manifest>

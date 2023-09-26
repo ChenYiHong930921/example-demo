@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <include
+        android:id="@+id/include_title"
+        layout="@layout/layout_title" />
+
+    <androidx.appcompat.widget.AppCompatEditText
+        android:id="@+id/et_input_data"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="20dp"
+        android:background="@drawable/shape_rect_black333_radius_16"
+        android:gravity="center_vertical"
+        android:hint="input some thing"
+        android:includeFontPadding="false"
+        android:maxLines="1"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
+        android:textColor="@color/white"
+        android:textColorHint="@color/color_gray_999"
+        app:layout_constraintTop_toBottomOf="@id/include_title" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_show_keyboard"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="show keyboard"
+        app:layout_constraintEnd_toStartOf="@id/btn_hide_keyboard"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/et_input_data" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_hide_keyboard"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="hide keyboard"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/btn_show_keyboard"
+        app:layout_constraintTop_toTopOf="@id/btn_show_keyboard" />
+
+    <androidx.appcompat.widget.AppCompatEditText
+        android:id="@+id/et_input_data_bottom"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="100dp"
+        android:background="@drawable/shape_rect_black333_radius_16"
+        android:gravity="center_vertical"
+        android:hint="text for adjust pan"
+        android:includeFontPadding="false"
+        android:maxLines="1"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
+        android:textColor="@color/white"
+        android:textColorHint="@color/color_gray_999"
+        app:layout_constraintBottom_toBottomOf="parent" />
+</androidx.constraintlayout.widget.ConstraintLayout>
