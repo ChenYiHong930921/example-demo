@@ -445,5 +445,9 @@
         <activity
             android:name=".androidapi.keyboard.KeyboardExampleActivity"
             android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".androidapi.recyclerview.AutoLoadMoreExampleActivity"
+            android:screenOrientation="portrait" />
     </application>
 </manifest>

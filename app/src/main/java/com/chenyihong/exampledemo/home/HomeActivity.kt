@@ -39,6 +39,7 @@ import com.chenyihong.exampledemo.androidapi.keyboard.KeyboardExampleActivity
 import com.chenyihong.exampledemo.androidapi.language.ChangeLanguageActivity
 import com.chenyihong.exampledemo.androidapi.media3.Media3HomeActivity
 import com.chenyihong.exampledemo.androidapi.motionlayout.MotionLayoutExampleActivity
+import com.chenyihong.exampledemo.androidapi.recyclerview.AutoLoadMoreExampleActivity
 import com.chenyihong.exampledemo.androidapi.resultapi.ResultApiActivity
 import com.chenyihong.exampledemo.androidapi.search.SearchExampleActivity
 import com.chenyihong.exampledemo.androidapi.sensor.SensorHomeActivity
@@ -155,6 +156,7 @@ class HomeActivity : AppCompatActivity() {
                 OptionsChildEntity("Media3") { startActivity(Intent(this, Media3HomeActivity::class.java)) },
                 OptionsChildEntity("sensor") { startActivity(Intent(this, SensorHomeActivity::class.java)) },
                 OptionsChildEntity("keyboard") { startActivity(Intent(this, KeyboardExampleActivity::class.java)) },
+                OptionsChildEntity("RecyclerView auto load more") { startActivity(Intent(this, AutoLoadMoreExampleActivity::class.java)) },
             )),
             OptionsEntity("Custom View", containerTest = arrayListOf(
                 OptionsChildEntity("Custom Chart View") { startActivity(Intent(this, CustomChartViewActivity::class.java)) },
