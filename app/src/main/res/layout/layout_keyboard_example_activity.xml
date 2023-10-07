@@ -1,12 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <include
         android:id="@+id/include_title"
         layout="@layout/layout_title" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tv_keyboard_height"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="20dp"
+        android:includeFontPadding="false"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/include_title"
+        tools:text="keyboard height:" />
 
     <androidx.appcompat.widget.AppCompatEditText
         android:id="@+id/et_input_data"
@@ -24,7 +36,7 @@
         android:paddingEnd="16dp"
         android:textColor="@color/white"
         android:textColorHint="@color/color_gray_999"
-        app:layout_constraintTop_toBottomOf="@id/include_title" />
+        app:layout_constraintTop_toBottomOf="@id/tv_keyboard_height" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btn_show_keyboard"
