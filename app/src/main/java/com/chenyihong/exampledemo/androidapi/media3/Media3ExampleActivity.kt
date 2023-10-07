@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.content.ComponentName
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.TextureView
 import androidx.core.content.ContextCompat
 import androidx.media3.common.MediaItem
 import androidx.media3.common.PlaybackException
@@ -28,15 +29,6 @@ class Media3ExampleActivity : BaseGestureDetectorActivity<LayoutMedia3ExampleAct
         override fun onIsPlayingChanged(isPlaying: Boolean) {
             super.onIsPlayingChanged(isPlaying)
             // 播放状态变化回调
-            /*if (isPlaying) {
-                binding.playView.videoSurfaceView?.let { surfaceView ->
-                    if (surfaceView is TextureView) {
-                        surfaceView.bitmap?.let {
-                            binding.ivFrame.setImageBitmap(it)
-                        }
-                    }
-                }
-            }*/
         }
 
         override fun onPlaybackStateChanged(playbackState: Int) {
@@ -132,6 +124,9 @@ class Media3ExampleActivity : BaseGestureDetectorActivity<LayoutMedia3ExampleAct
                 // 开始缓冲
                 prepare()
             }
+        }
+        binding.btnScreenshot.setOnClickListener {
+            (binding.playView.videoSurfaceView as? TextureView)?.bitmap?.let { binding.ivScreenshotContainer.setImageBitmap(it) }
         }
     }
 
