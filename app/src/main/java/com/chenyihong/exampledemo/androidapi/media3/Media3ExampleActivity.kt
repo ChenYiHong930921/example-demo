@@ -126,7 +126,10 @@ class Media3ExampleActivity : BaseGestureDetectorActivity<LayoutMedia3ExampleAct
             }
         }
         binding.btnScreenshot.setOnClickListener {
-            (binding.playView.videoSurfaceView as? TextureView)?.bitmap?.let { binding.ivScreenshotContainer.setImageBitmap(it) }
+            // 获取TextureView并生成截图
+            (binding.playView.videoSurfaceView as? TextureView)?.bitmap?.let {
+                binding.ivScreenshotContainer.setImageBitmap(it)
+            }
         }
     }
 
