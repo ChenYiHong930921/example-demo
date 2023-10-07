@@ -21,6 +21,6 @@ class ViewPager2Adapter : FragmentStateAdapter {
     }
 
     override fun createFragment(position: Int): Fragment {
-        return fragments[position].newInstance()!!
+        return fragments[position].getDeclaredConstructor().newInstance()!!
     }
 }
