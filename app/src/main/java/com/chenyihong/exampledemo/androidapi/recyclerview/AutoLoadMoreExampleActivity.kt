@@ -10,9 +10,9 @@ import com.chenyihong.exampledemo.databinding.LayoutAutoLoadMoreExampleActivityB
 
 class AutoLoadMoreExampleActivity : BaseGestureDetectorActivity<LayoutAutoLoadMoreExampleActivityBinding>() {
 
-    private val testData = ArrayList<String>()
-
     private val prePageCount = 20
+
+    private var verticalRvVisibleItemCount = 0
 
     private val verticalRvAdapter = AutoLoadMoreExampleAdapter()
 
@@ -23,8 +23,14 @@ class AutoLoadMoreExampleActivity : BaseGestureDetectorActivity<LayoutAutoLoadMo
         override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
             super.onScrollStateChanged(recyclerView, newState)
             (recyclerView.layoutManager as? LinearLayoutManager)?.let { linearLayoutManager ->
+                // 判断是拖动或者惯性滑动
                 if (newState == RecyclerView.SCROLL_STATE_DRAGGING || newState == RecyclerView.SCROLL_STATE_SETTLING) {
-                    if (scrollToBottom && linearLayoutManager.findViewByPosition(linearLayoutManager.itemCount - (linearLayoutManager.findLastCompletelyVisibleItemPosition() - linearLayoutManager.findFirstCompletelyVisibleItemPosition()) - 1) != null) {
+                    if (verticalRvVisibleItemCount == 0) {
+                        // 获取列表可视Item的数量
+                        verticalRvVisibleItemCount = linearLayoutManager.findLastVisibleItemPosition() - linearLayoutManager.findFirstVisibleItemPosition()
+                    }
+                    // 判断是向着列表尾部滚动，并且临界点已经显示，可以加载更多数据。
+                    if (scrollToBottom && linearLayoutManager.findViewByPosition(linearLayoutManager.itemCount - 1 - verticalRvVisibleItemCount) != null) {
                         loadData()
                     }
                 }
@@ -33,9 +39,12 @@ class AutoLoadMoreExampleActivity : BaseGestureDetectorActivity<LayoutAutoLoadMo
 
         override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
             super.onScrolled(recyclerView, dx, dy)
+            // 判断列表是向列表尾部滚动
             scrollToBottom = dy > 0
         }
     }
+
+    private var horizontalRvVisibleItemCount = 0
 
     private val horizontalRvAdapter = AutoLoadMoreExampleAdapter(false)
 
@@ -46,8 +55,14 @@ class AutoLoadMoreExampleActivity : BaseGestureDetectorActivity<LayoutAutoLoadMo
         override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
             super.onScrollStateChanged(recyclerView, newState)
             (recyclerView.layoutManager as? LinearLayoutManager)?.let { linearLayoutManager ->
+                // 判断是拖动或者惯性滑动
                 if (newState == RecyclerView.SCROLL_STATE_DRAGGING || newState == RecyclerView.SCROLL_STATE_SETTLING) {
-                    if (scrollToEnd && linearLayoutManager.findViewByPosition(linearLayoutManager.itemCount - (linearLayoutManager.findLastCompletelyVisibleItemPosition() - linearLayoutManager.findFirstCompletelyVisibleItemPosition()) - 1) != null) {
+                    if (horizontalRvVisibleItemCount == 0) {
+                        // 获取列表可视Item的数量
+                        horizontalRvVisibleItemCount = linearLayoutManager.findLastVisibleItemPosition() - linearLayoutManager.findFirstVisibleItemPosition()
+                    }
+                    // 判断是向着列表尾部滚动，并且临界点已经显示，可以加载更多数据。
+                    if (scrollToEnd && linearLayoutManager.findViewByPosition(linearLayoutManager.itemCount - 1 - horizontalRvVisibleItemCount) != null) {
                         loadData()
                     }
                 }
@@ -56,6 +71,7 @@ class AutoLoadMoreExampleActivity : BaseGestureDetectorActivity<LayoutAutoLoadMo
 
         override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
             super.onScrolled(recyclerView, dx, dy)
+            // 判断列表是向列表尾部滚动
             scrollToEnd = dx > 0
         }
     }
@@ -79,8 +95,12 @@ class AutoLoadMoreExampleActivity : BaseGestureDetectorActivity<LayoutAutoLoadMo
     }
 
     fun loadData() {
-        val init = testData.isEmpty()
-        for (index in testData.size until testData.size + prePageCount) {
+        val init = verticalRvAdapter.itemCount == 0
+        val start = verticalRvAdapter.itemCount
+        val end = verticalRvAdapter.itemCount + prePageCount
+
+        val testData = ArrayList<String>()
+        for (index in start until end) {
             testData.add("item$index")
         }
         if (init) {
