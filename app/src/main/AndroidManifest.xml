@@ -55,6 +55,8 @@
     <uses-permission android:name="android.permission.ACTIVITY_RECOGNITION" />
     <!--Sensor Step-->
 
+    <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM" />
+
     <queries>
         <intent>
             <action android:name="android.support.customtabs.action.CustomTabsService" />
@@ -448,6 +450,10 @@
 
         <activity
             android:name=".androidapi.recyclerview.AutoLoadMoreExampleActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".androidapi.targetsdk.TargetSdk14AdapterExampleActivity"
             android:screenOrientation="portrait" />
     </application>
 </manifest>
