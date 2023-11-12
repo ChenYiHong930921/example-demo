@@ -55,7 +55,14 @@
     <uses-permission android:name="android.permission.ACTIVITY_RECOGNITION" />
     <!--Sensor Step-->
 
+    <!--adapter android 14-->
     <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM" />
+    <uses-permission android:name="android.permission.KILL_BACKGROUND_PROCESSES" />
+    <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" />
+    <uses-permission android:name="android.permission.READ_MEDIA_VIDEO" />
+    <uses-permission android:name="android.permission.READ_MEDIA_VISUAL_USER_SELECTED"/>
+    <!--<uses-permission android:name="android.permission.USE_FULL_SCREEN_INTENT"/>-->
+    <!--adapter android 14-->
 
     <queries>
         <intent>

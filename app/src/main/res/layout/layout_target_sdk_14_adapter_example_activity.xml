@@ -17,4 +17,51 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/include_title" />
 
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_exact_alarms"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="Exact Alarms"
+        app:layout_constraintEnd_toStartOf="@id/btn_kill_background_process"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_text_content" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_kill_background_process"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="kill background process"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/btn_exact_alarms"
+        app:layout_constraintTop_toTopOf="@id/btn_exact_alarms" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_request_media_permission"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="media permission"
+        app:layout_constraintEnd_toStartOf="@id/btn_full_screen_notification"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/btn_exact_alarms" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_full_screen_notification"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="full screen notification"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/btn_request_media_permission"
+        app:layout_constraintTop_toTopOf="@id/btn_request_media_permission" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_ongoing_notification"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="ongoing notification"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/btn_request_media_permission" />
 </androidx.constraintlayout.widget.ConstraintLayout>
