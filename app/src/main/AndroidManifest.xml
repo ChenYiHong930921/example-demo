@@ -60,8 +60,11 @@
     <uses-permission android:name="android.permission.KILL_BACKGROUND_PROCESSES" />
     <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" />
     <uses-permission android:name="android.permission.READ_MEDIA_VIDEO" />
-    <uses-permission android:name="android.permission.READ_MEDIA_VISUAL_USER_SELECTED"/>
+    <uses-permission android:name="android.permission.READ_MEDIA_VISUAL_USER_SELECTED" />
     <!--<uses-permission android:name="android.permission.USE_FULL_SCREEN_INTENT"/>-->
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_LOCATION" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_MEDIA_PROJECTION" />
     <!--adapter android 14-->
 
     <queries>
@@ -459,8 +462,34 @@
             android:name=".androidapi.recyclerview.AutoLoadMoreExampleActivity"
             android:screenOrientation="portrait" />
 
+        <!--targetSdk34-->
+
         <activity
             android:name=".androidapi.targetsdk.TargetSdk14AdapterExampleActivity"
             android:screenOrientation="portrait" />
+
+        <service
+            android:name=".androidapi.targetsdk.ExampleLocationServices"
+            android:exported="false"
+            android:foregroundServiceType="location" />
+
+        <service
+            android:name=".androidapi.targetsdk.ExampleJobServices"
+            android:permission="android.permission.BIND_JOB_SERVICE" />
+
+        <service
+            android:name=".androidapi.targetsdk.ExampleMediaProjectionServices"
+            android:exported="false"
+            android:foregroundServiceType="mediaProjection" />
+
+        <activity
+            android:name=".androidapi.targetsdk.ExampleIntentActivity"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.chenyihong.exampledemo.EXAMPLE_INTENT" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <!--targetSdk34-->
     </application>
 </manifest>

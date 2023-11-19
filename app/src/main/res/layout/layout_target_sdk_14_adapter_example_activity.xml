@@ -17,6 +17,15 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/include_title" />
 
+    <androidx.constraintlayout.widget.Group
+        android:id="@+id/group_adapter_all_targetsdk"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:visibility="gone"
+        app:constraint_referenced_ids="btn_exact_alarms,btn_kill_background_process,btn_request_media_permission,btn_full_screen_notification,btn_ongoing_notification"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btn_exact_alarms"
         android:layout_width="wrap_content"
@@ -64,4 +73,78 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/btn_request_media_permission" />
+
+    <androidx.constraintlayout.widget.Group
+        android:id="@+id/group_adapter_targetsdk_14"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/group_adapter_all_targetsdk" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_foreground_services"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="foreground services"
+        app:layout_constraintEnd_toStartOf="@id/btn_bluetooth_api"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/btn_ongoing_notification" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_bluetooth_api"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Bluetooth api"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/btn_foreground_services"
+        app:layout_constraintTop_toTopOf="@id/btn_foreground_services" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_job_services"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="Job services"
+        app:layout_constraintEnd_toStartOf="@id/btn_intent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/btn_foreground_services" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_intent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="intent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/btn_job_services"
+        app:layout_constraintTop_toTopOf="@id/btn_job_services" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_broadcast"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="BroadcastReceiver"
+        app:layout_constraintEnd_toStartOf="@id/btn_unzip"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/btn_job_services" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_unzip"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="unzip"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/btn_broadcast"
+        app:layout_constraintTop_toTopOf="@id/btn_broadcast" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_media_projection"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="MediaProjection"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/btn_broadcast" />
 </androidx.constraintlayout.widget.ConstraintLayout>
