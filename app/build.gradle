@@ -180,7 +180,7 @@ dependencies {
     implementation('com.google.firebase:firebase-messaging:23.3.1')
 
     // Google Custom Tab
-    implementation("androidx.browser:browser:1.6.0")
+    implementation("androidx.browser:browser:1.7.0")
 
     //Splash Screen
     implementation("androidx.core:core-splashscreen:1.0.1")
@@ -192,10 +192,10 @@ dependencies {
     implementation("org.dom4j:dom4j:2.1.4")
 
     // Media3
-    implementation("androidx.media3:media3-ui:1.1.1")
-    implementation("androidx.media3:media3-session:1.1.1")
-    implementation("androidx.media3:media3-exoplayer:1.1.1")
-    implementation("androidx.media3:media3-exoplayer-hls:1.1.1")
+    implementation("androidx.media3:media3-ui:1.2.0")
+    implementation("androidx.media3:media3-session:1.2.0")
+    implementation("androidx.media3:media3-exoplayer:1.2.0")
+    implementation("androidx.media3:media3-exoplayer-hls:1.2.0")
 
     // map
     implementation 'com.android.volley:volley:1.2.1'
