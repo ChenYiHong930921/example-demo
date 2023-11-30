@@ -65,11 +65,21 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/btn_show_banner_ad" />
 
+    <Button
+        android:id="@+id/btn_show_privacy_options"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="show privacy options"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/btn_hide_banner_ad" />
+
     <FrameLayout
         android:id="@+id/fl_native_ad_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        app:layout_constraintTop_toBottomOf="@id/btn_stop_native_ad" />
+        app:layout_constraintTop_toBottomOf="@id/btn_show_privacy_options" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

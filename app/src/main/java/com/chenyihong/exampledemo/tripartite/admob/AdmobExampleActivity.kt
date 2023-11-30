@@ -25,10 +25,18 @@ import com.google.android.gms.ads.nativead.NativeAdOptions
 import com.google.android.gms.ads.nativead.NativeAdView
 import com.google.android.gms.ads.rewarded.RewardedAd
 import com.google.android.gms.ads.rewarded.RewardedAdLoadCallback
+import com.google.android.ump.ConsentDebugSettings
+import com.google.android.ump.ConsentForm
+import com.google.android.ump.ConsentInformation
+import com.google.android.ump.ConsentRequestParameters
+import com.google.android.ump.FormError
+import com.google.android.ump.UserMessagingPlatform
 
 const val TAG = "AdmobExample"
 
 class AdmobExampleActivity : BaseGestureDetectorActivity<LayoutAdmobExampleActivityBinding>() {
+
+    private lateinit var consentInformation: ConsentInformation
 
     override fun initViewBinding(layoutInflater: LayoutInflater): LayoutAdmobExampleActivityBinding {
         return LayoutAdmobExampleActivityBinding.inflate(layoutInflater)
@@ -38,6 +46,98 @@ class AdmobExampleActivity : BaseGestureDetectorActivity<LayoutAdmobExampleActiv
         super.onCreate(savedInstanceState)
         binding.includeTitle.tvTitle.text = TAG
 
+        initUMP()
+
+        binding.btnShowInterstitialAd.setOnClickListener { showInterstitialAd() }
+        binding.btnShowRewardedAd.setOnClickListener { showRewardedVideo() }
+        binding.btnShowBannerAd.setOnClickListener { showBanner() }
+        binding.btnHideBannerAd.setOnClickListener { hideBanner() }
+        binding.btnStopNativeAd.setOnClickListener { showChoseMuteNativeAdDialog() }
+        binding.btnShowPrivacyOptions.setOnClickListener { showPrivacyOptionsForm() }
+    }
+
+    // <editor-folder desc = "UMP">
+
+    fun initUMP(testDevicesId: String? = null) {
+        val consentRequestParameters = ConsentRequestParameters.Builder()
+            // 设置用户不会低于法定年龄
+            .setTagForUnderAgeOfConsent(false)
+        testDevicesId?.let {
+            consentRequestParameters.setConsentDebugSettings(ConsentDebugSettings.Builder(this)
+                .setDebugGeography(ConsentDebugSettings.DebugGeography.DEBUG_GEOGRAPHY_EEA)
+                .addTestDeviceHashedId(testDevicesId)
+                .build())
+        }
+        consentInformation = UserMessagingPlatform.getConsentInformation(this)
+        consentInformation.requestConsentInfoUpdate(
+            this,
+            consentRequestParameters.build(),
+            object : ConsentInformation.OnConsentInfoUpdateSuccessListener {
+                override fun onConsentInfoUpdateSuccess() {
+                    // 同意信息更新成功
+
+                    if (consentInformation.privacyOptionsRequirementStatus == ConsentInformation.PrivacyOptionsRequirementStatus.REQUIRED) {
+                        // 需要显示Privacy Options，显示对应的按钮
+                        binding.btnShowPrivacyOptions.visibility = View.VISIBLE
+                    }
+
+                    if (consentInformation.isConsentFormAvailable) {
+                        // 同意表单可用，加载并显示表单
+                        loadAndShowConsentFormIfRequired()
+                    } else {
+                        // 同意表单不可用，验证一下是否可以使用广告
+                        if (consentInformation.canRequestAds()) {
+                            // 可以请求广告，开始初始化广告SDK
+                            initAdMob()
+                        }
+                    }
+                }
+            },
+            object : ConsentInformation.OnConsentInfoUpdateFailureListener {
+                override fun onConsentInfoUpdateFailure(formError: FormError) {
+                    // 同意信息更新失败
+
+                    // 获取错误码
+                    val errorCode = formError.errorCode
+                    // 获取错误信息
+                    val errorMessage = formError.message
+
+                    // 验证一下是否可以使用广告
+                    if (consentInformation.canRequestAds()) {
+                        // 可以请求广告，开始初始化广告SDK
+                        initAdMob()
+                    }
+                }
+            })
+    }
+
+    fun loadAndShowConsentFormIfRequired() {
+        UserMessagingPlatform.loadAndShowConsentFormIfRequired(this, object : ConsentForm.OnConsentFormDismissedListener {
+            override fun onConsentFormDismissed(formError: FormError?) {
+                // 表单加载失败时回调此方法。
+                // 表单加载完并显示成功，用户操作完表单后回调此方法。
+                // 验证一下是否可以使用广告
+                if (consentInformation.canRequestAds()) {
+                    // 可以请求广告，开始初始化广告SDK
+                    initAdMob()
+                }
+
+            }
+        })
+    }
+
+    private fun showPrivacyOptionsForm() {
+        UserMessagingPlatform.showPrivacyOptionsForm(this, object : ConsentForm.OnConsentFormDismissedListener {
+            override fun onConsentFormDismissed(formError: FormError?) {
+                // 表单加载失败时回调此方法。
+                // 表单加载完并显示成功，用户操作完表单后回调此方法。
+            }
+        })
+    }
+
+    // </editor-folder>
+
+    private fun initAdMob() {
         MobileAds.initialize(this) { initializationStatus ->
             val readyAdapter = initializationStatus.adapterStatusMap.entries.find {
                 // 判断适配器初始化的状态
@@ -56,11 +156,6 @@ class AdmobExampleActivity : BaseGestureDetectorActivity<LayoutAdmobExampleActiv
                 loadNativeAd()
             }
         }
-        binding.btnShowInterstitialAd.setOnClickListener { showInterstitialAd() }
-        binding.btnShowRewardedAd.setOnClickListener { showRewardedVideo() }
-        binding.btnShowBannerAd.setOnClickListener { showBanner() }
-        binding.btnHideBannerAd.setOnClickListener { hideBanner() }
-        binding.btnStopNativeAd.setOnClickListener { showChoseMuteNativeAdDialog() }
     }
 
     //<editor-folder desc = "interstitial ad">
