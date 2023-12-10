@@ -18,6 +18,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
+import androidx.media3.common.util.UnstableApi
 import com.chenyihong.exampledemo.BuildConfig
 import com.chenyihong.exampledemo.R
 import com.chenyihong.exampledemo.adapter.TestFunctionGroupAdapter
@@ -53,6 +54,7 @@ import com.chenyihong.exampledemo.androidapi.trafficstats.TrafficStatsActivity
 import com.chenyihong.exampledemo.androidapi.wifi.WIFIExampleActivity
 import com.chenyihong.exampledemo.base.ExampleApplication
 import com.chenyihong.exampledemo.customview.CustomChartViewActivity
+import com.chenyihong.exampledemo.customview.CustomExpandableFlowLayoutActivity
 import com.chenyihong.exampledemo.customview.CustomShadowViewActivity
 import com.chenyihong.exampledemo.customview.itemdecoration.CustomItemDecorationExampleActivity
 import com.chenyihong.exampledemo.databinding.LayoutHomeActivityBinding
@@ -80,12 +82,15 @@ class HomeActivity : AppCompatActivity() {
 
     private var noWaitingOpenAd = false
     private val handler = Handler(Looper.myLooper() ?: Looper.getMainLooper())
+
+    @UnstableApi
     private val timeoutRunnable = Runnable {
         // 停止自动显示，避免展示主页后自动显示广告打断用户行为
         (application as ExampleApplication).appOpenAdManager?.stopAutoShow()
         noWaitingOpenAd = true
     }
 
+    @UnstableApi
     @Suppress("KotlinConstantConditions")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -163,6 +168,7 @@ class HomeActivity : AppCompatActivity() {
             OptionsEntity("Custom View", containerTest = arrayListOf(
                 OptionsChildEntity("Custom Chart View") { startActivity(Intent(this, CustomChartViewActivity::class.java)) },
                 OptionsChildEntity("Custom Shadow View") { startActivity(Intent(this, CustomShadowViewActivity::class.java)) },
+                OptionsChildEntity("Custom Expandable Flow Layout") { startActivity(Intent(this, CustomExpandableFlowLayoutActivity::class.java)) },
                 OptionsChildEntity("ItemDecoration") { startActivity(Intent(this, CustomItemDecorationExampleActivity::class.java)) }
             )),
             OptionsEntity("WebView", containerTest = arrayListOf(

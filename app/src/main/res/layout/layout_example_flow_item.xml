@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.AppCompatTextView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/tv_example_flow_item_content"
+    android:layout_width="wrap_content"
+    android:layout_height="30dp"
+    android:background="@drawable/shape_rect_black333_radius_18"
+    android:gravity="center"
+    android:includeFontPadding="false"
+    android:paddingStart="16dp"
+    android:paddingEnd="16dp"
+    android:textColor="@color/white"
+    android:textSize="14sp"
+    tools:text="example value" />

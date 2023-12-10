@@ -496,5 +496,7 @@
             </intent-filter>
         </activity>
         <!--targetSdk34-->
+
+        <activity android:name=".customview.CustomExpandableFlowLayoutActivity" />
     </application>
 </manifest>

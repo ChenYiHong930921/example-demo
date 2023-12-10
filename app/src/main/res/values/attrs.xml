@@ -58,4 +58,15 @@
         <item>Male</item>
         <item>Female</item>
     </string-array>
+
+    <declare-styleable name="ExpandableFlowLayout">
+        <!--默认展开状态-->
+        <attr name="default_expand_status" format="boolean" />
+        <!--默认显示行数-->
+        <attr name="default_show_row" format="integer" />
+        <!--元素纵向间隔-->
+        <attr name="element_divider_vertical" format="dimension" />
+        <!--元素横向间隔-->
+        <attr name="element_divider_horizontal" format="dimension" />
+    </declare-styleable>
 </resources>
