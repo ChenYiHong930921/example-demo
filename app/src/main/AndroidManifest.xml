@@ -498,5 +498,7 @@
         <!--targetSdk34-->
 
         <activity android:name=".customview.CustomExpandableFlowLayoutActivity" />
+
+        <activity android:name=".androidapi.dialog.DialogFragmentExampleActivity" />
     </application>
 </manifest>

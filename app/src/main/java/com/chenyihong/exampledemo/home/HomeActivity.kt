@@ -29,6 +29,7 @@ import com.chenyihong.exampledemo.androidapi.backpress.BackPressApiActivity
 import com.chenyihong.exampledemo.androidapi.biometrics.BiometricActivity
 import com.chenyihong.exampledemo.androidapi.bluetooth.BluetoothExampleActivity
 import com.chenyihong.exampledemo.androidapi.camerax.CameraActivity
+import com.chenyihong.exampledemo.androidapi.dialog.DialogFragmentExampleActivity
 import com.chenyihong.exampledemo.androidapi.downloadablefont.DownloadableFontActivity
 import com.chenyihong.exampledemo.androidapi.fragmentresultapi.FragmentResultApiActivity
 import com.chenyihong.exampledemo.androidapi.fullscreen.FullScreenExampleActivity
@@ -164,6 +165,7 @@ class HomeActivity : AppCompatActivity() {
                 OptionsChildEntity("keyboard") { startActivity(Intent(this, KeyboardExampleActivity::class.java)) },
                 OptionsChildEntity("RecyclerView auto load more") { startActivity(Intent(this, AutoLoadMoreExampleActivity::class.java)) },
                 OptionsChildEntity("Android 14") { startActivity(Intent(this, TargetSdk14AdapterExampleActivity::class.java)) },
+                OptionsChildEntity("DialogFragment") { startActivity(Intent(this, DialogFragmentExampleActivity::class.java)) },
             )),
             OptionsEntity("Custom View", containerTest = arrayListOf(
                 OptionsChildEntity("Custom Chart View") { startActivity(Intent(this, CustomChartViewActivity::class.java)) },
