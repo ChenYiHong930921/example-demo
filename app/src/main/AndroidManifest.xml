@@ -500,5 +500,8 @@
         <activity android:name=".customview.CustomExpandableFlowLayoutActivity" />
 
         <activity android:name=".androidapi.dialog.DialogFragmentExampleActivity" />
+
+        <activity android:name=".web.reserve.WebViewFrontPageActivity" />
+        <activity android:name=".web.reserve.ReservePageExampleActivity" />
     </application>
 </manifest>

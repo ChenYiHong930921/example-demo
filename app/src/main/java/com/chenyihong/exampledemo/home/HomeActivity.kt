@@ -69,6 +69,7 @@ import com.chenyihong.exampledemo.tripartite.share.TripartiteShareActivity
 import com.chenyihong.exampledemo.web.PARAMS_LINK_URL
 import com.chenyihong.exampledemo.web.WebViewActivity
 import com.chenyihong.exampledemo.web.customtab.CustomTabExampleActivity
+import com.chenyihong.exampledemo.web.reserve.WebViewFrontPageActivity
 import com.minigame.testapp.ui.entity.OptionsEntity
 import java.security.MessageDigest
 import java.security.NoSuchAlgorithmException
@@ -177,7 +178,9 @@ class HomeActivity : AppCompatActivity() {
                 OptionsChildEntity("Test Js interaction") { startActivity(Intent(this, WebViewActivity::class.java).apply { putExtra(PARAMS_LINK_URL, "file:///android_asset/index.html") }) },
                 OptionsChildEntity("Test intercept request") { startActivity(Intent(this, WebViewActivity::class.java).apply { putExtra(PARAMS_LINK_URL, "file:///android_asset/index_intercept_request.html") }) },
                 OptionsChildEntity("Test open new window") { startActivity(Intent(this, WebViewActivity::class.java).apply { putExtra(PARAMS_LINK_URL, "file:///android_asset/index_open_tab.html") }) },
-                OptionsChildEntity("Google Custom Tab") { startActivity(Intent(this, CustomTabExampleActivity::class.java)) })),
+                OptionsChildEntity("Google Custom Tab") { startActivity(Intent(this, CustomTabExampleActivity::class.java)) },
+                OptionsChildEntity("Reserve Page") { startActivity(Intent(this, WebViewFrontPageActivity::class.java)) }
+            )),
             OptionsEntity("Tripartite sdk", containerTest = arrayListOf(
                 OptionsChildEntity("Tripartite Login") { startActivity(Intent(this, TripartiteLoginActivity::class.java)) },
                 OptionsChildEntity("Tripartite Share") { startActivity(Intent(this, TripartiteShareActivity::class.java)) },
@@ -205,7 +208,7 @@ class HomeActivity : AppCompatActivity() {
 
     private fun isPostNotificationPermissionNotGranted(): Boolean {
         return Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU &&
-                ActivityCompat.checkSelfPermission(this, Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED
+            ActivityCompat.checkSelfPermission(this, Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED
     }
 
     private fun showPermissionStatementDialog() {
