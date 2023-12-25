@@ -133,7 +133,6 @@ class ReservePageExampleActivity : AppCompatActivity() {
         webView?.run {
             loadDataWithBaseURL(null, "", "text/html", "utf-8", null)
             clearHistory()
-            clearCache(false)
             binding.root.removeView(this)
             destroy()
         }
