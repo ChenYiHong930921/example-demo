@@ -63,6 +63,7 @@ import com.chenyihong.exampledemo.entity.OptionsChildEntity
 import com.chenyihong.exampledemo.flavor.FlavorExampleActivity
 import com.chenyihong.exampledemo.tripartite.admob.AdmobExampleActivity
 import com.chenyihong.exampledemo.tripartite.admob.AppOpenAdManager
+import com.chenyihong.exampledemo.tripartite.admob.BannerTestActivity
 import com.chenyihong.exampledemo.tripartite.dom4j.Dom4jExampleActivity
 import com.chenyihong.exampledemo.tripartite.login.TripartiteLoginActivity
 import com.chenyihong.exampledemo.tripartite.share.TripartiteShareActivity
@@ -185,6 +186,7 @@ class HomeActivity : AppCompatActivity() {
                 OptionsChildEntity("Tripartite Login") { startActivity(Intent(this, TripartiteLoginActivity::class.java)) },
                 OptionsChildEntity("Tripartite Share") { startActivity(Intent(this, TripartiteShareActivity::class.java)) },
                 OptionsChildEntity("Admob Advertise") { startActivity(Intent(this, AdmobExampleActivity::class.java)) },
+                OptionsChildEntity("Banner Container") { startActivity(Intent(this, BannerTestActivity::class.java)) },
                 OptionsChildEntity("dom4j") { startActivity(Intent(this, Dom4jExampleActivity::class.java)) }
             )),
             OptionsEntity("Product Flavor", containerTest = arrayListOf(

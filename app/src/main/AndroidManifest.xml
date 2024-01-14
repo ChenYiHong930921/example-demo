@@ -503,5 +503,6 @@
 
         <activity android:name=".web.reserve.WebViewFrontPageActivity" />
         <activity android:name=".web.reserve.ReservePageExampleActivity" />
+        <activity android:name=".tripartite.admob.BannerTestActivity" />
     </application>
 </manifest>
