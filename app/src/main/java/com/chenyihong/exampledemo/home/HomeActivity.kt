@@ -65,6 +65,7 @@ import com.chenyihong.exampledemo.tripartite.admob.AdmobExampleActivity
 import com.chenyihong.exampledemo.tripartite.admob.AppOpenAdManager
 import com.chenyihong.exampledemo.tripartite.admob.BannerTestActivity
 import com.chenyihong.exampledemo.tripartite.dom4j.Dom4jExampleActivity
+import com.chenyihong.exampledemo.localserver.LocalServerExampleActivity
 import com.chenyihong.exampledemo.tripartite.login.TripartiteLoginActivity
 import com.chenyihong.exampledemo.tripartite.share.TripartiteShareActivity
 import com.chenyihong.exampledemo.web.PARAMS_LINK_URL
@@ -175,6 +176,9 @@ class HomeActivity : AppCompatActivity() {
                 OptionsChildEntity("Custom Expandable Flow Layout") { startActivity(Intent(this, CustomExpandableFlowLayoutActivity::class.java)) },
                 OptionsChildEntity("ItemDecoration") { startActivity(Intent(this, CustomItemDecorationExampleActivity::class.java)) }
             )),
+            OptionsEntity("Local server", containerTest = arrayListOf(
+                OptionsChildEntity("Test local server") { startActivity(Intent(this, LocalServerExampleActivity::class.java)) }
+            )),
             OptionsEntity("WebView", containerTest = arrayListOf(
                 OptionsChildEntity("Test Js interaction") { startActivity(Intent(this, WebViewActivity::class.java).apply { putExtra(PARAMS_LINK_URL, "file:///android_asset/index.html") }) },
                 OptionsChildEntity("Test intercept request") { startActivity(Intent(this, WebViewActivity::class.java).apply { putExtra(PARAMS_LINK_URL, "file:///android_asset/index_intercept_request.html") }) },
@@ -210,7 +214,7 @@ class HomeActivity : AppCompatActivity() {
 
     private fun isPostNotificationPermissionNotGranted(): Boolean {
         return Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU &&
-            ActivityCompat.checkSelfPermission(this, Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED
+                ActivityCompat.checkSelfPermission(this, Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED
     }
 
     private fun showPermissionStatementDialog() {

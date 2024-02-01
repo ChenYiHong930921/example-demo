@@ -2,9 +2,11 @@ plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
     id 'kotlin-parcelize'
+    id("kotlin-kapt")
     id 'com.google.devtools.ksp'
     id 'com.google.gms.google-services'
     id 'com.google.android.libraries.mapsplatform.secrets-gradle-plugin'
+    id 'com.yanzhenjie.andserver'
 }
 
 android {
@@ -201,4 +203,8 @@ dependencies {
     // map
     implementation 'com.android.volley:volley:1.2.1'
     implementation 'com.google.android.libraries.maps:maps:3.1.0-beta'
+
+    implementation("org.nanohttpd:nanohttpd:2.3.1")
+    implementation("com.yanzhenjie.andserver:api:2.1.12")
+    kapt("com.yanzhenjie.andserver:processor:2.1.12")
 }
