@@ -29,8 +29,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:text="open AndServer"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toStartOf="@id/btn_close_andserver"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/btn_open_nanohttpd" />
 
     <androidx.appcompat.widget.AppCompatButton
@@ -43,13 +43,23 @@
         app:layout_constraintTop_toTopOf="@id/btn_open_andserver" />
 
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/btn_open_website"
+        android:id="@+id/btn_open_assets_website"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:text="open website"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:text="open assets website"
+        app:layout_constraintEnd_toStartOf="@id/btn_open_storage_website"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/btn_open_andserver" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_open_storage_website"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="open storage website"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/btn_open_assets_website"
         app:layout_constraintTop_toBottomOf="@id/btn_open_andserver" />
 
     <FrameLayout
@@ -59,7 +69,7 @@
         android:layout_marginTop="20dp"
         android:background="@color/color_black_363636"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/btn_open_website" />
+        app:layout_constraintTop_toBottomOf="@id/btn_open_assets_website" />
 
     <androidx.core.widget.ContentLoadingProgressBar
         android:id="@+id/pb_web_load_progress"
