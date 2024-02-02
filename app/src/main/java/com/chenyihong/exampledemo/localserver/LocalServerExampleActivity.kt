@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.webkit.ConsoleMessage
+import android.webkit.JavascriptInterface
 import android.webkit.WebChromeClient
 import android.webkit.WebResourceRequest
 import android.webkit.WebResourceResponse
@@ -20,6 +21,9 @@ import androidx.core.view.WindowInsetsControllerCompat
 import androidx.media3.common.util.UnstableApi
 import com.chenyihong.exampledemo.databinding.LayoutLocalServerExampleActivityBinding
 import com.chenyihong.exampledemo.localserver.nanohttpd.NanoHttpdServer
+import com.chenyihong.exampledemo.web.JsInteractive
+import com.chenyihong.exampledemo.web.TAG
+import com.google.android.material.snackbar.Snackbar
 import com.yanzhenjie.andserver.AndServer
 import com.yanzhenjie.andserver.Server
 import fi.iki.elonen.NanoHTTPD
@@ -35,6 +39,23 @@ class LocalServerExampleActivity : AppCompatActivity() {
     private var nanoHttpdServer: NanoHttpdServer? = null
 
     private var andServer: Server? = null
+
+    private val jsInteractive: JsInteractive = object : JsInteractive {
+
+        @JavascriptInterface
+        override fun jsCallAndroid() {
+        }
+
+        @JavascriptInterface
+        override fun jsCallAndroidWithParams(params: String) {
+            val message = "receive jsCallAndroidWithParams params:$params"
+            showSnakeBar(message)
+        }
+
+        @JavascriptInterface
+        override fun getPersonJsonArray() {
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -81,8 +102,8 @@ class LocalServerExampleActivity : AppCompatActivity() {
         }
         binding.btnOpenWebsite.setOnClickListener {
             when {
-                nanoHttpdServer?.isAlive == true -> mainWebView?.loadUrl("http://localhost:8080/localweb/index_open_tab.html")
-                andServer?.isRunning == true -> mainWebView?.loadUrl("http://localhost:8080/index_open_tab.html")
+                nanoHttpdServer?.isAlive == true -> mainWebView?.loadUrl("http://localhost:8080/localweb/local_server_example_index.html")
+                andServer?.isRunning == true -> mainWebView?.loadUrl("http://localhost:8080/local_server_example_index.html")
             }
         }
     }
@@ -108,6 +129,7 @@ class LocalServerExampleActivity : AppCompatActivity() {
             settings.javaScriptCanOpenWindowsAutomatically = true
             settings.setSupportMultipleWindows(true)
 
+            addJavascriptInterface(jsInteractive, "JsInteractive")
             webChromeClient = object : WebChromeClient() {
                 override fun onConsoleMessage(consoleMessage: ConsoleMessage?): Boolean {
                     consoleMessage?.run {
@@ -134,12 +156,24 @@ class LocalServerExampleActivity : AppCompatActivity() {
                     }
                 }
 
+                override fun onPageFinished(view: WebView?, url: String?) {
+                    super.onPageFinished(view, url)
+                    view?.loadUrl("javascript:androidCallJsWithParams(\"${"message from LocalServerExampleActivity"}\")")
+                }
+
                 override fun shouldInterceptRequest(view: WebView?, request: WebResourceRequest?): WebResourceResponse? {
                     return super.shouldInterceptRequest(view, request)
                 }
             }
 
             WebView.setWebContentsDebuggingEnabled(true)
+        }
+    }
+
+    private fun showSnakeBar(message: String) {
+        Log.i(TAG, message)
+        runOnUiThread {
+            Snackbar.make(binding.root, message, Snackbar.LENGTH_SHORT).show()
         }
     }
 

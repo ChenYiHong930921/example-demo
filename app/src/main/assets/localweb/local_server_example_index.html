@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang=zh-CN>
+<head>
+    <meta charset=utf-8>
+    <title>test</title>
+    <script>
+        function jsCallAndroidWithParams(){
+           JsInteractive.jsCallAndroidWithParams('Js params to android')
+        }
+
+        function androidCallJsWithParams(arg){
+           document.getElementById("message").innerHTML += (arg);
+        }
+    </script>
+</head>
+<body>
+<div style="position:relative;left:40px;top:100px">
+    <p id='message' style="font-size:24px;position:relative;top:20px">receive:</p>
+    <button type="button" style="width:280px;height:88px;font-size:24px;position:relative;left:20px"
+            onclick="jsCallAndroidWithParams()">
+        jsCallAndroidWithParams
+    </button>
+</div>
+<div style="position:relative;left:40px;top:120px">
+    <img src="test_icon.jpg" alt="test image">
+</div>
+<div style="position:relative;left:40px;top:140px">
+    <video controls>
+        <source src="test_video.mp4" type="video/mp4"/>
+    </video>
+</div>
+</body>
+</html>
