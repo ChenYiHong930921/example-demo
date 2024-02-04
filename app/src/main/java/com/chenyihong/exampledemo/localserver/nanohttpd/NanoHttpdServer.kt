@@ -20,11 +20,11 @@ class NanoHttpdServer(private val context: Context) : NanoHTTPD(8080) {
         var mimeType = "*/*"
         session?.run {
             try {
+                // 根据链接获取 mimeType
                 mimeType = URLConnection.getFileNameMap().getContentTypeFor(session.uri)
             } catch (e: Exception) {
                 e.printStackTrace()
             }
-            Log.i("testlog", "uri:${uri}, mimeType:$mimeType")
         }
         return try {
             val uri = session?.uri
@@ -32,18 +32,15 @@ class NanoHttpdServer(private val context: Context) : NanoHTTPD(8080) {
                 super.serve(session)
             } else {
                 if (openFromStorage) {
+                    // 打开存储空间内的H5资源
                     newChunkedResponse(Response.Status.OK, mimeType, FileInputStream(File(if (Environment.MEDIA_MOUNTED == Environment.getExternalStorageState()) {
                         File(context.getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS), context.packageName)
                     } else {
                         File(context.filesDir, context.packageName)
                     }, uri)))
                 } else {
-                    val assetsStream = ExampleApplication.exampleContext?.assets?.open(uri.substring(1))
-                    if (assetsStream != null) {
-                        newChunkedResponse(Response.Status.OK, mimeType, assetsStream)
-                    } else {
-                        super.serve(session)
-                    }
+                    // 打开assets下的H5资源
+                    newChunkedResponse(Response.Status.OK, mimeType, context.assets.open(uri.substring(1)))
                 }
             }
         } catch (e: Exception) {

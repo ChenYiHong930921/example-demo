@@ -88,6 +88,10 @@ class LocalServerExampleActivity : AppCompatActivity() {
             nanoHttpdServer?.run {
                 if (isAlive) {
                     closeAllConnections()
+                    mainWebView?.run {
+                        clearHistory()
+                        loadDataWithBaseURL(null, "", "text/html", "utf-8", null)
+                    }
                 }
             }
         }
@@ -96,10 +100,6 @@ class LocalServerExampleActivity : AppCompatActivity() {
                 andServer = it
                 if (!it.isRunning) {
                     it.startup()
-                    mainWebView?.run {
-                        clearHistory()
-                        loadDataWithBaseURL(null, "", "text/html", "utf-8", null)
-                    }
                 }
             }
         }
