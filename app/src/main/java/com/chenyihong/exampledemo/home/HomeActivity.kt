@@ -95,7 +95,6 @@ class HomeActivity : AppCompatActivity() {
     }
 
     @UnstableApi
-    @Suppress("KotlinConstantConditions")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         installSplashScreen()
