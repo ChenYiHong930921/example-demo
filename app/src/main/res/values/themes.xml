@@ -48,6 +48,11 @@
         <item name="android:backgroundDimEnabled">true</item>
     </style>
 
+    <style name="TransparentAdActivity" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowIsTranslucent">true</item>
+    </style>
+
     <style name="LoadingDialog">
         <item name="android:windowBackground">@android:color/transparent</item>
         <item name="android:windowFrame">@null</item>

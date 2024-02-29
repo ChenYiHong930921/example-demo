@@ -62,10 +62,11 @@ import com.chenyihong.exampledemo.databinding.LayoutHomeActivityBinding
 import com.chenyihong.exampledemo.entity.OptionsChildEntity
 import com.chenyihong.exampledemo.flavor.FlavorExampleActivity
 import com.chenyihong.exampledemo.tripartite.admob.AdmobExampleActivity
-import com.chenyihong.exampledemo.tripartite.admob.AppOpenAdManager
-import com.chenyihong.exampledemo.tripartite.admob.BannerTestActivity
+import com.chenyihong.exampledemo.tripartite.admob.openad.AppOpenAdManager
+import com.chenyihong.exampledemo.tripartite.admob.banner.BannerTestActivity
 import com.chenyihong.exampledemo.tripartite.dom4j.Dom4jExampleActivity
 import com.chenyihong.exampledemo.localserver.LocalServerExampleActivity
+import com.chenyihong.exampledemo.tripartite.admob.multipleprocess.MainProcessActivity
 import com.chenyihong.exampledemo.tripartite.admob.nativeadinlist.NativeAdInListExampleActivity
 import com.chenyihong.exampledemo.tripartite.login.TripartiteLoginActivity
 import com.chenyihong.exampledemo.tripartite.share.TripartiteShareActivity
@@ -191,6 +192,7 @@ class HomeActivity : AppCompatActivity() {
                 OptionsChildEntity("Tripartite Share") { startActivity(Intent(this, TripartiteShareActivity::class.java)) },
                 OptionsChildEntity("Admob Advertise") { startActivity(Intent(this, AdmobExampleActivity::class.java)) },
                 OptionsChildEntity("Native ad in list") { startActivity(Intent(this, NativeAdInListExampleActivity::class.java)) },
+                OptionsChildEntity("multiple process") { startActivity(Intent(this, MainProcessActivity::class.java)) },
                 OptionsChildEntity("Banner Container") { startActivity(Intent(this, BannerTestActivity::class.java)) },
                 OptionsChildEntity("dom4j") { startActivity(Intent(this, Dom4jExampleActivity::class.java)) }
             )),

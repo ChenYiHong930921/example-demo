@@ -6,7 +6,7 @@
 
         <!--自定义启动页-->
         <activity
-            android:name="com.chenyihong.exampledemo.tripartite.admob.AppOpenAdActivity"
+            android:name="com.chenyihong.exampledemo.tripartite.admob.openad.AppOpenAdActivity"
             android:exported="true"
             android:screenOrientation="portrait">
 

@@ -1,8 +1,9 @@
-package com.chenyihong.exampledemo.tripartite.admob
+package com.chenyihong.exampledemo.tripartite.admob.openad
 
 import android.app.Activity
 import android.content.Context
 import android.util.Log
+import com.chenyihong.exampledemo.tripartite.admob.TAG
 import com.google.android.gms.ads.AdError
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.FullScreenContentCallback

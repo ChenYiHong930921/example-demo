@@ -1,4 +1,4 @@
-package com.chenyihong.exampledemo.tripartite.admob
+package com.chenyihong.exampledemo.tripartite.admob.banner
 
 import android.app.Activity
 import android.util.Log
@@ -9,6 +9,7 @@ import android.widget.FrameLayout
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.updateLayoutParams
 import com.chenyihong.exampledemo.R
+import com.chenyihong.exampledemo.tripartite.admob.TAG
 import com.google.android.gms.ads.AdListener
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.AdSize
@@ -17,7 +18,7 @@ import com.google.android.gms.ads.LoadAdError
 import com.google.android.gms.ads.MobileAds
 import com.google.android.gms.ads.initialization.AdapterStatus
 
-class AdMobController {
+class BannerAdvetiseController {
 
     private var bannerAdView: AdView? = null
 

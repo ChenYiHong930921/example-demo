@@ -1,4 +1,4 @@
-package com.chenyihong.exampledemo.tripartite.admob
+package com.chenyihong.exampledemo.tripartite.admob.banner
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
@@ -14,7 +14,7 @@ class BannerTestActivity : AppCompatActivity() {
             setContentView(root)
         }
 
-        val controller = AdMobController().apply {
+        val controller = BannerAdvetiseController().apply {
             initSdk(this@BannerTestActivity) { succeed ->
                 binding.btnShowBanner.isEnabled = succeed
                 binding.btnHideBanner.isEnabled = succeed

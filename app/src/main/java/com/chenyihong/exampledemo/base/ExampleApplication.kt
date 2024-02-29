@@ -4,8 +4,10 @@ import android.annotation.SuppressLint
 import android.app.Activity
 import android.app.Application
 import android.content.Context
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
+import android.webkit.WebView
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
 import androidx.lifecycle.LifecycleOwner
@@ -13,7 +15,7 @@ import androidx.lifecycle.ProcessLifecycleOwner
 import androidx.media3.common.util.UnstableApi
 import com.chenyihong.exampledemo.BuildConfig
 import com.chenyihong.exampledemo.androidapi.media3.CacheController
-import com.chenyihong.exampledemo.tripartite.admob.AppOpenAdManager
+import com.chenyihong.exampledemo.tripartite.admob.openad.AppOpenAdManager
 import com.chenyihong.exampledemo.tripartite.admob.TAG
 import com.google.android.gms.ads.MobileAds
 import com.google.android.gms.ads.initialization.AdapterStatus
@@ -24,6 +26,8 @@ import kotlinx.coroutines.launch
 
 @UnstableApi
 class ExampleApplication : Application() {
+
+    private val defaultProcessName = "com.chenyihong.exampledemo"
 
     companion object {
         @SuppressLint("StaticFieldLeak")
@@ -113,5 +117,16 @@ class ExampleApplication : Application() {
             e.printStackTrace()
         }
         return super.getPackageName()
+    }
+
+    override fun attachBaseContext(base: Context?) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+            getProcessName().let {
+                if (defaultProcessName != it) {
+                    WebView.setDataDirectorySuffix(it)
+                }
+            }
+        }
+        super.attachBaseContext(base)
     }
 }

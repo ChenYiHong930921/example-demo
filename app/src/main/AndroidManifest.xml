@@ -504,8 +504,16 @@
 
         <activity android:name=".web.reserve.WebViewFrontPageActivity" />
         <activity android:name=".web.reserve.ReservePageExampleActivity" />
-        <activity android:name=".tripartite.admob.BannerTestActivity" />
+
+        <activity android:name=".tripartite.admob.banner.BannerTestActivity" />
         <activity android:name=".tripartite.admob.nativeadinlist.NativeAdInListExampleActivity" />
+        <activity android:name=".tripartite.admob.multipleprocess.MainProcessActivity" />
+        <activity
+            android:name=".tripartite.admob.multipleprocess.TransparentAdActivity"
+            android:theme="@style/TransparentAdActivity" />
+        <activity
+            android:name=".tripartite.admob.multipleprocess.SubProcessActivity"
+            android:process=":subprocess" />
 
         <activity android:name=".localserver.LocalServerExampleActivity" />
     </application>

@@ -1,4 +1,4 @@
-package com.chenyihong.exampledemo.tripartite.admob
+package com.chenyihong.exampledemo.tripartite.admob.openad
 
 import android.content.Intent
 import android.os.Bundle
