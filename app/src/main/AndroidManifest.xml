@@ -115,9 +115,9 @@
             android:name="channel_value"
             android:value="${channel_value}" />
 
-        <meta-data
+        <!--<meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="${MAPS_API_KEY}" />
+            android:value="${MAPS_API_KEY}" />-->
 
         <activity
             android:name=".customview.CustomChartViewActivity"
@@ -516,5 +516,10 @@
             android:process=":subprocess" />
 
         <activity android:name=".localserver.LocalServerExampleActivity" />
+
+        <activity android:name=".scan.ScanLoginExampleActivity" />
+        <activity android:name=".scan.DeviceExampleActivity" />
+        <activity android:name=".scan.AppScanExampleActivity" />
+        <activity android:name=".scan.ScanQRCodeActivity" />
     </application>
 </manifest>

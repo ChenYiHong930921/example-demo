@@ -66,6 +66,7 @@ import com.chenyihong.exampledemo.tripartite.admob.openad.AppOpenAdManager
 import com.chenyihong.exampledemo.tripartite.admob.banner.BannerTestActivity
 import com.chenyihong.exampledemo.tripartite.dom4j.Dom4jExampleActivity
 import com.chenyihong.exampledemo.localserver.LocalServerExampleActivity
+import com.chenyihong.exampledemo.scan.ScanLoginExampleActivity
 import com.chenyihong.exampledemo.tripartite.admob.multipleprocess.MainProcessActivity
 import com.chenyihong.exampledemo.tripartite.admob.nativeadinlist.NativeAdInListExampleActivity
 import com.chenyihong.exampledemo.tripartite.login.TripartiteLoginActivity
@@ -179,6 +180,9 @@ class HomeActivity : AppCompatActivity() {
             )),
             OptionsEntity("Local server", containerTest = arrayListOf(
                 OptionsChildEntity("Test local server") { startActivity(Intent(this, LocalServerExampleActivity::class.java)) }
+            )),
+            OptionsEntity("Scan Login", containerTest = arrayListOf(
+                OptionsChildEntity("Test Scan Login") { startActivity(Intent(this, ScanLoginExampleActivity::class.java)) }
             )),
             OptionsEntity("WebView", containerTest = arrayListOf(
                 OptionsChildEntity("Test Js interaction") { startActivity(Intent(this, WebViewActivity::class.java).apply { putExtra(PARAMS_LINK_URL, "file:///android_asset/index.html") }) },
