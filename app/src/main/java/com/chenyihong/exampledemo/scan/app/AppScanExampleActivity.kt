@@ -3,8 +3,11 @@ package com.chenyihong.exampledemo.scan.app
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.WindowInsetsControllerCompat
 import com.chenyihong.exampledemo.databinding.LayoutAppScanExampleActivityBinding
 import com.chenyihong.exampledemo.api.OkHttpHelper
 import com.chenyihong.exampledemo.scan.server.DEVICE_ID
@@ -45,6 +48,7 @@ class AppScanExampleActivity : AppCompatActivity() {
                 showSnakeBar("Server ip can not be empty")
                 return@setOnClickListener
             }
+            hideKeyboard(binding.etInputIp)
             scanQRCodeLauncher.launch(Intent(this, ScanQRCodeActivity::class.java))
         }
     }
@@ -59,6 +63,11 @@ class AppScanExampleActivity : AppCompatActivity() {
                 showSnakeBar("Scan login failure")
             }
         })
+    }
+
+    private fun hideKeyboard(view: View) {
+        view.clearFocus()
+        WindowInsetsControllerCompat(window, view).hide(WindowInsetsCompat.Type.ime())
     }
 
     private fun showSnakeBar(message: String) {
