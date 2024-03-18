@@ -18,7 +18,7 @@ class ScanLoginExampleActivity : AppCompatActivity() {
             setContentView(it.root)
             it.includeTitle.tvTitle.text = "Scan Login Example"
             it.btnOpenDeviceExample.setOnClickListener {
-                // 设备端同时启动服务
+                // 打开被扫端同时启动服务
                 ServerController.startServer()
                 startActivity(Intent(this, DeviceExampleActivity::class.java))
             }
