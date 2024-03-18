@@ -10,13 +10,21 @@ object ServerController {
     fun startServer() {
         (serverSocketClient ?: ServerSocketClient().also {
             serverSocketClient = it
-        }).start(0)
+        }).run {
+            if (!isAlive) {
+                start(0)
+            }
+        }
 
         (serverHttpClient ?: ServerHttpClient {
             serverSocketClient?.sendMessage("Login Succeed, user id is $it")
         }.also {
             serverHttpClient = it
-        }).start(NanoHTTPD.SOCKET_READ_TIMEOUT, true)
+        }).run {
+            if (!isAlive) {
+                start(NanoHTTPD.SOCKET_READ_TIMEOUT, true)
+            }
+        }
     }
 
     fun stopServer() {
