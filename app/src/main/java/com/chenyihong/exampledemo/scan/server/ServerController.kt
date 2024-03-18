@@ -12,7 +12,9 @@ object ServerController {
             serverSocketClient = it
         }).start(0)
 
-        (serverHttpClient ?: ServerHttpClient().also {
+        (serverHttpClient ?: ServerHttpClient {
+            serverSocketClient?.sendMessage("Login Succeed, user id is $it")
+        }.also {
             serverHttpClient = it
         }).start(NanoHTTPD.SOCKET_READ_TIMEOUT, true)
     }

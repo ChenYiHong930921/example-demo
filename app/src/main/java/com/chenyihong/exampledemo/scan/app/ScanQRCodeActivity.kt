@@ -1,9 +1,7 @@
-package com.chenyihong.exampledemo.scan
+package com.chenyihong.exampledemo.scan.app
 
 import android.app.Activity
 import android.content.Intent
-import android.util.Log
-import com.chenyihong.exampledemo.scan.server.TEST_LOG
 import com.google.zxing.Result
 import com.king.camera.scan.AnalyzeResult
 import com.king.camera.scan.CameraScan
@@ -29,9 +27,9 @@ class ScanQRCodeActivity : BarcodeCameraScanActivity() {
     }
 
     override fun onScanResultCallback(result: AnalyzeResult<Result>) {
-        Log.i(TEST_LOG, "onScanResultCallback result:$result")
         // 已获取结果，停止识别二维码
         cameraScan.setAnalyzeImage(false)
+        // 返回扫码结果
         setResult(Activity.RESULT_OK, Intent().apply {
             putExtra(CameraScan.SCAN_RESULT, result.result.text)
         })

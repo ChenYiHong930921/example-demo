@@ -518,8 +518,8 @@
         <activity android:name=".localserver.LocalServerExampleActivity" />
 
         <activity android:name=".scan.ScanLoginExampleActivity" />
-        <activity android:name=".scan.DeviceExampleActivity" />
-        <activity android:name=".scan.AppScanExampleActivity" />
-        <activity android:name=".scan.ScanQRCodeActivity" />
+        <activity android:name=".scan.device.DeviceExampleActivity" />
+        <activity android:name=".scan.app.AppScanExampleActivity" />
+        <activity android:name=".scan.app.ScanQRCodeActivity" />
     </application>
 </manifest>

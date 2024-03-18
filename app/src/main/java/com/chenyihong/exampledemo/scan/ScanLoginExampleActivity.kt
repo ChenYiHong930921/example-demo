@@ -4,6 +4,8 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.chenyihong.exampledemo.databinding.LayoutScanLoginExampleActivityBinding
+import com.chenyihong.exampledemo.scan.app.AppScanExampleActivity
+import com.chenyihong.exampledemo.scan.device.DeviceExampleActivity
 import com.chenyihong.exampledemo.scan.server.ServerController
 
 class ScanLoginExampleActivity : AppCompatActivity() {
@@ -14,9 +16,12 @@ class ScanLoginExampleActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = LayoutScanLoginExampleActivityBinding.inflate(layoutInflater).also {
             setContentView(it.root)
-            ServerController.startServer()
             it.includeTitle.tvTitle.text = "Scan Login Example"
-            it.btnOpenDeviceExample.setOnClickListener { startActivity(Intent(this, DeviceExampleActivity::class.java)) }
+            it.btnOpenDeviceExample.setOnClickListener {
+                // 设备端同时启动服务
+                ServerController.startServer()
+                startActivity(Intent(this, DeviceExampleActivity::class.java))
+            }
             it.btnOpenAppExample.setOnClickListener { startActivity(Intent(this, AppScanExampleActivity::class.java)) }
         }
     }
