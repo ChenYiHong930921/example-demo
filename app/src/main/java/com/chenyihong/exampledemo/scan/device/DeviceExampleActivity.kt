@@ -17,7 +17,7 @@ class DeviceExampleActivity : AppCompatActivity() {
     private lateinit var binding: LayoutDeviceExampleActivityBinding
 
     private var socketHelper: DevicesSocketHelper? = DevicesSocketHelper() { message ->
-        // 接收到服务端发来的消息，改变现实内容
+        // 接收到服务端发来的消息，改变显示内容
         runOnUiThread {
             binding.tvUserInfo.text = message
             binding.ivQrCode.visibility = View.GONE
