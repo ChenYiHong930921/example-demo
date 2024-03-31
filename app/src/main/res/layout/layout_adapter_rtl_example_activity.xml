@@ -14,7 +14,6 @@
         android:background="@color/color_00A5FF"
         android:padding="10dp"
         android:text="use left or right"
-        android:visibility="gone"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -27,7 +26,6 @@
         android:background="@color/color_49E284"
         android:padding="10dp"
         android:text="use start or end"
-        android:visibility="gone"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tv_use_left_right" />
 
@@ -38,7 +36,6 @@
         android:layout_marginTop="20dp"
         android:background="@color/color_00A5FF"
         android:padding="10dp"
-        android:visibility="gone"
         app:layout_constraintEnd_toStartOf="@id/tv_number_format_example"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tv_use_start_end"
@@ -50,7 +47,6 @@
         android:layout_height="wrap_content"
         android:background="@color/color_49E284"
         android:padding="10dp"
-        android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/tv_number_example"
         app:layout_constraintTop_toTopOf="@id/tv_number_example"
@@ -77,4 +73,26 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tv_multi_language" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_add_data"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="set data"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_multi_language_format" />
+
+    <com.chenyihong.exampledemo.customview.view.ExpandableFlowLayout
+        android:id="@+id/efl_example_data_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:background="@color/color_blue_0083ff"
+        app:default_expand_status="false"
+        app:default_show_row="2"
+        app:layout_constraintTop_toBottomOf="@id/btn_add_data" />
 </androidx.constraintlayout.widget.ConstraintLayout>

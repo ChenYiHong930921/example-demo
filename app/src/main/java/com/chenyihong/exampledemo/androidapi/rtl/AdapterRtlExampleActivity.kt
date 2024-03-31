@@ -12,6 +12,7 @@ class AdapterRtlExampleActivity : AppCompatActivity() {
 
     private val exampleInt = 100102
     private val exampleText = "15 Bay Street, Laurel, CA"
+    private val exampleData = arrayOf("测试测试测试测试", "aadaada", "hahaha", "这是一个测试数据", "yyddd", "测试用测试用", "test data", "example", "akdjfj", "yyds")
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -24,5 +25,14 @@ class AdapterRtlExampleActivity : AppCompatActivity() {
 
         binding.tvMultiLanguage.text = getString(R.string.adapter_rlt_test, exampleText)
         binding.tvMultiLanguageFormat.text = getString(R.string.adapter_rlt_test, BidiFormatter.getInstance().unicodeWrap(exampleText))
+
+        binding.btnAddData.setOnClickListener {
+            val data = ArrayList<String>()
+            // 从测试数据中随机生成8个元素
+            repeat(8) {
+                data.add(exampleData.random())
+            }
+            binding.eflExampleDataContainer.setData(data)
+        }
     }
 }

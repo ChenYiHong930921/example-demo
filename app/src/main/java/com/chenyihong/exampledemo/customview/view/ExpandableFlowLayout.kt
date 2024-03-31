@@ -9,8 +9,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.widget.AppCompatImageView
 import androidx.appcompat.widget.AppCompatTextView
+import androidx.core.text.TextUtilsCompat
 import com.chenyihong.exampledemo.R
 import com.chenyihong.exampledemo.utils.DensityUtil
+import java.util.Locale
 
 class ExpandableFlowLayout : ViewGroup {
 
@@ -26,6 +28,8 @@ class ExpandableFlowLayout : ViewGroup {
 
     private var elementDividerVertical: Int = DensityUtil.dp2Px(8)
     private var elementDividerHorizontal: Int = DensityUtil.dp2Px(8)
+
+    private var isRtl = false
 
     var elementClickCallback: ((content: String) -> Unit)? = null
 
@@ -53,6 +57,8 @@ class ExpandableFlowLayout : ViewGroup {
                 requestLayout()
             }
         }
+        // 判断当前是否为RTL
+        isRtl = TextUtilsCompat.getLayoutDirectionFromLocale(Locale.getDefault()) == View.LAYOUT_DIRECTION_RTL
     }
 
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
@@ -110,7 +116,10 @@ class ExpandableFlowLayout : ViewGroup {
         val availableWidth = right - left
         var usedWidth = defaultHorizontalSpace
 
-        var positionX = paddingStart
+        // RTL模式下，从右侧开始添加View
+        // 需要注意的是，LTR和RTL模式下，marginStart、marginEnd、paddingStart和PaddingEnd获取的值是一致的
+        // 因此需要自己处理不同模式下的边距
+        var positionX = if (isRtl) availableWidth - paddingEnd else paddingStart
         var positionY = paddingTop
 
         var rowCount = 1
@@ -139,20 +148,26 @@ class ExpandableFlowLayout : ViewGroup {
                     // 重置已用宽度
                     usedWidth = defaultHorizontalSpace
                     // 新行开始的x轴坐标重置
-                    positionX = paddingStart
+                    positionX = if (isRtl) availableWidth - paddingEnd else paddingStart
                     // 新行开始的y轴坐标增加
                     positionY += realChildViewUsedHeight
                 }
 
-                childView.layout(positionX, positionY, positionX + childView.measuredWidth, positionY + childView.measuredHeight)
-                positionX += realChildViewUsedWidth
+                if (isRtl) {
+                    // RTL模式下，从右侧开始添加View
+                    childView.layout(positionX - childView.measuredWidth, positionY, positionX, positionY + childView.measuredHeight)
+                    positionX -= realChildViewUsedWidth
+                } else {
+                    childView.layout(positionX, positionY, positionX + childView.measuredWidth, positionY + childView.measuredHeight)
+                    positionX += realChildViewUsedWidth
+                }
                 usedWidth += realChildViewUsedWidth
 
                 if (index == childCount - 2 && expand && rowCount > defaultShowRow) {
                     // 展开状态下的最后一个元素，
                     // 此时判断能否再放下展开控件，不能则需要增加一行用于显示展开控件。
                     if (usedWidth + expandView.measuredWidth > availableWidth) {
-                        positionX = paddingStart
+                        positionX = if (isRtl) availableWidth - paddingEnd else paddingStart
                         // 新行开始的y轴坐标增加
                         positionY += realChildViewUsedHeight
                     }
@@ -160,7 +175,12 @@ class ExpandableFlowLayout : ViewGroup {
             }
         }
         if (measureNeedExpandView) {
-            expandView.layout(positionX, positionY, positionX + expandView.measuredWidth, positionY + expandView.measuredHeight)
+            if (isRtl) {
+                // RTL模式下，从右侧开始添加View
+                expandView.layout(positionX - expandView.measuredWidth, positionY, positionX, positionY + expandView.measuredHeight)
+            } else {
+                expandView.layout(positionX, positionY, positionX + expandView.measuredWidth, positionY + expandView.measuredHeight)
+            }
         } else {
             expandView.layout(0, 0, 0, 0)
         }
