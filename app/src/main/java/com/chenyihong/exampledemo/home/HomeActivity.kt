@@ -43,6 +43,7 @@ import com.chenyihong.exampledemo.androidapi.media3.Media3HomeActivity
 import com.chenyihong.exampledemo.androidapi.motionlayout.MotionLayoutExampleActivity
 import com.chenyihong.exampledemo.androidapi.recyclerview.AutoLoadMoreExampleActivity
 import com.chenyihong.exampledemo.androidapi.resultapi.ResultApiActivity
+import com.chenyihong.exampledemo.androidapi.rtl.AdapterRtlExampleActivity
 import com.chenyihong.exampledemo.androidapi.search.SearchExampleActivity
 import com.chenyihong.exampledemo.androidapi.sensor.SensorHomeActivity
 import com.chenyihong.exampledemo.androidapi.setting.SettingActivity
@@ -171,6 +172,7 @@ class HomeActivity : AppCompatActivity() {
                 OptionsChildEntity("RecyclerView auto load more") { startActivity(Intent(this, AutoLoadMoreExampleActivity::class.java)) },
                 OptionsChildEntity("Android 14") { startActivity(Intent(this, TargetSdk14AdapterExampleActivity::class.java)) },
                 OptionsChildEntity("DialogFragment") { startActivity(Intent(this, DialogFragmentExampleActivity::class.java)) },
+                OptionsChildEntity("Adapter Rtl") { startActivity(Intent(this, AdapterRtlExampleActivity::class.java)) },
             )),
             OptionsEntity("Custom View", containerTest = arrayListOf(
                 OptionsChildEntity("Custom Chart View") { startActivity(Intent(this, CustomChartViewActivity::class.java)) },

@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <string name="app_name" translatable="false">ExampleDemo</string>
     <string name="search_hint" translatable="false">Search information</string>
     <string name="google_login_client" translatable="false">905315689902-m8eun8m90h1arir0821797c3drnfu6hc.apps.googleusercontent.com</string>
@@ -24,5 +24,7 @@
     <string name="location_shortcuts_short_label" translatable="false">Using positioning</string>
     <string name="location_shortcuts_long_label" translatable="false">Get location information by positioning</string>
 
-    <string name="change_language_test">Hello World!</string>
+    <string name="change_language_test" tools:ignore="MissingTranslation">Hello World!</string>
+
+    <string name="adapter_rlt_test" tools:ignore="MissingTranslation">The receiving address is:%s</string>
 </resources>

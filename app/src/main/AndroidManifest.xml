@@ -521,5 +521,7 @@
         <activity android:name=".scan.device.DeviceExampleActivity" />
         <activity android:name=".scan.app.AppScanExampleActivity" />
         <activity android:name=".scan.app.ScanQRCodeActivity" />
+
+        <activity android:name=".androidapi.rtl.AdapterRtlExampleActivity" />
     </application>
 </manifest>
