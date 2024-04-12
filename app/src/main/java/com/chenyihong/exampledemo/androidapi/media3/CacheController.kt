@@ -8,14 +8,18 @@ import androidx.media3.datasource.DataSpec
 import androidx.media3.datasource.DefaultHttpDataSource
 import androidx.media3.datasource.cache.Cache
 import androidx.media3.datasource.cache.CacheDataSource
+import androidx.media3.datasource.cache.CacheSpan
 import androidx.media3.datasource.cache.CacheWriter
 import androidx.media3.datasource.cache.LeastRecentlyUsedCacheEvictor
 import androidx.media3.datasource.cache.SimpleCache
 import androidx.media3.exoplayer.source.MediaSource
 import androidx.media3.exoplayer.source.ProgressiveMediaSource
 import java.io.File
+import java.io.FileInputStream
+import java.io.FileOutputStream
 import java.net.HttpURLConnection
 import java.net.URL
+import java.util.NavigableSet
 import java.util.concurrent.ConcurrentHashMap
 
 @UnstableApi
@@ -28,14 +32,11 @@ class CacheController(context: Context) {
     private val cacheTask: ConcurrentHashMap<String, CacheWriter> = ConcurrentHashMap()
 
     init {
-        val cacheParentDirectory = if (Environment.MEDIA_MOUNTED == Environment.getExternalStorageState()) {
-            File(context.getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS), context.packageName)
-        } else {
-            File(context.filesDir, context.packageName)
-        }
-
         // 设置缓存目录和缓存机制，如果不需要清除缓存可以使用NoOpCacheEvictor
-        cache = SimpleCache(File(cacheParentDirectory, "example_media_cache"), LeastRecentlyUsedCacheEvictor(100 * 1024 * 1024), ExampleDatabaseProvider(context))
+        cache = SimpleCache(File(if (Environment.MEDIA_MOUNTED == Environment.getExternalStorageState()) context.getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS) else context.filesDir, "example_media_cache"),
+            LeastRecentlyUsedCacheEvictor(100 * 1024 * 1024),
+            ExampleDatabaseProvider(context)
+        )
         // 根据缓存目录创建缓存数据源
         cacheDataSourceFactory = CacheDataSource.Factory()
             .setCache(cache)
@@ -59,29 +60,26 @@ class CacheController(context: Context) {
             }
         }
 
-        fun cacheMedia(mediaSources: ArrayList<String>) {
+        fun cacheMedia(mediaUrl: String, key: String = "") {
             cacheController?.run {
-                mediaSources.forEach { mediaUrl ->
-                    // 创建CacheWriter缓存数据
-                    CacheWriter(
-                        cacheDataSource,
-                        DataSpec.Builder()
-                            // 设置资源链接
-                            .setUri(mediaUrl)
-                            // 设置需要缓存的大小（可以只缓存一部分）
-                            .setLength((getMediaResourceSize(mediaUrl) * 0.1).toLong())
-                            .build(),
-                        null
-                    ) { requestLength, bytesCached, newBytesCached ->
-                        Log.i("-,-,-", "requestLength:$requestLength, bytesCached$bytesCached, newBytesCached:$newBytesCached")
-                        // 缓冲进度变化时回调
-                        // requestLength 请求总大小
-                        // bytesCached 已缓冲的字节数
-                        // newBytesCached 新缓冲的字节数
-                    }.let { cacheWriter ->
-                        cacheWriter.cache()
-                        cacheTask[mediaUrl] = cacheWriter
-                    }
+                // 创建CacheWriter缓存数据
+                val dataSpecBuilder = DataSpec.Builder()
+                    // 设置资源链接
+                    .setUri(mediaUrl)
+                    // 设置需要缓存的大小（可以只缓存一部分）
+                    .setLength((getMediaResourceSize(mediaUrl) * 0.1).toLong())
+                if (key.isNotEmpty()) {
+                    dataSpecBuilder.setKey(key)
+                }
+                CacheWriter(cacheDataSource, dataSpecBuilder.build(), null) { requestLength, bytesCached, newBytesCached ->
+                    Log.i("-,-,-", "requestLength:$requestLength, bytesCached$bytesCached, newBytesCached:$newBytesCached")
+                    // 缓冲进度变化时回调
+                    // requestLength 请求总大小
+                    // bytesCached 已缓冲的字节数
+                    // newBytesCached 新缓冲的字节数
+                }.let { cacheWriter ->
+                    cacheWriter.cache()
+                    cacheTask[mediaUrl] = cacheWriter
                 }
             }
         }
@@ -98,6 +96,20 @@ class CacheController(context: Context) {
                 mediaSourceFactory = ProgressiveMediaSource.Factory(cacheDataSourceFactory)
             }
             return mediaSourceFactory
+        }
+
+        fun removeCache(key: String) {
+            cacheController?.cache?.removeResource(key)
+        }
+
+        fun transformCacheToVideo(context: Context): File? {
+            var transformFile: File? = null
+            cacheController?.cache?.run {
+                keys.firstOrNull()?.let {
+                    transformFile = cacheController?.transformCacheSpanToMp4(context, getCachedSpans(it))
+                }
+            }
+            return transformFile
         }
 
         fun release() {
@@ -120,5 +132,29 @@ class CacheController(context: Context) {
             e.printStackTrace()
         }
         return 0L
+    }
+
+    private fun transformCacheSpanToMp4(context: Context, cacheSpans: NavigableSet<CacheSpan>): File {
+        val targetMp4File = File(if (Environment.MEDIA_MOUNTED == Environment.getExternalStorageState()) {
+            context.getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS)
+        } else {
+            context.filesDir
+        }, "testVideo.mp4")
+        if (!targetMp4File.exists()) {
+            targetMp4File.createNewFile()
+            FileOutputStream(targetMp4File, true).use { output ->
+                cacheSpans.forEach { cacheSpan ->
+                    FileInputStream(cacheSpan.file).let { input ->
+                        val buffer = ByteArray(1024)
+                        var length: Int
+                        while (input.read(buffer).also { length = it } > 0) {
+                            output.write(buffer, 0, length)
+                        }
+                        input.close()
+                    }
+                }
+            }
+        }
+        return targetMp4File
     }
 }

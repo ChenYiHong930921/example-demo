@@ -6,6 +6,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.TextureView
 import androidx.core.content.ContextCompat
+import androidx.core.net.toUri
+import androidx.lifecycle.lifecycleScope
 import androidx.media3.common.MediaItem
 import androidx.media3.common.PlaybackException
 import androidx.media3.common.Player
@@ -16,6 +18,9 @@ import androidx.media3.session.SessionToken
 import com.chenyihong.exampledemo.androidapi.gesturedetector.BaseGestureDetectorActivity
 import com.chenyihong.exampledemo.databinding.LayoutMedia3ExampleActivityBinding
 import com.google.common.util.concurrent.ListenableFuture
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class Media3ExampleActivity : BaseGestureDetectorActivity<LayoutMedia3ExampleActivityBinding>() {
 
@@ -107,7 +112,10 @@ class Media3ExampleActivity : BaseGestureDetectorActivity<LayoutMedia3ExampleAct
                 }*/
 
                 //设置单个资源
-                setMediaItem(MediaItem.fromUri("https://minigame.vip/Uploads/images/2021/09/18/1631951892_page_img.mp4"))
+                setMediaItem(MediaItem.Builder()
+                    .setUri("https://minigame.vip/Uploads/images/2021/09/18/1631951892_page_img.mp4")
+                    .setCustomCacheKey("testVideo")
+                    .build())
                 // 开始缓冲
                 prepare()
             }
@@ -129,6 +137,36 @@ class Media3ExampleActivity : BaseGestureDetectorActivity<LayoutMedia3ExampleAct
             // 获取TextureView并生成截图
             (binding.playView.videoSurfaceView as? TextureView)?.bitmap?.let {
                 binding.ivScreenshotContainer.setImageBitmap(it)
+            }
+        }
+        binding.btnRemoveCache.setOnClickListener {
+            lifecycleScope.launch(Dispatchers.IO) {
+                // 建议在子线程中调用
+                CacheController.removeCache("testVideo")
+            }
+        }
+        binding.btnTransformCacheSpan.setOnClickListener {
+            // 原有exoPlayer设置了数据源，播放本地文件会失败，重新创建一个不设置数据源的播放器
+            binding.playView.player?.stop()
+            binding.playView.player?.release()
+            binding.playView.player = ExoPlayer.Builder(this).build()
+            binding.playView.player?.run {
+                addListener(playerListener)
+                repeatMode = Player.REPEAT_MODE_ALL
+                playWhenReady = true
+            }
+
+            lifecycleScope.launch(Dispatchers.IO) {
+                CacheController.transformCacheToVideo(this@Media3ExampleActivity)?.let {
+                    withContext(Dispatchers.Main) {
+                        binding.playView.player?.run {
+                            setMediaItem(MediaItem.Builder()
+                                .setUri(it.toUri())
+                                .build())
+                            prepare()
+                        }
+                    }
+                }
             }
         }
     }

@@ -99,7 +99,7 @@ class ExampleApplication : Application() {
         CacheController.init(this)
         // 网络请求需要在子线程中进行
         GlobalScope.launch(Dispatchers.IO) {
-            CacheController.cacheMedia(arrayListOf("https://minigame.vip/Uploads/images/2021/09/18/1631951892_page_img.mp4"))
+            CacheController.cacheMedia("https://minigame.vip/Uploads/images/2021/09/18/1631951892_page_img.mp4", "testVideo")
         }
     }
 
