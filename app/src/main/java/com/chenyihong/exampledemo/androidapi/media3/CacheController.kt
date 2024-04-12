@@ -102,10 +102,12 @@ class CacheController(context: Context) {
             cacheController?.cache?.removeResource(key)
         }
 
-        fun transformCacheToVideo(context: Context): File? {
+        fun transformCacheToVideo(context: Context, key: String = ""): File? {
             var transformFile: File? = null
             cacheController?.cache?.run {
-                keys.firstOrNull()?.let {
+                key.ifEmpty {
+                    keys.firstOrNull()
+                }?.let {
                     transformFile = cacheController?.transformCacheSpanToMp4(context, getCachedSpans(it))
                 }
             }

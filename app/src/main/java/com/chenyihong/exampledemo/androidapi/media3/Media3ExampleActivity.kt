@@ -157,7 +157,7 @@ class Media3ExampleActivity : BaseGestureDetectorActivity<LayoutMedia3ExampleAct
             }
 
             lifecycleScope.launch(Dispatchers.IO) {
-                CacheController.transformCacheToVideo(this@Media3ExampleActivity)?.let {
+                CacheController.transformCacheToVideo(this@Media3ExampleActivity, "testVideo")?.let {
                     withContext(Dispatchers.Main) {
                         binding.playView.player?.run {
                             setMediaItem(MediaItem.Builder()
