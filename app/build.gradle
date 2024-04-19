@@ -212,4 +212,12 @@ dependencies {
     implementation("com.squareup.okhttp3:okhttp:4.12.0")
     implementation("org.nanohttpd:nanohttpd-websocket:2.3.1")
     implementation("com.github.jenly1314:zxing-lite:3.1.0")
+
+    // excel
+    implementation("net.sourceforge.jexcelapi:jxl:2.6.12")
+
+    // room
+    implementation("androidx.room:room-runtime:2.6.1")
+    implementation("androidx.room:room-ktx:2.6.1")
+    ksp("androidx.room:room-compiler:2.6.1")
 }

@@ -67,6 +67,7 @@ import com.chenyihong.exampledemo.tripartite.admob.openad.AppOpenAdManager
 import com.chenyihong.exampledemo.tripartite.admob.banner.BannerTestActivity
 import com.chenyihong.exampledemo.tripartite.dom4j.Dom4jExampleActivity
 import com.chenyihong.exampledemo.localserver.LocalServerExampleActivity
+import com.chenyihong.exampledemo.roomandexcel.RoomAndExcelExampleActivity
 import com.chenyihong.exampledemo.scan.ScanLoginExampleActivity
 import com.chenyihong.exampledemo.tripartite.admob.multipleprocess.MainProcessActivity
 import com.chenyihong.exampledemo.tripartite.admob.nativeadinlist.NativeAdInListExampleActivity
@@ -179,6 +180,9 @@ class HomeActivity : AppCompatActivity() {
                 OptionsChildEntity("Custom Shadow View") { startActivity(Intent(this, CustomShadowViewActivity::class.java)) },
                 OptionsChildEntity("Custom Expandable Flow Layout") { startActivity(Intent(this, CustomExpandableFlowLayoutActivity::class.java)) },
                 OptionsChildEntity("ItemDecoration") { startActivity(Intent(this, CustomItemDecorationExampleActivity::class.java)) }
+            )),
+            OptionsEntity("Room ann Excel", containerTest = arrayListOf(
+                OptionsChildEntity("Test room and excel") { startActivity(Intent(this, RoomAndExcelExampleActivity::class.java)) }
             )),
             OptionsEntity("Local server", containerTest = arrayListOf(
                 OptionsChildEntity("Test local server") { startActivity(Intent(this, LocalServerExampleActivity::class.java)) }

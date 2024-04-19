@@ -523,5 +523,7 @@
         <activity android:name=".scan.app.ScanQRCodeActivity" />
 
         <activity android:name=".androidapi.rtl.AdapterRtlExampleActivity" />
+
+        <activity android:name=".roomandexcel.RoomAndExcelExampleActivity" />
     </application>
 </manifest>
