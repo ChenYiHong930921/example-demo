@@ -155,9 +155,9 @@ dependencies {
     implementation("com.google.android.gms:play-services-auth:21.0.0")
 
     //Meta login
-    implementation('com.facebook.android:facebook-login:16.3.0')
+    implementation('com.facebook.android:facebook-login:17.0.0')
     //Mate share
-    implementation('com.facebook.android:facebook-share:16.3.0')
+    implementation('com.facebook.android:facebook-share:17.0.0')
 
     //Biometric
     implementation("androidx.biometric:biometric:1.2.0-alpha05")
