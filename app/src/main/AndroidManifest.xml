@@ -525,5 +525,7 @@
         <activity android:name=".androidapi.rtl.AdapterRtlExampleActivity" />
 
         <activity android:name=".roomandexcel.RoomAndExcelExampleActivity" />
+
+        <activity android:name=".confirmterms.ConfirmTermsExampleActivity"/>
     </application>
 </manifest>

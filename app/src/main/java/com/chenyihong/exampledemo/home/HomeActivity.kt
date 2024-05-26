@@ -55,6 +55,7 @@ import com.chenyihong.exampledemo.androidapi.toolbar.ToolbarActivity
 import com.chenyihong.exampledemo.androidapi.trafficstats.TrafficStatsActivity
 import com.chenyihong.exampledemo.androidapi.wifi.WIFIExampleActivity
 import com.chenyihong.exampledemo.base.ExampleApplication
+import com.chenyihong.exampledemo.confirmterms.ConfirmTermsExampleActivity
 import com.chenyihong.exampledemo.customview.CustomChartViewActivity
 import com.chenyihong.exampledemo.customview.CustomExpandableFlowLayoutActivity
 import com.chenyihong.exampledemo.customview.CustomShadowViewActivity
@@ -183,6 +184,9 @@ class HomeActivity : AppCompatActivity() {
             )),
             OptionsEntity("Room ann Excel", containerTest = arrayListOf(
                 OptionsChildEntity("Test room and excel") { startActivity(Intent(this, RoomAndExcelExampleActivity::class.java)) }
+            )),
+            OptionsEntity("Confirm Terms", containerTest = arrayListOf(
+                OptionsChildEntity("Test Confirm terms") { startActivity(Intent(this, ConfirmTermsExampleActivity::class.java)) }
             )),
             OptionsEntity("Local server", containerTest = arrayListOf(
                 OptionsChildEntity("Test local server") { startActivity(Intent(this, LocalServerExampleActivity::class.java)) }
