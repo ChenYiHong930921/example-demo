@@ -27,4 +27,6 @@
     <string name="change_language_test" tools:ignore="MissingTranslation">Hello World!</string>
 
     <string name="adapter_rlt_test" tools:ignore="MissingTranslation">The receiving address is:%s</string>
+
+    <string name="label_tile_example_scan" translatable="false">Scan QR</string>
 </resources>

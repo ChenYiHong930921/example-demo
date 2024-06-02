@@ -50,6 +50,7 @@ import com.chenyihong.exampledemo.androidapi.setting.SettingActivity
 import com.chenyihong.exampledemo.androidapi.sharesheet.SystemShareActivity
 import com.chenyihong.exampledemo.androidapi.shortcuts.ShortcutsActivity
 import com.chenyihong.exampledemo.androidapi.targetsdk.TargetSdk14AdapterExampleActivity
+import com.chenyihong.exampledemo.androidapi.tiles.TileExampleActivity
 import com.chenyihong.exampledemo.androidapi.timechange.TimeChangeExample
 import com.chenyihong.exampledemo.androidapi.toolbar.ToolbarActivity
 import com.chenyihong.exampledemo.androidapi.trafficstats.TrafficStatsActivity
@@ -175,6 +176,7 @@ class HomeActivity : AppCompatActivity() {
                 OptionsChildEntity("Android 14") { startActivity(Intent(this, TargetSdk14AdapterExampleActivity::class.java)) },
                 OptionsChildEntity("DialogFragment") { startActivity(Intent(this, DialogFragmentExampleActivity::class.java)) },
                 OptionsChildEntity("Adapter Rtl") { startActivity(Intent(this, AdapterRtlExampleActivity::class.java)) },
+                OptionsChildEntity("Tiles Api") { startActivity(Intent(this, TileExampleActivity::class.java)) },
             )),
             OptionsEntity("Custom View", containerTest = arrayListOf(
                 OptionsChildEntity("Custom Chart View") { startActivity(Intent(this, CustomChartViewActivity::class.java)) },

@@ -526,6 +526,24 @@
 
         <activity android:name=".roomandexcel.RoomAndExcelExampleActivity" />
 
-        <activity android:name=".confirmterms.ConfirmTermsExampleActivity"/>
+        <activity android:name=".confirmterms.ConfirmTermsExampleActivity" />
+
+        <activity android:name=".androidapi.tiles.TileExampleActivity" />
+
+        <service
+            android:name=".androidapi.tiles.ExampleTileService"
+            android:exported="true"
+            android:icon="@drawable/icon_scan"
+            android:label="@string/label_tile_example_scan"
+            android:permission="android.permission.BIND_QUICK_SETTINGS_TILE">
+
+            <meta-data
+                android:name="android.service.quicksettings.ACTIVE_TILE"
+                android:value="true" />
+
+            <intent-filter>
+                <action android:name="android.service.quicksettings.action.QS_TILE" />
+            </intent-filter>
+        </service>
     </application>
 </manifest>
