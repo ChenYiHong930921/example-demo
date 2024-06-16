@@ -14,4 +14,23 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_change_status"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="change status"
+        app:layout_constraintEnd_toStartOf="@id/btn_disable_tile"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/btn_add_tile" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_disable_tile"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="disable tile"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/btn_change_status"
+        app:layout_constraintTop_toTopOf="@id/btn_change_status" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
