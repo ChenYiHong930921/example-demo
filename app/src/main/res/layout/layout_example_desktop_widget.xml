@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="280dp"
+    android:layout_height="90dp"
+    android:background="@color/white">
+
+    <TextView
+        android:id="@+id/tv_example_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="5dp"
+        android:includeFontPadding="false"
+        android:text="饮水量统计"
+        android:textSize="14sp" />
+
+    <TextView
+        android:id="@+id/tv_example_content"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:layout_below="@id/tv_example_title"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="10dp"
+        android:gravity="center_vertical"
+        android:hint="当前饮水量：0"
+        android:includeFontPadding="false"
+        android:textSize="12sp" />
+
+    <Button
+        android:id="@+id/btn_plus"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:layout_alignTop="@id/tv_example_content"
+        android:layout_toStartOf="@id/tv_example_content"
+        android:includeFontPadding="false"
+        android:text="加一"
+        android:textSize="12sp" />
+
+    <Button
+        android:id="@+id/btn_reduce"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:layout_alignTop="@id/btn_plus"
+        android:layout_toEndOf="@id/tv_example_content"
+        android:text="减一" />
+
+</RelativeLayout>
