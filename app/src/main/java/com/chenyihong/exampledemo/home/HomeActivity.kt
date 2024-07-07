@@ -29,6 +29,7 @@ import com.chenyihong.exampledemo.androidapi.backpress.BackPressApiActivity
 import com.chenyihong.exampledemo.androidapi.biometrics.BiometricActivity
 import com.chenyihong.exampledemo.androidapi.bluetooth.BluetoothExampleActivity
 import com.chenyihong.exampledemo.androidapi.camerax.CameraActivity
+import com.chenyihong.exampledemo.androidapi.desktopwidgets.DesktopWidgetExampleActivity
 import com.chenyihong.exampledemo.androidapi.dialog.DialogFragmentExampleActivity
 import com.chenyihong.exampledemo.androidapi.downloadablefont.DownloadableFontActivity
 import com.chenyihong.exampledemo.androidapi.fragmentresultapi.FragmentResultApiActivity
@@ -177,6 +178,7 @@ class HomeActivity : AppCompatActivity() {
                 OptionsChildEntity("DialogFragment") { startActivity(Intent(this, DialogFragmentExampleActivity::class.java)) },
                 OptionsChildEntity("Adapter Rtl") { startActivity(Intent(this, AdapterRtlExampleActivity::class.java)) },
                 OptionsChildEntity("Tiles Api") { startActivity(Intent(this, TileExampleActivity::class.java)) },
+                OptionsChildEntity("AppWidget Api") { startActivity(Intent(this, DesktopWidgetExampleActivity::class.java)) },
             )),
             OptionsEntity("Custom View", containerTest = arrayListOf(
                 OptionsChildEntity("Custom Chart View") { startActivity(Intent(this, CustomChartViewActivity::class.java)) },

@@ -11,11 +11,13 @@ import android.widget.RemoteViews
 import com.chenyihong.exampledemo.R
 import com.chenyihong.exampledemo.utils.SpUtils
 
-class ExampleDesktopWidgetProvider : AppWidgetProvider() {
+const val ACTION_INCREASE = "ACTION_INCREASE"
 
-    private val ACTION_INCREASE = "ACTION_INCREASE"
+const val ACTION_DECREASE = "ACTION_DECREASE"
 
-    private val ACTION_DECREASE = "ACTION_DECREASE"
+const val ACTION_PIN_WIDGET = "ACTION_PIN_WIDGET"
+
+class DesktopWidgetExampleProvider : AppWidgetProvider() {
 
     private val requestCode = this.hashCode()
 
@@ -44,11 +46,13 @@ class ExampleDesktopWidgetProvider : AppWidgetProvider() {
                         currentTotalWaterCount--
                     }
                 }
+
+                ACTION_PIN_WIDGET -> {}
             }
             if (changed) {
                 SpUtils.put("currentTotalWaterCount", currentTotalWaterCount)
                 getWidgetManager(usableContext).run {
-                    updateWidget(usableContext, this, getAppWidgetIds(ComponentName(usableContext, ExampleDesktopWidgetProvider::class.java)))
+                    updateWidget(usableContext, this, getAppWidgetIds(ComponentName(usableContext, DesktopWidgetExampleProvider::class.java)))
                 }
             }
         }
@@ -93,10 +97,10 @@ class ExampleDesktopWidgetProvider : AppWidgetProvider() {
 
     private fun updateWidget(context: Context, appWidgetManager: AppWidgetManager, appWidgetIds: IntArray?) {
         val currentTotalWaterCount = SpUtils.getInt("currentTotalWaterCount", 0)
-        appWidgetManager.updateAppWidget(appWidgetIds, RemoteViews(context.packageName, R.layout.layout_example_desktop_widget).apply {
+        appWidgetManager.updateAppWidget(appWidgetIds, RemoteViews(context.packageName, R.layout.layout_desktop_widget_example).apply {
             setTextViewText(R.id.tv_example_content, "当前饮水量（杯）：$currentTotalWaterCount")
-            setOnClickPendingIntent(R.id.btn_plus, PendingIntent.getBroadcast(context, requestCode, Intent(context, ExampleDesktopWidgetProvider::class.java).apply { action = ACTION_INCREASE }, PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE))
-            setOnClickPendingIntent(R.id.btn_reduce, PendingIntent.getBroadcast(context, requestCode, Intent(context, ExampleDesktopWidgetProvider::class.java).apply { action = ACTION_DECREASE }, PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE))
+            setOnClickPendingIntent(R.id.btn_plus, PendingIntent.getBroadcast(context, requestCode, Intent(context, DesktopWidgetExampleProvider::class.java).apply { action = ACTION_INCREASE }, PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE))
+            setOnClickPendingIntent(R.id.btn_reduce, PendingIntent.getBroadcast(context, requestCode, Intent(context, DesktopWidgetExampleProvider::class.java).apply { action = ACTION_DECREASE }, PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE))
         })
     }
 }

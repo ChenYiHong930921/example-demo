@@ -551,7 +551,7 @@
         </service>
 
         <receiver
-            android:name=".androidapi.desktopwidgets.ExampleDesktopWidgetProvider"
+            android:name=".androidapi.desktopwidgets.DesktopWidgetExampleProvider"
             android:exported="false">
 
             <meta-data
@@ -562,5 +562,14 @@
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
             </intent-filter>
         </receiver>
+
+        <activity android:name=".androidapi.desktopwidgets.DesktopWidgetExampleActivity" />
+        <activity
+            android:name=".androidapi.desktopwidgets.DesktopWidgetConfigExampleActivity"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_CONFIGURE" />
+            </intent-filter>
+        </activity>
     </application>
 </manifest>
