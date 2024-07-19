@@ -67,6 +67,8 @@
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE_MEDIA_PROJECTION" />
     <!--adapter android 14-->
 
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+
     <queries>
         <intent>
             <action android:name="android.support.customtabs.action.CustomTabsService" />
@@ -571,5 +573,7 @@
                 <action android:name="android.appwidget.action.APPWIDGET_CONFIGURE" />
             </intent-filter>
         </activity>
+
+        <activity android:name=".androidapi.notification.NotificationExampleActivity" />
     </application>
 </manifest>

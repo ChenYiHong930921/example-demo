@@ -42,6 +42,7 @@ import com.chenyihong.exampledemo.androidapi.keyboard.KeyboardExampleActivity
 import com.chenyihong.exampledemo.androidapi.language.ChangeLanguageActivity
 import com.chenyihong.exampledemo.androidapi.media3.Media3HomeActivity
 import com.chenyihong.exampledemo.androidapi.motionlayout.MotionLayoutExampleActivity
+import com.chenyihong.exampledemo.androidapi.notification.NotificationExampleActivity
 import com.chenyihong.exampledemo.androidapi.recyclerview.AutoLoadMoreExampleActivity
 import com.chenyihong.exampledemo.androidapi.resultapi.ResultApiActivity
 import com.chenyihong.exampledemo.androidapi.rtl.AdapterRtlExampleActivity
@@ -179,6 +180,7 @@ class HomeActivity : AppCompatActivity() {
                 OptionsChildEntity("Adapter Rtl") { startActivity(Intent(this, AdapterRtlExampleActivity::class.java)) },
                 OptionsChildEntity("Tiles Api") { startActivity(Intent(this, TileExampleActivity::class.java)) },
                 OptionsChildEntity("AppWidget Api") { startActivity(Intent(this, DesktopWidgetExampleActivity::class.java)) },
+                OptionsChildEntity("Notification Api") { startActivity(Intent(this, NotificationExampleActivity::class.java)) },
             )),
             OptionsEntity("Custom View", containerTest = arrayListOf(
                 OptionsChildEntity("Custom Chart View") { startActivity(Intent(this, CustomChartViewActivity::class.java)) },
