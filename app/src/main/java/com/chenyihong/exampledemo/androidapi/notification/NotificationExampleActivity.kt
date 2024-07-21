@@ -15,7 +15,9 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.app.NotificationChannelGroupCompat
+import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
+import com.chenyihong.exampledemo.R
 import com.chenyihong.exampledemo.databinding.LayoutNotificationExampleActivityBinding
 import com.chenyihong.exampledemo.utils.SpUtils
 
@@ -49,6 +51,7 @@ class NotificationExampleActivity : AppCompatActivity() {
         // 可以在此对通知是否可用再进行一次判断，但如果不可用最好不要直接再次申请，避免用户厌烦
     }
 
+    @SuppressLint("MissingPermission")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = LayoutNotificationExampleActivityBinding.inflate(layoutInflater).also {
@@ -59,7 +62,7 @@ class NotificationExampleActivity : AppCompatActivity() {
             SpUtils.init(this)
         }
         val notRequestAgain = SpUtils.getBoolean(notRequestAgainKey, false)
-        if (!checkNotificationEnable()) {
+        if (!notificationEnable()) {
             if (notRequestAgain) {
                 // 显示自定义弹窗
                 showPermissionStatementDialog()
@@ -135,9 +138,32 @@ class NotificationExampleActivity : AppCompatActivity() {
 //                notificationManagerCompat.deleteNotificationChannelGroup(messageNotificationGroupId)
             }
         }
+
+        binding.btnCreateBasicNotification.setOnClickListener {
+            if (notificationEnable()) {
+                val notificationBuilder = NotificationCompat.Builder(this, "system_error_notification_channel")
+                    // 设置小图标（必须设置，否则会引起崩溃）
+                    .setSmallIcon(R.drawable.notification)
+                    // 设置通知标题
+                    .setContentTitle("Example title")
+                    // 设置通知内容
+                    .setContentText("This is a basic notification example.")
+                    // 设置是否自动取消
+                    .setAutoCancel(false)
+
+                if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.N_MR1) {
+                    // Android 7.1以下通知渠道配置的优先级无效，需通过setPriority()设置通知优先级
+                    notificationBuilder.setPriority(NotificationCompat.PRIORITY_HIGH)
+                }
+
+                // 通知id，可以记录下来，后续可以通过通知id对通知进行操作
+                val notificationId = 0
+                notificationManagerCompat.notify(notificationId, notificationBuilder.build())
+            }
+        }
     }
 
-    private fun checkNotificationEnable(): Boolean {
+    private fun notificationEnable(): Boolean {
         return if (checkByNotificationAPI) {
             // 通过通知API判断通知是否可用.
             notificationManagerCompat.areNotificationsEnabled()
