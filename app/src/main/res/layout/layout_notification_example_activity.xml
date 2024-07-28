@@ -28,9 +28,36 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:text="create basic notification"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:text="basic notification"
+        app:layout_constraintEnd_toStartOf="@id/btn_create_picture_notification"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/btn_check_channel_setting" />
 
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_create_picture_notification"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Picture Notification"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/btn_create_basic_notification"
+        app:layout_constraintTop_toTopOf="@id/btn_create_basic_notification" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_create_text_notification"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="Text notification"
+        app:layout_constraintEnd_toStartOf="@id/btn_create_segmented_text_notification"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/btn_create_picture_notification" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_create_segmented_text_notification"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Segmented Text Notification"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/btn_create_text_notification"
+        app:layout_constraintTop_toTopOf="@id/btn_create_text_notification" />
 </androidx.constraintlayout.widget.ConstraintLayout>

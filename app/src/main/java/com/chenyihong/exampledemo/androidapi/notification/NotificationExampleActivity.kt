@@ -6,10 +6,18 @@ import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.graphics.Bitmap
+import android.graphics.Canvas
+import android.graphics.Rect
+import android.graphics.drawable.Drawable
+import android.graphics.drawable.Icon
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.provider.Settings
+import android.text.Spannable
+import android.text.SpannableStringBuilder
+import android.text.style.ForegroundColorSpan
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
@@ -17,8 +25,10 @@ import androidx.core.app.ActivityCompat
 import androidx.core.app.NotificationChannelGroupCompat
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
+import androidx.core.content.ContextCompat
 import com.chenyihong.exampledemo.R
 import com.chenyihong.exampledemo.databinding.LayoutNotificationExampleActivityBinding
+import com.chenyihong.exampledemo.utils.DensityUtil
 import com.chenyihong.exampledemo.utils.SpUtils
 
 class NotificationExampleActivity : AppCompatActivity() {
@@ -161,6 +171,74 @@ class NotificationExampleActivity : AppCompatActivity() {
                 notificationManagerCompat.notify(notificationId, notificationBuilder.build())
             }
         }
+        binding.btnCreatePictureNotification.setOnClickListener {
+            if (notificationEnable()) {
+                ContextCompat.getDrawable(this, R.drawable.big_picture_example)?.also { bigPictureExample ->
+                    val emptyIcon: Icon? = null
+                    val notificationBuilder = NotificationCompat.Builder(this, "system_error_notification_channel")
+                        .setSmallIcon(R.drawable.notification)
+                        .setContentTitle("Big picture Notification")
+                        .setContentText("This is a big picture notification example.")
+                        // 折叠状态下的图标
+                        .setLargeIcon(toBitmap(bigPictureExample, DensityUtil.dp2Px(24), DensityUtil.dp2Px(24)))
+                        .setStyle(NotificationCompat.BigPictureStyle()
+                            // 展开状态下的大图
+                            .bigPicture(toBitmap(bigPictureExample))
+                            // 传入null可以隐藏折叠状态下的图标（按需使用）
+                            // 入参为Icon和入参为Bitmap的bigLargeIcon重载方法都允许传null，并且都只有一个参数
+                            // 直接传null会提示匹配到了多个方法
+                            .bigLargeIcon(emptyIcon))
+                        .setAutoCancel(false)
+                    val notificationId = 10001
+                    notificationManagerCompat.notify(notificationId, notificationBuilder.build())
+                }
+            }
+        }
+        binding.btnCreateTextNotification.setOnClickListener {
+            if (notificationEnable()) {
+                ContextCompat.getDrawable(this, R.drawable.icon_juejin)?.also { bigPictureExample ->
+                    val bigTextExample = ContextCompat.getString(this, R.string.label_notification_big_text_example)
+                    val bigTextExampleSpannableString = SpannableStringBuilder(bigTextExample).apply {
+                        // 前六个字符改为蓝色
+                        setSpan(ForegroundColorSpan(ContextCompat.getColor(this@NotificationExampleActivity, R.color.color_blue_229CE9)), 0, 6, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+                    }
+                    val notificationBuilder = NotificationCompat.Builder(this, "system_error_notification_channel")
+                        .setSmallIcon(R.drawable.notification)
+                        .setContentTitle("Big Text Notification")
+                        .setContentText("This is a big text notification example.")
+                        .setLargeIcon(toBitmap(bigPictureExample, DensityUtil.dp2Px(24), DensityUtil.dp2Px(24)))
+                        .setStyle(NotificationCompat.BigTextStyle()
+                            // 设置一段ChatGPT生成的掘金简介
+                            .bigText(bigTextExampleSpannableString))
+                        .setAutoCancel(false)
+                    val notificationId = 10002
+                    notificationManagerCompat.notify(notificationId, notificationBuilder.build())
+                }
+            }
+        }
+        binding.btnCreateSegmentedTextNotification.setOnClickListener {
+            if (notificationEnable()) {
+                ContextCompat.getDrawable(this, R.drawable.icon_juejin)?.also { bigPictureExample ->
+                    val notificationBuilder = NotificationCompat.Builder(this, "system_error_notification_channel")
+                        .setSmallIcon(R.drawable.notification)
+                        .setContentTitle("Segmented Text Notification")
+                        .setContentText("This is a segmented text notification example.")
+                        .setLargeIcon(toBitmap(bigPictureExample, DensityUtil.dp2Px(24), DensityUtil.dp2Px(24)))
+                        .setStyle(NotificationCompat.InboxStyle()
+                            .addLine("line 1 message")
+                            .addLine("line 2 message")
+                            .addLine("line 3 message")
+                            .addLine("line 4 message")
+                            .addLine("line 5 message")
+                            .addLine("line 6 message")
+                            .addLine("line 7 message")
+                        )
+                        .setAutoCancel(false)
+                    val notificationId = 10003
+                    notificationManagerCompat.notify(notificationId, notificationBuilder.build())
+                }
+            }
+        }
     }
 
     private fun notificationEnable(): Boolean {
@@ -187,5 +265,16 @@ class NotificationExampleActivity : AppCompatActivity() {
             }
             .create()
         permissionTipsDialog.show()
+    }
+
+    private fun toBitmap(drawable: Drawable, iconWidth: Int = 0, iconHeight: Int = 0): Bitmap {
+        val width = if (iconWidth == 0) drawable.minimumWidth else iconWidth
+        val height = if (iconHeight == 0) drawable.minimumHeight else iconHeight
+        val oldBounds = Rect(drawable.bounds)
+        val bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888)
+        drawable.setBounds(0, 0, width, height)
+        drawable.draw(Canvas(bitmap))
+        drawable.bounds = oldBounds
+        return bitmap
     }
 }
