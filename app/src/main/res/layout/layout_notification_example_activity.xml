@@ -60,4 +60,23 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/btn_create_text_notification"
         app:layout_constraintTop_toTopOf="@id/btn_create_text_notification" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_enable_show_badge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="enable show badge"
+        app:layout_constraintEnd_toStartOf="@id/btn_disable_show_badge"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/btn_create_text_notification" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_disable_show_badge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="disable show badge"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/btn_enable_show_badge"
+        app:layout_constraintTop_toTopOf="@id/btn_enable_show_badge" />
 </androidx.constraintlayout.widget.ConstraintLayout>

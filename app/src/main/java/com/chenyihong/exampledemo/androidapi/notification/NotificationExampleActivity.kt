@@ -61,6 +61,18 @@ class NotificationExampleActivity : AppCompatActivity() {
         // 可以在此对通知是否可用再进行一次判断，但如果不可用最好不要直接再次申请，避免用户厌烦
     }
 
+    // 分组id
+    private val systemNotificationGroupId = "system_notification_group"
+    private val messageNotificationGroupId = "message_notification_group"
+
+    // 渠道id
+    private val enableBadgeSystemErrorChannelId = "enable_badge_system_error_notification_channel"
+    private val disableBadgeSystemErrorChannelId = "disable_badge_system_error_notification_channel"
+    private var currentSystemErrorChannelId = ""
+    private val friendMessageChannelId = "friend_message_notification_channel"
+
+    private val currentSystemErrorChannelIdKey = "currentSystemErrorChannelId"
+
     @SuppressLint("MissingPermission")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -89,50 +101,42 @@ class NotificationExampleActivity : AppCompatActivity() {
                 packageManager.getApplicationInfo(packageName, 0)
             }
 
-            // 分组id
-            val systemNotificationGroupId = "system_notification_group"
-            // 分组显示名称
-            val systemNotificationGroupName = "${getText(applicationInfo.labelRes)} System Notification Group"
-            // 分组描述
-            val systemNotificationGroupDescription = "Receive all system-level notifications"
-            notificationManagerCompat.createNotificationChannelGroup(NotificationChannelGroupCompat.Builder(systemNotificationGroupId)
-                .setName(systemNotificationGroupName)
-                .setDescription(systemNotificationGroupDescription)
-                .build())
-
-            val messageNotificationGroupId = "message_notification_group"
-            val messageNotificationGroupName = "${getText(applicationInfo.labelRes)} Message Notification Group"
-            val messageNotificationGroupDescription = "Receive all message notifications"
-            notificationManagerCompat.createNotificationChannelGroup(NotificationChannelGroupCompat.Builder(messageNotificationGroupId)
-                .setName(messageNotificationGroupName)
-                .setDescription(messageNotificationGroupDescription)
-                .build())
-
-            // 渠道id
-            val systemErrorChannelId = "system_error_notification_channel"
-            // 渠道显示名称
-            val systemErrorChannelDisplayName = "${getText(applicationInfo.labelRes)} System Error Notification Channel"
-            // 渠道的重要性级别
-            val systemErrorChannelImportance = NotificationManager.IMPORTANCE_HIGH
-            val systemErrorChannel = NotificationChannel(systemErrorChannelId, systemErrorChannelDisplayName, systemErrorChannelImportance).apply {
-                // 渠道描述
-                description = "Receive system error notifications"
-                group = systemNotificationGroupId
+            if (notificationManagerCompat.getNotificationChannelGroupCompat(systemNotificationGroupId) == null) {
+                // 分组显示名称
+                val systemNotificationGroupName = "${getText(applicationInfo.labelRes)} System Notification Group"
+                // 分组描述
+                val systemNotificationGroupDescription = "Receive all system-level notifications"
+                createNotificationGroup(systemNotificationGroupId, systemNotificationGroupName, systemNotificationGroupDescription)
             }
-            notificationManagerCompat.createNotificationChannel(systemErrorChannel)
 
-            val friendMessageChannelId = "friend_message_notification_channel"
-            val friendMessageChannelDisplayName = "${getText(applicationInfo.labelRes)} Friend Message Notification Channel"
-            val friendMessageChannelImportance = NotificationManager.IMPORTANCE_DEFAULT
-            val friendMessageChannel = NotificationChannel(friendMessageChannelId, friendMessageChannelDisplayName, friendMessageChannelImportance).apply {
-                // 渠道描述
-                description = "Receive friend message notifications"
-                group = messageNotificationGroupId
+            if (notificationManagerCompat.getNotificationChannelGroupCompat(messageNotificationGroupId) == null) {
+                val messageNotificationGroupName = "${getText(applicationInfo.labelRes)} Message Notification Group"
+                val messageNotificationGroupDescription = "Receive all message notifications"
+                createNotificationGroup(messageNotificationGroupId, messageNotificationGroupName, messageNotificationGroupDescription)
             }
-            notificationManagerCompat.createNotificationChannel(friendMessageChannel)
+
+            // 获取当前保存的渠道id
+            // 默认关闭圆点提示
+            currentSystemErrorChannelId = SpUtils.getString(currentSystemErrorChannelIdKey, disableBadgeSystemErrorChannelId) ?: disableBadgeSystemErrorChannelId
+            if (notificationManagerCompat.getNotificationChannelCompat(currentSystemErrorChannelId) == null) {
+                // 渠道显示名称
+                val systemErrorChannelDisplayName = "${getText(applicationInfo.labelRes)} System Error Notification Channel"
+                // 渠道描述
+                val systemErrorChannelDescription = "Receive system error notifications"
+                // 渠道的重要性级别
+                val systemErrorChannelImportance = NotificationManager.IMPORTANCE_HIGH
+                createNotificationChannel(currentSystemErrorChannelId, systemErrorChannelDisplayName, systemErrorChannelDescription, systemErrorChannelImportance, currentSystemErrorChannelId == enableBadgeSystemErrorChannelId, systemNotificationGroupId)
+            }
+
+            if (notificationManagerCompat.getNotificationChannelCompat(friendMessageChannelId) == null) {
+                val friendMessageChannelDisplayName = "${getText(applicationInfo.labelRes)} Friend Message Notification Channel"
+                val friendMessageChannelDescription = "Receive friend message notifications"
+                val friendMessageChannelImportance = NotificationManager.IMPORTANCE_DEFAULT
+                createNotificationChannel(friendMessageChannelId, friendMessageChannelDisplayName, friendMessageChannelDescription, friendMessageChannelImportance, channelGroupId = messageNotificationGroupId)
+            }
 
             binding.btnCheckChannelSetting.setOnClickListener {
-                notificationManagerCompat.getNotificationChannelCompat(systemErrorChannelId)?.apply {
+                notificationManagerCompat.getNotificationChannelCompat(currentSystemErrorChannelId)?.apply {
                     if (importance == NotificationManager.IMPORTANCE_MIN) {
                         intentLauncher.launch(Intent(Settings.ACTION_CHANNEL_NOTIFICATION_SETTINGS).apply {
                             putExtra(Settings.EXTRA_APP_PACKAGE, packageName)
@@ -151,7 +155,7 @@ class NotificationExampleActivity : AppCompatActivity() {
 
         binding.btnCreateBasicNotification.setOnClickListener {
             if (notificationEnable()) {
-                val notificationBuilder = NotificationCompat.Builder(this, "system_error_notification_channel")
+                val notificationBuilder = NotificationCompat.Builder(this, currentSystemErrorChannelId)
                     // 设置小图标（必须设置，否则会引起崩溃）
                     .setSmallIcon(R.drawable.notification)
                     // 设置通知标题
@@ -175,7 +179,7 @@ class NotificationExampleActivity : AppCompatActivity() {
             if (notificationEnable()) {
                 ContextCompat.getDrawable(this, R.drawable.big_picture_example)?.also { bigPictureExample ->
                     val emptyIcon: Icon? = null
-                    val notificationBuilder = NotificationCompat.Builder(this, "system_error_notification_channel")
+                    val notificationBuilder = NotificationCompat.Builder(this, currentSystemErrorChannelId)
                         .setSmallIcon(R.drawable.notification)
                         .setContentTitle("Big picture Notification")
                         .setContentText("This is a big picture notification example.")
@@ -202,7 +206,7 @@ class NotificationExampleActivity : AppCompatActivity() {
                         // 前六个字符改为蓝色
                         setSpan(ForegroundColorSpan(ContextCompat.getColor(this@NotificationExampleActivity, R.color.color_blue_229CE9)), 0, 6, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
                     }
-                    val notificationBuilder = NotificationCompat.Builder(this, "system_error_notification_channel")
+                    val notificationBuilder = NotificationCompat.Builder(this, currentSystemErrorChannelId)
                         .setSmallIcon(R.drawable.notification)
                         .setContentTitle("Big Text Notification")
                         .setContentText("This is a big text notification example.")
@@ -219,7 +223,7 @@ class NotificationExampleActivity : AppCompatActivity() {
         binding.btnCreateSegmentedTextNotification.setOnClickListener {
             if (notificationEnable()) {
                 ContextCompat.getDrawable(this, R.drawable.icon_juejin)?.also { bigPictureExample ->
-                    val notificationBuilder = NotificationCompat.Builder(this, "system_error_notification_channel")
+                    val notificationBuilder = NotificationCompat.Builder(this, currentSystemErrorChannelId)
                         .setSmallIcon(R.drawable.notification)
                         .setContentTitle("Segmented Text Notification")
                         .setContentText("This is a segmented text notification example.")
@@ -236,6 +240,36 @@ class NotificationExampleActivity : AppCompatActivity() {
                         .setAutoCancel(false)
                     val notificationId = 10003
                     notificationManagerCompat.notify(notificationId, notificationBuilder.build())
+                }
+            }
+        }
+        binding.btnEnableShowBadge.setOnClickListener {
+            notificationManagerCompat.getNotificationChannelCompat(currentSystemErrorChannelId)?.apply {
+                // 获取当前的系统信息通知渠道，如果圆点提示是禁用的，创建一个新的启用圆点提示的系统通知渠道
+                if (!canShowBadge()) {
+                    val currentChannelName = name?.toString() ?: ""
+                    val currentChannelDescription = description ?: ""
+                    val currentImportance = importance
+                    val currentGroupId = group ?: ""
+                    notificationManagerCompat.deleteNotificationChannel(id)
+                    currentSystemErrorChannelId = enableBadgeSystemErrorChannelId
+                    createNotificationChannel(currentSystemErrorChannelId, currentChannelName, currentChannelDescription, currentImportance, channelGroupId = currentGroupId)
+                    SpUtils.put(currentSystemErrorChannelIdKey, currentSystemErrorChannelId)
+                }
+            }
+        }
+        binding.btnDisableShowBadge.setOnClickListener {
+            notificationManagerCompat.getNotificationChannelCompat(currentSystemErrorChannelId)?.apply {
+                // 获取当前的系统信息通知渠道，如果圆点提示是启用的，创建一个新的启用圆点提示的系统通知渠道
+                if (canShowBadge()) {
+                    val currentChannelName = name?.toString() ?: ""
+                    val currentChannelDescription = description ?: ""
+                    val currentImportance = importance
+                    val currentGroupId = group ?: ""
+                    notificationManagerCompat.deleteNotificationChannel(id)
+                    currentSystemErrorChannelId = disableBadgeSystemErrorChannelId
+                    createNotificationChannel(currentSystemErrorChannelId, currentChannelName, currentChannelDescription, currentImportance, false, currentGroupId)
+                    SpUtils.put(currentSystemErrorChannelIdKey, currentSystemErrorChannelId)
                 }
             }
         }
@@ -276,5 +310,22 @@ class NotificationExampleActivity : AppCompatActivity() {
         drawable.draw(Canvas(bitmap))
         drawable.bounds = oldBounds
         return bitmap
+    }
+
+    private fun createNotificationGroup(channelGroupId: String, displayName: String, displayDescription: String) {
+        notificationManagerCompat.createNotificationChannelGroup(NotificationChannelGroupCompat.Builder(channelGroupId)
+            .setName(displayName)
+            .setDescription(displayDescription)
+            .build())
+    }
+
+    private fun createNotificationChannel(channelId: String, displayName: String, displayDescription: String, importance: Int, showBadge: Boolean = true, channelGroupId: String? = null) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            notificationManagerCompat.createNotificationChannel(NotificationChannel(channelId, displayName, importance).apply {
+                description = displayDescription
+                setShowBadge(showBadge)
+                group = channelGroupId
+            })
+        }
     }
 }
