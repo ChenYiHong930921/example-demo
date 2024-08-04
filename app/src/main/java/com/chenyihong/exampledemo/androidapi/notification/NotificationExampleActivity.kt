@@ -4,6 +4,7 @@ import android.Manifest
 import android.annotation.SuppressLint
 import android.app.NotificationChannel
 import android.app.NotificationManager
+import android.app.PendingIntent
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
@@ -25,6 +26,7 @@ import androidx.core.app.ActivityCompat
 import androidx.core.app.NotificationChannelGroupCompat
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
+import androidx.core.app.TaskStackBuilder
 import androidx.core.content.ContextCompat
 import com.chenyihong.exampledemo.R
 import com.chenyihong.exampledemo.databinding.LayoutNotificationExampleActivityBinding
@@ -272,6 +274,46 @@ class NotificationExampleActivity : AppCompatActivity() {
                     SpUtils.put(currentSystemErrorChannelIdKey, currentSystemErrorChannelId)
                 }
             }
+        }
+        binding.btnSetBadgeCount.setOnClickListener {
+            if (notificationEnable()) {
+                val notificationBuilder = NotificationCompat.Builder(this, currentSystemErrorChannelId)
+                    .setSmallIcon(R.drawable.notification)
+                    .setContentTitle("Set Badge Count")
+                    .setContentText("Six notifications have been received")
+                    // 设置圆点提示中显示的数字
+                    .setNumber(6)
+                    .setAutoCancel(false)
+                val notificationId = 1004
+                notificationManagerCompat.notify(notificationId, notificationBuilder.build())
+            }
+        }
+        binding.btnOpenActivities.setOnClickListener {
+            val targetActivityIntent = Intent(this, NotificationOpenActivitiesExample::class.java)
+            val targetPendingIntent = TaskStackBuilder.create(this).run {
+                addNextIntentWithParentStack(targetActivityIntent)
+                getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE)
+            }
+            if (notificationEnable()) {
+                val notificationBuilder = NotificationCompat.Builder(this, currentSystemErrorChannelId)
+                    .setSmallIcon(R.drawable.notification)
+                    .setContentTitle("Open Activities")
+                    .setContentText("Open target activity")
+                    .setContentIntent(targetPendingIntent)
+                val notificationId = 1005
+                notificationManagerCompat.notify(notificationId, notificationBuilder.build())
+            }
+        }
+        binding.btnOpenSingleActivity.setOnClickListener {
+            val targetActivityIntent = Intent(this, NotificationOpenActivityExample::class.java)
+            val targetPendingIntent = PendingIntent.getActivity(this, 0, targetActivityIntent, PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE)
+            val notificationBuilder = NotificationCompat.Builder(this, currentSystemErrorChannelId)
+                .setSmallIcon(R.drawable.notification)
+                .setContentTitle("Open Activity")
+                .setContentText("Open target activity")
+                .setContentIntent(targetPendingIntent)
+            val notificationId = 1006
+            notificationManagerCompat.notify(notificationId, notificationBuilder.build())
         }
     }
 

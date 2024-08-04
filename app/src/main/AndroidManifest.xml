@@ -574,6 +574,20 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".androidapi.notification.NotificationExampleActivity" />
+        <activity
+            android:name=".androidapi.notification.NotificationExampleActivity"
+            android:parentActivityName=".home.HomeActivity" />
+
+        <activity
+            android:name=".androidapi.notification.NotificationOpenActivitiesExample"
+            android:parentActivityName=".androidapi.notification.NotificationExampleActivity" />
+
+        <!--taskAffinity 置空确保不会进入App的任务栈-->
+        <!--excludeFromRecents 从最近使用的App中移除-->
+        <activity
+            android:name=".androidapi.notification.NotificationOpenActivityExample"
+            android:excludeFromRecents="true"
+            android:launchMode="singleTask"
+            android:taskAffinity="" />
     </application>
 </manifest>
