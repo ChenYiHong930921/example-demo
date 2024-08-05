@@ -18,6 +18,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
+import androidx.lifecycle.lifecycleScope
 import androidx.media3.common.util.UnstableApi
 import com.chenyihong.exampledemo.BuildConfig
 import com.chenyihong.exampledemo.R
@@ -81,7 +82,10 @@ import com.chenyihong.exampledemo.web.PARAMS_LINK_URL
 import com.chenyihong.exampledemo.web.WebViewActivity
 import com.chenyihong.exampledemo.web.customtab.CustomTabExampleActivity
 import com.chenyihong.exampledemo.web.reserve.WebViewFrontPageActivity
+import com.google.firebase.messaging.FirebaseMessaging
 import com.minigame.testapp.ui.entity.OptionsEntity
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import java.security.MessageDigest
 import java.security.NoSuchAlgorithmException
 
@@ -221,6 +225,7 @@ class HomeActivity : AppCompatActivity() {
             ))
         ))
 
+        getFirebaseMessagingPushToken()
         checkKeyStoreHash()
     }
 
@@ -273,6 +278,14 @@ class HomeActivity : AppCompatActivity() {
             Log.e("keyHash", "KeyHash error1:${e.message}")
         } catch (e: NoSuchAlgorithmException) {
             Log.e("keyHash", "KeyHash error2:${e.message}")
+        }
+    }
+
+    private fun getFirebaseMessagingPushToken() {
+        lifecycleScope.launch(Dispatchers.IO) {
+            FirebaseMessaging.getInstance().token.addOnSuccessListener {
+                Log.i("FCMExampleTag", "token:$it")
+            }
         }
     }
 }
