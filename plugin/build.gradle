@@ -1,0 +1,21 @@
+plugins {
+    id 'groovy'
+    id 'maven-publish'
+}
+
+publishing {
+    publications {
+        plugin(MavenPublication) {
+            from components.java
+            group 'com.chenyihong.plugin'
+            artifactId 'processing-flavor'
+            version '1.0.1'
+        }
+    }
+}
+
+dependencies {
+    implementation(gradleApi())
+    implementation("net.sourceforge.jexcelapi:jxl:2.6.12")
+    implementation("com.google.code.gson:gson:2.11.0")
+}
