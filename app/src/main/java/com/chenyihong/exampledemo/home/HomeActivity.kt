@@ -31,6 +31,7 @@ import com.chenyihong.exampledemo.androidapi.biometrics.BiometricActivity
 import com.chenyihong.exampledemo.androidapi.bluetooth.BluetoothExampleActivity
 import com.chenyihong.exampledemo.androidapi.camerax.CameraActivity
 import com.chenyihong.exampledemo.androidapi.desktopwidgets.DesktopWidgetExampleActivity
+import com.chenyihong.exampledemo.androidapi.deviceid.DeviceIdExampleActivity
 import com.chenyihong.exampledemo.androidapi.dialog.DialogFragmentExampleActivity
 import com.chenyihong.exampledemo.androidapi.downloadablefont.DownloadableFontActivity
 import com.chenyihong.exampledemo.androidapi.fragmentresultapi.FragmentResultApiActivity
@@ -185,6 +186,7 @@ class HomeActivity : AppCompatActivity() {
                 OptionsChildEntity("Tiles Api") { startActivity(Intent(this, TileExampleActivity::class.java)) },
                 OptionsChildEntity("AppWidget Api") { startActivity(Intent(this, DesktopWidgetExampleActivity::class.java)) },
                 OptionsChildEntity("Notification Api") { startActivity(Intent(this, NotificationExampleActivity::class.java)) },
+                OptionsChildEntity("Device ID Api") { startActivity(Intent(this, DeviceIdExampleActivity::class.java)) },
             )),
             OptionsEntity("Custom View", containerTest = arrayListOf(
                 OptionsChildEntity("Custom Chart View") { startActivity(Intent(this, CustomChartViewActivity::class.java)) },
