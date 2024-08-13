@@ -93,6 +93,7 @@ class ProcessingFlavorPlugin implements Plugin<Project> {
 
     private void parseFlavorParamsFromExcel(File targetExcel) {
         if (targetExcel.exists()) {
+            flavorParams.clear()
             try {
                 def flavorParamsSheet = Workbook.getWorkbook(targetExcel).getSheet(0)
                 for (int rowIndex = 1; rowIndex < flavorParamsSheet.getRows(); rowIndex++) {
