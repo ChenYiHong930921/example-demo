@@ -1,6 +1,6 @@
 package com.chenyihong.plugin.task
 
-import com.chenyihong.plugin.contants.DefaultValue
+
 import com.chenyihong.plugin.utils.CommonUtils
 import org.gradle.api.DefaultTask
 import org.gradle.api.Project
@@ -10,10 +10,10 @@ import org.gradle.internal.impldep.org.eclipse.jgit.annotations.NonNull
 class ExecutePackagingCommandTask extends DefaultTask {
 
     // 执行的打包命令（打apk或打aab）
-    private def command = DefaultValue.COMMAND_ASSEMBLE.getValue()
+    private String command
 
     // 打包类型（debug包或release包）
-    private def buildType = DefaultValue.BUILD_TYPE_DEBUG.getValue()
+    private String buildType
 
     // 待打包的渠道名（为空时打包所有渠道）
     private def packingFlavors = new ArrayList<String>()
