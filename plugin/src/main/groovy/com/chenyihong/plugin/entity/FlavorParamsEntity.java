@@ -6,7 +6,7 @@ public class FlavorParamsEntity {
 
     private final String applicationId;
 
-    private final String versionCode;
+    private final int versionCode;
 
     private final String versionName;
 
@@ -16,7 +16,7 @@ public class FlavorParamsEntity {
 
     private final String openWebsite;
 
-    public FlavorParamsEntity(String flavorName, String applicationId, String versionCode, String versionName, String appName, String appIconPath, String openWebsite) {
+    public FlavorParamsEntity(String flavorName, String applicationId, int versionCode, String versionName, String appName, String appIconPath, String openWebsite) {
         this.flavorName = flavorName;
         this.applicationId = applicationId;
         this.versionCode = versionCode;
@@ -34,7 +34,7 @@ public class FlavorParamsEntity {
         return applicationId;
     }
 
-    public String getVersionCode() {
+    public int getVersionCode() {
         return versionCode;
     }
 
