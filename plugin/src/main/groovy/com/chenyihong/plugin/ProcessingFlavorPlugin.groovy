@@ -102,7 +102,7 @@ class ProcessingFlavorPlugin implements Plugin<Project> {
                     def versionCode = flavorParamsSheet.getCell(2, rowIndex).getContents()
                     def versionName = flavorParamsSheet.getCell(3, rowIndex).getContents()
                     def appName = flavorParamsSheet.getCell(4, rowIndex).getContents()
-                    // 实例中使用网络图标
+                    // 示例中使用网络图标
                     def appIconPath = flavorParamsSheet.getCell(5, rowIndex).getContents()
                     def openWebsite = flavorParamsSheet.getCell(6, rowIndex).getContents()
                     if (CommonUtils.isEmpty(flavorName) || CommonUtils.isEmpty(applicationId) || CommonUtils.isEmpty(versionCode) ||
