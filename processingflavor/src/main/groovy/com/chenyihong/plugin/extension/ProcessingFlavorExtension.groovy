@@ -5,22 +5,22 @@ class ProcessingFlavorExtension {
     /**
      * 生成apk指令
      */
-    String COMMAND_ASSEMBLE = "assemble"
+    final String COMMAND_ASSEMBLE = "assemble"
 
     /**
      * 生成aab指令
      */
-    String COMMAND_BUNDLE = "bundle"
+    final String COMMAND_BUNDLE = "bundle"
 
     /**
      * 生成的apk或aab为debug包
      */
-    String BUILD_TYPE_DEBUG = "Debug"
+    final String BUILD_TYPE_DEBUG = "Debug"
 
     /**
      * 生成的apk或aab为release包
      */
-    String BUILD_TYPE_RELEASE = "release"
+    final String BUILD_TYPE_RELEASE = "release"
 
     /**
      * 执行的打包命令（打apk或打aab）
