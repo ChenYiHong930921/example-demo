@@ -16,8 +16,10 @@ publishing {
 
 dependencies {
     implementation(gradleApi())
+    // 网络请求
     implementation("com.squareup.okhttp3:okhttp:4.12.0")
+    // 解析Excel
     implementation("net.sourceforge.jexcelapi:jxl:2.6.12")
+    // 解析xml
     implementation("org.dom4j:dom4j:2.1.4")
-    implementation("com.google.code.gson:gson:2.11.0")
 }

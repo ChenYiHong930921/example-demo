@@ -1,10 +1,5 @@
 package com.chenyihong.plugin.api;
 
-import com.google.gson.JsonIOException;
-import com.google.gson.JsonSyntaxException;
-
-import java.io.IOException;
-
 import okhttp3.Call;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -41,7 +36,7 @@ public class OkHttpHelper {
             Response response = call.execute();
             requestCallback.onResponse(response.isSuccessful(), response.body());
             response.close();
-        } catch (IOException | JsonIOException | JsonSyntaxException e) {
+        } catch (Exception e) {
             requestCallback.onFailure("request to " + request.url().url() + " failure errorMessage:" + e.getMessage());
             e.printStackTrace();
         }
