@@ -4,7 +4,6 @@ import android.annotation.SuppressLint
 import android.app.PendingIntent
 import android.content.ComponentName
 import android.content.Intent
-import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import androidx.core.content.pm.ShortcutInfoCompat
@@ -134,7 +133,7 @@ class ShortcutsActivity : BaseGestureDetectorActivity<LayoutShortcutsActivityBin
                 })
                 .build()
             val pinnedShortcutCallbackIntent = ShortcutManagerCompat.createShortcutResultIntent(this, pinShortcutInfo)
-            val successCallback = PendingIntent.getBroadcast(this, 0, pinnedShortcutCallbackIntent, if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) PendingIntent.FLAG_MUTABLE else 0)
+            val successCallback = PendingIntent.getBroadcast(this, 0, pinnedShortcutCallbackIntent, PendingIntent.FLAG_IMMUTABLE)
             ShortcutManagerCompat.requestPinShortcut(this, pinShortcutInfo, successCallback.intentSender)
         }
     }
