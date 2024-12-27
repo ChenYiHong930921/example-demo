@@ -268,8 +268,7 @@ class HomeActivity : AppCompatActivity() {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
                 val info = packageManager.getPackageInfo(packageName, PackageManager.GET_SIGNING_CERTIFICATES)
                 val signingInfo = info.signingInfo
-                val apkContentsSigners = signingInfo.apkContentsSigners
-                for (signature in apkContentsSigners) {
+                signingInfo?.apkContentsSigners?.forEach { signature ->
                     val md: MessageDigest = MessageDigest.getInstance("SHA")
                     md.update(signature.toByteArray())
                     val keyStoreHash = Base64.encodeToString(md.digest(), Base64.DEFAULT)
