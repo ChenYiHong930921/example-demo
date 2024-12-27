@@ -1,11 +1,7 @@
 package com.chenyihong.exampledemo.tripartite.login
 
 import android.annotation.SuppressLint
-import android.content.pm.PackageManager
-import android.os.Build
 import android.os.Bundle
-import android.util.Base64.DEFAULT
-import android.util.Base64.encodeToString
 import android.util.Log
 import android.view.LayoutInflater
 import androidx.activity.result.IntentSenderRequest
@@ -21,8 +17,6 @@ import com.google.android.gms.auth.api.identity.GetSignInIntentRequest
 import com.google.android.gms.auth.api.identity.Identity
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.common.api.ApiException
-import java.security.MessageDigest
-import java.security.NoSuchAlgorithmException
 
 const val TAG = "TripartiteLogin"
 
@@ -194,27 +188,6 @@ class TripartiteLoginActivity : BaseGestureDetectorActivity<LayoutTripartiteLogi
         Log.i(TAG, "Meta call logout")
         LoginManager.getInstance().logOut()
         showToast("Meta logout success")
-    }
-
-    private fun checkKeyStoreHash() {
-        try {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
-                val info = packageManager.getPackageInfo(packageName, PackageManager.GET_SIGNING_CERTIFICATES)
-                val signingInfo = info.signingInfo
-                val apkContentsSigners = signingInfo.apkContentsSigners
-
-                for (signature in apkContentsSigners) {
-                    val md: MessageDigest = MessageDigest.getInstance("SHA")
-                    md.update(signature.toByteArray())
-                    val keyStoreHash = encodeToString(md.digest(), DEFAULT)
-                    Log.d(TAG, "KeyHash keyStoreHash:${keyStoreHash}")
-                }
-            }
-        } catch (e: PackageManager.NameNotFoundException) {
-            Log.d(TAG, "KeyHash error1:${e.message}")
-        } catch (e: NoSuchAlgorithmException) {
-            Log.d(TAG, "KeyHash error2:${e.message}")
-        }
     }
 
     override fun onDestroy() {
